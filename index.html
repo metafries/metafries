@@ -15,8 +15,22 @@
       <div class="col-md-6">
           <img src="/static/logo.jpg">
           <hr>
-          <h1 class="text-center">The Gopher Network</h1>          
-          <img id="logo" src="/static/gcp-gopher.svg">     
+          <h1 class="text-center">The Gopher Network</h1>  
+          <img id="logo" src="/static/gcp-gopher.svg">  
+          <!-- [START html_template] -->
+          {{with .Notice}}<div class="text-center" id="notice">{{.}}</div>{{end}}
+          <form action="/" method="post">
+            <div class="form-group">
+              <input class="form-control" name="name" value="{{.Name}}" placeholder="Type your Name">
+            </div>
+            <div class="form-group">
+              <input class="form-control" name="message" placeholder="Type your Message">
+            </div>
+            <button type="submit" class="btn btn-primary form-control">Submit</button>
+          </form>
+          <!-- [END html_template] -->    
+          <hr>    
+          <p class="text-center"><a href="https://github.com/metafries/metafries">This project</a> is maintained by <a href="http://github.com/metafries">metafries</a></p>
       </div>
       <div class="col-md-3"></div>      
     </div>
