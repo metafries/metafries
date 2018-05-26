@@ -10,26 +10,27 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>  
 </head>
 <body>    
+    <div id="fb-root"></div>
     <script>
-        window.fbAsyncInit = function() {
-          FB.init({
-            appId      : '1686998031417610',
-            cookie     : true,
-            xfbml      : true,
-            version    : 'v3.0'
-          });
-            
-          FB.AppEvents.logPageView();   
-            
-        };
-      
-        (function(d, s, id){
-           var js, fjs = d.getElementsByTagName(s)[0];
-           if (d.getElementById(id)) {return;}
-           js = d.createElement(s); js.id = id;
-           js.src = "https://connect.facebook.net/en_US/sdk.js";
-           fjs.parentNode.insertBefore(js, fjs);
-         }(document, 'script', 'facebook-jssdk'));
+        function checkLoginStatus() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    FB.api('/me', {fields: 'name, picture, email'}, function(response) {
+                        document.getElementById('welcomeMsg').innerHTML = 
+                            '<hr> Welcome to METAFRIES!<br><img src="' + response.picture.data.url + '">' + response.name + '(' + response.email + ')';
+                    });
+                } else {
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            }, {scope: 'email'});
+        }
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1686998031417610&autoLogAppEvents=1';
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <a class="navbar-brand" href="/"><img class="logo" src="/static/images/logo.jpg"></a>      
@@ -45,11 +46,6 @@
                     <a class="nav-link btn-outline-light" href="/"><i class="fas fa-comments"></i> Messages</a>
                 </li>
             </ul> 
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link btn-outline-light" href="/"><i class="fas fa-user"></i> My Account</a>
-                </li>    
-            </ul>
             <form class="form-inline my-2 my-lg-0">
                 <div class="input-group">
                     <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
@@ -64,31 +60,14 @@
     <div class="container text-center">
         <div class="row">
             <div class="col-lg-3">
-                <div class="card bg-light my-3">
-                    <div class="card-header"><b>Profile</b></div>                
+                <div class="card my-3">
                     <div class="card-body">
-                        <a href="/"><img src="/static/images/whazup-square-logo.png" class="rounded" height="65" width="65" alt="Avatar"></a>
+                        <button class="btn btn-warning btn-block" onclick="checkLoginStatus()"><i class="fab fa-facebook"></i> 使用 Facebook 登入</button>
+                        <h4 id="welcomeMsg"></h4>
                     </div>
                 </div>
-                <div class="card bg-light mb-3">
-                    <div class="card-header"><b>Social</b></div>                                
-                    <div class="card-body">
-                        <div style="display: table">
-                            <a href="https://www.facebook.com/metafriesklin"><img class="social-block" src="/static/images/Facebook.png" /></a>                        
-                            <a href="https://www.instagram.com/metafries/"><img class="social-block" src="/static/images/Instagram.png" /></a>
-                            <a href="https://twitter.com/l714_100"><img class="social-block" src="/static/images/Twitter.png" /></a>
-                            <a href="https://plus.google.com/u/0/117352413063100760793"><img class="social-block" src="/static/images/Google+.png" /></a>
-                            <a href="https://stackoverflow.com/users/6186690/metafries"><img class="social-block" src="/static/images/StackExchange.jpg"></a>
-                            <a href="http://github.com/metafries"><img class="social-block" src="/static/images/GitHub.jpg" /></a>
-                            <a href="https://www.linkedin.com/in/metafries/"><img class="social-block" src="/static/images/LinkedIn.png" /></a>
-                            <a href="https://www.youtube.com/channel/UC9YrWWm37CRU2ulhmUByWLg/featured?view_as=subscriber"><img class="social-block" src="/static/images/YouTube.png" /></a>
-                            <a href="https://www.twitch.tv/metafries"><img class="social-block" src="/static/images/twitch.jpg" /></a> 
-                            <a href="https://t.me/metafries"><img class="social-block" src="/static/images/Telegram.png"></a>   
-                        </div>
-                    </div>
-                </div>  
             </div>
-            <div class="col-lg-7">
+            <div class="col-lg-6">
                 <div class="card my-3">
                     <div class="card-body p-3">
                         <h1>The Gopher Network</h1>                      
@@ -102,17 +81,27 @@
                             <div class="form-group">
                                 <input class="form-control" name="message" placeholder="Type your Message">
                             </div>
-                            <button type="submit" class="btn btn-primary form-control">Submit</button>
+                            <button type="submit" class="btn btn-outline-primary form-control">Submit</button>
                         </form>
                         <!-- [END html_template] -->                  
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2"></div>      
+            <div class="col-lg-3"></div>                                
         </div>
     </div>
     <hr>   
     <footer class="container-fluid text-center">
+        <a href="https://www.facebook.com/metafriesklin"><img class="social-block" src="/static/images/Facebook.png" /></a>                        
+        <a href="https://www.instagram.com/metafries/"><img class="social-block" src="/static/images/Instagram.png" /></a>
+        <a href="https://twitter.com/l714_100"><img class="social-block" src="/static/images/Twitter.png" /></a>
+        <a href="https://plus.google.com/u/0/117352413063100760793"><img class="social-block" src="/static/images/Google+.png" /></a>
+        <a href="https://stackoverflow.com/users/6186690/metafries"><img class="social-block" src="/static/images/StackExchange.jpg"></a>
+        <a href="http://github.com/metafries"><img class="social-block" src="/static/images/GitHub.jpg" /></a>
+        <a href="https://www.linkedin.com/in/metafries/"><img class="social-block" src="/static/images/LinkedIn.png" /></a>
+        <a href="https://www.youtube.com/channel/UC9YrWWm37CRU2ulhmUByWLg/featured?view_as=subscriber"><img class="social-block" src="/static/images/YouTube.png" /></a>
+        <a href="https://www.twitch.tv/metafries"><img class="social-block" src="/static/images/twitch.jpg" /></a> 
+        <a href="https://t.me/metafries"><img class="social-block" src="/static/images/Telegram.png"></a>   
         <p><small><i class="far fa-copyright"></i> 2018 METAFRIES All Rights Reserved.</small></p>
     </footer>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
