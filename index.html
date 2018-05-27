@@ -17,7 +17,7 @@
                 if (response.authResponse) {
                     FB.api('/me', {fields: 'name, picture, email'}, function(response) {
                         document.getElementById('welcomeMsg').innerHTML = 
-                            '<hr> Welcome to METAFRIES!<br><img src="' + response.picture.data.url + '">' + response.name + '(' + response.email + ')';
+                            '<hr>Welcome to METAFRIES,<br><img src="' + response.picture.data.url + '">' + response.name + '(' + response.email + ')';
                     });
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
@@ -62,7 +62,7 @@
             <div class="col-lg-3">
                 <div class="card my-3">
                     <div class="card-body">
-                        <button class="btn btn-warning btn-block" onclick="checkLoginStatus()"><i class="fab fa-facebook"></i> 使用 Facebook 登入</button>
+                        <button class="btn btn-outline-primary btn-block" onclick="checkLoginStatus()"><i class="fab fa-facebook"></i> 使用 Facebook 登入</button>
                         <h4 id="welcomeMsg"></h4>
                     </div>
                 </div>
