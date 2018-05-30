@@ -1,9 +1,15 @@
 <!doctype html>
 <html>
 <head>
-    <title>METAFRIES</title>    
+    <title>MetaFries</title>    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:url" content="https://metafries.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MetaFries">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="https://metafries.com/static/images/400dpiLogoCropped.jpg">
+    <meta property="fb:app_id" content="1686998031417610">    
     <!-- Bootstrap CSS [8] -->  
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
@@ -20,12 +26,18 @@
                 if (response.authResponse) {
                     FB.api('/me', {fields: 'name, picture, email'}, function(response) {
                         document.getElementById('welcomeMsg').innerHTML = 
-                            '<hr>Welcome to METAFRIES,<br><img src="' + response.picture.data.url + '">' + response.name + '(' + response.email + ')';
+                            '<hr>Welcome to MetaFries,<br><img src="' + response.picture.data.url + '">' + response.name + '(' + response.email + ')';
                     });
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
             }, {scope: 'email'});
+        }
+        function shareOnFB() {            
+            FB.ui({
+                method: 'share',
+                href: 'https://metafries.com/'
+            }, function(response){});
         }
         (function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
@@ -65,7 +77,8 @@
             <div class="col-lg-3">
                 <div class="card my-3">
                     <div class="card-body">
-                        <button class="btn btn-outline-primary btn-block" onclick="checkLoginStatus()"><i class="fab fa-facebook"></i> 使用 Facebook 登入</button>
+                        <button class="btn btn-outline-primary btn-block" onclick="shareOnFB()"><i class="fas fa-share"></i> 使用 Facebook 分享</button>                            
+                        <button class="btn btn-outline-primary btn-block" onclick="checkLoginStatus()"><i class="fas fa-sign-in-alt"></i> 使用 Facebook 登入</button>
                         <h4 id="welcomeMsg"></h4>
                     </div>
                 </div>
