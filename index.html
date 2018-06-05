@@ -99,6 +99,14 @@
                             </div>
                             <button type="submit" class="btn btn-outline-primary form-control">Submit</button>
                         </form>
+                        <hr>
+                        {{with .Posts}}
+                        <ol class="text-left">
+                            {{range .}}
+                            <li><cite>{{.Author}}</cite><p>{{.Message}}</p></li>
+                            {{end}}
+                        </ol>
+                        {{end}}
                         <!-- [END html_template] -->                  
                     </div>
                 </div>

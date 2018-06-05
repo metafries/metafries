@@ -40,6 +40,16 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r) //Link all operations related to a given request together
 	// [START handling HTML form data]
 	params := templateParams{}
+	q := datastore.NewQuery("Post").Order("-Posted").Limit(20) //Requests the twenty most recent Post objects in Posted descending order
+	// [START get_posts]
+	if _, err := q.GetAll(ctx, &params.Posts); err != nil {
+		log.Errorf(ctx, "Getting posts: %v", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		params.Notice = "Couldn't get latest posts. Refresh?"
+		indexTemplate.Execute(w, params)
+		return
+	}
+	// [END get_posts]
 	if r.Method == "GET" {
 		indexTemplate.Execute(w, params)
 		return
