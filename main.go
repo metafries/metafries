@@ -55,22 +55,25 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//It's a POST request, so handle the form submission.
+	// [START new_post]
 	post := Post{
 		Author:  r.FormValue("name"),
 		Message: r.FormValue("message"),
 		Posted:  time.Now(),
 	}
-	name := r.FormValue("name")
-	params.Name = name //Preserve the name field.
-	if name == "" {
-		name = "Anonymous Gopher"
+	// [END new_post]
+	if post.Author == "" {
+		post.Author = "Anonymous Gopher"
 	}
-	if r.FormValue("message") == "" {
+	params.Name = post.Author
+
+	if post.Message == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		params.Notice = "No message provided"
 		indexTemplate.Execute(w, params)
 		return
 	}
+
 	key := datastore.NewIncompleteKey(ctx, "Post", nil)
 	// [START add_post]
 	if _, err := datastore.Put(ctx, key, &post); err != nil {
@@ -83,7 +86,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	// [END add_post]
 	params.Posts = append([]Post{post}, params.Posts...) //Prepend the post that was just added.
-	params.Notice = fmt.Sprintf("Thank you for your submission, %s!", name)
+	params.Notice = fmt.Sprintf("Thank you for your submission, %s!", post.Author)
 	// [END handling HTML form data]
 	indexTemplate.Execute(w, params)
 }
