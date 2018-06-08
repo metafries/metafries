@@ -26,6 +26,8 @@
         };
         firebase.initializeApp(config);
     </script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.css" />
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>  
 </head>
 <body>    
@@ -101,8 +103,19 @@
                     <div class="card-body p-3">
                         <h1>The Gopher Network</h1>                      
                         <img src="/static/images/gcp-gopher.svg" width="300">  
+                        <div id="firebaseui-auth-container"></div>
+                        <div id="sign-in"></div>
+                        <div>
+                            <span id="account-details"></span>
+                            <button id="sign-out" hidden=true>Sign Out</button>
+                        </div>
                         <!-- [START html_template] -->
                         {{with .Notice}}<div id="notice">{{.}}</div>{{end}}
+                        <form id="post-form" action="/" method="post" hidden=true>
+                            <div>Message: <input name="message" value="{{.Message}}"></div>
+                            <input type="hidden" name="token" id="token">
+                            <input type="submit">
+                        </form>
                         <form action="/" method="post">
                             <div class="form-group">
                                 <input class="form-control" name="name" value="{{.Name}}" placeholder="Type your Name">
