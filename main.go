@@ -6,21 +6,35 @@ import (
 	"net/http"
 	"time"
 
+	firebase "firebase.google.com/go"
+
 	"google.golang.org/appengine" // Required external App Engine library
 	"google.golang.org/appengine/datastore"
 	"google.golang.org/appengine/log"
 )
 
+// [START new_variable]
 var ( //Initialize template variable
+	firebaseConfig = &firebase.Config{
+		DatabaseURL:   "https://metafries.firebaseio.com",
+		ProjectID:     "metafries",
+		StorageBucket: "metafries.appspot.com",
+	}
 	indexTemplate = template.Must(template.ParseFiles("index.html"))
 )
 
+// [END new_variable]
+
 //Post Define each user-submitted post as a data structure with three fields
+// [START new_post_field]
 type Post struct {
 	Author  string
+	UserID  string
 	Message string
 	Posted  time.Time
 }
+
+// [END new_post_field]
 
 type templateParams struct { //Define template parameters as a data structure with four fields
 	Notice  string
@@ -55,16 +69,46 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//It's a POST request, so handle the form submission.
-	// [START new_post]
+
+	//[START firebase_token]
+	message := r.FormValue("message")
+
+	errHandler := func() {
+		params.Notice = "Couldn't anthenticate. Try logging in again?"
+		params.Message = message // Preserve their message so they can try again.
+		indexTemplate.Execute(w, params)
+		return
+	}
+
+	// Create a new Firebase App
+	app, err := firebase.NewApp(ctx, firebaseConfig)
+	if err != nil {
+		errHandler()
+	}
+	// Create a new authenticator for the app.
+	auth, err := app.Auth(ctx)
+	if err != nil {
+		errHandler()
+	}
+	// Verify the token passed in by the uer is valid.
+	tok, err := auth.VerifyIDTokenAndCheckRevoked(ctx, r.FormValue("token"))
+	if err != nil {
+		errHandler()
+	}
+	// Use the validated token to get the user's information.
+	user, err := auth.GetUser(ctx, tok.UID)
+	if err != nil {
+		errHandler()
+	}
+
+	// [START logged_in_post]
 	post := Post{
-		Author:  r.FormValue("name"),
-		Message: r.FormValue("message"),
+		UserID:  user.UID, // Include UserID in case Author isn't unique.
+		Author:  user.DisplayName,
+		Message: message,
 		Posted:  time.Now(),
 	}
-	// [END new_post]
-	if post.Author == "" {
-		post.Author = "Anonymous Gopher"
-	}
+	// [END logged_in_post]
 	params.Name = post.Author
 
 	if post.Message == "" {
