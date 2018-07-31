@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>MetaFries</title>    
+    <title>METAFRIES</title>    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta property="og:url" content="https://metafries.com/">
@@ -10,7 +10,7 @@
     <meta property="og:description" content="">
     <meta property="og:image" content="https://metafries.com/static/images/400dpiLogoCropped.jpg">
     <meta property="fb:app_id" content="1686998031417610">    
-    <!-- Bootstrap CSS [8] -->  
+    <!-- Bootstrap CSS [14] -->  
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
@@ -63,55 +63,42 @@
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <a class="navbar-brand" href="/"><img class="logo" src="/static/images/logo.jpg"></a>      
-        <button class="btn btn-link btn-lg" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#"><img class="logo" src="/static/images/logo.jpg"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link btn-outline-light" href="https://metafries.github.io/"><i class="fas fa-briefcase"></i> Projects<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn-outline-light" href="/"><i class="fas fa-comments"></i> Messages</a>
-                </li>
-            </ul> 
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <button class="btn btn-link pl-0" id="sign-out" hidden=true><i class="fas fa-sign-out-alt"></i> Sign Out</button>                                                                
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        PROJECTS
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="http://cashviar.com/">CashVR</a>
+                    </div>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <div class="input-group">
-                    <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
-                    </div>
-                </div>              
-            </form> 
-        </div>          
+        </div>
     </nav>
     <hr>
     <div class="container text-center">
         <div class="row">
-            <div class="col-lg-3">
-                <div class="card my-3">
-                    <div class="card-body">
-                        <button class="btn btn-outline-primary btn-block" onclick="shareOnFB()"><i class="fas fa-share"></i> 使用 Facebook 分享</button>                            
-                        <button class="btn btn-outline-primary btn-block" onclick="checkLoginStatus()"><i class="fas fa-sign-in-alt"></i> 使用 Facebook 登入</button>
-                        <h4 id="welcomeMsg"></h4>
-                    </div>
-                </div>
-            </div>
+            <div class="col-lg-3"></div>
             <div class="col-lg-6">
                 <div class="card my-3">
                     <div class="card-body p-3">
-                        <h1>The Gopher Network</h1>                      
-                        <img src="/static/images/gcp-gopher.svg" width="300">  
+                        <h1>Facebook</h1> 
+                        <hr>
+                        <button class="btn btn-outline-primary" onclick="checkLoginStatus()"><i class="fas fa-sign-in-alt"></i> Sign In</button>                        
+                        <button class="btn btn-outline-primary" onclick="shareOnFB()"><i class="fas fa-share"></i> Share</button>                            
+                        <h4 id="welcomeMsg"></h4>
+                        <h1>Google</h1> 
                         <hr>
                         <div id="firebaseui-auth-container"></div>
-                        <div id="sign-in"></div>
+                        <div id="sign-in">
+                            <button class="btn btn-outline-dark" id="sign-out" hidden=true><i class="fas fa-sign-out-alt"></i> Sign Out</button>                                                                                                
+                        </div>
                         <span id="account-details"></span>
                         <!-- [START html_template] -->
                         {{with .Notice}}<div id="notice">{{.}}</div>{{end}}
