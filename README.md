@@ -1,2 +1,2 @@
 # metafries
-Go application https://metafries.com
+A Real-Time Football Match Billboard. https://metafries.com
