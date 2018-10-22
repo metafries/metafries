@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import ChannelForm from './ChannelForm';
-import ChannelList from './ChannelList';
+import ChannelForm from './ChannelForm.jsx';
+import ChannelList from './ChannelList.jsx';
 
 class ChannelSection extends Component {
     render() {

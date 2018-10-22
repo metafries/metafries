@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Channel from './Channel';
+import Channel from './Channel.jsx';
 import PropTypes from 'prop-types';
 
 class ChannelList extends Component {
@@ -7,9 +7,11 @@ class ChannelList extends Component {
         return (
             <ul>
                 {this.props.channels.map( chan => {
-                    <Channel 
-                    channel={chan} 
-                    setChannel={this.props.setChannel} />
+                    return (
+                        <Channel 
+                        channel={chan} 
+                        setChannel={this.props.setChannel} />    
+                    )
                 })}
             </ul>
         )
