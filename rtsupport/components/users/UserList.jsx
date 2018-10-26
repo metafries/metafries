@@ -22,3 +22,5 @@ class UserList extends Component {
 UserList.propTypes = {
     users: PropTypes.array.isRequired
 }
+
+export default UserList

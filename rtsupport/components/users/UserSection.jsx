@@ -7,7 +7,7 @@ class UserSection extends Component {
     render() {
         return (
             <div className='support card'>
-                <div className='card-header bg-primary text-white'>
+                <div className='card-header bg-dark text-warning'>
                     <strong>Users</strong>
                 </div>
                 <div className='card-body channels bg-secondary'>

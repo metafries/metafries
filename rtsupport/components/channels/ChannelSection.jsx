@@ -7,8 +7,8 @@ class ChannelSection extends Component {
     render() {
         return (
             <div className='support card'>
-                <div className='card-header bg-primary text-white'>
-                    <strong>Channels</strong>
+                <div className='card-header bg-dark text-warning'>
+                <strong>Channels</strong>
                 </div>
                 <div className='card-body channels bg-secondary'>
                     <ChannelList {...this.props} />

@@ -26,7 +26,7 @@ class UserForm extends Component {
 }
 
 UserForm.propTypes = {
-    setUserName = PropTypes.func.isRequired
+    setUserName: PropTypes.func.isRequired
 }
 
 export default UserForm
