@@ -7,11 +7,11 @@ class MessageSection extends Component {
     render() {
         let {activeChannel} = this.props;
         return (
-            <div className='support card'>
+            <div className='messages-container card'>
                 <div className='card-header bg-dark text-warning'>
                     <strong>{activeChannel.name || 'Select A Channel'}</strong>
                 </div>
-                <div className='card-body channels bg-secondary'>
+                <div className='card-body messages bg-secondary'>
                     <MessageList {...this.props} />               
                     <MessageForm {...this.props} />
                 </div>
@@ -20,9 +20,9 @@ class MessageSection extends Component {
     }
 }
 
-MessageSection.PropTypes = {
+MessageSection.propTypes = {
     messages: PropTypes.object.isRequired,
-    activeChannel: PropTypes.func.isRequired,
+    activeChannel: PropTypes.object.isRequired,
     addMessage: PropTypes.func.isRequired
 }
 
