@@ -10,10 +10,12 @@
     <meta property="og:description" content="">
     <meta property="og:image" content="https://metafries.com/static/images/400dpiLogoCropped.jpg">
     <meta property="fb:app_id" content="1686998031417610">    
-    <!-- Bootstrap CSS [14] -->  
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="./static/style.css">
-    <link rel="stylesheet" type="text/css" href="./static/app.css">    
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+    <link rel="stylesheet" type="text/css" href="./static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./static/css/app.css">    
+    <link rel="stylesheet" type="text/css" href="./static/css/menu.css">        
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -30,7 +32,7 @@
     <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.css" />
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>  
-    <script src="/static/index.js"></script>
+    <script src="/static/js/index.js"></script>
 </head>
 <body>    
     <div id="fb-root"></div>
@@ -64,29 +66,30 @@
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="#"><img class="logo" src="/static/images/logo.jpg"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        PROJECTS
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="http://cashviar.com/">Cashviar</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <header class="head-main">
+      <div class="navbar navbar-light box-shadow">
+          <div class="container-fluid d-flex justify-content-between">
+                <a class="navbar-brand d-flex align-items-center" href="#"><img class="logo" src="/static/images/_logo.png"></a>
+                <a class="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a>
+          </div>
+      </div> <!--navbar end-->            
+      <div class="fixed-top main-menu">
+          <div class="flex-center p-5">
+              <ul class="nav flex-column">
+                    <li class="nav-item delay-1"><a class="nav-link" href="#">HOME</a></li>
+                    <li class="nav-item delay-2"><a class="nav-link" href="#">APPLICATIONS</a></li>
+                    <li class="nav-item delay-3"><a class="nav-link" href="#">CONTACT</a></li>
+                    <li class="nav-item delay-4"><hr></li>
+                    <li class="nav-item delay-5"><a class="nav-link" href="#">SIGN IN</a></li>
+              </ul>
+          </div>
+      </div> <!--main-menu end-->
+    </header>
     <hr>
     <div class="container-fluid">
         <div class="row text-center">
             <div class="col-lg-9">
-                <div id="rtsupport"></div>                                                        
+                <div class='container-fluid' id="rtsupport"></div>                                                        
             </div>      
             <div class="col-lg-3">                    
                 <div class="card">                        
@@ -127,24 +130,15 @@
         </div>
     </div>
     <hr>   
-    <footer class="container-fluid text-center">
-        <a href="https://www.facebook.com/metafriesklin"><img class="social-block" src="/static/images/Facebook.png" /></a>                        
-        <a href="https://www.instagram.com/metafries/"><img class="social-block" src="/static/images/Instagram.png" /></a>
-        <a href="https://twitter.com/l714_100"><img class="social-block" src="/static/images/Twitter.png" /></a>
-        <a href="https://plus.google.com/u/0/117352413063100760793"><img class="social-block" src="/static/images/Google+.png" /></a>
-        <a href="https://stackoverflow.com/users/6186690/metafries"><img class="social-block" src="/static/images/StackExchange.jpg"></a>
-        <a href="http://github.com/metafries"><img class="social-block" src="/static/images/GitHub.jpg" /></a>
-        <a href="https://www.linkedin.com/in/metafries/"><img class="social-block" src="/static/images/LinkedIn.png" /></a>
-        <a href="https://www.youtube.com/channel/UC9YrWWm37CRU2ulhmUByWLg/featured?view_as=subscriber"><img class="social-block" src="/static/images/YouTube.png" /></a>
-        <a href="https://www.twitch.tv/metafries"><img class="social-block" src="/static/images/twitch.jpg" /></a> 
-        <a href="https://t.me/metafries"><img class="social-block" src="/static/images/Telegram.png"></a>   
-        <p><small><i class="far fa-copyright"></i> 2018 METAFRIES All Rights Reserved.</small></p>
+    <footer class="container-fluid ml-3">
+        <p><small><i class="far fa-copyright"></i> 2018 METAFRIES</small></p>
     </footer>
     <script src="./static/bundle.js"></script>
+    <script src="./static/js/menu.js"></script>    
     <script src="https://fb.me/react-0.14.3.min.js"></script>
     <script src="https://fb.me/react-dom-0.14.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser.js"></script>
-    <script type="text/babel" src="./static/app.js"></script>
+    <script type="text/babel" src="./static/js/app.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
