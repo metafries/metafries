@@ -44,7 +44,7 @@
   flex-basis: 100%;
 }
 .active {
-  background-color: #E8E8E8;
+  background-color: lightslategrey;
 }
 .timestamp{
   color: #000000;
@@ -59,8 +59,14 @@ ul{
   list-style-type:none;
   padding: 0;
 }
-li{
-  padding: 0 4px 0 4px;
+.channels li>a:hover{
+  background-color: yellow;
+  display: block;
+  padding: 0;
+}
+li>a:hover{
+  background-color: lightslategrey;
+  display: block;
 }
 a{
   cursor: pointer;

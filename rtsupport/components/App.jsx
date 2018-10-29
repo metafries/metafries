@@ -50,8 +50,8 @@ class App extends Component {
     }
     render() {
         return (
-            <div className='app'>
-                <div className='nav'>
+            <div className='row'>
+                <div className='col-lg-4'>
                     <ChannelSection
                         {...this.state}
                         addChannel={this.addChannel.bind(this)}
@@ -62,10 +62,13 @@ class App extends Component {
                         setUserName={this.setUserName.bind(this)}
                     />
                 </div>
+                <div className='col-lg-8'>
                 <MessageSection 
                     {...this.state}
                     addMessage={this.addMessage.bind(this)}
                 />
+                
+                </div>
             </div>
         )
     }

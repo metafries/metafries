@@ -6,11 +6,11 @@ import UserList from './UserList.jsx';
 class UserSection extends Component {
     render() {
         return (
-            <div className='support card'>
-                <div className='card-header bg-dark text-warning'>
+            <div className='support card border-dark rounded-0'>
+                <div className='card-header border-dark rounded-0 bg-white'>
                     <strong>Users</strong>
                 </div>
-                <div className='card-body channels bg-secondary'>
+                <div className='card-body channels'>
                     <UserList {...this.props} />
                     <UserForm {...this.props} />                    
                 </div>

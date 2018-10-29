@@ -12,13 +12,16 @@ class UserForm extends Component {
     render() {
         return (
             <form onSubmit={this.onSubmit.bind(this)}>
-                <div className='form-group'>
+                <div className='input-group'>
                     <input 
-                        className='form-control'
+                        className='form-control border border-primary rounded-0'
                         placeholder='Set Your Name...'
                         type='text'
                         ref='userName'
                     />
+                    <div className='input-group-append'>
+                        <button type="submit" class="btn btn-outline-primary rounded-0">+</button>
+                    </div>
                 </div>
             </form>
         )

@@ -6,11 +6,11 @@ import ChannelList from './ChannelList.jsx';
 class ChannelSection extends Component {
     render() {
         return (
-            <div className='support card'>
-                <div className='card-header bg-dark text-warning'>
-                <strong>Channels</strong>
+            <div className='support card border-dark rounded-0'>
+                <div className='card-header border-dark rounded-0 bg-white'>
+                    <strong>Channels</strong>
                 </div>
-                <div className='card-body channels bg-secondary'>
+                <div className='card-body channels'>
                     <ChannelList {...this.props} />
                     <ChannelForm {...this.props} />
                 </div>

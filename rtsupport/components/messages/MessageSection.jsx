@@ -7,11 +7,11 @@ class MessageSection extends Component {
     render() {
         let {activeChannel} = this.props;
         return (
-            <div className='messages-container card'>
-                <div className='card-header bg-dark text-warning'>
+            <div className='messages-container card border-dark rounded-0'>
+                <div className='card-header border-dark rounded-0 bg-white'>
                     <strong>{activeChannel.name || 'Select A Channel'}</strong>
                 </div>
-                <div className='card-body messages bg-secondary'>
+                <div className='card-body messages'>
                     <MessageList {...this.props} />               
                     <MessageForm {...this.props} />
                 </div>

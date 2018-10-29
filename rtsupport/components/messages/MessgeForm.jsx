@@ -10,22 +10,25 @@ class MessageForm extends Component {
         node.value = '';
     }
     render() {
-        let input;
+        let input_group;
         if (this.props.activeChannel.id !== undefined) {
-            input = (
-                <input 
-                    ref='message'
-                    type='text'
-                    className='form-control'
-                    placeholder='Add Message...'
-                />
+            input_group = (
+                <div className='input-group'>                
+                    <input 
+                        ref='message'
+                        type='text'
+                        className='form-control border border-primary rounded-0'
+                        placeholder='Add Message...'
+                    />
+                    <div className='input-group-append'>
+                        <button type="submit" class="btn btn-outline-primary rounded-0">Send</button>
+                    </div>    
+                </div>    
             )
         }        
         return (
             <form onSubmit={this.onSubmit.bind(this)}>
-                <div className='form-group'>
-                    {input}
-                </div>
+                {input_group}
             </form>
         )
     }
