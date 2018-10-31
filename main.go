@@ -11,7 +11,17 @@ import (
 	"google.golang.org/appengine" // Required external App Engine library
 	"google.golang.org/appengine/datastore"
 	"google.golang.org/appengine/log"
+
+	"github.com/gorilla/websocket"
 )
+
+var upgrader = websocket.Upgrader{
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
+	CheckOrigin: func(r *http.Request) bool {
+		return true
+	},
+}
 
 // [START new_variable]
 var ( //Initialize template variable
@@ -44,6 +54,23 @@ type templateParams struct { //Define template parameters as a data structure wi
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
+	socket, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	for {
+		msgType, msg, err := socket.ReadMessage()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println(string(msg))
+		if err = socket.WriteMessage(msgType, msg); err != nil {
+			fmt.Println(err)
+			return
+		}
+	}
 	// if statement redirects all invalid URLs to the root homepage.
 	// Ex: if URL is http://[YOUR_PROJECT_ID].appspot.com/FOO, it will be
 	// redirected to http://[YOUR_PROJECT_ID].appspot.com.
@@ -137,5 +164,6 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", indexHandler)
+	http.ListenAndServe(":4000", nil)
 	appengine.Main() // Starts the server to receive requests
 }
