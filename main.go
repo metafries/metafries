@@ -13,6 +13,7 @@ import (
 	"google.golang.org/appengine/log"
 
 	"github.com/gorilla/websocket"
+	"github.com/mitchellh/mapstructure"
 )
 
 var upgrader = websocket.Upgrader{
@@ -53,6 +54,16 @@ type templateParams struct { //Define template parameters as a data structure wi
 	Posts   []Post
 }
 
+type Message struct {
+	Name string      `json:"name"`
+	Data interface{} `json:"data"`
+}
+
+type Channel struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+}
+
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	socket, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -60,16 +71,36 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	for {
-		msgType, msg, err := socket.ReadMessage()
-		if err != nil {
+		// msgType, msg, err := socket.ReadMessage()
+		// if err != nil {
+		// 	fmt.Println(err)
+		// 	return
+		// }
+		var inMessage Message
+		var outMessage Message
+		if err := socket.ReadJSON(&inMessage); err != nil {
 			fmt.Println(err)
-			return
+			break
 		}
-		fmt.Println(string(msg))
-		if err = socket.WriteMessage(msgType, msg); err != nil {
-			fmt.Println(err)
-			return
+		fmt.Printf("%#v\n", inMessage)
+		switch inMessage.Name {
+		case "channel add":
+			err := addChannel(inMessage.Data)
+			if err != nil {
+				outMessage = Message{"error", err}
+				if err := socket.WriteJSON(outMessage); err != nil {
+					fmt.Println(err)
+					break
+				}
+			}
+		case "channel subscribe":
+			go subscribechannel(socket)
 		}
+		// fmt.Println(string(msg))
+		// if err = socket.WriteMessage(msgType, msg); err != nil {
+		// 	fmt.Println(err)
+		// 	return
+		// }
 	}
 	// if statement redirects all invalid URLs to the root homepage.
 	// Ex: if URL is http://[YOUR_PROJECT_ID].appspot.com/FOO, it will be
@@ -160,6 +191,33 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	params.Notice = fmt.Sprintf("Thank you for your submission, %s!", post.Author)
 	// [END handling HTML form data]
 	indexTemplate.Execute(w, params)
+}
+
+func addChannel(data interface{}) error {
+	var channel Channel
+	// channelMap := data.(map[string]interface{})
+	// channel.Name = channelMap["name"].(string)
+	err := mapstructure.Decode(data, &channel)
+	if err != nil {
+		return err
+	}
+	channel.Id = "1"
+	// fmt.Printf("%#v\n", channel)
+	fmt.Println("added channel")
+	return nil
+}
+
+func subscribechannel(socket *websocket.Conn) {
+	// TODO: rethinkDB Query / change feed
+	for {
+		time.Sleep(time.Second * 1)
+		message := Message{
+			"channel add",
+			Channel{"1", "Software Support"},
+		}
+		socket.WriteJSON(message)
+		fmt.Println("sent new channel")
+	}
 }
 
 func main() {
