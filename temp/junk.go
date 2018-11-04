@@ -1,55 +1,43 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 
-	"github.com/mitchellh/mapstructure"
+	r "github.com/dancannon/gorethink"
 )
 
-type Message struct {
-	Name string      `json:"name"`
-	Data interface{} `json:"data"`
-}
-
-type Channel struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
+type User struct {
+	Id   string `gorethink:"id,omitempty"`
+	Name string `gorethink:name`
 }
 
 func main() {
-	recRawMsg := []byte(`{"name":"channel add",` +
-		`"data":{"name":"Hardware Support"}}`)
-	var recMessage Message
-	err := json.Unmarshal(recRawMsg, &recMessage)
+	session, err := r.Connect(r.ConnectOpts{
+		Address:  "localhost:28015",
+		Database: "rtsupport",
+	})
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Printf("%#v\n", recMessage)
-	if recMessage.Name == "channel add" {
-		channel, err := addChannel(recMessage.Data)
-		var sendMessage Message
-		sendMessage.Name = "channel add"
-		sendMessage.Data = channel
-		sendRawMsg, err := json.Marshal(sendMessage)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		fmt.Printf(string(sendRawMsg))
+	// response, err := r.Table("user").Insert(user).RunWrite(session)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// }
+	// user := User{
+	// 	Name: "gopher",
+	// }
+	// response, _ := r.Table("user").
+	// 	Get("693003b7-a019-404b-93aa-8ca3dc61377b").
+	// 	Delete().
+	// 	RunWrite(session)
+	// fmt.Printf("%#v\n", response)
+	cursor, _ := r.Table("user").
+		Changes(r.ChangesOpts{IncludeInitial: true}).
+		Run(session)
+	var changeResponse r.ChangeResponse
+	for cursor.Next(&changeResponse) {
+		fmt.Printf("%#v\n", changeResponse)
 	}
-}
-
-func addChannel(data interface{}) (Channel, error) {
-	var channel Channel
-	// channelMap := data.(map[string]interface{})
-	// channel.Name = channelMap["name"].(string)
-	err := mapstructure.Decode(data, &channel)
-	if err != nil {
-		return channel, err
-	}
-	channel.Id = "1"
-	fmt.Printf("%#v\n", channel)
-	return channel, nil
 }
