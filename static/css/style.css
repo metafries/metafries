@@ -16,6 +16,11 @@ html, body {
   width: 25.6px;
 }
 
+.hoster {
+  width: 10%;
+  height: 10%;
+}
+
 div.mdl-progress::after {
   display: block;
   content: 'Authenticating...';
