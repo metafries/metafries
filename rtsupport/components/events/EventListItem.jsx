@@ -6,14 +6,14 @@ class EventListItem extends Component {
       <div className='support card border-dark rounded-0 mb-3 mx-4'>
         <div className='card-header border-dark rounded-0 bg-white'>
           <img src="./static/images/whazup-square-logo.png" class="hoster rounded-circle float-left" alt="..."/>
-          <strong className='ml-3'>
-            Event Title
-          </strong>
-          <br/>
-          <small className='ml-3'>Hosted by <a href='#'>Cashviar</a></small>
-      </div>
-        <div className='card-body channels'>
-          <strong>Event Body</strong>
+          <div className='d-inline float-left'>
+            <strong className='ml-3'>Event Title</strong><br/>
+            <i class="far fa-clock ml-3"></i> Date
+            <i class="fas fa-map-marker-alt ml-2"></i> Location<br/>
+            <span className='ml-3'>Hosted by <a href='#'>Cashviar</a></span>                    
+          </div>
+        </div>
+        <div className='card-body'>
         </div>
       </div>
     )
