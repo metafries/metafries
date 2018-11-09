@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 class EventListItem extends Component {
   render() {
     return (
-      <div className='support card border-dark rounded-0 mb-3 mx-4'>
+      <div className='card border-dark rounded-0 mb-3 mx-4'>
         <div className='card-header border-dark rounded-0 bg-white'>
-          <img src="./static/images/whazup-square-logo.png" class="hoster rounded-circle float-left" alt="..."/>
+          <img src="./static/images/whazup-square-logo.png" class="hoster rounded float-left" alt="..."/>
           <div className='d-inline float-left'>
             <strong className='ml-3'>Event Title</strong><br/>
             <i class="far fa-clock ml-3"></i> Date
@@ -14,6 +14,13 @@ class EventListItem extends Component {
           </div>
         </div>
         <div className='card-body'>
+          <strong className='d-block mb-2'>3 people are going</strong>
+          <img src="./static/images/whazup-square-logo.png" class="attendee rounded-circle mr-1" alt="..."/>
+          <img src="./static/images/whazup-square-logo.png" class="attendee rounded-circle mr-1" alt="..."/>
+          <img src="./static/images/whazup-square-logo.png" class="attendee rounded-circle mr-1" alt="..."/>        
+          <h5 class="card-title mt-2">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>   
+          <button type="button" class="btn btn-outline-dark rounded-0">More...</button>      
         </div>
       </div>
     )

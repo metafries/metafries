@@ -21,6 +21,11 @@ html, body {
   height: 10%;
 }
 
+.attendee {
+  width: 5%;
+  height: 5%;  
+}
+
 div.mdl-progress::after {
   display: block;
   content: 'Authenticating...';
