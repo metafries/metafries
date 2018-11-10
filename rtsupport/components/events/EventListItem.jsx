@@ -5,13 +5,12 @@ class EventListItem extends Component {
     return (
       <div className='card border-dark rounded-0 mb-3 mx-4'>
         <div className='card-header border-dark rounded-0 bg-white'>
-          <img src="./static/images/whazup-square-logo.png" class="hoster rounded float-left" alt="..."/>
-          <div className='d-inline float-left'>
-            <strong className='ml-3'>Event Title</strong><br/>
-            <i class="far fa-clock ml-3"></i> Date
-            <i class="fas fa-map-marker-alt ml-2"></i> Location<br/>
-            <span className='ml-3'>Hosted by <a href='#'>Cashviar</a></span>                    
-          </div>
+          <img src="./static/images/whazup-square-logo.png" class="hoster rounded float-right" alt="..."/>
+          <h5 className='d-inline'>Mix - Boys Noize - Let's Buy Happiness</h5><br/>
+          <small>Hosted by <a href='#'>Cashviar</a></small><br/>  
+          <i class="far fa-clock"></i> Sat, Nov 10 • 10:00 pm
+          <i class="fas fa-map-marker-alt ml-2"></i> Kings Hall, Brooklyn
+          <i class="fas fa-bolt ml-2"></i> 4,957,524        
         </div>
         <div className='card-body'>
           <strong className='d-block mb-2'>3 people are going</strong>
