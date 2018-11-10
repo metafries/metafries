@@ -18,9 +18,18 @@ class EventListItem extends Component {
           <img src="./static/images/whazup-square-logo.png" class="attendee rounded-circle mr-1" alt="..."/>
           <img src="./static/images/whazup-square-logo.png" class="attendee rounded-circle mr-1" alt="..."/>
           <img src="./static/images/whazup-square-logo.png" class="attendee rounded-circle mr-1" alt="..."/>        
-          <h5 class="card-title mt-2">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>   
-          <button type="button" class="btn btn-outline-dark rounded-0">More...</button>      
+          <h5 class="card-title mt-2">
+            Special title treatment
+          </h5>
+          <p class="card-text">
+            With supporting text below as a natural lead-in to additional content.
+          </p>   
+        </div>
+        <div class="card-footer px-0 py-0 bg-white">
+          <button type="button" class="btn btn-outline-dark rounded-0 border-0 w-25"><i class="fas fa-fire"></i> Like</button>
+          <button type="button" class="btn btn-outline-dark rounded-0 border-0 w-25"><i class="fas fa-check"></i> Going</button>
+          <button type="button" class="btn btn-outline-dark rounded-0 border-0 w-25"><i class="fas fa-user-plus"></i> Invite</button>
+          <button type="button" class="btn btn-outline-dark rounded-0 border-0 w-25"><i class="fas fa-ellipsis-h"></i> More</button>
         </div>
       </div>
     )
