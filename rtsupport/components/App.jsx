@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import EventDashBoard from './events/EventDashBoard.jsx';
+import EventList from './events/EventList.jsx'
+import DashBoard from './controlpanel/DashBoard.jsx'
 
 class App extends Component {
     render() {
         return (
-            <div>
-                <EventDashBoard/>
+            <div className='row'>
+                <DashBoard/>
+                <EventList/>
             </div>
         )
     }
