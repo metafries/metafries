@@ -4,7 +4,7 @@ import EventListItem from './EventListItem.jsx'
 class EventList extends Component {
   render() {
     return (
-      <div className='row'>
+      <div className='col-lg-8'>
         <EventListItem/>
         <EventListItem/>
         <EventListItem/>

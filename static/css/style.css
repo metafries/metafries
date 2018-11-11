@@ -17,13 +17,13 @@ html, body {
 }
 
 .hoster {
-  width: 10%;
-  height: 10%;
+  width: 75px;
+  height: 75px;
 }
 
 .attendee {
-  width: 5%;
-  height: 5%;  
+  width: 38px;
+  height: 38px;  
 }
 
 div.mdl-progress::after {
