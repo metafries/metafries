@@ -6,7 +6,7 @@ class SearchEvent extends Component {
         <div class="card rounded-0 border-dark border-bottom-0">
             <div class="card-header border-dark px-0 py-0 bg-white" id="headingOne">
                 <button class="btn btn-outline-dark rounded-0 btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                <i class="fas fa-filter"></i> Filter 
+                <i class="fas fa-filter"></i> <strong>Filter</strong>
                 </button>
             </div>      
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#dashboard">
@@ -42,7 +42,7 @@ class SearchEvent extends Component {
                             </div>
                             <input type="text" class="form-control rounded-0 border-left-0" placeholder="Enter A City..."/>
                         </div>  
-                        <button type="submit" class="btn btn-primary float-right mb-3">Search</button>           
+                        <button type="submit" class="btn btn-dark btn-block rounded-0 mb-3 text-warning font-weight-bold">Search</button>           
                     </form>
                 </div>
             </div>

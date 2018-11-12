@@ -6,7 +6,7 @@ class InstantMsg extends Component {
         <div class="card rounded-0 border-dark">
           <div class="card-header border-dark px-0 py-0 bg-white" id="headingThree">
           <button class="btn btn-outline-dark rounded-0 btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          <i class="fas fa-comment-alt"></i> Message
+          <i class="fas fa-comment-alt"></i> <strong>Message</strong>
           </button>
       </div>
           <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#dashboard">

@@ -6,7 +6,7 @@ class CreateEvent extends Component {
         <div class="card rounded-0 border-dark border-bottom-0">
                 <div class="card-header border-dark px-0 py-0 bg-white" id="headingTwo">
                 <button class="btn btn-outline-dark rounded-0 btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                <i class="fas fa-plus"></i> New
+                <i class="fas fa-plus"></i> <strong>New</strong>
             </button>
     </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#dashboard">
@@ -25,7 +25,7 @@ class CreateEvent extends Component {
     <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
     <label class="form-check-label" for="exampleCheck1">Check me out</label>
   </div>
-  <button type="submit" class="btn btn-primary float-right mb-3">Submit</button>
+  <button type="submit" class="btn btn-dark btn-block rounded-0 mb-3 text-warning font-weight-bold">Submit</button>
 </form>
 
                     </div>
