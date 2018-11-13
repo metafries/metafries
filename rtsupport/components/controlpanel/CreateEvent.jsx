@@ -10,7 +10,7 @@ class CreateEvent extends Component {
             </button>
     </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#dashboard">
-                    <div class="card-body px-2 py-2">
+                    <div class="card-body px-0 py-2">
                     <form>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
@@ -25,7 +25,7 @@ class CreateEvent extends Component {
     <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
     <label class="form-check-label" for="exampleCheck1">Check me out</label>
   </div>
-  <button type="submit" class="btn btn-block mb-3 text-ddc213 bg-dark font-weight-bold">Submit</button>
+  <button type="submit" class="btn btn-dark float-right mb-3 rounded-0 text-ddc213 font-weight-bold">Submit</button>
 </form>
 
                     </div>

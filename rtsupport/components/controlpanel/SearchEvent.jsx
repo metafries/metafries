@@ -10,7 +10,7 @@ class SearchEvent extends Component {
                 </button>
             </div>      
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#dashboard">
-                <div class="card-body px-2 py-2">
+                <div class="card-body px-0 py-2">
                     <form>
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -42,7 +42,7 @@ class SearchEvent extends Component {
                             </div>
                             <input type="text" class="form-control rounded-0 border-left-0" placeholder="Enter A City..."/>
                         </div>  
-                        <button type="submit" class="btn btn-block mb-3 text-ddc213 bg-dark font-weight-bold">Search</button>           
+                        <button type="submit" class="btn btn-dark float-right mb-3 rounded-0 text-ddc213 font-weight-bold">Search</button>           
                     </form>
                 </div>
             </div>
