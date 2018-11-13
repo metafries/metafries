@@ -42,7 +42,7 @@ class SearchEvent extends Component {
                             </div>
                             <input type="text" class="form-control rounded-0 border-left-0" placeholder="Enter A City..."/>
                         </div>  
-                        <button type="submit" class="btn btn-dark btn-block rounded-0 mb-3 text-warning font-weight-bold">Search</button>           
+                        <button type="submit" class="btn btn-block mb-3 text-ddc213 bg-dark font-weight-bold">Search</button>           
                     </form>
                 </div>
             </div>

@@ -25,7 +25,7 @@ class CreateEvent extends Component {
     <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
     <label class="form-check-label" for="exampleCheck1">Check me out</label>
   </div>
-  <button type="submit" class="btn btn-dark btn-block rounded-0 mb-3 text-warning font-weight-bold">Submit</button>
+  <button type="submit" class="btn btn-block mb-3 text-ddc213 bg-dark font-weight-bold">Submit</button>
 </form>
 
                     </div>
