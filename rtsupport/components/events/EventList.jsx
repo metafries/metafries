@@ -6,8 +6,6 @@ class EventList extends Component {
     return (
       <div className='col-lg-8'>
         <EventListItem/>
-        <EventListItem/>
-        <EventListItem/>
       </div>
     )
   }
