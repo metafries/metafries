@@ -3,9 +3,12 @@ import EventListItem from './EventListItem.jsx'
 
 class EventList extends Component {
   render() {
+    const {events} = this.props;
     return (
       <div className='col-lg-8'>
-        <EventListItem/>
+        {events.map((e) => (
+          <EventListItem key={e.id} event={e} />        
+        ))}
       </div>
     )
   }

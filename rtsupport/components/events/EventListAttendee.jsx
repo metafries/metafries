@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 
 class EventListAttendee extends Component {
   render() {
+    const {attendee} = this.props;
     return (
-      <div>
-        <h1>Event List Attendee</h1>
-      </div>
+      <div className='float-left attendee'>
+        <img src={attendee.photoURL} class="img-fluid mr-1" alt="..."/>
+      </div>          
     )
   }
 }
