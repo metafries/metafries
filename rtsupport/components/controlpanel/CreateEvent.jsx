@@ -3,15 +3,14 @@ import { DateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import LuxonUtils from '@date-io/luxon';
 
 class CreateEvent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {selectedStartDate: new Date()};
-    this.state = {selectedEndDate: new Date()};    
-  }
-  handleStartDateChange(date) {
+  state = {
+    selectedStartDate: new Date(),
+    selectedEndDate: new Date()
+  };
+  handleStartDateChange = (date) => {
     this.setState({selectedStartDate: date});
   };
-  handleEndDateChange(date) {
+  handleEndDateChange = (date) => {
     this.setState({selectedEndDate: date});
   };
   render() {
@@ -43,7 +42,7 @@ class CreateEvent extends Component {
                     <div className="picker ml-2">
                       <DateTimePicker
                         value={this.state.selectedStartDate}
-                        onChange={this.handleStartDateChange.bind(this)}    
+                        onChange={this.handleStartDateChange}    
                         showTodayButton    
                       />
                     </div>
@@ -55,7 +54,7 @@ class CreateEvent extends Component {
                     <div className="picker ml-2">
                       <DateTimePicker
                         value={this.state.selectedEndDate}
-                        onChange={this.handleEndDateChange.bind(this)}    
+                        onChange={this.handleEndDateChange}    
                         showTodayButton    
                       />
                     </div>
