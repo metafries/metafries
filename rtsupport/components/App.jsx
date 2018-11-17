@@ -54,11 +54,18 @@ const sampledata = [
 ]
 
 class App extends Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        events: sampledata
+      }
+    }
     render() {
         return (
             <div className='row'>
                 <DashBoard/>
-                <EventList events={sampledata} />
+                <EventList events={this.state.events} />
             </div>
         )
     }
