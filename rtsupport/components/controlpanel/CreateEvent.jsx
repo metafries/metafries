@@ -5,7 +5,12 @@ import LuxonUtils from '@date-io/luxon';
 class CreateEvent extends Component {
   state = {
     selectedStartDate: new Date(),
-    selectedEndDate: new Date()
+    selectedEndDate: new Date(),
+    event: {
+      title: '',
+      description: '',
+      location: ''
+    }
   };
   handleStartDateChange = (date) => {
     this.setState({selectedStartDate: date});
@@ -13,7 +18,26 @@ class CreateEvent extends Component {
   handleEndDateChange = (date) => {
     this.setState({selectedEndDate: date});
   };
+  onFormSubmit = (e) => {
+    e.preventDefault();
+    const {event} = this.state;
+    const newEvent = {
+      title: event.title,
+      description: event.description,
+      location: event.location,
+      startDate: this.state.selectedStartDate,
+      endDate: this.state.selectedEndDate
+    }
+  }
+  onInputChange = (e) => {
+    const userInput = this.state.event;
+    userInput[e.target.name] = e.target.value;
+    this.setState({
+      event: userInput
+    })
+  }
   render() {
+    const {event} = this.state;
     return (
         <div class="card rounded-0 border-dark border-bottom-0">
           <div class="card-header border-dark px-0 py-0 bg-white" id="headingTwo">
@@ -23,18 +47,41 @@ class CreateEvent extends Component {
           </div>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#dashboard">
             <div class="card-body px-0">
-              <form>
+              <form onSubmit={this.onFormSubmit}>
                 <div class="form-group mb-1">
                   <h6 class='mb-0 ml-2 font-weight-bold'>Title</h6>
-                  <input type="text" class="form-control rounded-0 pl-2" id="event-title-input" aria-describedby="eventCreateTitle" placeholder="Enter Title"/>
+                  <input 
+                  name='title'
+                  onChange={this.onInputChange} 
+                  value={event.title}                  
+                  type="text" 
+                  class="form-control rounded-0 pl-2" 
+                  id="event-title-input" 
+                  aria-describedby="eventCreateTitle" 
+                  placeholder="Enter Title"/>
                 </div>
                 <div class="form-group mb-1">
                   <h6 class='mb-0 ml-2 font-weight-bold' for='eventDescription'>Description</h6>
-                  <textarea class="form-control rounded-0 pl-2" id="eventDescription" placeholder="Enter Description" rows="3"></textarea>
+                  <textarea 
+                  name='description'
+                  onChange={this.onInputChange} 
+                  value={event.description}                                    
+                  class="form-control rounded-0 pl-2" 
+                  id="eventDescription" 
+                  placeholder="Enter Description" 
+                  rows="3"></textarea>
                 </div>
                 <div class="form-group mb-1">
                   <h6 class='mb-0 ml-2 font-weight-bold'>Location</h6>
-                  <input type="text" class="form-control rounded-0 pl-2" id="event-title-input" aria-describedby="eventCreateTitle" placeholder="Enter Location"/>
+                  <input 
+                  name='location'
+                  onChange={this.onInputChange} 
+                  value={event.location}                                                      
+                  type="text" 
+                  class="form-control rounded-0 pl-2" 
+                  id="event-title-input" 
+                  aria-describedby="eventCreateTitle" 
+                  placeholder="Enter Location"/>
                 </div>
                 <div class="form-group mb-1">
                   <h6 class='mb-0 ml-2 font-weight-bold'>Start Date</h6>
