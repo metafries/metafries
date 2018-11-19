@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { DateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import LuxonUtils from '@date-io/luxon';
+import { DateTime } from "luxon";
 
 class CreateEvent extends Component {
   state = {
-    selectedStartDate: new Date(),
-    selectedEndDate: new Date(),
+    selectedStartDate: DateTime.local(),
+    selectedEndDate: DateTime.local(),
     event: {
       title: '',
       description: '',
@@ -25,9 +26,10 @@ class CreateEvent extends Component {
       title: event.title,
       description: event.description,
       location: event.location,
-      startDate: this.state.selectedStartDate,
-      endDate: this.state.selectedEndDate
+      startDate: this.state.selectedStartDate.toFormat('ff'),
+      endDate: this.state.selectedEndDate.toFormat('ff')
     }
+    this.props.handleCreateEvent(newEvent);
   }
   onInputChange = (e) => {
     const userInput = this.state.event;
