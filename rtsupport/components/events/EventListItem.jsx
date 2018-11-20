@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import EventListAttendee from './EventListAttendee.jsx'
+import EditEvent from '../controlpanel/EditEvent.jsx'
 
 class EventListItem extends Component {
   render() {
@@ -7,7 +8,11 @@ class EventListItem extends Component {
     return (
       <div className='card border-dark rounded-0 mb-3 mx-3'>
         <div className='card-header border-dark rounded-0 bg-white'>
-          <h4>{event.title}</h4>
+          <h4 className='d-inline'>{event.title}</h4>
+          <button type='button' class='btn btn-link' data-toggle="modal" data-target="#editEvent">
+          <i class="fas fa-edit"></i> Edit
+          </button>
+          <EditEvent/><br/>
           <i class="far fa-clock"></i> {event.startDate} <i class="fas fa-minus"></i> {event.endDate}
           <i class="fas fa-map-marker-alt ml-2"></i> {event.location}
           <i class="fas fa-bolt ml-2"></i> 4,957,524<br/>   
@@ -21,7 +26,6 @@ class EventListItem extends Component {
           <br/><br/>
           <h6 class="card-title mt-2">{event.description}</h6>
         </div>
-        <div><button type="button" class="btn btn-dark float-right mb-3 rounded-0 text-ddc213 font-weight-bold"><i class="fas fa-ellipsis-h"></i> More</button></div>
         <div class="card-footer px-0 py-0 bg-white">
           <button type="button" class="btn btn-outline-dark rounded-0 w-50 border-dark border-left-0"><i class="fas fa-fire"></i> Like</button>
           <button type="button" class="btn btn-outline-dark rounded-0 w-50 border-dark border-left-0 border-right-0"><i class="fas fa-check"></i> Going</button>

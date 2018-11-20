@@ -59,7 +59,8 @@ const sampledata = [
 
 class App extends Component {
   state = {
-    events: sampledata
+    events: sampledata,
+    selectedEvent: null
   }
   handleCreateEvent = (newEvent) => {
    newEvent.id = cuid();
@@ -76,7 +77,7 @@ class App extends Component {
       photoURL: ''
     }
    ]
-   const updatedEvents = [...this.state.events, newEvent];
+   const updatedEvents = [newEvent, ...this.state.events];
    this.setState({
      events: updatedEvents
    });

@@ -21,13 +21,13 @@ class CreateEvent extends Component {
   };
   onFormSubmit = (e) => {
     e.preventDefault();
-    const {event} = this.state;
+    const {event, selectedStartDate, selectedEndDate} = this.state;
     const newEvent = {
       title: event.title,
       description: event.description,
       location: event.location,
-      startDate: this.state.selectedStartDate.toFormat('ff'),
-      endDate: this.state.selectedEndDate.toFormat('ff')
+      startDate: selectedStartDate.toFormat('ff'),
+      endDate: selectedEndDate.toFormat('ff')
     }
     this.props.handleCreateEvent(newEvent);
   }
