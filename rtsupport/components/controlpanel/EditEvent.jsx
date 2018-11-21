@@ -28,7 +28,7 @@ class EditEvent extends Component {
                     <div class="modal-body">
                         <form>
                             <div class="form-group mb-1">
-                                <h6 class='mb-0 ml-2 font-weight-bold'>Title</h6>
+                                <h6 class='mb-0 font-weight-bold'>Title</h6>
                                 <input 
                                 type="text" 
                                 class="form-control rounded-0 pl-2" 
@@ -36,7 +36,7 @@ class EditEvent extends Component {
                                 placeholder="Enter Title"/>
                             </div>  
                             <div class="form-group mb-1">
-                                <h6 class='mb-0 ml-2 font-weight-bold' for='eventDescription'>Description</h6>
+                                <h6 class='mb-0 font-weight-bold' for='eventDescription'>Description</h6>
                                 <textarea 
                                 class="form-control rounded-0 pl-2" 
                                 id="eventDescription" 
@@ -45,7 +45,7 @@ class EditEvent extends Component {
                                 </textarea>
                             </div>    
                             <div class="form-group mb-1">
-                                <h6 class='mb-0 ml-2 font-weight-bold'>Location</h6>
+                                <h6 class='mb-0 font-weight-bold'>Location</h6>
                                 <input 
                                 type="text" 
                                 class="form-control rounded-0 pl-2" 
@@ -54,7 +54,7 @@ class EditEvent extends Component {
                                 placeholder="Enter Location"/>
                             </div>
                             <div class="form-group mb-1">
-                                <h6 class='mb-0 ml-2 font-weight-bold'>Start Date</h6>
+                                <h6 class='mb-0 font-weight-bold'>Start Date</h6>
                                 <MuiPickersUtilsProvider utils={LuxonUtils}>
                                     <div className="picker ml-2">
                                     <DateTimePicker
@@ -65,8 +65,8 @@ class EditEvent extends Component {
                                     </div>
                                 </MuiPickersUtilsProvider>                
                             </div>
-                            <div class="form-group mb-3">
-                                <h6 class='mb-0 ml-2 font-weight-bold'>End Date</h6>
+                            <div class="form-group mb-5">
+                                <h6 class='mb-0 font-weight-bold'>End Date</h6>
                                 <MuiPickersUtilsProvider utils={LuxonUtils}>
                                     <div className="picker ml-2">
                                     <DateTimePicker
@@ -78,11 +78,11 @@ class EditEvent extends Component {
                                 </MuiPickersUtilsProvider>                
                             </div>
                         </form>
-                        <button type="button" class="btn btn-danger rounded-0 font-weight-bold text-left" data-dismiss="modal"><i class="fas fa-trash"></i> Cancel Activity</button>
+                        <button type="button" class="btn btn-link text-danger pl-0 font-weight-bold" data-dismiss="modal"><i class="fas fa-ban"></i> Cancel Activity</button>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-dark rounded-0 font-weight-bold text-left" data-dismiss="modal">Cancel</button>                        
-                        <button type="button" class="btn btn-outline-dark rounded-0 font-weight-bold">Update</button>
+                    <div class="modal-footer pt-0">
+                        <button type="button" class="btn btn-secondary rounded-0 font-weight-bold" data-dismiss="modal">Close</button>                        
+                        <button type="button" class="btn btn-dark rounded-0 font-weight-bold text-ddc213">Update</button>
                     </div>
                 </div>
             </div>
