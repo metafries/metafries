@@ -78,10 +78,11 @@ class EditEvent extends Component {
                                 </MuiPickersUtilsProvider>                
                             </div>
                         </form>
+                        <button type="button" class="btn btn-danger rounded-0 font-weight-bold text-left" data-dismiss="modal"><i class="fas fa-trash"></i> Cancel Activity</button>
                     </div>
-                    <div class="modal-footer pt-0">
-                        <button type="button" class="btn btn-outline-danger rounded-0 font-weight-bold" data-dismiss="modal"><i class="fas fa-trash-alt"></i> Delete</button>
-                        <button type="button" class="btn btn-dark rounded-0 font-weight-bold text-ddc213"><i class="fas fa-wrench"></i> Update</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark rounded-0 font-weight-bold text-left" data-dismiss="modal">Cancel</button>                        
+                        <button type="button" class="btn btn-outline-dark rounded-0 font-weight-bold">Update</button>
                     </div>
                 </div>
             </div>
