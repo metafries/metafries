@@ -26,10 +26,10 @@ class EventListItem extends Component {
           type="button" 
           class="btn btn-dark float-right mb-3 rounded-0 text-ddc213 font-weight-bold"
           data-toggle="modal" 
-          data-target="#editEvent">
+          data-target={'#'+event.id}>
           <i class="fas fa-edit"></i> Edit
         </button></div>
-        <EditEvent/>             
+        <EditEvent selectedEvent={event}/>
         <div class="card-footer px-0 py-0 bg-white">
           <button type="button" class="btn btn-outline-dark rounded-0 w-50 border-dark border-left-0"><i class="fas fa-fire"></i> Like</button>
           <button type="button" class="btn btn-outline-dark rounded-0 w-50 border-dark border-left-0 border-right-0"><i class="fas fa-check"></i> Going</button>

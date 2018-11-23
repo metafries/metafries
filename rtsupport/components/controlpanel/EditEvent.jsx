@@ -5,18 +5,37 @@ import { DateTime } from "luxon";
 
 class EditEvent extends Component {
   state = {
-    selectedStartDate: DateTime.local(),
-    selectedEndDate: DateTime.local()
+    selectedEvent: this.props.selectedEvent
   }
   handleStartDateChange = (date) => {
-    this.setState({selectedStartDate: date});
+    const update = this.state.selectedEvent;
+    update.startDate = date.toFormat('ff')
+    this.setState({
+        selectedEvent: update
+    });
   };
   handleEndDateChange = (date) => {
-    this.setState({selectedEndDate: date});
+    const update = this.props.selectedEvent;
+    update.endDate = date.toFormat('ff')
+    this.setState({
+        selectedEvent: update
+    });
   };
+  onInputChange = (e) => {
+    const userInput = this.state.selectedEvent;
+    userInput[e.target.name] = e.target.value;
+    this.setState({
+      selectedEvent: userInput
+    })
+  }
+  onFormSubmit = (e) => {
+    e.preventDefault();
+    // TODO: Update The Activity Data
+  }
   render() {
+    const {selectedEvent} = this.state;
     return (
-        <div class="modal fade" id="editEvent" tabindex="-1" role="dialog">
+        <div class="modal fade" id={selectedEvent.id} tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content rounded-0">
                     <div class="modal-header">
@@ -26,10 +45,13 @@ class EditEvent extends Component {
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form onSubmit={this.onFormSubmit}>
                             <div class="form-group mb-1">
                                 <h6 class='mb-0 font-weight-bold'>Title</h6>
                                 <input 
+                                name='title'                                                  
+                                onChange={this.onInputChange}                                 
+                                value={selectedEvent.title}
                                 type="text" 
                                 class="form-control rounded-0 pl-2" 
                                 id="event-title-input" 
@@ -38,6 +60,9 @@ class EditEvent extends Component {
                             <div class="form-group mb-1">
                                 <h6 class='mb-0 font-weight-bold' for='eventDescription'>Description</h6>
                                 <textarea 
+                                name='description'
+                                onChange={this.onInputChange} 
+                                value={selectedEvent.description}                                                                    
                                 class="form-control rounded-0 pl-2" 
                                 id="eventDescription" 
                                 placeholder="Enter Description" 
@@ -47,6 +72,9 @@ class EditEvent extends Component {
                             <div class="form-group mb-1">
                                 <h6 class='mb-0 font-weight-bold'>Location</h6>
                                 <input 
+                                name='location'
+                                onChange={this.onInputChange} 
+                                value={selectedEvent.location}                                                                                      
                                 type="text" 
                                 class="form-control rounded-0 pl-2" 
                                 id="event-title-input" 
@@ -58,7 +86,7 @@ class EditEvent extends Component {
                                 <MuiPickersUtilsProvider utils={LuxonUtils}>
                                     <div className="picker ml-2">
                                     <DateTimePicker
-                                        value={this.state.selectedStartDate}
+                                        value={selectedEvent.startDate}
                                         onChange={this.handleStartDateChange}    
                                         showTodayButton    
                                     />
@@ -70,7 +98,7 @@ class EditEvent extends Component {
                                 <MuiPickersUtilsProvider utils={LuxonUtils}>
                                     <div className="picker ml-2">
                                     <DateTimePicker
-                                        value={this.state.selectedEndDate}
+                                        value={selectedEvent.endDate}
                                         onChange={this.handleEndDateChange}    
                                         showTodayButton    
                                     />
