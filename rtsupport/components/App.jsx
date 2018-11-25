@@ -10,8 +10,8 @@ const sampledata = [
   {
     id: '1',
     title: 'Trip to Tower of London',
-    startDate: '2018-03-27T11:00:00+00:00',
-    endDate: '2018-03-27T11:00:00+00:00',    
+    startDate: '2018/03/27, 11:00',
+    endDate: '2018/03/28, 14:00',    
     category: 'culture',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
@@ -35,8 +35,8 @@ const sampledata = [
   {
     id: '2',
     title: 'Trip to Punch and Judy Pub',
-    startDate: '2018-03-28T14:00:00+00:00',
-    endDate: '2018-03-27T11:00:00+00:00',        
+    startDate: '2018/03/28, 14:00',
+    endDate: '2018/03/29, 11:00',        
     category: 'drinks',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',

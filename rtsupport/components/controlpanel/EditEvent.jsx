@@ -9,14 +9,14 @@ class EditEvent extends Component {
   }
   handleStartDateChange = (date) => {
     const update = this.state.selectedEvent;
-    update.startDate = date.toFormat('ff')
+    update.startDate = date.toFormat('yyyy/MM/dd, HH:mm')
     this.setState({
         selectedEvent: update
     });
   };
   handleEndDateChange = (date) => {
     const update = this.props.selectedEvent;
-    update.endDate = date.toFormat('ff')
+    update.endDate = date.toFormat('yyyy/MM/dd, HH:mm')
     this.setState({
         selectedEvent: update
     });
@@ -34,6 +34,8 @@ class EditEvent extends Component {
   }
   render() {
     const {selectedEvent} = this.state;
+    const showStartDate = DateTime.fromFormat(selectedEvent.startDate, 'yyyy/MM/dd, HH:mm')
+    const showEndDate = DateTime.fromFormat(selectedEvent.endDate, 'yyyy/MM/dd, HH:mm')
     return (
         <div class="modal fade" id={selectedEvent.id} tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -86,7 +88,7 @@ class EditEvent extends Component {
                                 <MuiPickersUtilsProvider utils={LuxonUtils}>
                                     <div className="picker ml-2">
                                     <DateTimePicker
-                                        value={selectedEvent.startDate}
+                                        value={showStartDate}
                                         onChange={this.handleStartDateChange}    
                                         showTodayButton    
                                     />
@@ -98,7 +100,7 @@ class EditEvent extends Component {
                                 <MuiPickersUtilsProvider utils={LuxonUtils}>
                                     <div className="picker ml-2">
                                     <DateTimePicker
-                                        value={selectedEvent.endDate}
+                                        value={showEndDate}
                                         onChange={this.handleEndDateChange}    
                                         showTodayButton    
                                     />

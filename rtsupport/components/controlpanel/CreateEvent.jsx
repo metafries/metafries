@@ -26,8 +26,8 @@ class CreateEvent extends Component {
       title: event.title,
       description: event.description,
       location: event.location,
-      startDate: selectedStartDate.toFormat('ff'),
-      endDate: selectedEndDate.toFormat('ff')
+      startDate: selectedStartDate.toFormat('yyyy/MM/dd, HH:mm'),
+      endDate: selectedEndDate.toFormat('yyyy/MM/dd, HH:mm')
     }
     this.props.handleCreateEvent(newEvent);
   }
