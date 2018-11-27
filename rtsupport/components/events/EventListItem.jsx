@@ -3,6 +3,20 @@ import EventListAttendee from './EventListAttendee.jsx'
 import EditEvent from '../controlpanel/EditEvent.jsx'
 
 class EventListItem extends Component {
+  state = {
+    events: this.props.events
+  }
+  handleEditEvent = (updateEvent) => {
+    this.setState({
+      events: this.state.events.map(e => {
+        if (e.id === updateEvent.id) {
+          return Object.assign({}, updateEvent)
+        } else {
+          return e
+        }
+      })
+    })
+  }
   render() {
     const {event} = this.props;
     return (
@@ -29,7 +43,7 @@ class EventListItem extends Component {
           data-target={'#'+event.id}>
           <i class="fas fa-edit"></i> Edit
         </button></div>
-        <EditEvent selectedEvent={event}/>
+        <EditEvent selectedEvent={event} handleEditEvent={this.handleEditEvent} />
         <div class="card-footer px-0 py-0 bg-white">
           <button type="button" class="btn btn-outline-dark rounded-0 w-50 border-dark border-left-0"><i class="fas fa-fire"></i> Like</button>
           <button type="button" class="btn btn-outline-dark rounded-0 w-50 border-dark border-left-0 border-right-0"><i class="fas fa-check"></i> Going</button>

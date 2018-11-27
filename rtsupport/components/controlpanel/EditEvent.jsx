@@ -30,7 +30,9 @@ class EditEvent extends Component {
   }
   onFormSubmit = (e) => {
     e.preventDefault();
-    // TODO: Update The Activity Data
+    const {selectedEvent} = this.state
+    this.props.handleEditEvent(selectedEvent)
+    $('.close').click()
   }
   render() {
     const {selectedEvent} = this.state;
@@ -46,8 +48,8 @@ class EditEvent extends Component {
                             <span>&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <form onSubmit={this.onFormSubmit}>
+                    <form onSubmit={this.onFormSubmit}>
+                        <div class="modal-body">
                             <div class="form-group mb-1">
                                 <h6 class='mb-0 font-weight-bold'>Title</h6>
                                 <input 
@@ -107,13 +109,13 @@ class EditEvent extends Component {
                                     </div>
                                 </MuiPickersUtilsProvider>                
                             </div>
-                        </form>
-                        <button type="button" class="btn btn-link text-danger pl-0 font-weight-bold" data-dismiss="modal"><i class="fas fa-ban"></i> Cancel Activity</button>
-                    </div>
-                    <div class="modal-footer pt-0">
-                        <button type="button" class="btn btn-secondary rounded-0 font-weight-bold" data-dismiss="modal">Close</button>                        
-                        <button type="button" class="btn btn-dark rounded-0 font-weight-bold text-ddc213">Update</button>
-                    </div>
+                            <button type="button" class="btn btn-link text-danger pl-0 font-weight-bold" data-dismiss="modal"><i class="fas fa-ban"></i> Cancel Activity</button>
+                        </div>
+                        <div class="modal-footer pt-0">
+                            <button type="button" class="btn btn-secondary rounded-0 font-weight-bold" data-dismiss="modal">Close</button>                        
+                            <button type="submit" class="btn btn-dark rounded-0 font-weight-bold text-ddc213">Update</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
