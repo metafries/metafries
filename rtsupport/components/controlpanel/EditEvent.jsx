@@ -34,6 +34,10 @@ class EditEvent extends Component {
     this.props.handleEditEvent(selectedEvent)
     $('.close').click()
   }
+  onCancelEvent = () => {
+    const {selectedEvent} = this.props    
+    this.props.getDeleteEventId(selectedEvent)
+  }
   render() {
     const {selectedEvent} = this.state;
     const showStartDate = DateTime.fromFormat(selectedEvent.startDate, 'yyyy/MM/dd, HH:mm')
@@ -109,7 +113,7 @@ class EditEvent extends Component {
                                     </div>
                                 </MuiPickersUtilsProvider>                
                             </div>
-                            <button type="button" class="btn btn-link text-danger pl-0 font-weight-bold" data-dismiss="modal"><i class="fas fa-ban"></i> Cancel Activity</button>
+                            <button onClick={this.onCancelEvent} type="button" class="btn btn-link text-danger pl-0 font-weight-bold" data-dismiss="modal"><i class="fas fa-ban"></i> Cancel Activity</button>
                         </div>
                         <div class="modal-footer pt-0">
                             <button type="button" class="btn btn-secondary rounded-0 font-weight-bold" data-dismiss="modal">Close</button>                        

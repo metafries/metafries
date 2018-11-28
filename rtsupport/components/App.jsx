@@ -61,8 +61,7 @@ const sampledata = [
 
 class App extends Component {
   state = {
-    events: sampledata,
-    selectedEvent: null
+    events: sampledata
   }
   handleCreateEvent = (newEvent) => {
    newEvent.id = cuid();
@@ -84,6 +83,12 @@ class App extends Component {
      events: updatedEvents
    });
   }
+  handleDeleteEvent = (cancelEvent_id) => {
+    const updatedEvents = this.state.events.filter(e => e.id !== cancelEvent_id)
+    this.setState({
+      events: updatedEvents
+    })
+  }
   render() {
         return (
           <div className='row'>
@@ -98,7 +103,7 @@ class App extends Component {
                 <InstantMsg/>
               </div>
             </div>
-            <EventList events={this.state.events} />
+            <EventList events={this.state.events} handleDeleteEvent={this.handleDeleteEvent} />
             </div>
         )
   }
