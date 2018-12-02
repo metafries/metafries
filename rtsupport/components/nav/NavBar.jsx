@@ -1,7 +1,23 @@
 import React, { Component } from 'react'
+import SignIn from './SignIn.jsx'
+import SignOut from './SignOut.jsx'
 
 class NavBar extends Component {
+  state = {
+      authenticated: false
+  }
+  handleSignIn = () => {
+      this.setState({
+          authenticated: true
+      })
+  }
+  handleSignOut = () => {
+      this.setState({
+          authenticated: false
+      })
+  }
   render() {
+    const {authenticated} = this.state
     return (
         <div>
             <div className="navbar navbar-light box-shadow">
@@ -17,7 +33,7 @@ class NavBar extends Component {
                         <li className="nav-item delay-2"><a className="nav-link" href="#">TRENDING</a></li>
                         <li className="nav-item delay-3"><a className="nav-link" href="#">EXPLORE</a></li>
                         <li className="nav-item delay-4"><hr/></li>
-                        <li className="nav-item delay-5"><a className="nav-link" href="/login">SIGN IN</a></li>
+                        {authenticated ? <SignOut handleSignOut={this.handleSignOut}/> : <SignIn handleSignIn={this.handleSignIn}/>}
                     </ul>
                 </div>
             </div>
