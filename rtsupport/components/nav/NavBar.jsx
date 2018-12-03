@@ -29,10 +29,12 @@ class NavBar extends Component {
             <div className="fixed-top main-menu">
                 <div className="flex-center p-5">
                     <ul className="nav flex-column">
-                        <li className="nav-item delay-1"><a className="nav-link" href="/">HOME</a></li>
-                        <li className="nav-item delay-2"><a className="nav-link" href="#">TRENDING</a></li>
-                        <li className="nav-item delay-3"><a className="nav-link" href="#">EXPLORE</a></li>
+                        <li className="nav-item delay-1"><a className="nav-link px-2" href="/"><i class="fas fa-home"></i> HOME</a></li>
+                        <li className="nav-item delay-2"><a className="nav-link px-2" href="#"><i class="fas fa-fire"></i> TRENDING</a></li>
+                        <li className="nav-item delay-3"><a className="nav-link px-2" href="#"><i class="fas fa-map"></i> EXPLORE</a></li>
                         <li className="nav-item delay-4"><hr/></li>
+                        {authenticated && <li className="nav-item delay-5"><a className="nav-link px-2" href="#"><i class="fas fa-wrench"></i> SETTINGS</a></li>}
+                        {authenticated && <li className="nav-item delay-6"><hr/></li>}
                         {authenticated ? <SignOut handleSignOut={this.handleSignOut}/> : <SignIn handleSignIn={this.handleSignIn}/>}
                     </ul>
                 </div>
