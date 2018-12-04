@@ -94,10 +94,10 @@ class HomePage extends Component {
           <div className='row'>
             <div className='col-lg-4 mb-3'>
               <div class="input-group mb-3">
-                <input type="text" class="form-control ml-3 border-dark rounded-0" placeholder="Sup?"/>
-                <div class="input-group-append mr-3"><button class="btn btn-outline-dark rounded-0" type="button"><i class="fas fa-search"></i></button></div>
+                <input type="text" class="form-control border-dark rounded-0" placeholder="Sup?"/>
+                <div class="input-group-append"><button class="btn btn-outline-dark rounded-0" type="button"><i class="fas fa-search"></i></button></div>
               </div>
-              <div class="accordion mx-3" id="dashboard">
+              <div class="accordion" id="dashboard">
                 <SearchEvent/>
                 <CreateEvent handleCreateEvent={this.handleCreateEvent}/>
                 <InstantMsg/>

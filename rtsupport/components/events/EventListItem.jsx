@@ -23,7 +23,7 @@ class EventListItem extends Component {
   render() {
     const {event} = this.props;
     return (
-      <div className='card border-dark rounded-0 mb-3 mx-3'>
+      <div className='card border-dark rounded-0 mb-3'>
         <div className='card-header border-dark rounded-0 bg-white'>
           <h4>{event.title}</h4>
           <i class="far fa-clock"></i> {event.startDate} <i class="fas fa-minus"></i> {event.endDate}
