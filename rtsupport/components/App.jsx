@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import HomePage from './home/HomePage.jsx'
 import LandingPage from './home/LandingPage.jsx'
+import SettingsDashboard from './useracct/Settings/Dashboard.jsx'
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <Route exact path='/' component={HomePage}/>
-        <Route path='/login' component={LandingPage}/>      
-      </div>
+      <switch>
+        <Route exact path='/' component={LandingPage}/>
+        <Route path='/userid' component={HomePage}/>      
+        <Route path='/settings' component={SettingsDashboard}/>
+      </switch>
     )
   }
 }

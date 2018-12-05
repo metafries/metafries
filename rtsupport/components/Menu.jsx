@@ -5,9 +5,7 @@ import NavBar from './nav/NavBar.jsx'
 class Menu extends Component {
   render() {
     return (
-      <div>
-        <Route exact path='/' component={NavBar}/>
-      </div>
+      <Route path='/(.+)' component={NavBar}/>
     )
   }
 }
