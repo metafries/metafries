@@ -8,7 +8,7 @@ class ChatListItem extends Component {
             <div class="card-header px-0 py-0" id="headingOneMsg">
             <button class="btn btn-light btn-block collapsed px-0 py-0 rounded-0" data-toggle="collapse" data-target="#collapseOneMsg" aria-expanded="true" aria-controls="collapseOneMsg">
                 <div className='contact float-left px-1 py-1'>
-                    <img src="./static/images/whazup-square-logo.png" class="img-fluid rounded-circle" alt="..."/>
+                    <img src="/static/images/whazup-square-logo.png" class="img-fluid rounded-circle" alt="..."/>
                 </div>
                 <div className='d-inline'>
                     <div className='float-left ml-2'><strong>Cashviar</strong></div>
@@ -42,7 +42,7 @@ class ChatListItem extends Component {
                 <div class="card-header px-0 py-0" id="headingTwoMsg">
                 <button class="btn btn-light btn-block collapsed px-0 py-0 rounded-0" data-toggle="collapse" data-target="#collapseTwoMsg" aria-expanded="false" aria-controls="collapseTwoMsg">
                     <div className='contact float-left px-1 py-1'>
-                        <img src="./static/images/whazup-square-logo.png" class="img-fluid rounded-circle" alt="..."/>
+                        <img src="/static/images/whazup-square-logo.png" class="img-fluid rounded-circle" alt="..."/>
                     </div>
                     <div className='d-inline'>
                         <div className='float-left ml-2'><strong>Cashviar</strong></div>

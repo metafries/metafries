@@ -5,7 +5,7 @@ class EventListAttendee extends Component {
     const {attendee} = this.props;
     return (
       <div className='float-left attendee mr-1'>
-        <img src='./static/images/whazup-square-logo.png' class="img-fluid rounded" alt="..."/>
+        <img src='/static/images/whazup-square-logo.png' class="img-fluid rounded" alt="..."/>
       </div>          
     )
   }
