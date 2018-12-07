@@ -33,7 +33,7 @@ class NavBar extends Component {
                         <li className="nav-item delay-2"><a className="nav-link px-2" href="#">TRENDING <i class="fas fa-fire"></i></a></li>
                         <li className="nav-item delay-3"><a className="nav-link px-2" href="#">EXPLORE <i class="fas fa-map"></i></a></li>
                         <li className="nav-item delay-4"><hr/></li>
-                        {authenticated && <li className="nav-item delay-5"><a className="nav-link px-2" href="/settings/profile">SETTINGS <i class="fas fa-wrench"></i></a></li>}
+                        {authenticated && <li className="nav-item delay-5"><a className="nav-link px-2" href="/settings">SETTINGS <i class="fas fa-wrench"></i></a></li>}
                         {authenticated && <li className="nav-item delay-6"><hr/></li>}
                         {authenticated ? <SignOut handleSignOut={this.handleSignOut}/> : <SignIn handleSignIn={this.handleSignIn}/>}
                     </ul>
