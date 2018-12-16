@@ -55,14 +55,7 @@ const initState = [
   ]
 
   export const createEvent = (state, payload) => {
-      return [...state, Object.assign({}, payload.event)]
-  }
-
-  export const updateEvent = (state, payload) => {
-      return [
-          ...state.filter(e => e.id !== payload.event.id),
-          Object.assign({}, payload.event)
-      ]
+      return [Object.assign({}, payload.event), ...state]
   }
 
   export const deleteEvent = (state, payload) => {
@@ -71,6 +64,5 @@ const initState = [
 
   export default createReducer(initState, {
       [CREATE_EVENT]: createEvent,
-      [UPDATE_EVENT]: updateEvent,
       [DELETE_EVENT]: deleteEvent
   })

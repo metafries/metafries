@@ -5,10 +5,16 @@ import cuid from 'cuid'
 import SearchEvent from '../controlpanel/SearchEvent.jsx'
 import CreateEvent from '../controlpanel/CreateEvent.jsx'
 import InstantMsg from '../controlpanel/InstantMsg.jsx'
+import { createEvent, deleteEvent } from '../events/eventActions.jsx'
 
 const mapState = (state) => ({
   events: state.events
 })
+
+const actions = {
+  createEvent,
+  deleteEvent
+}
 
 class HomePage extends Component {
   handleCreateEvent = (newEvent) => {
@@ -26,16 +32,10 @@ class HomePage extends Component {
       photoURL: ''
     }
    ]
-   const updatedEvents = [newEvent, ...this.state.events];
-   this.setState({
-     events: updatedEvents
-   });
+   this.props.createEvent(newEvent)
   }
   handleDeleteEvent = (cancelEvent_id) => {
-    const updatedEvents = this.state.events.filter(e => e.id !== cancelEvent_id)
-    this.setState({
-      events: updatedEvents
-    })
+    this.props.deleteEvent(cancelEvent_id)
   }
   render() {
         return (
@@ -57,4 +57,4 @@ class HomePage extends Component {
   }
 }
 
-export default connect(mapState)(HomePage);
+export default connect(mapState, actions)(HomePage);

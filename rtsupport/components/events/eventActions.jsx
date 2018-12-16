@@ -1,17 +1,8 @@
-import { CREATE_EVENT, UPDATE_EVENT, DELETE_EVENT } from './eventConstants.jsx'
+import { CREATE_EVENT, DELETE_EVENT } from './eventConstants.jsx'
 
 export const createEvent = (event) => {
     return {
         type: CREATE_EVENT,
-        payload: {
-            event
-        }
-    }
-}
-
-export const updateEvent = (event) => {
-    return {
-        type: UPDATE_EVENT,
         payload: {
             event
         }
