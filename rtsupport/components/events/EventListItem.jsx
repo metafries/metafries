@@ -38,14 +38,19 @@ class EventListItem extends Component {
           ))}
           <br/><br/>
           <h6 class="card-title mt-2">{event.description}</h6>
-        </div>   
-        <div><button 
+        </div>  
+        <button 
           type="button" 
-          class="btn btn-dark float-right mb-3 rounded-0 text-ddc213 font-weight-bold"
+          class="btn btn-dark float-right mb-3 py-0 rounded-0 text-ddc213 font-weight-bold">
+          More <i class="fas fa-ellipsis-h"></i>
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-dark float-right mb-3 py-0 rounded-0 text-ddc213 font-weight-bold"
           data-toggle="modal" 
           data-target={'#'+event.id}>
-          <i class="fas fa-edit"></i> Edit
-        </button></div>
+          Edit <i class="fas fa-edit"></i>
+        </button>
         <EditEvent 
         selectedEvent={event} 
         handleEditEvent={this.handleEditEvent} 
