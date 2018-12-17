@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { LinkContainer } from 'react-router-bootstrap'
 import EventListAttendee from './EventListAttendee.jsx'
 import EditEvent from '../controlpanel/EditEvent.jsx'
 
@@ -39,11 +40,13 @@ class EventListItem extends Component {
           <br/><br/>
           <h6 class="card-title mt-2">{event.description}</h6>
         </div>  
+        <LinkContainer to={`/event/${event.id}`}>
         <button 
           type="button" 
-          class="btn btn-dark float-right mb-3 py-0 rounded-0 text-ddc213 font-weight-bold">
+          className="btn btn-dark float-right mb-3 py-0 rounded-0 text-ddc213 font-weight-bold">
           More <i class="fas fa-ellipsis-h"></i>
-        </button>
+        </button>        
+        </LinkContainer>
         <button 
           type="button" 
           class="btn btn-dark float-right mb-3 py-0 rounded-0 text-ddc213 font-weight-bold"
