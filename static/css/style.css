@@ -54,3 +54,14 @@ div.mdl-progress::after {
   display: flex;
   align-items: center;
 }
+
+.event-detail-header {
+  background-image: url('/static/images/IMG_20180706_185041.jpg');
+}
+
+.transbox {
+  color: yellow;  
+  background-color: black;
+  opacity: 0.7;
+  filter: alpha(opacity=60); /* For IE8 and earlier */
+}
