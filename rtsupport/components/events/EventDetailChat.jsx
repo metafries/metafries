@@ -26,7 +26,7 @@ class EventDetailChat extends Component {
                   placeholder="Enter Comment ..." 
                   rows="3">
                 </textarea>    
-                <button type="submit" class="btn btn-dark rounded-0 text-ddc213 font-weight-bold float-right mt-2">Submit</button>          
+                <button type="submit" class="btn btn-dark rounded-0 text-ddc213 font-weight-bold float-right mt-2">Post</button>          
               </form>
             </td>
           </tr>

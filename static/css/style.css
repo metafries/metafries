@@ -55,10 +55,6 @@ div.mdl-progress::after {
   align-items: center;
 }
 
-.event-detail-header {
-  background-image: url('/static/images/IMG_20180706_185041.jpg');
-}
-
 .transbox {
   color: yellow;  
   background-color: black;

@@ -1,14 +1,15 @@
 import React from 'react'
 
-const EventDetailHeader = () => {
+const EventDetailHeader = ({event}) => {
   return (
     <div className='card mb-3 rounded-0 border-white'>
-      <div className='card-header rounded-0 event-detail-header p-0'>
+      <div className='card-header rounded-0 p-0'
+           style={{background:`url(/static/images/IMG_20180706_185041.jpg)`}}>
         <div className='transbox m-0 p-2'>
-          <h1 className='card-title mb-1'>Drinks in the pub</h1>
-          <p className='mb-1'><i class="far fa-clock"></i> 2018/03/28, 14:00 - 2018/03/29, 11:00</p>
-          <p className='mb-1'><i class="fas fa-map-marker-alt"></i> British Airways i360</p>
-          <p><i class="fas fa-home"></i> Hosted by <strong>Tom</strong></p>        
+          <h1 className='card-title mb-1'>{event.title}</h1>
+          <p className='mb-1'><i class="far fa-clock"></i> {event.startDate} - {event.endDate}</p>
+          <p className='mb-1'><i class="fas fa-map-marker-alt"></i> {event.venue}</p>
+          <p><i class="fas fa-home"></i> Hosted by <strong>{event.hostedBy}</strong></p>        
         </div>
       </div>
       <div className='card-body rounded-0 px-0 pt-1'>
@@ -28,36 +29,3 @@ const EventDetailHeader = () => {
 }
 
 export default EventDetailHeader
-
-  //  <Segment.Group>
-  //     <Segment basic attached="top" style={{ padding: '0' }}>
-  //       <Image src="/assets/categoryImages/drinks.jpg" fluid />
-
-  //       <Segment basic>
-  //         <Item.Group>
-  //           <Item>
-  //             <Item.Content>
-  //               <Header
-  //                 size="huge"
-  //                 content="Event Title"
-  //                 style={{ color: 'white' }}
-  //               />
-  //               <p>Event Date</p>
-  //               <p>
-  //                 Hosted by <strong>Hosted by</strong>
-  //               </p>
-  //             </Item.Content>
-  //           </Item>
-  //         </Item.Group>
-  //       </Segment>
-  //     </Segment>
-
-  //     <Segment attached="bottom">
-  //       <Button>Cancel My Place</Button>
-  //       <Button color="teal">JOIN THIS EVENT</Button>
-
-  //       <Button color="orange" floated="right">
-  //         Manage Event
-  //       </Button>
-  //     </Segment>
-  //   </Segment.Group>
