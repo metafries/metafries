@@ -18,7 +18,7 @@ const initState = [
         {
           id: 'a',
           name: 'Bob',
-          photoURL: ''
+          photoURL: '/static/images/whazup-square-logo.png'
         },
         {
           id: 'b',
@@ -43,7 +43,7 @@ const initState = [
         {
           id: 'b',
           name: 'Tom',
-          photoURL: ''
+          photoURL: '/static/images/whazup-square-logo.png'
         },
         {
           id: 'a',
