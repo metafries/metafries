@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import App from './components/App.jsx';
 import Menu from './components/Menu.jsx';
 import { configureStore } from './app/store/configureStore.js'
+import ScrollToTop from './app/common/util/ScrollToTop.jsx'
 
 const store = configureStore()
 
@@ -14,7 +15,9 @@ alerter('viva nuts!');
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
-            <App />
+            <ScrollToTop>
+                <App />
+            </ScrollToTop>
         </BrowserRouter>
     </Provider>,
     document.getElementById('events')
