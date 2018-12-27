@@ -55,6 +55,11 @@ div.mdl-progress::after {
   align-items: center;
 }
 
+.horizontal-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .transbox {
   color: yellow;  
   background-color: black;

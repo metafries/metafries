@@ -28,13 +28,14 @@ class NavBar extends Component {
             </div> 
             <div className="fixed-top main-menu">
                 <div className="vertical-center px-3">
-                    <ul className="nav flex-column">
+                    <ul className="nav flex-column horizontal-center">
                         <li className="nav-item delay-1"><a className="nav-link px-2" href="/userid">HOME <i class="fas fa-home"></i></a></li>
                         <li className="nav-item delay-2"><a className="nav-link px-2" href="#">TRENDING <i class="fas fa-fire"></i></a></li>
                         <li className="nav-item delay-3"><a className="nav-link px-2" href="#">EXPLORE <i class="fas fa-map"></i></a></li>
                         <li className="nav-item delay-4"><hr/></li>
-                        {authenticated && <li className="nav-item delay-5"><a className="nav-link px-2" href="/settings">SETTINGS <i class="fas fa-wrench"></i></a></li>}
-                        {authenticated && <li className="nav-item delay-6"><hr/></li>}
+                        {authenticated && <li className="nav-item delay-5"><a className="nav-link px-2" href="#">CREATE EVENT <i class="fas fa-calendar-plus"></i></a></li>}
+                        {authenticated && <li className="nav-item delay-6"><a className="nav-link px-2" href="/settings">SETTINGS <i class="fas fa-wrench"></i></a></li>}
+                        {authenticated && <li className="nav-item delay-7"><hr/></li>}
                         {authenticated ? <SignOut handleSignOut={this.handleSignOut}/> : <SignIn handleSignIn={this.handleSignIn}/>}
                     </ul>
                 </div>
