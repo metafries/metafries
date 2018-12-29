@@ -1,8 +1,8 @@
 import React from 'react'
 import Menu from './Menu.jsx'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import Profile from './Profile.jsx'
-import Account from './Account.jsx'
+import Event from './Event.jsx'
+import Group from './Group.jsx'
 
 const Dashboard = () => {
   return (
@@ -12,9 +12,9 @@ const Dashboard = () => {
         </div>    
         <div className='col-lg-8'>
             <Switch>
-                <Redirect exact from='/settings' to='/settings/profile'/>
-                <Route path='/settings/profile' component={Profile}/>
-                <Route path='/settings/account' component={Account}/>
+                <Redirect exact from='/new' to='/new/event'/>
+                <Route path='/new/event' component={Event}/>
+                <Route path='/new/group' component={Group}/>
             </Switch>
         </div>
     </div>
