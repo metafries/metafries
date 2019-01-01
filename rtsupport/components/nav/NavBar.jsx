@@ -20,7 +20,7 @@ class NavBar extends Component {
     const {authenticated} = this.state
     return (
         <div>
-            <div className="navbar navbar-light box-shadow">
+            <div className="navbar navbar-light box-shadow pl-2">
                 <div className="container-fluid d-flex justify-content-between px-0">
                     <a className="navbar-brand d-flex align-items-center" href="#"><img className="logo" src="/static/images/_logo.png"/></a>
                     <a className="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a>

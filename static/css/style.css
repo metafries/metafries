@@ -71,3 +71,10 @@ div.mdl-progress::after {
   font-size: 30px;
   font-weight:600;
 }
+
+.form-control:focus {
+  border-color: #303aa5;
+  border-radius: 0;
+  border-width: 2px;
+  box-shadow: none;
+}
