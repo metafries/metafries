@@ -31,7 +31,7 @@ class EventBasic extends Component {
     return (
       <form>
         <div className="form-group">
-          <h6 className='font-weight-bold'>Host</h6>
+          <h5 className='font-weight-bold'>Event Host</h5>
           <Select
             className='w-auto'
             value={selectedOption}
@@ -43,21 +43,22 @@ class EventBasic extends Component {
               colors: {
               ...theme.colors,
                 primary25: '#f5f5f5',
-                primary: '#303aa5',
+                primary50: '#f5f5f5',
+                primary: '#000000',
               },
             })}
           />
         </div> 
         <div className="form-group">
-          <h6 className='font-weight-bold'>Event Name</h6>
+          <h5 className='font-weight-bold'>Event Name</h5>
           <input type="text" className="form-control rounded-0" placeholder="Add a short, clear name"/>
         </div>            
         <div class="form-group">
-          <h6 className='font-weight-bold'>Location</h6>
+          <h5 className='font-weight-bold'>Location</h5>
           <input type="text" className="form-control rounded-0" placeholder="Include a place or address"/>
         </div>
         <div class="form-group">
-          <h6 className='font-weight-bold'>Start Date, Time</h6>
+          <h5 className='font-weight-bold'>Start Date, Time</h5>
           <MuiPickersUtilsProvider utils={LuxonUtils}>
             <div className="picker ml-2">
               <DateTimePicker
@@ -70,7 +71,7 @@ class EventBasic extends Component {
           </MuiPickersUtilsProvider>
         </div>
         <div class="form-group">
-          <h6 className='font-weight-bold'>End Date, Time</h6>
+          <h5 className='font-weight-bold'>End Date, Time</h5>
           <MuiPickersUtilsProvider utils={LuxonUtils}>
             <div className="picker ml-2">
               <DateTimePicker
@@ -83,22 +84,22 @@ class EventBasic extends Component {
           </MuiPickersUtilsProvider>
         </div>
         <div class="form-group">
-          <h6 className='font-weight-bold'>Description</h6>
+          <h5 className='font-weight-bold'>Description</h5>
           <textarea className="form-control rounded-0" rows='3' placeholder="Tell people more about the event"/>
         </div>
         <hr/>
         <div class="form-check mb-3">
           <input class="form-check-input" type="radio" name="permission" checked/>
-          <label class="form-check-label font-weight-bold mr-2">Public</label>
-          <small class="text-muted">Anyone can join this event.</small>
+          <h5 class="form-check-label font-weight-bold mx-2">Public</h5>
+          <small class="text-muted ml-2">Anyone can join this event.</small>
         </div>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="permission"/>
-          <label class="form-check-label font-weight-bold mr-2">Private</label>
-          <small class="text-muted">You choose who can join this event.</small>
+          <h5 class="form-check-label font-weight-bold mx-2">Private</h5>
+          <small class="text-muted ml-2">You choose who can join this event.</small>
         </div>
         <hr/>
-        <button type="submit" class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">Create Event</button>
+        <button type="submit" class="btn btn-dark btn-lg rounded text-ddc213 font-weight-bold">Create Event</button>
       </form>
     )
   }
