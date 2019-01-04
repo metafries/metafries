@@ -73,7 +73,7 @@ div.mdl-progress::after {
 }
 
 .form-control:focus {
-  border-color: #000000;
+  border-color: #303aa5;
   border-radius: 0;
   border-width: 2px;
   box-shadow: none;

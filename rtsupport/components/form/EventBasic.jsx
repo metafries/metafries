@@ -15,6 +15,8 @@ class EventBasic extends Component {
     selectedOption: null,
     selectedStartDate: DateTime.local(),
     selectedEndDate: DateTime.local(),
+    selectedStartDateError: false,
+    selectedEndDateError: false
   }
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
@@ -26,8 +28,31 @@ class EventBasic extends Component {
   handleEndDateChange = (date) => {
     this.setState({selectedEndDate: date});
   };
+  isValidDateTime = () => {
+    const { 
+      selectedStartDate, selectedEndDate, 
+      selectedStartDateError
+    } = this.state
+    
+    this.setState({
+      selectedStartDateError: selectedStartDate.plus({minutes:1}) < DateTime.local(),
+      selectedEndDateError: selectedEndDate < selectedStartDate
+    })
+
+    if (!selectedStartDateError) {
+      if (selectedEndDate < selectedStartDate) {
+        this.setState({
+          selectedEndDate: selectedStartDate
+        })
+      }  
+    }
+  }
   render() {
-    const { selectedOption } = this.state;
+    const { 
+      selectedOption, 
+      selectedStartDate, selectedEndDate, 
+      selectedStartDateError, selectedEndDateError
+     } = this.state;
     return (
       <form>
         <div className="form-group">
@@ -44,7 +69,7 @@ class EventBasic extends Component {
               ...theme.colors,
                 primary25: '#f5f5f5',
                 primary50: '#f5f5f5',
-                primary: '#000000',
+                primary: '#303aa5',
               },
             })}
           />
@@ -63,9 +88,15 @@ class EventBasic extends Component {
             <div className="picker ml-2">
               <DateTimePicker
                 className='w-100'
-                value={this.state.selectedStartDate}
+                value={selectedStartDate}
                 onChange={this.handleStartDateChange}    
                 showTodayButton    
+                minDate={DateTime.local().minus({days:1})}                
+                onFocus={this.isValidDateTime}                                
+                error={selectedStartDateError}                        
+                {...(selectedStartDateError ? 
+                  { helperText: "An event can't be created in the past." } : {}
+                )}                
               />
             </div>
           </MuiPickersUtilsProvider>
@@ -76,9 +107,18 @@ class EventBasic extends Component {
             <div className="picker ml-2">
               <DateTimePicker
                 className='w-100'
-                value={this.state.selectedEndDate}
+                value={selectedEndDate}
                 onChange={this.handleEndDateChange}    
                 showTodayButton    
+                minDate={DateTime.min(
+                  selectedEndDate.minus({days:1}),
+                  selectedStartDate.minus({days:1})
+                )} 
+                onFocus={this.isValidDateTime}
+                error={this.state.selectedEndDateError}                        
+                {...(selectedEndDateError ? 
+                  { helperText: "The event end time must be after the start time." } : {}
+                )}                 
               />
             </div>
           </MuiPickersUtilsProvider>
@@ -99,7 +139,7 @@ class EventBasic extends Component {
           <small class="text-muted ml-2">You choose who can join this event.</small>
         </div>
         <hr/>
-        <button type="submit" class="btn btn-dark btn-lg rounded text-ddc213 font-weight-bold">Create Event</button>
+        <button type="submit" class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">Create Event</button>
       </form>
     )
   }
