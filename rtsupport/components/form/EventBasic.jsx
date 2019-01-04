@@ -35,7 +35,7 @@ class EventBasic extends Component {
     } = this.state
     
     this.setState({
-      selectedStartDateError: selectedStartDate.plus({minutes:1}) < DateTime.local(),
+      selectedStartDateError: selectedStartDate < DateTime.local(),
       selectedEndDateError: selectedEndDate < selectedStartDate
     })
 
