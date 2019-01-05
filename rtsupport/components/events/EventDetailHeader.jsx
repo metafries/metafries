@@ -2,28 +2,70 @@ import React from 'react'
 
 const EventDetailHeader = ({event}) => {
   return (
-    <div className='card mb-3 rounded-0 border-white'>
-      <div className='card-header rounded-0 p-0'
-           style={{background:`url(/static/images/IMG_20180706_185041.jpg)`}}>
-        <div className='transbox m-0 p-2'>
-          <h1 className='card-title mb-1'>{event.title}</h1>
-          <p className='mb-1'><i class="far fa-clock"></i> {event.startDate} - {event.endDate}</p>
-          <p className='mb-1'><i class="fas fa-map-marker-alt"></i> {event.venue}</p>
-          <p><i class="fas fa-home"></i> Hosted by <strong>{event.hostedBy}</strong></p>        
+    <div class="card mb-3 rounded-0">
+      <div class="card-body transbox rounded-0 text-center">
+        <h1 className='card-title'>{event.title}</h1>
+        <h4>
+          <i class="fas fa-globe mr-2"></i>Public<strong> · </strong>
+          Hosted by <a className='edh-a font-weight-bold' href='#'>{event.hostedBy}</a>
+        </h4>  
+        <hr className='edh-h'/>
+        <a role="button" class="btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0" href={`/modify/${event.id}`}>
+        <i class="fas fa-tools mr-2"></i>EDIT \ SETTINGS
+        </a>
+      </div>
+      <div id="carouselEventIndicators" class="carousel slide" data-ride="carousel" data-interval="2000">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselEventIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselEventIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselEventIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="/static/images/IMG_20180706_185041.jpg" alt="First slide"/>
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="/static/images/IMG_20180706_185041.jpg" alt="Second slide"/>
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="/static/images/IMG_20180706_185041.jpg" alt="Third slide"/>
+          </div>
+          <a class="carousel-control-prev" href="#carouselEventIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselEventIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>          
         </div>
       </div>
-      <div className='card-body rounded-0 px-0 pt-1'>
-        <button 
-          type="button" 
-          class="btn btn-dark rounded-0 text-ddc213 font-weight-bold w-100 mb-1 text-right">
-          <i class="fas fa-fire"></i> Like | 4,957,524
-        </button>
-        <button 
-          type="button" 
-          class="btn btn-dark rounded-0 text-ddc213 font-weight-bold w-100 text-right">
-          <i class="fas fa-check"></i> Going | 2
-        </button>
-      </div>
+      <table class="table transbox m-0">
+        <thead>
+          <tr>
+            <th scope="col" className='text-center w-25'>
+              <button type='button' className='edh-b font-weight-bold'>
+                <i class="fas fa-fire"></i><br/>Like
+              </button>
+            </th>
+            <th scope="col" className='text-center w-25'>
+              <button type='button' className='edh-b font-weight-bold'>
+                <i class="fas fa-check"></i><br/>Going
+              </button>
+            </th>
+            <th scope="col" className='text-center w-25'>
+              <button type='button' className='edh-b font-weight-bold'>
+                <i class="fas fa-share"></i><br/>Share
+              </button>
+            </th>
+            <th scope="col" className='text-center w-25'>
+              <button type='button' className='edh-b font-weight-bold'>
+                <i class="fas fa-bookmark"></i><br/>Save
+              </button>
+            </th>
+          </tr>
+        </thead>
+      </table>      
     </div>
   )
 }

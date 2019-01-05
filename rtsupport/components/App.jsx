@@ -6,6 +6,7 @@ import Create from './useracct/Create/Dashboard.jsx'
 import Settings from './useracct/Settings/Dashboard.jsx'
 import TestComponent from './testarea/TestComponent.jsx'
 import EventDetailPage from './events/EventDetailPage.jsx'
+import EventSettings from './modify/Events/Dashboard.jsx'
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
         <Route path='/test' component={TestComponent}/>
         <Route path='/userid' component={HomePage}/>      
         <Route path='/event/:id' component={EventDetailPage}/>
+        <Route path='/modify/:id' component={EventSettings}/>
         <Route path='/new' component={Create}/>
         <Route path='/settings' component={Settings}/>
       </switch>
