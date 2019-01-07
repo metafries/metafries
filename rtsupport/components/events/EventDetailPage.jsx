@@ -20,10 +20,10 @@ const EventDetailPage = ({event}) => {
       <div className='col-lg-8'>
         <EventDetailHeader event={event}/>
         <EventDetailInfo event={event}/>
-        <EventDetailChat/>
       </div>
       <div className='col-lg-4'>
         <EventDetailSidebar attendees={event.attendees}/>
+        <EventDetailChat/>
       </div>
     </div>
   )

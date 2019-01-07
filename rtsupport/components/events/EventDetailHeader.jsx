@@ -3,22 +3,33 @@ import React from 'react'
 const EventDetailHeader = ({event}) => {
   return (
     <div class="card mb-3 rounded-0">
-      <div class="card-body transbox rounded-0 text-center">
-        <h1 className='card-title'>{event.title}</h1>
-        <h4>
-          <i class="fas fa-globe mr-2"></i>Public<strong> · </strong>
-          Hosted by <a className='edh-a font-weight-bold' href='#'>{event.hostedBy}</a>
-        </h4>  
+      <div className='card-body transbox'>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row" className='border-0'>
+                <img src={event.hostPhotoURL} className="contact float-right" alt="..."/>
+              </th>
+              <td className='border-0'>
+                <h2>{event.title}</h2>
+                <h4 className='mb-0'>
+                  <i class="fas fa-globe mr-2"></i>Public<strong> · </strong>
+                  Hosted by <a href='#' className='edh-a'>{event.hostedBy}</a>
+                </h4>
+              </td>
+            </tr>
+          </tbody>      
+        </table>
         <hr className='edh-h'/>
-        <a role="button" class="btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0" href={`/modify/${event.id}`}>
-        <i class="fas fa-tools mr-2"></i>EDIT \ SETTINGS
+        <a role="button" class="btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100" href="/modify/2">
+          EDIT \ SETTINGS
         </a>
-      </div>
-      <div id="carouselEventIndicators" class="carousel slide" data-ride="carousel" data-interval="2000">
+      </div>  
+      <div id={event.id} class="carousel slide" data-ride="carousel" data-interval="2000">
         <ol class="carousel-indicators">
-          <li data-target="#carouselEventIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselEventIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselEventIndicators" data-slide-to="2"></li>
+          <li data-target={`#${event.id}`} data-slide-to="0" class="active"></li>
+          <li data-target={`#${event.id}`} data-slide-to="1"></li>
+          <li data-target={`#${event.id}`} data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">

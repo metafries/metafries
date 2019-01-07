@@ -25,42 +25,66 @@ class EventListItem extends Component {
     const {event} = this.props;
     return (
       <div className='card border-dark rounded-0 mb-3'>
-        <div className='card-header border-dark rounded-0 bg-white'>
-          <h4>{event.title}</h4>
-          <i class="far fa-clock"></i> {event.startDate} <i class="fas fa-minus"></i> {event.endDate}
-          <i class="fas fa-map-marker-alt ml-2"></i> {event.location}
-          <i class="fas fa-bolt ml-2"></i> 4,957,524<br/>   
-          <small>Hosted by <a href='#'>{event.hostedBy}</a></small>
+        <div id={event.id} class="carousel slide" data-ride="carousel" data-interval="2000">
+          <ol class="carousel-indicators">
+            <li data-target={`#${event.id}`} data-slide-to="0" class="active"></li>
+            <li data-target={`#${event.id}`} data-slide-to="1"></li>
+            <li data-target={`#${event.id}`}data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="/static/images/IMG_20180706_185041.jpg" alt="First slide"/>
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="/static/images/IMG_20180706_185041.jpg" alt="Second slide"/>
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="/static/images/IMG_20180706_185041.jpg" alt="Third slide"/>
+            </div>
+            <a class="carousel-control-prev" href={`#${event.id}`} role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href={`#${event.id}`} role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>          
+          </div>
         </div>
-        <div className='card-body'>
-          <strong className='d-block mb-2'>2 people are going</strong>
-          {event.attendees && event.attendees.map((a) => (
-            <EventListAttendee key={a.id} attendee={a} />
-          ))}
-          <br/><br/>
-          <h6 class="card-title mt-2">{event.description}</h6>
+        <div className='card-body transbox pb-0'>
+          <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row" className='border-0'>
+                  <img src={event.hostPhotoURL} className="signout float-right" alt="..."/>
+                </th>
+                <td className='border-0'>
+                  <h3>{event.title}</h3>
+                  <h5>
+                    <i class="fas fa-globe mr-2"></i>Public<strong> · </strong>
+                    Hosted by <a href='#' className='edh-a'>{event.hostedBy}</a>
+                  </h5>
+                </td>
+              </tr>
+              <tr className='h6'>
+                <th scope="row" className='text-right'>VENUE</th>
+                <td>{event.venue}</td>
+              </tr>
+              <tr className='h6'>
+                <th scope="row" className='text-right'>DATE, TIME</th>
+                <td>{event.startDate} - {event.endDate}</td>
+              </tr>
+            </tbody>      
+          </table>
         </div>  
-        <LinkContainer to={`/event/${event.id}`}>
-        <button 
-          type="button" 
-          className="btn btn-dark float-right mb-3 py-0 rounded-0 text-ddc213 font-weight-bold">
-          More <i class="fas fa-ellipsis-h"></i>
-        </button>        
-        </LinkContainer>
-        <button 
-          type="button" 
-          class="btn btn-dark float-right mb-3 py-0 rounded-0 text-ddc213 font-weight-bold"
-          data-toggle="modal" 
-          data-target={'#'+event.id}>
-          Edit <i class="fas fa-edit"></i>
-        </button>
-        <EditEvent 
-        selectedEvent={event} 
-        handleEditEvent={this.handleEditEvent} 
-        getDeleteEventId={this.getDeleteEventId} />
-        <div class="card-footer px-0 py-0 bg-white">
-          <button type="button" class="btn btn-outline-dark rounded-0 w-50 border-dark border-left-0"><i class="fas fa-fire"></i> Like</button>
-          <button type="button" class="btn btn-outline-dark rounded-0 w-50 border-dark border-left-0 border-right-0"><i class="fas fa-check"></i> Going</button>
+        <div class="card-footer transbox">
+          <LinkContainer to={`/event/${event.id}`}>
+            <button 
+              type="button" 
+              className="btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100">
+              VIEW
+            </button>        
+          </LinkContainer>
         </div>
       </div>
     )
@@ -68,33 +92,3 @@ class EventListItem extends Component {
 }
 
 export default EventListItem
-
-    //  <Segment.Group>
-    //     <Segment>
-    //       <Item.Group>
-    //         <Item>
-    //           <Item.Image size="tiny" circular src="" />
-    //           <Item.Content>
-    //             <Item.Header as="a">Event Title</Item.Header>
-    //             <Item.Description>
-    //               Hosted by <a>hosted by</a>
-    //             </Item.Description>
-    //           </Item.Content>
-    //         </Item>
-    //       </Item.Group>
-    //     </Segment>
-    //     <Segment>
-    //       <span>
-    //         <Icon name="clock" /> date |
-    //         <Icon name="marker" /> time
-    //       </span>
-    //     </Segment>
-    //     <Segment secondary>
-    //       <List horizontal>
-    //         {/* todo: attendees go here */}
-    //       </List>
-    //     </Segment>
-    //     <Segment clearing>
-    //       <Button as="a" color="teal" floated="right" content="View" />
-    //     </Segment>
-    //   </Segment.Group>
