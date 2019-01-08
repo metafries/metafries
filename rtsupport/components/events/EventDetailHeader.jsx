@@ -41,11 +41,11 @@ const EventDetailHeader = ({event}) => {
           <div class="carousel-item">
             <img class="d-block w-100" src="/static/images/IMG_20180706_185041.jpg" alt="Third slide"/>
           </div>
-          <a class="carousel-control-prev" href="#carouselEventIndicators" role="button" data-slide="prev">
+          <a class="carousel-control-prev" href={`#${event.id}`} role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
           </a>
-          <a class="carousel-control-next" href="#carouselEventIndicators" role="button" data-slide="next">
+          <a class="carousel-control-next" href={`#${event.id}`} role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>          
