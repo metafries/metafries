@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import HomePage from './home/HomePage.jsx'
 import LandingPage from './home/LandingPage.jsx'
-import Create from './useracct/Create/Dashboard.jsx'
 import Settings from './useracct/Settings/Dashboard.jsx'
 import TestComponent from './testarea/TestComponent.jsx'
 import EventDetailPage from './events/EventDetailPage.jsx'
-import EventSettings from './modify/Events/Dashboard.jsx'
+import EventForm from './events/EventForm.jsx'
 
 class App extends Component {
   render() {
@@ -15,9 +14,9 @@ class App extends Component {
         <Route exact path='/' component={LandingPage}/>
         <Route path='/test' component={TestComponent}/>
         <Route path='/userid' component={HomePage}/>      
-        <Route path='/event/:id' component={EventDetailPage}/>
-        <Route path='/modify/:id' component={EventSettings}/>
-        <Route path='/new' component={Create}/>
+        <Route path='/events/:id' component={EventDetailPage}/>
+        <Route path='/mod/events/:id' component={EventForm}/>
+        <Route path='/new' component={EventForm}/>
         <Route path='/settings' component={Settings}/>
       </switch>
     )

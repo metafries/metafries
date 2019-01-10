@@ -78,7 +78,7 @@ class EventListItem extends Component {
           </table>
         </div>  
         <div class="card-footer transbox">
-          <LinkContainer to={`/event/${event.id}`}>
+          <LinkContainer to={`/events/${event.id}`}>
             <button 
               type="button" 
               className="btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100">

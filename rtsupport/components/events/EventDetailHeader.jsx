@@ -21,7 +21,11 @@ const EventDetailHeader = ({event}) => {
           </tbody>      
         </table>
         <hr className='edh-h'/>
-        <a role="button" class="btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100" href="/modify/2">
+        <a 
+          role="button" 
+          class="btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100" 
+          href={`/mod/events/${event.id}`}
+        >
           EDIT \ SETTINGS
         </a>
       </div>  
