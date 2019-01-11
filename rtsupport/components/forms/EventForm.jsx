@@ -4,19 +4,20 @@ import { DateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import LuxonUtils from '@date-io/luxon';
 import { DateTime } from "luxon";
 
-const options = [
-  { value: 'user', label: 'USER' },
-  { value: 'group_1', label: 'Group_1' },
-  { value: 'group_2', label: 'Group_2' }  
-];
+let options = []
 
 class EventBasic extends Component {
   state = {
+    event: this.props.event,
     selectedOption: null,
     selectedStartDate: DateTime.local(),
     selectedEndDate: DateTime.local(),
     selectedStartDateError: false,
     selectedEndDateError: false
+  }
+  componentDidMount() {
+    const {event, isMOD} = this.props
+    console.log(event, isMOD)
   }
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
@@ -49,6 +50,7 @@ class EventBasic extends Component {
   }
   render() {
     const { 
+      event,
       selectedOption, 
       selectedStartDate, selectedEndDate, 
       selectedStartDateError, selectedEndDateError
@@ -139,7 +141,11 @@ class EventBasic extends Component {
           <small class="text-muted ml-2">You choose who can join this event.</small>
         </div>
         <hr/>
-        <button type="submit" class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">Create Event</button>
+        {
+          this.props.isMOD
+          ? <button type="submit" class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">Update Event</button>
+          : <button type="submit" class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">Create Event</button>          
+        }
       </form>
     )
   }
