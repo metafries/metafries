@@ -22,13 +22,17 @@ const Dashboard = ({event}) => {
         </div>    
         <div className='col-lg-8'>
             <Switch>
-                <Redirect exact from={`/mod/events/${event.id}`} to={`/mod/events/${event.id}/info`}/>
-                <Route 
-                    path={`/mod/events/${event.id}/info`} 
-                    render={()=><EventForm event={event} isMOD={true}/>}
+                <Redirect 
+                    exact 
+                    from={`/manage/events/${event.id}`} 
+                    to={`/manage/events/${event.id}/info`}
                 />
                 <Route 
-                    path={`/mod/events/${event.id}/attendees`} 
+                    path={`/manage/events/${event.id}/info`} 
+                    render={()=><EventForm event={event} isManage={true}/>}
+                />
+                <Route 
+                    path={`/manage/events/${event.id}/attendees`} 
                     render={()=><Attendees attendees={event.attendees}/>}
                 />
             </Switch>

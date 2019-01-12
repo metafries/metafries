@@ -24,9 +24,9 @@ const EventDetailHeader = ({event}) => {
         <a 
           role="button" 
           class="btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100" 
-          href={`/mod/events/${event.id}`}
+          href={`/manage/events/${event.id}`}
         >
-          EDIT \ SETTINGS
+          MANAGE
         </a>
       </div>  
       <div id={event.id} class="carousel slide" data-ride="carousel" data-interval="2000">

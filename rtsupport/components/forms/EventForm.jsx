@@ -16,8 +16,8 @@ class EventBasic extends Component {
     selectedEndDateError: false
   }
   componentDidMount() {
-    const {event, isMOD} = this.props
-    console.log(event, isMOD)
+    const {event, isManage} = this.props
+    console.log(event, isManage)
   }
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
@@ -142,7 +142,7 @@ class EventBasic extends Component {
         </div>
         <hr/>
         {
-          this.props.isMOD
+          this.props.isManage
           ? <button type="submit" class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">Update Event</button>
           : <button type="submit" class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">Create Event</button>          
         }

@@ -12,9 +12,9 @@ const Dashboard = () => {
         </div>    
         <div className='col-lg-8'>
             <Switch>
-                <Redirect exact from='/new' to='/new/event'/>
-                <Route path='/new/event' component={EventForm}/>
-                <Route path='/new/group' component={GroupForm}/>
+                <Redirect exact from='/create' to='/create/event'/>
+                <Route path='/create/event' component={EventForm}/>
+                <Route path='/create/group' component={GroupForm}/>
             </Switch>
         </div>
     </div>

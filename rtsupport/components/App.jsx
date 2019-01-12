@@ -5,8 +5,8 @@ import LandingPage from './home/LandingPage.jsx'
 import Settings from './useracct/Settings/Dashboard.jsx'
 import TestComponent from './testarea/TestComponent.jsx'
 import EventDetailPage from './events/EventDetailPage.jsx'
-import EventSettings from './events/Settings/Dashboard.jsx'
-import Create from './nav/Create/Dashboard.jsx'
+import EventManagement from './events/Manage/Dashboard.jsx'
+import CreateNav from './nav/Create/Dashboard.jsx'
 
 class App extends Component {
   render() {
@@ -16,8 +16,8 @@ class App extends Component {
         <Route path='/test' component={TestComponent}/>
         <Route path='/userid' component={HomePage}/>      
         <Route path='/events/:id' component={EventDetailPage}/>
-        <Route path='/mod/events/:id' component={EventSettings}/>
-        <Route path='/new' component={Create}/>
+        <Route path='/manage/events/:id' component={EventManagement}/>
+        <Route path='/create' component={CreateNav}/>
         <Route path='/settings' component={Settings}/>
       </switch>
     )
