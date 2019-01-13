@@ -4,57 +4,101 @@ import { DateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import LuxonUtils from '@date-io/luxon';
 import { DateTime } from "luxon";
 
-let options = []
+let options = [
+  {label: 'Anonymous', value: 'Anonymous'}
+]
 
 class EventBasic extends Component {
   state = {
-    event: this.props.event,
-    selectedOption: null,
-    selectedStartDate: DateTime.local(),
-    selectedEndDate: DateTime.local(),
+    selectedOption: null,    
+    event: {
+      hostedBy: '',
+      title: '',
+      location: '',
+      startDate: DateTime.local().toFormat('yyyy/MM/dd, HH:mm'),
+      endDate: DateTime.local().toFormat('yyyy/MM/dd, HH:mm'),
+      description: '',
+      permission: 0
+    },
     selectedStartDateError: false,
-    selectedEndDateError: false
+    selectedEndDateError: false,
   }
   componentDidMount() {
     const {event, isManage} = this.props
-    console.log(event, isManage)
+    if (isManage) {
+      options = [
+        {label: event.hostedBy, value: event.hostedBy}
+      ]
+      this.setState({
+        selectedOption: { 
+          label: event.hostedBy, 
+          value: event.hostedBy 
+        },
+        event: event,        
+      })  
+    }
   }
   handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
+    this.setState({ 
+      selectedOption 
+    });
+    const update = this.state.event;
+    update.hostedBy = selectedOption.value
+    this.setState({
+      event: update
+    })
+  }
+  handlePermissionChange = (e) => {
+    this.setState({
+      selectedPermission: e.target.value
+    })
   }
   handleStartDateChange = (date) => {
-    this.setState({selectedStartDate: date});
+    const update = this.state.event;
+    update.startDate = date.toFormat('yyyy/MM/dd, HH:mm')
+    this.setState({
+        event: update
+    });
   };
   handleEndDateChange = (date) => {
-    this.setState({selectedEndDate: date});
+    const update = this.state.event;
+    update.endDate = date.toFormat('yyyy/MM/dd, HH:mm')
+    this.setState({
+        event: update
+    });
   };
   isValidDateTime = () => {
-    const { 
-      selectedStartDate, selectedEndDate, 
-      selectedStartDateError
-    } = this.state
-    
+    const {event, selectedStartDateError} = this.state
+    const showStartDate = DateTime.fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')
+    const showEndDate = DateTime.fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')
+
     this.setState({
-      selectedStartDateError: selectedStartDate < DateTime.local(),
-      selectedEndDateError: selectedEndDate < selectedStartDate
+      selectedStartDateError: showStartDate < DateTime.local(),
+      selectedEndDateError: showEndDate < showStartDate
     })
 
     if (!selectedStartDateError) {
-      if (selectedEndDate < selectedStartDate) {
+      if (showEndDate < showStartDate) {
+        const update = this.state.event;
+        update.endDate = update.startDate
         this.setState({
-          selectedEndDate: selectedStartDate
+          event: update
         })
       }  
     }
   }
+  onInputChange = (e) => {
+    const userInput = this.state.event;
+    userInput[e.target.name] = e.target.value;
+    this.setState({
+      event: userInput
+    })
+    console.log(userInput)
+  }
   render() {
-    const { 
-      event,
-      selectedOption, 
-      selectedStartDate, selectedEndDate, 
-      selectedStartDateError, selectedEndDateError
-     } = this.state;
+    const {selectedOption, event, selectedStartDateError, selectedEndDateError} = this.state;
+    const showStartDate = DateTime.fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')
+    const showEndDate = DateTime.fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')
     return (
       <form>
         <div className="form-group">
@@ -77,12 +121,26 @@ class EventBasic extends Component {
           />
         </div> 
         <div className="form-group">
-          <h5 className='font-weight-bold'>Event Name</h5>
-          <input type="text" className="form-control rounded-0" placeholder="Add a short, clear name"/>
+          <h5 className='font-weight-bold'>Event Title</h5>
+          <input 
+            name='title'                                                  
+            onChange={this.onInputChange}                                 
+            value={event.title}            
+            type="text" 
+            className="form-control rounded-0" 
+            placeholder="Add a short, clear name"
+          />
         </div>            
         <div class="form-group">
           <h5 className='font-weight-bold'>Location</h5>
-          <input type="text" className="form-control rounded-0" placeholder="Include a place or address"/>
+          <input 
+            name='location'
+            onChange={this.onInputChange} 
+            value={event.location} 
+            type="text" 
+            className="form-control rounded-0" 
+            placeholder="Include a place or address"
+          />
         </div>
         <div class="form-group">
           <h5 className='font-weight-bold'>Start Date, Time</h5>
@@ -90,10 +148,13 @@ class EventBasic extends Component {
             <div className="picker ml-2">
               <DateTimePicker
                 className='w-100'
-                value={selectedStartDate}
+                value={showStartDate}
                 onChange={this.handleStartDateChange}    
                 showTodayButton    
-                minDate={DateTime.local().minus({days:1})}                
+                minDate={DateTime.min(
+                  DateTime.local().minus({days:1}),
+                  showStartDate.minus({days:1})       
+                )}                
                 onFocus={this.isValidDateTime}                                
                 error={selectedStartDateError}                        
                 {...(selectedStartDateError ? 
@@ -109,12 +170,12 @@ class EventBasic extends Component {
             <div className="picker ml-2">
               <DateTimePicker
                 className='w-100'
-                value={selectedEndDate}
+                value={showEndDate}
                 onChange={this.handleEndDateChange}    
                 showTodayButton    
                 minDate={DateTime.min(
-                  selectedEndDate.minus({days:1}),
-                  selectedStartDate.minus({days:1})
+                  showEndDate.minus({days:1}),
+                  showStartDate.minus({days:1})
                 )} 
                 onFocus={this.isValidDateTime}
                 error={this.state.selectedEndDateError}                        
@@ -127,24 +188,53 @@ class EventBasic extends Component {
         </div>
         <div class="form-group">
           <h5 className='font-weight-bold'>Description</h5>
-          <textarea className="form-control rounded-0" rows='3' placeholder="Tell people more about the event"/>
+          <textarea 
+            name='description'
+            onChange={this.onInputChange} 
+            value={event.description}
+            className="form-control rounded-0" 
+            rows='3' 
+            placeholder="Tell people more about the event"
+          />
         </div>
         <hr/>
         <div class="form-check mb-3">
-          <input class="form-check-input" type="radio" name="permission" checked/>
+          <input 
+            type="radio"
+            name="permission"
+            value={0}   
+            checked={event.permission == 0}   
+            onChange={this.handlePermissionChange}                              
+            class="form-check-input"               
+          />
           <h5 class="form-check-label font-weight-bold mx-2">Public</h5>
           <small class="text-muted ml-2">Anyone can join this event.</small>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="permission"/>
+          <input 
+            type="radio" 
+            name="permission"
+            value={1} 
+            checked={event.permission == 1}
+            onChange={this.handlePermissionChange}
+            class="form-check-input" 
+          />
           <h5 class="form-check-label font-weight-bold mx-2">Private</h5>
           <small class="text-muted ml-2">You choose who can join this event.</small>
         </div>
         <hr/>
         {
           this.props.isManage
-          ? <button type="submit" class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">Update Event</button>
-          : <button type="submit" class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">Create Event</button>          
+          ? <button 
+              type="submit" 
+              class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">
+              Update Event
+            </button>
+          : <button 
+              type="submit" 
+              class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">
+              Create Event
+            </button>          
         }
       </form>
     )

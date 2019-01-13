@@ -14,6 +14,7 @@ const initState = [
       venue: "Tower of London, St Katharine's & Wapping, London",
       hostedBy: 'Bob',
       hostPhotoURL: '/static/images/whazup-square-logo.png',
+      permission: 0,
       attendees: [
         {
           id: 'a',
@@ -39,6 +40,7 @@ const initState = [
       venue: 'Punch & Judy, Henrietta Street, London, UK',
       hostedBy: 'Tom',
       hostPhotoURL: '/static/images/whazup-square-logo.png',
+      permission: 1,      
       attendees: [
         {
           id: 'b',
