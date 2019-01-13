@@ -1,39 +1,19 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import EventList from '../events/EventList.jsx'
-import cuid from 'cuid'
 import SearchEvent from '../controlpanel/SearchEvent.jsx'
-import CreateEvent from '../controlpanel/CreateEvent.jsx'
 import InstantMsg from '../controlpanel/InstantMsg.jsx'
-import { createEvent, deleteEvent } from '../events/eventActions.jsx'
+import { deleteEvent } from '../events/eventActions.jsx'
 
 const mapState = (state) => ({
   events: state.events
 })
 
 const actions = {
-  createEvent,
   deleteEvent
 }
 
 class HomePage extends Component {
-  handleCreateEvent = (newEvent) => {
-   newEvent.id = cuid();
-   newEvent.hostedBy = newEvent.id;
-   newEvent.attendees = [
-    {
-      id: 'b',
-      name: 'Tom',
-      photoURL: ''
-    },
-    {
-      id: 'a',
-      name: 'Bob',
-      photoURL: ''
-    }
-   ]
-   this.props.createEvent(newEvent)
-  }
   handleDeleteEvent = (cancelEvent_id) => {
     this.props.deleteEvent(cancelEvent_id)
   }
@@ -47,7 +27,6 @@ class HomePage extends Component {
               </div>
               <div class="accordion" id="dashboard">
                 <SearchEvent/>
-                <CreateEvent handleCreateEvent={this.handleCreateEvent}/>
                 <InstantMsg/>
               </div>
             </div>

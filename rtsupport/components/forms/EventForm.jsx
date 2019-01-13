@@ -5,21 +5,13 @@ import LuxonUtils from '@date-io/luxon';
 import { DateTime } from "luxon";
 
 let options = [
-  {label: 'Anonymous', value: 'Anonymous'}
+  { label: 'Anonymous', value: 'Anonymous' }
 ]
 
-class EventBasic extends Component {
+class EventForm extends Component {
   state = {
     selectedOption: null,    
-    event: {
-      hostedBy: '',
-      title: '',
-      location: '',
-      startDate: DateTime.local().toFormat('yyyy/MM/dd, HH:mm'),
-      endDate: DateTime.local().toFormat('yyyy/MM/dd, HH:mm'),
-      description: '',
-      permission: 0
-    },
+    event: this.props.event,
     selectedStartDateError: false,
     selectedEndDateError: false,
   }
@@ -27,14 +19,13 @@ class EventBasic extends Component {
     const {event, isManage} = this.props
     if (isManage) {
       options = [
-        {label: event.hostedBy, value: event.hostedBy}
+        { label: event.hostedBy, value: event.hostedBy }
       ]
       this.setState({
         selectedOption: { 
           label: event.hostedBy, 
           value: event.hostedBy 
         },
-        event: event,        
       })  
     }
   }
@@ -93,14 +84,22 @@ class EventBasic extends Component {
     this.setState({
       event: userInput
     })
-    console.log(userInput)
+  }
+  onFormSubmit = (e) => {
+    e.preventDefault();
+    const {event} = this.state
+    if (this.props.isManage) {
+      // TODO: this.props.handleUpdateEvent(event)
+    } else {
+      this.props.handleCreateEvent(event)
+    }
   }
   render() {
     const {selectedOption, event, selectedStartDateError, selectedEndDateError} = this.state;
     const showStartDate = DateTime.fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')
     const showEndDate = DateTime.fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')
     return (
-      <form>
+      <form onSubmit={this.onFormSubmit}>
         <div className="form-group">
           <h5 className='font-weight-bold'>Event Host</h5>
           <Select
@@ -241,4 +240,4 @@ class EventBasic extends Component {
   }
 }
 
-export default EventBasic
+export default EventForm
