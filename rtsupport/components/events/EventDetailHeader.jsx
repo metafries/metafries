@@ -13,7 +13,9 @@ const EventDetailHeader = ({event}) => {
               <td className='border-0'>
                 <h2>{event.title}</h2>
                 <h4 className='mb-0'>
-                  <i class="fas fa-globe mr-2"></i>Public<strong> · </strong>
+                  {event.permission == 0 && <span><i class="fas fa-globe mr-2"></i>Public</span>}
+                  {event.permission == 1 && <span><i class="fas fa-lock mr-2"></i>Private</span>}
+                  <strong> · </strong>
                   Hosted by <a href='#' className='edh-a'>{event.hostedBy}</a>
                 </h4>
               </td>

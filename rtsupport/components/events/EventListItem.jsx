@@ -61,7 +61,9 @@ class EventListItem extends Component {
                 <td className='border-0'>
                   <h3>{event.title}</h3>
                   <h5>
-                    <i class="fas fa-globe mr-2"></i>Public<strong> · </strong>
+                    {event.permission == 0 && <span><i class="fas fa-globe mr-2"></i>Public</span>}
+                    {event.permission == 1 && <span><i class="fas fa-lock mr-2"></i>Private</span>}
+                    <strong> · </strong>
                     Hosted by <a href='#' className='edh-a'>{event.hostedBy}</a>
                   </h5>
                 </td>

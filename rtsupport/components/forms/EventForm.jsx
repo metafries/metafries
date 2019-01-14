@@ -40,8 +40,10 @@ class EventForm extends Component {
     })
   }
   handlePermissionChange = (e) => {
+    const update = this.state.event;
+    update.permission = e.target.value
     this.setState({
-      selectedPermission: e.target.value
+      event: update
     })
   }
   handleStartDateChange = (date) => {
