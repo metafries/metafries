@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
-import EventListAttendee from './EventListAttendee.jsx'
-import EditEvent from '../controlpanel/EditEvent.jsx'
 
 class EventListItem extends Component {
   state = {

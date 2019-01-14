@@ -91,7 +91,7 @@ class EventForm extends Component {
     e.preventDefault();
     const {event} = this.state
     if (this.props.isManage) {
-      // TODO: this.props.handleUpdateEvent(event)
+      this.props.handleUpdateEvent(event)
     } else {
       this.props.handleCreateEvent(event)
     }
