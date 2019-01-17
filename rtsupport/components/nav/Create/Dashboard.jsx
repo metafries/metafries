@@ -10,7 +10,7 @@ import cuid from 'cuid'
 
 const mapState = () => {
     let event = {
-        hostedBy: '',
+        hostedBy: 'Anonymous',
         title: '',
         location: '',
         startDate: DateTime.local().toFormat('yyyy/MM/dd, HH:mm'),
@@ -43,6 +43,9 @@ class Dashboard extends Component {
     }
     render() {
         const {event} = this.props
+        const options = [
+            { label: event.hostedBy, value: event.hostedBy },
+        ]
         return (
             <div className='row'>
                 <div className='col-lg-4'>
@@ -55,6 +58,7 @@ class Dashboard extends Component {
                             path='/create/event' 
                             render={()=>
                                 <EventForm 
+                                    options={options}                                
                                     event={event} 
                                     handleCreateEvent={this.handleCreateEvent}
                                 />

@@ -4,10 +4,6 @@ import { DateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import LuxonUtils from '@date-io/luxon';
 import { DateTime } from "luxon";
 
-let options = [
-  { label: 'Anonymous', value: 'Anonymous' }
-]
-
 class EventForm extends Component {
   state = {
     selectedOption: null,    
@@ -16,18 +12,13 @@ class EventForm extends Component {
     selectedEndDateError: false,
   }
   componentDidMount() {
-    const {event, isManage} = this.props
-    if (isManage) {
-      options = [
-        { label: event.hostedBy, value: event.hostedBy }
-      ]
-      this.setState({
-        selectedOption: { 
-          label: event.hostedBy, 
-          value: event.hostedBy 
-        },
-      })  
-    }
+    const {event} = this.props
+    this.setState({
+      selectedOption: { 
+        label: event.hostedBy, 
+        value: event.hostedBy 
+      },
+    })  
   }
   handleChange = (selectedOption) => {
     this.setState({ 
@@ -108,7 +99,7 @@ class EventForm extends Component {
             className='w-auto'
             value={selectedOption}
             onChange={this.handleChange}
-            options={options}
+            options={this.props.options}
             theme={(theme) => ({
               ...theme,
               borderRadius: 0,

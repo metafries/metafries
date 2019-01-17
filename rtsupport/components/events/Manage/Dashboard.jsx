@@ -26,6 +26,10 @@ class Dashboard extends Component {
     }
     render() {
         const {event} = this.props 
+        const options = [
+            { label: event.hostedBy, value: event.hostedBy },
+            { label: 'Anonymous', value: 'Anonymous' },    
+        ]
         return (
             <div className='row'>
                 <div className='col-lg-4'>
@@ -42,6 +46,7 @@ class Dashboard extends Component {
                             path={`/manage/events/${event.id}/info`} 
                             render={()=>
                                 <EventForm 
+                                    options={options}
                                     event={event} 
                                     handleUpdateEvent={this.handleUpdateEvent}
                                     isManage={true}
