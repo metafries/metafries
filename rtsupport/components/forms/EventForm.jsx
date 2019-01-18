@@ -8,6 +8,9 @@ class EventForm extends Component {
   state = {
     selectedOption: null,    
     event: this.props.event,
+    isEmptyTitle: true,
+    title_err_msg: 'input-err-msg d-none',
+    title_input: 'form-control rounded-0',
     selectedStartDateError: false,
     selectedEndDateError: false,
   }
@@ -19,6 +22,20 @@ class EventForm extends Component {
         value: event.hostedBy 
       },
     })  
+  }
+  isNotEmptyTitle = (e) => {
+    if (e.target.value.trim().length == 0) {      
+      this.setState({
+        title_err_msg: 'input-err-msg d-block',
+        title_input: 'form-control rounded-0 input-err',        
+      })  
+    } else {
+      this.setState({
+        isEmptyTitle: false,                
+        title_err_msg: 'input-err-msg d-none',
+        title_input: 'form-control rounded-0',                
+      })  
+    }
   }
   handleChange = (selectedOption) => {
     this.setState({ 
@@ -80,15 +97,30 @@ class EventForm extends Component {
   }
   onFormSubmit = (e) => {
     e.preventDefault();
-    const {event} = this.state
-    if (this.props.isManage) {
-      this.props.handleUpdateEvent(event)
-    } else {
-      this.props.handleCreateEvent(event)
+    this.isValidDateTime()
+    const {event, isEmptyTitle, selectedStartDateError, selectedEndDateError} = this.state
+    if (isEmptyTitle) {
+      this.setState({
+        title_err_msg: 'input-err-msg d-block',
+        title_input: 'form-control rounded-0 input-err',        
+      })  
+    } else if (!selectedStartDateError && !selectedEndDateError) {
+      if (this.props.isManage) {
+        this.props.handleUpdateEvent(event)          
+      } else {
+        this.props.handleCreateEvent(event)                  
+      }
     }
   }
   render() {
-    const {selectedOption, event, selectedStartDateError, selectedEndDateError} = this.state;
+    const {
+      selectedOption, 
+      event, 
+      title_err_msg, 
+      title_input,       
+      selectedStartDateError, 
+      selectedEndDateError
+    } = this.state;
     const showStartDate = DateTime.fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')
     const showEndDate = DateTime.fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')
     return (
@@ -116,12 +148,14 @@ class EventForm extends Component {
           <h5 className='font-weight-bold'>Event Title</h5>
           <input 
             name='title'                                                  
+            onBlur={this.isNotEmptyTitle}                                                
             onChange={this.onInputChange}                                 
             value={event.title}            
             type="text" 
-            className="form-control rounded-0" 
+            className={title_input} 
             placeholder="Add a short, clear name"
           />
+          <small className={title_err_msg}>Add a clear title for your event.</small>
         </div>            
         <div class="form-group">
           <h5 className='font-weight-bold'>Location</h5>
