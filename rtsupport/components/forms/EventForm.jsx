@@ -28,6 +28,7 @@ class EventForm extends Component {
   isNotEmptyTitle = (e) => {
     if (e.target.value.trim().length == 0) {      
       this.setState({
+        isEmptyTitle: true,
         title_err_msg: 'input-err-msg d-block',
         title_input: 'form-control rounded-0 input-err',        
       })  
