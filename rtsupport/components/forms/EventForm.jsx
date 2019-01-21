@@ -9,10 +9,12 @@ class EventForm extends Component {
     selectedOption: null,    
     event: this.props.event,
     isEmptyTitle: true,
+    titleInputLength: 0,
     title_err_msg: 'input-err-msg d-none',
     title_input: 'form-control rounded-0',
     selectedStartDateError: false,
     selectedEndDateError: false,
+    descInputLength: 0,
   }
   componentDidMount() {
     const {event} = this.props
@@ -94,6 +96,17 @@ class EventForm extends Component {
     this.setState({
       event: userInput
     })
+    if (e.target.name == 'title') {
+      this.setState({
+        titleInputLength: e.target.value.trim().length
+      })
+      this.isNotEmptyTitle(e)
+    }
+    if (e.target.name == 'description') {
+      this.setState({
+        descInputLength: e.target.value.trim().length
+      })
+    }
   }
   onFormSubmit = (e) => {
     e.preventDefault();
@@ -104,7 +117,9 @@ class EventForm extends Component {
         title_err_msg: 'input-err-msg d-block',
         title_input: 'form-control rounded-0 input-err',        
       })  
-    } else if (!selectedStartDateError && !selectedEndDateError) {
+      return
+    } 
+    if (!selectedStartDateError && !selectedEndDateError) {
       if (this.props.isManage) {
         this.props.handleUpdateEvent(event)          
       } else {
@@ -116,10 +131,12 @@ class EventForm extends Component {
     const {
       selectedOption, 
       event, 
+      titleInputLength,
       title_err_msg, 
       title_input,       
       selectedStartDateError, 
-      selectedEndDateError
+      selectedEndDateError,
+      descInputLength,
     } = this.state;
     const showStartDate = DateTime.fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')
     const showEndDate = DateTime.fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')
@@ -145,17 +162,21 @@ class EventForm extends Component {
           />
         </div> 
         <div className="form-group">
-          <h5 className='font-weight-bold'>Event Title</h5>
+          <h5 className='font-weight-bold'>
+            Event Title
+            <small className='float-right'>{titleInputLength}/128</small>
+          </h5>
           <input 
+            maxlength='128'
             name='title'                                                  
             onBlur={this.isNotEmptyTitle}                                                
             onChange={this.onInputChange}                                 
             value={event.title}            
             type="text" 
             className={title_input} 
-            placeholder="Add a short, clear name"
+            placeholder="Add a concise title"
           />
-          <small className={title_err_msg}>Add a clear title for your event.</small>
+          <small className={title_err_msg}>Title is required.</small>
         </div>            
         <div class="form-group">
           <h5 className='font-weight-bold'>Location</h5>
@@ -213,8 +234,12 @@ class EventForm extends Component {
           </MuiPickersUtilsProvider>
         </div>
         <div class="form-group">
-          <h5 className='font-weight-bold'>Description</h5>
+          <h5 className='font-weight-bold'>
+            Description
+            <small className='float-right'>{descInputLength}/2048</small>            
+          </h5>
           <textarea 
+            maxlength='2048'
             name='description'
             onChange={this.onInputChange} 
             value={event.description}

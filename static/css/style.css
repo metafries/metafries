@@ -113,7 +113,7 @@ div.mdl-progress::after {
   color: red;
 }
 
-.input-err {
+.form-control.input-err {
   border-color: red;
   border-width: 2px;
 }
