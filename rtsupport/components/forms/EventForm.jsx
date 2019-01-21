@@ -24,6 +24,12 @@ class EventForm extends Component {
         value: event.hostedBy 
       },
     })  
+    this.setState({
+      titleInputLength: event.title.length
+    })
+    this.setState({
+      descInputLength: event.description.length
+    })
   }
   isNotEmptyTitle = (e) => {
     if (e.target.value.trim().length == 0) {      
@@ -93,7 +99,7 @@ class EventForm extends Component {
   }
   onInputChange = (e) => {
     const userInput = this.state.event;
-    userInput[e.target.name] = e.target.value;
+    userInput[e.target.name] = e.target.value.trim();
     this.setState({
       event: userInput
     })
