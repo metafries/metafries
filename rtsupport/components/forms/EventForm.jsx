@@ -8,7 +8,6 @@ class EventForm extends Component {
   state = {
     selectedOption: null,    
     event: this.props.event,
-    isEmptyTitle: true,
     titleInputLength: 0,
     title_err_msg: 'input-err-msg d-none',
     title_input: 'form-control rounded-0',
@@ -34,13 +33,11 @@ class EventForm extends Component {
   isNotEmptyTitle = (e) => {
     if (e.target.value.trim().length == 0) {      
       this.setState({
-        isEmptyTitle: true,
         title_err_msg: 'input-err-msg d-block',
         title_input: 'form-control rounded-0 input-err',        
       })  
     } else {
       this.setState({
-        isEmptyTitle: false,                
         title_err_msg: 'input-err-msg d-none',
         title_input: 'form-control rounded-0',                
       })  
@@ -118,8 +115,14 @@ class EventForm extends Component {
   onFormSubmit = (e) => {
     e.preventDefault();
     this.isValidDateTime()
-    const {event, isEmptyTitle, selectedStartDateError, selectedEndDateError} = this.state
-    if (isEmptyTitle) {
+    const {
+      event, 
+      isEmptyTitle, 
+      selectedStartDateError,
+      selectedEndDateError, 
+      titleInputLength,
+    } = this.state
+    if (titleInputLength == 0) {
       this.setState({
         title_err_msg: 'input-err-msg d-block',
         title_input: 'form-control rounded-0 input-err',        
