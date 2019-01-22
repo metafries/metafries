@@ -13,8 +13,8 @@ const mapState = () => {
         hostedBy: 'Anonymous',
         title: '',
         location: '',
-        startDate: DateTime.local().toFormat('yyyy/MM/dd, HH:mm'),
-        endDate: DateTime.local().toFormat('yyyy/MM/dd, HH:mm'),
+        startDate: DateTime.local().plus({minutes:1}).toFormat('yyyy/MM/dd, HH:mm'),
+        endDate: DateTime.local().plus({minutes:2}).toFormat('yyyy/MM/dd, HH:mm'),
         description: '',
         permission: 0  
     }

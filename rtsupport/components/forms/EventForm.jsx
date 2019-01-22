@@ -16,7 +16,7 @@ class EventForm extends Component {
     descInputLength: 0,
   }
   componentDidMount() {
-    const {event} = this.props
+    const {event, isManage} = this.props
     this.setState({
       selectedOption: { 
         label: event.hostedBy, 
@@ -29,6 +29,9 @@ class EventForm extends Component {
     this.setState({
       descInputLength: event.description.length
     })
+    if (isManage) {
+      this.isValidDateTime()      
+    }
   }
   isNotEmptyTitle = (e) => {
     if (e.target.value.trim().length == 0) {      
@@ -81,7 +84,7 @@ class EventForm extends Component {
 
     this.setState({
       selectedStartDateError: showStartDate < DateTime.local(),
-      selectedEndDateError: showEndDate < showStartDate
+      selectedEndDateError: showEndDate < showStartDate.plus({minutes:1})
     })
 
     if (!selectedStartDateError) {
@@ -114,7 +117,6 @@ class EventForm extends Component {
   }
   onFormSubmit = (e) => {
     e.preventDefault();
-    this.isValidDateTime()
     const {
       event, 
       isEmptyTitle, 
@@ -129,12 +131,20 @@ class EventForm extends Component {
       })  
       return
     } 
-    if (!selectedStartDateError && !selectedEndDateError) {
-      if (this.props.isManage) {
-        this.props.handleUpdateEvent(event)          
-      } else {
-        this.props.handleCreateEvent(event)                  
-      }
+    const showStartDate = DateTime.fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')   
+    if (showStartDate < DateTime.local()) {
+      this.isValidDateTime()
+      return
+    }
+    const showEndDate = DateTime.fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')    
+    if (showEndDate < showStartDate.plus({minutes:1})) {
+      this.isValidDateTime()
+      return
+    }
+    if (this.props.isManage) {
+      this.props.handleUpdateEvent(event)          
+    } else {
+      this.props.handleCreateEvent(event)                  
     }
   }
   render() {
@@ -215,7 +225,7 @@ class EventForm extends Component {
                 onFocus={this.isValidDateTime}                                
                 error={selectedStartDateError}                        
                 {...(selectedStartDateError ? 
-                  { helperText: "An event can't be created in the past." } : {}
+                  { helperText: "An event start time must be greater than the current time." } : {}
                 )}                
               />
             </div>
@@ -237,7 +247,7 @@ class EventForm extends Component {
                 onFocus={this.isValidDateTime}
                 error={this.state.selectedEndDateError}                        
                 {...(selectedEndDateError ? 
-                  { helperText: "The event end time must be after the start time." } : {}
+                  { helperText: "The event end time must be greater than the start time." } : {}
                 )}                 
               />
             </div>
