@@ -24,10 +24,10 @@ class EventForm extends Component {
       },
     })  
     this.setState({
-      titleInputLength: event.title.length
+      titleInputLength: event.title.trim().length
     })
     this.setState({
-      descInputLength: event.description.length
+      descInputLength: event.description.trim().length
     })
     if (isManage) {
       this.isValidDateTime()      
@@ -99,7 +99,7 @@ class EventForm extends Component {
   }
   onInputChange = (e) => {
     const userInput = this.state.event;
-    userInput[e.target.name] = e.target.value.trim();
+    userInput[e.target.name] = e.target.value;
     this.setState({
       event: userInput
     })
