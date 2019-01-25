@@ -1,16 +1,27 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import Script from 'react-load-script'
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import { DateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import LuxonUtils from '@date-io/luxon';
 import { DateTime } from "luxon";
+
+const validInput = 'form-control rounded-0'
+const invalidInput = 'form-control rounded-0 input-err'
+const hideErrMsg = 'input-err-msg d-none'
+const showErrMsg = 'input-err-msg d-block'
 
 class EventForm extends Component {
   state = {
     selectedOption: null,    
     event: this.props.event,
+    title_input: validInput,  
+    title_err_msg: hideErrMsg,  
     titleInputLength: 0,
-    title_err_msg: 'input-err-msg d-none',
-    title_input: 'form-control rounded-0',
+    address: '',
+    scriptLoaded: false,
+    addr_input: validInput,  
+    addr_err_msg: hideErrMsg,  
     selectedStartDateError: false,
     selectedEndDateError: false,
     descInputLength: 0,
@@ -36,13 +47,13 @@ class EventForm extends Component {
   isNotEmptyTitle = (e) => {
     if (e.target.value.trim().length == 0) {      
       this.setState({
-        title_err_msg: 'input-err-msg d-block',
-        title_input: 'form-control rounded-0 input-err',        
+        title_err_msg: showErrMsg,
+        title_input: invalidInput,        
       })  
     } else {
       this.setState({
-        title_err_msg: 'input-err-msg d-none',
-        title_input: 'form-control rounded-0',                
+        title_err_msg: hideErrMsg,
+        title_input: validInput,                
       })  
     }
   }
@@ -56,6 +67,42 @@ class EventForm extends Component {
       event: update
     })
   }
+  handleScriptLoad = () => {
+    this.setState({
+      scriptLoaded: true
+    })
+  }
+  handleAddrChange = address => {
+    this.setState({ address });
+    const update = this.state.event;
+    update.location = address
+    this.setState({
+      event: update
+    })
+    if (this.state.event.location.trim() == 0) {
+      this.setState({
+        addr_err_msg: showErrMsg,
+        addr_input: invalidInput,        
+      })  
+    } else {
+      this.setState({
+        addr_err_msg: hideErrMsg,
+        addr_input: validInput,                
+      })  
+    }
+  };
+  handleAddrSelect = (address, placeId) => {
+    this.setState({ address, placeId })
+    const update = this.state.event;
+    update.location = address
+    this.setState({
+      event: update
+    })
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => console.log('Success', latLng))
+      .catch(error => console.error('Error', error));
+  };
   handlePermissionChange = (e) => {
     const update = this.state.event;
     update.permission = e.target.value
@@ -126,11 +173,18 @@ class EventForm extends Component {
     } = this.state
     if (titleInputLength == 0) {
       this.setState({
-        title_err_msg: 'input-err-msg d-block',
-        title_input: 'form-control rounded-0 input-err',        
+        title_err_msg: showErrMsg,
+        title_input: invalidInput,        
       })  
       return
     } 
+    if (event.location.trim() == 0) {
+      this.setState({
+        addr_err_msg: showErrMsg,
+        addr_input: invalidInput,        
+      })  
+      return
+    }
     const showStartDate = DateTime.fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')   
     if (showStartDate < DateTime.local()) {
       this.isValidDateTime()
@@ -154,14 +208,26 @@ class EventForm extends Component {
       titleInputLength,
       title_err_msg, 
       title_input,       
+      address,
+      scriptLoaded,
+      addr_err_msg,
+      addr_input,      
       selectedStartDateError, 
       selectedEndDateError,
       descInputLength,
     } = this.state;
+    const inputProps = {
+      value: address,
+      onChange: this.onChange,
+    }
     const showStartDate = DateTime.fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')
     const showEndDate = DateTime.fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')
     return (
       <form onSubmit={this.onFormSubmit}>
+        <Script
+          url='https://maps.googleapis.com/maps/api/js?key=AIzaSyA8xyoeTTfh5SOxWdF8C5J9oD0PrBQv3WQ&libraries=places'
+          onLoad={this.handleScriptLoad}
+        />
         <div className="form-group">
           <h5 className='font-weight-bold'>Event Host</h5>
           <Select
@@ -200,14 +266,47 @@ class EventForm extends Component {
         </div>            
         <div class="form-group">
           <h5 className='font-weight-bold'>Location</h5>
-          <input 
-            name='location'
-            onChange={this.onInputChange} 
-            value={event.location} 
-            type="text" 
-            className="form-control rounded-0" 
-            placeholder="Include a place or address"
-          />
+          {scriptLoaded &&
+            <PlacesAutocomplete
+              value={event.location}
+              onChange={this.handleAddrChange}
+              onSelect={this.handleAddrSelect}
+            >
+              {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                <div>
+                  <input
+                    {...getInputProps({
+                      placeholder: 'Include a place or address',                      
+                    })}
+                    className={addr_input}
+                  />
+                  <div className="autocomplete-dropdown-container">
+                    {loading && <div>Loading...</div>}
+                    {suggestions.map(suggestion => {
+                      const className = suggestion.active
+                        ? 'suggestion-item--active'
+                        : 'suggestion-item';
+                      // inline style for demonstration purpose
+                      const style = suggestion.active
+                        ? { backgroundColor: '#f5f5f5', cursor: 'pointer' }
+                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                      return (
+                        <div
+                          {...getSuggestionItemProps(suggestion, {
+                            className,
+                            style,
+                          })}
+                        >
+                          <span>{suggestion.description}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </PlacesAutocomplete>
+          }
+          <small className={addr_err_msg}>Location is required.</small>
         </div>
         <div class="form-group">
           <h5 className='font-weight-bold'>Start Date, Time</h5>
