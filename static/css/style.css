@@ -117,3 +117,8 @@ div.mdl-progress::after {
   border-color: red;
   border-width: 2px;
 }
+
+.map-marker {
+  width: 30.4px;
+  height: 30.4px;  
+}

@@ -24,6 +24,7 @@
     "@material-ui/core": "^3.8.1",
     "cuid": "^2.1.4",
     "fecha": "^2.3.3",
+    "google-map-react": "^1.1.2",
     "luxon": "^1.7.1",
     "material-ui-pickers": "^2.0.5",
     "react-dom": "^16.5.2",

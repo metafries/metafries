@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Script from 'react-load-script'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import GoogleMapReact from 'google-map-react';
 import { incrementCounter, decrementCounter } from './testActions.jsx'
 
 const mapState = (state) => ({
@@ -13,6 +14,9 @@ const actions = {
   decrementCounter
 }
 
+const Marker = () => (
+  <img src='/static/images/whazup-square-logo.png' className="map-marker rounded-circle" alt="..."/>
+)
 class TestComponent extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +26,13 @@ class TestComponent extends Component {
     };
   }
 
+  static defaultProps = {
+    center: {
+      lat: 59.95,
+      lng: 30.33
+    },
+    zoom: 11
+  };
   handleScriptLoad = () => {
     this.setState({
       scriptLoaded: true
@@ -96,6 +107,18 @@ class TestComponent extends Component {
             )}
           </PlacesAutocomplete>
         }
+        <div style={{ height: '100vh', width: '100%' }}>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: 'AIzaSyA8xyoeTTfh5SOxWdF8C5J9oD0PrBQv3WQ' }}
+            defaultCenter={this.props.center}
+            defaultZoom={this.props.zoom}
+          >
+            <Marker
+              lat={59.955413}
+              lng={30.337844}
+            />
+          </GoogleMapReact>
+        </div>
       </div>
     )
   }
