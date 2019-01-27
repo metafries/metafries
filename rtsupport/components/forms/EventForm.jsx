@@ -100,7 +100,14 @@ class EventForm extends Component {
     })
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
-      .then(latLng => console.log('Success', latLng))
+      .then(latLng => {
+        console.log('Success', latLng)
+        const update = this.state.event;
+        update.latlng = latLng
+        this.setState({
+          event: update
+        })    
+      })
       .catch(error => console.error('Error', error));
   };
   handlePermissionChange = (e) => {

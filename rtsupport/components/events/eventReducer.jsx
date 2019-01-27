@@ -10,8 +10,11 @@ const initState = [
       category: 'culture',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
-      location: 'London, UK',
-      venue: "Tower of London, St Katharine's & Wapping, London",
+      location: "St Katharine's & Wapping, London",
+      latlng: {
+        lat: 51.5057927,
+        lng: -0.06306960000006256,
+      },
       hostedBy: 'Bob',
       hostPhotoURL: '/static/images/whazup-square-logo.png',
       permission: 0,
@@ -36,8 +39,11 @@ const initState = [
       category: 'drinks',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
-      location: 'London, UK',
-      venue: 'Punch & Judy, Henrietta Street, London, UK',
+      location: 'Henrietta Street, London, UK',
+      latlng: {
+        lat: 51.5111991,
+        lng: -0.12350170000001981,
+      },
       hostedBy: 'Tom',
       hostPhotoURL: '/static/images/whazup-square-logo.png',
       permission: 1,      

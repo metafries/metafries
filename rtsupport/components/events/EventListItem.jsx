@@ -68,7 +68,7 @@ class EventListItem extends Component {
               </tr>
               <tr className='h6'>
                 <th scope="row" className='text-right'>VENUE</th>
-                <td>{event.venue}</td>
+                <td>{event.location}</td>
               </tr>
               <tr className='h6'>
                 <th scope="row" className='text-right'>DATE, TIME</th>
