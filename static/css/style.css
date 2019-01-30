@@ -36,6 +36,11 @@ html, body {
   height: 38px;  
 }
 
+.icon {
+  width: 25px;
+  height: 25px;  
+}
+
 .text-ddc213 {
   color: #ddc213;
 }

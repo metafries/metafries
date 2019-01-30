@@ -29,9 +29,9 @@ class NavBar extends Component {
             <div className="fixed-top main-menu">
                 <div className="vertical-center px-3">
                     <ul className="nav flex-column horizontal-center">
-                        <li className="nav-item delay-1"><a className="nav-link px-2" href="/userid"><i class="fas fa-home signout text-center mr-2"></i>HOME</a></li>
-                        <li className="nav-item delay-2"><a className="nav-link px-2" href="#"><i class="fas fa-fire signout text-center mr-2"></i>TRENDING</a></li>
-                        <li className="nav-item delay-3"><a className="nav-link px-2" href="#"><i class="fas fa-map signout text-center mr-2"></i>EXPLORE</a></li>
+                        {authenticated && <li className="nav-item delay-1"><a className="nav-link px-2" href="/userid"><i class="fas fa-home signout text-center mr-2"></i>HOME</a></li>}
+                        <li className="nav-item delay-2"><a className="nav-link px-2" href="/userid"><i class="fas fa-fire signout text-center mr-2"></i>TRENDING</a></li>
+                        <li className="nav-item delay-3"><a className="nav-link px-2" href="/userid"><i class="fas fa-map signout text-center mr-2"></i>EXPLORE</a></li>
                         <li className="nav-item delay-4"><hr/></li>
                         {authenticated && <li className="nav-item delay-5"><a className="nav-link px-2" href="/create"><i class="fas fa-plus signout text-center mr-2"></i>CREATE</a></li>}
                         {authenticated && <li className="nav-item delay-6"><a className="nav-link px-2" href="/settings"><i class="fas fa-wrench signout text-center mr-2"></i>SETTINGS</a></li>}

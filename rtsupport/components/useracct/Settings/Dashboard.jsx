@@ -3,6 +3,7 @@ import Menu from './Menu.jsx'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Profile from './Profile.jsx'
 import Account from './Account.jsx'
+import Footer from '../../nav/Footer.jsx'
 
 const Dashboard = () => {
   return (
@@ -17,6 +18,7 @@ const Dashboard = () => {
                 <Route path='/settings/account' component={Account}/>
             </Switch>
         </div>
+        <Footer/>
     </div>
   )
 }

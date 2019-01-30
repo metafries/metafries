@@ -4,6 +4,7 @@ import EventList from '../events/EventList.jsx'
 import SearchEvent from '../controlpanel/SearchEvent.jsx'
 import InstantMsg from '../controlpanel/InstantMsg.jsx'
 import { deleteEvent } from '../events/eventActions.jsx'
+import Footer from '../nav/Footer.jsx'
 
 const mapState = (state) => ({
   events: state.events
@@ -31,6 +32,7 @@ class HomePage extends Component {
               </div>
             </div>
             <EventList events={this.props.events} handleDeleteEvent={this.handleDeleteEvent} />
+            <Footer/>
             </div>
         )
   }

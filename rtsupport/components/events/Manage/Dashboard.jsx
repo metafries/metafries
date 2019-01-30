@@ -5,6 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import EventForm from '../../forms/EventForm.jsx'
 import Attendees from './Attendees.jsx'
 import { updateEvent } from '../eventActions.jsx'
+import Footer from '../../nav/Footer.jsx'
 
 const mapState = (state, ownProps) => {
     const eventId = ownProps.match.params.id
@@ -59,6 +60,7 @@ class Dashboard extends Component {
                         />
                     </Switch>
                 </div>
+                <Footer/>
             </div>
         )        
     }

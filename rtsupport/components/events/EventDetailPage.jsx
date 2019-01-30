@@ -4,6 +4,7 @@ import EventDetailHeader from './EventDetailHeader.jsx'
 import EventDetailInfo from './EventDetailInfo.jsx'
 import EventDetailChat from './EventDetailChat.jsx'
 import EventDetailSidebar from './EventDetailSidebar.jsx'
+import Footer from '../nav/Footer.jsx'
 
 const mapState = (state, ownProps) => {
   const eventId = ownProps.match.params.id
@@ -25,6 +26,7 @@ const EventDetailPage = ({event}) => {
         <EventDetailSidebar attendees={event.attendees}/>
         <EventDetailChat/>
       </div>
+      <Footer/>
     </div>
   )
 }

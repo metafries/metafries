@@ -5,6 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import EventForm from '../../forms/EventForm.jsx'
 import GroupForm from '../../forms/GroupForm.jsx'
 import { createEvent } from '../../events/eventActions.jsx'
+import Footer from '../../nav/Footer.jsx'
 import { DateTime } from "luxon";
 import cuid from 'cuid'
 
@@ -67,6 +68,7 @@ class Dashboard extends Component {
                         <Route path='/create/group' component={GroupForm}/>
                     </Switch>
                 </div>
+                <Footer/>
             </div>
         )        
     }
