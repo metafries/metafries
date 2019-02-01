@@ -127,3 +127,14 @@ div.mdl-progress::after {
   width: 30.4px;
   height: 30.4px;  
 }
+
+.l-btn {
+  border-width: 3px;  
+}
+
+.l-btn:hover {
+  background-color: #303aa5;
+  color: white;
+  border-color: #303aa5;
+  border-width: 3px;
+}

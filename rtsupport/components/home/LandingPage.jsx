@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import SignInForm from '../forms/SignInForm.jsx'
 
 const active = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold active'
 const notActive = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold'
@@ -23,40 +24,36 @@ class LandingPage extends Component {
             <div className='card-header border-dark bg-white font-weight-bold p-0'>
               <button 
                 type="button" 
-                class={ this.state.defaultOpts ? active : notActive }
+                class={ this.state.defaultOpts ? notActive : active }
                 onClick={this.hendledefaultOpts}
               >
                 Sign up
               </button>
               <button 
                 type="button" 
-                class={ this.state.defaultOpts ? notActive : active }
+                class={ this.state.defaultOpts ? active : notActive }
                 onClick={this.hendledefaultOpts}                
               >
                 Sign in
               </button>
             </div>
-            <div className='card-body'>
-              { this.state.defaultOpts ? 'TODO: Sign-Up Opts' : 'TODO: Sign-In Opts' }
+            <div className='card-body transbox'>
+              { this.state.defaultOpts ? <SignInForm/> : 'TODO: Sign-Up Opts' }
             </div>
           </div>
           <a 
             role="button" 
-            class="btn btn-dark rounded-0 w-100 transbox text-left"
+            class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
             href='/userid'
-          >            
-            <h5 className='mb-0 font-weight-bold'>
-              <i class="fas fa-fire icon text-center mr-3"></i>TRENDING
-            </h5>
+          >
+            <i class="fas fa-fire icon text-center mr-4"></i>Trending           
           </a>
           <a 
             role="button" 
-            class="btn btn-dark rounded-0 w-100 transbox text-left"
+            class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
             href='/userid'            
           >
-            <h5 className='mb-0 font-weight-bold'>
-              <i class="fas fa-map icon text-center mr-3"></i>EXPLORE
-            </h5>
+            <i class="fas fa-map icon text-center mr-4"></i>Explore
           </a>  
           <hr/>
           <small className='font-weight-bold'>
