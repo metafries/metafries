@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import SignInForm from '../forms/SignInForm.jsx'
 
 const active = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold active'
 const notActive = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold'
+const mapState = (state) => ({
+  auth: state.auth
+})
 
 class LandingPage extends Component {
   state = {
@@ -41,6 +45,10 @@ class LandingPage extends Component {
               { this.state.defaultOpts ? <SignInForm/> : 'TODO: Sign-Up Opts' }
             </div>
           </div>
+          {
+            this.props.auth.authenticated 
+            && <h6 className='pl-4 font-italic'>Sup? {this.props.auth.identity}</h6>
+          }          
           <a 
             role="button" 
             class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
@@ -66,4 +74,4 @@ class LandingPage extends Component {
   }
 }
 
-export default LandingPage
+export default connect(mapState, null)(LandingPage)
