@@ -1,9 +1,10 @@
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import ReduxThunk from 'redux-thunk'
 import rootReducer from '../reducers/rootReducer.js'
 
 export const configureStore = (preloadedState) => {
-    const middlewares = []
+    const middlewares = [ReduxThunk]
     const middlewareEnhancer = applyMiddleware(...middlewares)
 
     const storeEnhancers = [middlewareEnhancer]

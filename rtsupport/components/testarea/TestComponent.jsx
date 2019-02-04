@@ -3,15 +3,16 @@ import { connect } from 'react-redux'
 import Script from 'react-load-script'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import GoogleMapReact from 'google-map-react';
-import { incrementCounter, decrementCounter } from './testActions.jsx'
+import { incrementAsync, decrementAsync } from './testActions.jsx'
 
 const mapState = (state) => ({
-    data: state.test.data
+    data: state.test.data,
+    loading: state.test.loading
 })
 
 const actions = {
-  incrementCounter,
-  decrementCounter
+  incrementAsync,
+  decrementAsync
 }
 
 const Marker = () => (
@@ -56,7 +57,7 @@ class TestComponent extends Component {
       value: this.state.address,
       onChange: this.onChange,
     }
-    const { incrementCounter, decrementCounter, data } = this.props
+    const { incrementAsync, decrementAsync, data, loading } = this.props
     return (
       <div>
         <Script
@@ -64,9 +65,26 @@ class TestComponent extends Component {
           onLoad={this.handleScriptLoad}
         />
         <h1>Test Area</h1>
-        <h3>The answer is: {data}</h3>
-        <button onClick={incrementCounter} type='button' className='btn btn-success'>Increment</button>
-        <button onClick={decrementCounter} type='button' className='btn btn-danger'>Decrement</button>
+        <hr/>
+        <button onClick={incrementAsync} type='button' className='btn btn-success'>Increment</button>
+        <button onClick={decrementAsync} type='button' className='btn btn-danger'>Decrement</button>
+        <h3>
+          {
+            loading
+            ? <div>
+                <span 
+                  class="spinner-border spinner-border-sm h3 mr-2" 
+                  role="status" 
+                  aria-hidden="true">
+                </span>
+                Loading...
+              </div>
+            : <div>
+                {data}
+              </div>
+          }          
+        </h3>
+        <hr/>
         {this.state.scriptLoaded &&
           <PlacesAutocomplete
             value={this.state.address}
