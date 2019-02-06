@@ -5,9 +5,11 @@ import SearchEvent from '../controlpanel/SearchEvent.jsx'
 import InstantMsg from '../controlpanel/InstantMsg.jsx'
 import { deleteEvent } from '../events/eventActions.jsx'
 import Footer from '../nav/Footer.jsx'
+import Loader from '../layout/Loader.jsx'
 
 const mapState = (state) => ({
-  events: state.events
+  events: state.events,
+  loading: state.async.loading
 })
 
 const actions = {
@@ -31,7 +33,11 @@ class HomePage extends Component {
                 <InstantMsg/>
               </div>
             </div>
-            <EventList events={this.props.events} handleDeleteEvent={this.handleDeleteEvent} />
+            {
+              this.props.loading
+              ? <div className='col-lg-8'><Loader/></div>
+              : <EventList events={this.props.events} handleDeleteEvent={this.handleDeleteEvent} />              
+            }
             <Footer/>
             </div>
         )
