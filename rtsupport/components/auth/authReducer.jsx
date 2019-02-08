@@ -1,14 +1,25 @@
 import { createReducer } from '../../app/common/util/reducerUtil.js'
-import { LOGIN, LOGOUT } from './authConstants.jsx'
+import { ERROR, LOGIN, LOGOUT } from './authConstants.jsx'
 
 const initState = {
+    errmsg: null,    
     authenticated: false,
     identity: ''
+}
+
+export const errors = (state, payload) => {
+    return {
+        ...state,
+        errmsg: payload,
+        authenticated: false,
+        identity: ''
+    }
 }
 
 export const login = (state, payload) => {
     return {
         ...state,
+        errmsg: null,
         authenticated: true,
         identity: payload.creds.email
     }
@@ -23,6 +34,7 @@ export const logout = (state, payload) => {
 }
 
 export default createReducer(initState, {
+    [ERROR]: errors,
     [LOGIN]: login,
     [LOGOUT]: logout
 })

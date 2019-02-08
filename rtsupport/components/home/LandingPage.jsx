@@ -46,6 +46,14 @@ class LandingPage extends Component {
             </div>
           </div>
           {
+            this.state.defaultOpts 
+              &&  this.props.auth.errmsg
+              &&  <h6 className='input-err-msg mb-3 border border-danger p-2'>
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    {this.props.auth.errmsg.message}
+                  </h6>
+          }
+          {
             this.props.auth.authenticated 
             && <h6 className='pl-4 font-italic'>Sup? {this.props.auth.identity}</h6>
           }          
