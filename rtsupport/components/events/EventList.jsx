@@ -9,7 +9,7 @@ class EventList extends Component {
     const {events} = this.props;
     return (
       <div className='col-lg-8'>
-        {events.map((e) => (
+        {events && events.map((e) => (
           <EventListItem key={e.id} event={e} events={events} onDeleteEvent={this.onDeleteEvent} />        
         ))}
       </div>

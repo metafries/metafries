@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
+import { DateTime } from "luxon";
 
 class EventListItem extends Component {
   state = {
@@ -72,7 +73,11 @@ class EventListItem extends Component {
               </tr>
               <tr className='h6'>
                 <th scope="row" className='text-right'>DATE, TIME</th>
-                <td>{event.startDate} - {event.endDate}</td>
+                <td>
+                  {DateTime.fromJSDate(event.startDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')}
+                  <span className='mx-2'>-</span>
+                  {DateTime.fromJSDate(event.endDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')}
+                </td>
               </tr>
             </tbody>      
           </table>

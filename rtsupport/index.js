@@ -6,10 +6,8 @@ import App from './components/App.jsx';
 import Menu from './components/Menu.jsx';
 import { configureStore } from './app/store/configureStore.js'
 import ScrollToTop from './app/common/util/ScrollToTop.jsx'
-import { loadEvents } from './components/events/eventActions.jsx'
 
 const store = configureStore()
-store.dispatch(loadEvents())
 
 let alerter = require('./alerter');
 alerter('viva nuts!');

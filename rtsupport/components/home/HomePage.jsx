@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase'
 import EventList from '../events/EventList.jsx'
 import SearchEvent from '../controlpanel/SearchEvent.jsx'
 import InstantMsg from '../controlpanel/InstantMsg.jsx'
@@ -8,7 +9,7 @@ import Footer from '../nav/Footer.jsx'
 import Loader from '../layout/Loader.jsx'
 
 const mapState = (state) => ({
-  events: state.events,
+  events: state.firestore.ordered.events,
   loading: state.async.loading
 })
 
@@ -44,4 +45,6 @@ class HomePage extends Component {
   }
 }
 
-export default connect(mapState, actions)(HomePage);
+export default connect(mapState, actions)(
+  firestoreConnect([{ collection: 'events' }])(HomePage)
+);
