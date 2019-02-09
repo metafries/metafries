@@ -9,6 +9,7 @@ import Footer from '../nav/Footer.jsx'
 import Loader from '../layout/Loader.jsx'
 
 const mapState = (state) => ({
+  fba: state.firebase.auth,
   events: state.firestore.ordered.events,
   loading: state.async.loading
 })
@@ -22,11 +23,17 @@ class HomePage extends Component {
     this.props.deleteEvent(cancelEvent_id)
   }
   render() {
+        const {fba} = this.props
+        const authenticated = fba.isLoaded && !fba.isEmpty        
         return (
           <div className='row'>
             <div className='col-lg-4 mb-3'>
               <div class="input-group mb-3">
-                <input type="text" class="form-control border-dark rounded-0" placeholder="Sup?"/>
+                <input 
+                  type="text" 
+                  class="form-control border-dark rounded-0" 
+                  placeholder={authenticated ? "Sup? "+fba.email : "Search..."}
+                />
                 <div class="input-group-append"><button class="btn btn-outline-dark rounded-0" type="button"><i class="fas fa-search"></i></button></div>
               </div>
               <div class="accordion" id="dashboard">
