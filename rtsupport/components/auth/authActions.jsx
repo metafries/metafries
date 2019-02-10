@@ -1,5 +1,36 @@
 import { ERROR, LOGIN, LOGOUT } from './authConstants.jsx'
 
+export const signup = (user) => 
+    async (
+        dispatch,
+        getState,
+        {getFirebase, getFirestore}
+    ) => {
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        try {
+            await firebase
+                    .auth()
+                    .createUserWithEmailAndPassword(
+                        user.email,
+                        user.password
+                    )
+            let currentUser = firebase.auth().currentUser;    
+            currentUser.updateProfile({
+                displayName: user.username
+            })     
+            firestore.set(
+                `users/${currentUser.uid}`,
+                {
+                    displayName: user.username,
+                    createdAt: firestore.FieldValue.serverTimestamp()
+                }
+            )
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
 export const login = (creds) => {
     return async (
         dispatch, 

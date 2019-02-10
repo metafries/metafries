@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withFirebase } from 'react-redux-firebase'
 import SignInForm from '../forms/SignInForm.jsx'
+import SignUpForm from '../forms/SignUpForm.jsx'
 
 const active = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold active'
 const notActive = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold'
@@ -51,7 +52,7 @@ class LandingPage extends Component {
                 </button>
               </div>
               <div className='card-body transbox'>
-                { this.state.defaultOpts ? <SignInForm/> : 'TODO: Sign-Up Opts' }
+                { this.state.defaultOpts ? <SignInForm/> : <SignUpForm/> }
               </div>
             </div>
           }
@@ -107,7 +108,7 @@ class LandingPage extends Component {
               class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-5 font-weight-bold"
               href='/settings'
             >
-              <i class="fas fa-plus icon text-center mr-4"></i>Settings           
+              <i class="fas fa-wrench icon text-center mr-4"></i>Settings           
             </a>
           }          
           {
