@@ -13,12 +13,27 @@ const mapState = (state) => ({
 
 class LandingPage extends Component {
   state = {
+    username_err_msg: false,
     defaultOpts: true,
   }
+  isEmptyUsername = (username) => {
+    username.trim().length == 0
+    ? this.setState({
+        username_err_msg: true
+      })  
+    : this.setState({
+        username_err_msg: false
+      })  
+  }  
   hendledefaultOpts = () => {
     this.setState(prevState => ({
       defaultOpts: !prevState.defaultOpts
     }))
+    this.setState({
+      username_err_msg: false
+    })  
+    this.props.auth.signupError = null
+    this.props.auth.loginError = null    
   }
   handleSignOut = () => {
     this.props.firebase.logout()
@@ -52,15 +67,33 @@ class LandingPage extends Component {
                 </button>
               </div>
               <div className='card-body transbox'>
-                { this.state.defaultOpts ? <SignInForm/> : <SignUpForm/> }
+                { 
+                  this.state.defaultOpts 
+                  ? <SignInForm/> 
+                  : <SignUpForm isEmptyUsername={this.isEmptyUsername}/> 
+                }
               </div>
             </div>
           }
           {
-            this.state.defaultOpts && auth.errmsg && !authenticated &&
+            !this.state.defaultOpts && this.state.username_err_msg &&
             <h6 className='input-err-msg mb-3 border border-danger p-2'>
               <i class="fas fa-exclamation-triangle mr-2"></i>
-              {auth.errmsg.message}
+              Username is required.
+            </h6>          
+          }
+          {
+            !this.state.defaultOpts && auth.signupError &&
+            <h6 className='input-err-msg mb-3 border border-danger p-2'>
+              <i class="fas fa-exclamation-triangle mr-2"></i>
+              {auth.signupError.message}
+            </h6>
+          }          
+          {
+            this.state.defaultOpts && auth.loginError &&
+            <h6 className='input-err-msg mb-3 border border-danger p-2'>
+              <i class="fas fa-exclamation-triangle mr-2"></i>
+              {auth.loginError.message}
             </h6>
           }
           {

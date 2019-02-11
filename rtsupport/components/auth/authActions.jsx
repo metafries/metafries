@@ -27,7 +27,13 @@ export const signup = (user) =>
                 }
             )
         } catch(error) {
-            console.log(error)
+            dispatch({
+                type: ERROR,
+                payload: {
+                    defaultOpts: false,
+                    errmsg: error
+                }
+            })
         }
     }
 
@@ -54,7 +60,10 @@ export const login = (creds) => {
         } catch(error) {
             dispatch({
                 type: ERROR,
-                payload: error
+                payload: {
+                    defaultOpts: true,
+                    errmsg: error
+                }
             })
         }
     }
