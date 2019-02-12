@@ -68,7 +68,7 @@ class SignUpForm extends Component {
             </div>
             <button 
                 type="submit" 
-                className="btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100 l-btn"
+                className="mb-3 btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100 l-btn"
             >
                 SIGN UP
             </button>                

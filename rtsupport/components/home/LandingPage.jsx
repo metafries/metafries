@@ -72,29 +72,54 @@ class LandingPage extends Component {
                   ? <SignInForm/> 
                   : <SignUpForm isEmptyUsername={this.isEmptyUsername}/> 
                 }
+                {
+                  !this.state.defaultOpts && this.state.username_err_msg &&
+                  <h6 className='input-err-msg mb-3 border border-danger p-2'>
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    Username is required.
+                  </h6>          
+                }
+                {
+                  !this.state.defaultOpts && auth.signupError &&
+                  <h6 className='input-err-msg mb-3 border border-danger p-2'>
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    {auth.signupError.message}
+                  </h6>
+                }          
+                {
+                  this.state.defaultOpts && auth.loginError &&
+                  <h6 className='input-err-msg mb-3 border border-danger p-2'>
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    {auth.loginError.message}
+                  </h6>
+                }                
+                <hr class="hr-text" data-content="Or Continue With"/>
+                <button 
+                  type='button' 
+                  className='btn btn-lg rounded-0 p-0 social-block facebook-btn mr-2'
+                  >
+                  <img className='attendee' src='/static/images/facebook-icon.png'/>
+                </button>
+                <button 
+                  type='button' 
+                  className='btn btn-lg rounded-0 p-0 social-block google-btn mr-2'
+                  >
+                  <img className='attendee' src='/static/images/google-icon.jpg'/>
+                </button>
+                <button 
+                  type='button' 
+                  className='btn btn-lg rounded-0 p-0 social-block twitter-btn mr-2'
+                  >
+                  <img className='attendee' src='/static/images/twitter-icon.png'/>
+                </button>
+                <button 
+                  type='button' 
+                  className='btn btn-lg rounded-0 p-0 social-block github-btn mr-2'
+                  >
+                  <img className='attendee' src='/static/images/github-icon.png'/>
+                </button>
               </div>
             </div>
-          }
-          {
-            !this.state.defaultOpts && this.state.username_err_msg &&
-            <h6 className='input-err-msg mb-3 border border-danger p-2'>
-              <i class="fas fa-exclamation-triangle mr-2"></i>
-              Username is required.
-            </h6>          
-          }
-          {
-            !this.state.defaultOpts && auth.signupError &&
-            <h6 className='input-err-msg mb-3 border border-danger p-2'>
-              <i class="fas fa-exclamation-triangle mr-2"></i>
-              {auth.signupError.message}
-            </h6>
-          }          
-          {
-            this.state.defaultOpts && auth.loginError &&
-            <h6 className='input-err-msg mb-3 border border-danger p-2'>
-              <i class="fas fa-exclamation-triangle mr-2"></i>
-              {auth.loginError.message}
-            </h6>
           }
           {
             authenticated &&
