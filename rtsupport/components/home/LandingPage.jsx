@@ -63,7 +63,7 @@ class LandingPage extends Component {
                   class={ this.state.defaultOpts ? active : notActive }
                   onClick={this.hendledefaultOpts}                
                 >
-                  Sign in
+                  Log in
                 </button>
               </div>
               <div className='card-body transbox'>
@@ -74,21 +74,21 @@ class LandingPage extends Component {
                 }
                 {
                   !this.state.defaultOpts && this.state.username_err_msg &&
-                  <h6 className='input-err-msg mb-3 border border-danger p-2'>
+                  <h6 className='input-err-msg mb-3 p-2'>
                     <i class="fas fa-exclamation-triangle mr-2"></i>
                     Username is required.
                   </h6>          
                 }
                 {
                   !this.state.defaultOpts && auth.signupError &&
-                  <h6 className='input-err-msg mb-3 border border-danger p-2'>
+                  <h6 className='input-err-msg mb-3 p-2'>
                     <i class="fas fa-exclamation-triangle mr-2"></i>
                     {auth.signupError.message}
                   </h6>
                 }          
                 {
                   this.state.defaultOpts && auth.loginError &&
-                  <h6 className='input-err-msg mb-3 border border-danger p-2'>
+                  <h6 className='input-err-msg mb-3 p-2'>
                     <i class="fas fa-exclamation-triangle mr-2"></i>
                     {auth.loginError.message}
                   </h6>

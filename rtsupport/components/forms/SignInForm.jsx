@@ -43,7 +43,7 @@ class SignInForm extends Component {
                     type="submit" 
                     className="mb-3 btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100 l-btn"
                 >
-                    SIGN IN
+                    LOG IN
                 </button>        
             </form>
         )
