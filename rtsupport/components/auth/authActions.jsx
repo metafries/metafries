@@ -1,4 +1,27 @@
-import { ERROR, LOGIN, LOGOUT } from './authConstants.jsx'
+import { THIRD_PARTY, SIGNUP, LOGIN, LOGOUT, ERROR } from './authConstants.jsx'
+
+export const useThirdParty = (selectedProvider) => 
+    async (
+        dispatch,
+        getState,
+        {getFirebase}
+    ) => {
+        const firebase = getFirebase()
+        try {
+            await firebase.login({
+                provider: selectedProvider,
+                type: 'popup'
+            })
+        } catch(error) {
+            dispatch({
+                type: ERROR,
+                payload: {
+                    opts: THIRD_PARTY,
+                    errmsg: error
+                }
+            })
+        }
+    }
 
 export const signup = (user) => 
     async (
@@ -30,7 +53,7 @@ export const signup = (user) =>
             dispatch({
                 type: ERROR,
                 payload: {
-                    defaultOpts: false,
+                    opts: SIGNUP,
                     errmsg: error
                 }
             })
@@ -61,7 +84,7 @@ export const login = (creds) => {
             dispatch({
                 type: ERROR,
                 payload: {
-                    defaultOpts: true,
+                    opts: LOGIN,
                     errmsg: error
                 }
             })

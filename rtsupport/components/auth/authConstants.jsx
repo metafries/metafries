@@ -1,3 +1,5 @@
+export const SIGNUP = 'SIGNUP'
+export const THIRD_PARTY = 'THIRD_PARTY'
 export const ERROR = 'ERROR'
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'

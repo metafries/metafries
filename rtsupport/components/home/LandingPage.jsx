@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { withFirebase } from 'react-redux-firebase'
 import SignInForm from '../forms/SignInForm.jsx'
 import SignUpForm from '../forms/SignUpForm.jsx'
+import { useThirdParty } from '../auth/authActions.jsx'
 
 const active = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold active'
 const notActive = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold'
@@ -10,6 +11,10 @@ const mapState = (state) => ({
   fba: state.firebase.auth,  
   auth: state.auth
 })
+
+const actions = {
+  useThirdParty
+}
 
 class LandingPage extends Component {
   state = {
@@ -39,7 +44,7 @@ class LandingPage extends Component {
     this.props.firebase.logout()
   }
   render() {
-    const {fba, auth} = this.props
+    const {fba, auth, useThirdParty} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
     return (
       <div className='row'>
@@ -95,6 +100,7 @@ class LandingPage extends Component {
                 }                
                 <hr class="hr-text" data-content="Or Continue With"/>
                 <button 
+                  onClick={() => useThirdParty('facebook')}
                   type='button' 
                   className='btn btn-lg rounded-0 p-0 social-block facebook-btn mr-2'
                   >
@@ -120,6 +126,13 @@ class LandingPage extends Component {
                 </button>
               </div>
             </div>
+          }
+          {
+            auth.useThirdPartyError &&
+            <h6 className='input-err-msg mb-3 p-2'>
+              <i class="fas fa-exclamation-triangle mr-2"></i>
+              {auth.useThirdPartyError.message}
+            </h6>              
           }
           {
             authenticated &&
@@ -196,4 +209,4 @@ class LandingPage extends Component {
   }
 }
 
-export default withFirebase(connect(mapState, null)(LandingPage))
+export default withFirebase(connect(mapState, actions)(LandingPage))

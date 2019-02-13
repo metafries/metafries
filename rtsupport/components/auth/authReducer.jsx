@@ -1,7 +1,8 @@
 import { createReducer } from '../../app/common/util/reducerUtil.js'
-import { ERROR, LOGIN, LOGOUT } from './authConstants.jsx'
+import { THIRD_PARTY, SIGNUP, LOGIN, LOGOUT, ERROR } from './authConstants.jsx'
 
 const initState = {
+    useThirdPartyError: null,
     signupError: null,
     loginError: null,    
     authenticated: false,
@@ -9,20 +10,31 @@ const initState = {
 }
 
 export const errors = (state, payload) => {
-    if (payload.defaultOpts) {
-        return {
-            ...state,
-            loginError: payload.errmsg,
-            authenticated: false,
-            identity: ''
-        }    
-    } else {
-        return {
-            ...state,
-            signupError: payload.errmsg,
-            authenticated: false,
-            identity: ''
-        }    
+    switch (payload.opts) {
+        case LOGIN:
+            return {
+                ...state,
+                loginError: payload.errmsg,
+                authenticated: false,
+                identity: ''
+            }
+            break
+        case SIGNUP:
+            return {
+                ...state,
+                signupError: payload.errmsg,
+                authenticated: false,
+                identity: ''
+            }
+            break
+        case THIRD_PARTY:
+            return {
+                ...state,
+                useThirdPartyError: payload.errmsg,
+                authenticated: false,
+                identity: ''
+            }    
+            break
     }
 }
 
