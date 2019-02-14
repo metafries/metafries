@@ -16,9 +16,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     <link rel="stylesheet" type="text/css" href="/static/css/menu.css">        
-    <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">    
 </head>
 <body>    
@@ -58,42 +55,7 @@
         <div id="events"></div>                        
         <div class="row text-center">
             <div class="col-lg-9"></div>      
-            <div class="col-lg-3">                    
-                <div class="card">                        
-                    <div class="card-body p-3">
-                        <h1>Facebook</h1> 
-                        <hr>
-                        <button class="btn btn-outline-primary" onclick="checkLoginStatus()"><i class="fas fa-sign-in-alt"></i> Sign In</button>                        
-                        <button class="btn btn-outline-primary" onclick="shareOnFB()"><i class="fas fa-share"></i> Share</button>                            
-                        <h4 id="welcomeMsg"></h4>
-                        <h1>Google</h1> 
-                        <hr>
-                        <div id="firebaseui-auth-container"></div>
-                        <div id="sign-in">
-                            <button class="btn btn-outline-dark" id="sign-out" hidden=true><i class="fas fa-sign-out-alt"></i> Sign Out</button>                                                                                                
-                        </div>
-                        <span id="account-details"></span>
-                        <!-- [START html_template] -->
-                        {{with .Notice}}<div id="notice">{{.}}</div>{{end}}
-                        <form id="post-form" action="/" method="post" hidden=true>
-                            <div class="form-group">
-                                <input class="form-control" name="message" value="{{.Message}}" placeholder="Type your Message">
-                            </div>
-                            <input type="hidden" name="token" id="token">
-                            <button type="submit" class="btn btn-primary form-control">Submit</button>
-                        </form>
-                        <hr>
-                        {{with .Posts}}
-                        <ol class="text-left">
-                            {{range .}}
-                            <li><cite>{{.Author}}</cite><p>{{.Message}}</p></li>
-                            {{end}}
-                        </ol>
-                        {{end}}
-                        <!-- [END html_template] -->                  
-                    </div>
-                </div>
-            </div>
+            <div class="col-lg-3"></div>
         </div>
     </div>
     <script src="/static/bundle.js"></script>

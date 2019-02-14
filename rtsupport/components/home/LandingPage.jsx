@@ -49,7 +49,7 @@ class LandingPage extends Component {
     return (
       <div className='row'>
         <div className='col-lg-4'></div>
-        <div className='col-lg-4'>
+        <div className='col-lg-4 pb-5'>
           <img className="logo mb-2" src="/static/images/_logo.png"/>
           <h4 className='mb-4 ml-5 pl-5 font-italic font-weight-bold'>Let's Meet Up!</h4>
           {
@@ -107,6 +107,7 @@ class LandingPage extends Component {
                   <img className='attendee' src='/static/images/facebook-icon.png'/>
                 </button>
                 <button 
+                  onClick={() => useThirdParty('google')}
                   type='button' 
                   className='btn btn-lg rounded-0 p-0 social-block google-btn mr-2'
                   >
