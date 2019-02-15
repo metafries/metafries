@@ -121,6 +121,7 @@ class LandingPage extends Component {
                   <img className='attendee' src='/static/images/twitter-icon.png'/>
                 </button>
                 <button 
+                  onClick={() => useThirdParty('github')}                                                                    
                   type='button' 
                   className='btn btn-lg rounded-0 p-0 social-block github-btn mr-2'
                   >
