@@ -114,6 +114,7 @@ class LandingPage extends Component {
                   <img className='attendee' src='/static/images/google-icon.jpg'/>
                 </button>
                 <button 
+                  onClick={() => useThirdParty('twitter')}                                  
                   type='button' 
                   className='btn btn-lg rounded-0 p-0 social-block twitter-btn mr-2'
                   >
@@ -129,7 +130,7 @@ class LandingPage extends Component {
             </div>
           }
           {
-            auth.useThirdPartyError &&
+            !authenticated && auth.useThirdPartyError &&
             <h6 className='input-err-msg mb-3 p-2'>
               <i class="fas fa-exclamation-triangle mr-2"></i>
               {auth.useThirdPartyError.message}
