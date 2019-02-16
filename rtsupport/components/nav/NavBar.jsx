@@ -5,6 +5,7 @@ import SignIn from './SignIn.jsx'
 import SignOut from './SignOut.jsx'
 
 const mapState = (state) => ({
+    fbp: state.firebase.profile,    
     fba: state.firebase.auth
 })
 
@@ -13,7 +14,7 @@ class NavBar extends Component {
     this.props.firebase.logout()
   }
   render() {
-    const {fba} = this.props
+    const {fbp, fba} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
     return (
         <div>
@@ -33,7 +34,11 @@ class NavBar extends Component {
                         {authenticated && <li className="nav-item delay-5"><a className="nav-link px-2" href="/create"><i class="fas fa-plus signout text-center mr-2"></i>CREATE</a></li>}
                         {authenticated && <li className="nav-item delay-6"><a className="nav-link px-2" href="/settings"><i class="fas fa-wrench signout text-center mr-2"></i>SETTINGS</a></li>}
                         {authenticated && <li className="nav-item delay-7"><hr/></li>}
-                        {authenticated ? <SignOut handleSignOut={this.handleSignOut}/> : <SignIn/>}
+                        {
+                            authenticated 
+                            ? <SignOut firebaseProfile={fbp} handleSignOut={this.handleSignOut} /> 
+                            : <SignIn/>
+                        }
                     </ul>
                 </div>
             </div>

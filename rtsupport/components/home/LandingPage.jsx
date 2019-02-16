@@ -8,6 +8,7 @@ import { useThirdParty } from '../auth/authActions.jsx'
 const active = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold active'
 const notActive = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold'
 const mapState = (state) => ({
+  fbp: state.firebase.profile,
   fba: state.firebase.auth,  
   auth: state.auth
 })
@@ -44,7 +45,7 @@ class LandingPage extends Component {
     this.props.firebase.logout()
   }
   render() {
-    const {fba, auth, useThirdParty} = this.props
+    const {fbp, fba, auth, useThirdParty} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
     return (
       <div className='row'>
@@ -139,7 +140,7 @@ class LandingPage extends Component {
           }
           {
             authenticated &&
-            <h6 className='pl-4 font-italic'>Sup? {fba.email}</h6>
+            <h6 className='pl-4 font-italic'>Sup? {fbp.displayName}</h6>
           }
           {
             authenticated &&
@@ -194,7 +195,7 @@ class LandingPage extends Component {
               onClick={this.handleSignOut}
             >
               <img
-                src="/static/images/whazup-square-logo.png"
+                src={fbp.avatarUrl || "/static/images/whazup-square-logo.png"}
                 class="rounded-circle icon mr-4"
                 alt="..."
               />

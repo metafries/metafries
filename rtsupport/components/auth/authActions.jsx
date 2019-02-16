@@ -18,7 +18,7 @@ export const useThirdParty = (selectedProvider) =>
                     `users/${data.user.uid}`,
                     {
                         displayName: data.profile.displayName,
-                        photoURL: data.profile.avatarUrl,
+                        avatarUrl: data.profile.avatarUrl,
                         createdAt: firestore.FieldValue.serverTimestamp(),                        
                     }
                 )

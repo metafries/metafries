@@ -17,7 +17,7 @@ html, body {
 }
 
 .social-block:hover {
-  border-color: black;
+  border-color: #555;
   border-width: 3px;
 }
 
@@ -72,8 +72,7 @@ div.mdl-progress::after {
 
 .transbox {
   color: yellow;  
-  background-color: black;
-  opacity: 0.7;
+  background-color: #555;
   filter: alpha(opacity=60); /* For IE8 and earlier */
 }
 
@@ -139,9 +138,9 @@ div.mdl-progress::after {
 }
 
 .l-btn:hover {
-  background-color: #303aa5;
+  background-color: #4A4599;
   color: white;
-  border-color: #303aa5;
+  border-color: #4A4599;
   border-width: 3px;
 }
 
@@ -162,15 +161,15 @@ div.mdl-progress::after {
   top: 50%;
   width: 100%;
   height: 1px;
-  background-color: #818078;
+  background-color: #aaa;
 }
 
 .hr-text::after {
   content: attr(data-content);
   position: relative;
   display: inline-block;
-  color: #818078;
-  background-color: black;
+  color: #aaa;
+  background-color: #555;
   padding: 0 .5em;
   line-height: 1.5em;
 }
