@@ -4,14 +4,25 @@ export const useThirdParty = (selectedProvider) =>
     async (
         dispatch,
         getState,
-        {getFirebase}
+        {getFirebase, getFirestore}
     ) => {
         const firebase = getFirebase()
+        const firestore = getFirestore()
         try {
-            await firebase.login({
+            let data = await firebase.login({
                 provider: selectedProvider,
                 type: 'popup'
             })
+            if (data.additionalUserInfo.isNewUser) {
+                await firestore.set(
+                    `users/${data.user.uid}`,
+                    {
+                        displayName: data.profile.displayName,
+                        photoURL: data.profile.avatarUrl,
+                        createdAt: firestore.FieldValue.serverTimestamp(),                        
+                    }
+                )
+            }
         } catch(error) {
             dispatch({
                 type: ERROR,
