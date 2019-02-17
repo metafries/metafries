@@ -8,8 +8,8 @@ import { DateTime } from "luxon";
 
 const validInput = 'form-control rounded-0'
 const invalidInput = 'form-control rounded-0 input-err'
-const hideErrMsg = 'input-err-msg d-none'
-const showErrMsg = 'input-err-msg d-block'
+const hideErrMsg = 'red-text d-none'
+const showErrMsg = 'red-text d-block'
 
 class EventForm extends Component {
   state = {

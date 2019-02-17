@@ -175,7 +175,7 @@ div.mdl-progress::after {
 }
 
 .facebook-btn {
-  background-color: #3b5998;
+  background-color: #486cb9;
 }
 
 .google-btn {
@@ -187,5 +187,9 @@ div.mdl-progress::after {
 }
 
 .github-btn {
-  background-color: #444;
+  background-color: #333;
+}
+
+.red-text {
+  color: red;
 }
