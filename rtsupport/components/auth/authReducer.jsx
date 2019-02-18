@@ -1,12 +1,34 @@
 import { createReducer } from '../../app/common/util/reducerUtil.js'
-import { THIRD_PARTY, SIGNUP, LOGIN, LOGOUT, ERROR } from './authConstants.jsx'
+import { 
+    UPDATE_PWD, 
+    THIRD_PARTY, 
+    SIGNUP, 
+    LOGIN, 
+    LOGOUT,
+    SUCCESS,
+    ERROR 
+} from './authConstants.jsx'
 
 const initState = {
+    updatePwdInform: null,
+    updatePwdError: null,
     useThirdPartyError: null,
     signupError: null,
     loginError: null,    
     authenticated: false,
     identity: ''
+}
+
+export const inform = (state, payload) => {
+    switch (payload.opts) {
+        case UPDATE_PWD:
+            return {
+                ...state,
+                updatePwdInform: payload.okmsg,
+                updatePwdError: null,
+            }
+            break
+    }
 }
 
 export const errors = (state, payload) => {
@@ -35,6 +57,12 @@ export const errors = (state, payload) => {
                 identity: ''
             }    
             break
+        case UPDATE_PWD:
+            return {
+                ...state,
+                updatePwdError: payload.errmsg,
+            }
+            break
     }
 }
 
@@ -56,6 +84,7 @@ export const logout = (state, payload) => {
 }
 
 export default createReducer(initState, {
+    [SUCCESS]: inform,
     [ERROR]: errors,
     [LOGIN]: login,
     [LOGOUT]: logout

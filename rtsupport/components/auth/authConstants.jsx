@@ -1,5 +1,7 @@
+export const UPDATE_PWD = 'UPDATE_PWD'
 export const SIGNUP = 'SIGNUP'
 export const THIRD_PARTY = 'THIRD_PARTY'
+export const SUCCESS = 'SUCCESS'
 export const ERROR = 'ERROR'
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'

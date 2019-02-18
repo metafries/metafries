@@ -1,11 +1,21 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Menu from './Menu.jsx'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Profile from './Profile.jsx'
 import Account from './Account.jsx'
 import Footer from '../../nav/Footer.jsx'
+import { updatePassword } from '../../auth/authActions.jsx'
 
-const Dashboard = () => {
+const mapState = (state) => ({
+  auth: state.auth
+})
+
+const actions = {
+    updatePassword
+}
+
+const Dashboard = ({auth, updatePassword}) => {
   return (
     <div className='row'>
         <div className='col-lg-4'>
@@ -15,7 +25,17 @@ const Dashboard = () => {
             <Switch>
                 <Redirect exact from='/settings' to='/settings/profile'/>
                 <Route path='/settings/profile' component={Profile}/>
-                <Route path='/settings/account' component={Account}/>
+                <Route 
+                    path='/settings/account' 
+                    render=
+                    {
+                        () => 
+                        <Account 
+                            auth={auth} 
+                            updatePassword={updatePassword} 
+                        />
+                    }
+                />
             </Switch>
         </div>
         <Footer/>
@@ -23,4 +43,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default connect(mapState, actions)(Dashboard)
