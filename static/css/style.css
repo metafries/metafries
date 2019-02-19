@@ -198,3 +198,8 @@ div.mdl-progress::after {
 .red-text {
   color: red;
 }
+
+.info-text-box {
+  color: #444;
+  border: 1px solid #444;
+}

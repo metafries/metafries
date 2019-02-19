@@ -8,6 +8,7 @@ import Footer from '../../nav/Footer.jsx'
 import { updatePassword } from '../../auth/authActions.jsx'
 
 const mapState = (state) => ({
+  providerId: state.firebase.auth.providerData[0].providerId,    
   auth: state.auth
 })
 
@@ -15,7 +16,7 @@ const actions = {
     updatePassword
 }
 
-const Dashboard = ({auth, updatePassword}) => {
+const Dashboard = ({auth, providerId, updatePassword}) => {
   return (
     <div className='row'>
         <div className='col-lg-4'>
@@ -31,6 +32,7 @@ const Dashboard = ({auth, updatePassword}) => {
                     {
                         () => 
                         <Account 
+                            providerId={providerId}                        
                             auth={auth} 
                             updatePassword={updatePassword} 
                         />

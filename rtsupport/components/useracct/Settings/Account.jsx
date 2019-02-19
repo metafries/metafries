@@ -57,11 +57,23 @@ class Account extends Component {
       confirm_new_password_input,
       confirm_new_password_err_msg,
     } = this.state
-    const {auth} = this.props
+    const {
+      auth,
+      providerId
+    } = this.props
     return (
       <div>
         <h3 className='mb-0 font-weight-bold'>Change Password</h3>
         <hr/>
+        {
+          providerId && providerId != 'password' &&
+          <h6 className='info-text-box mb-3 p-2'>
+            <i class="fas fa-info-circle mr-2"></i>
+            You are currently logged in with 
+            <a href={'https://'+providerId} className='ml-1'>{providerId}</a>
+            ，the new password will set to the password of email/password Sign-in method.
+          </h6>
+        }
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
               <h5>New Password</h5>
