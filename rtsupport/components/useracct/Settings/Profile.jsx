@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
 
 const baseStyle = {
-  width: 250,
-  height: 250,
+  width: 255,
+  height: 255,
   borderWidth: 2,
   borderColor: '#666',
   borderStyle: 'dashed',
@@ -22,7 +22,19 @@ const rejectStyle = {
 };
 
 class Profile extends Component {
+  state = {
+    files: [],
+    multipleSelect: false,
+  }
+  onDrop = (files) => {
+    this.setState({
+      files: files.map(file => Object.assign(file, {
+        preview: URL.createObjectURL(file)
+      }))
+    })
+  }
   render() {
+    const {files} = this.state
     return (
       <div>
         <h3 className='mb-0 font-weight-bold'>Public Profile</h3>
@@ -31,7 +43,11 @@ class Profile extends Component {
         <div className='row'>
           <div class="col-lg-4 mb-2">
             <h6>STEP1 - ADD A NEW IMAGE</h6>
-            <Dropzone accept="image/*">
+            <Dropzone 
+              accept="image/*"
+              multiple={false}
+              onDrop={this.onDrop}
+              >
               {
                 ({ 
                   getRootProps, 
@@ -87,6 +103,17 @@ class Profile extends Component {
           </div>      
           <div class="col-lg-4 mb-2">
             <h6>STEP3 - PREVIEW AND UPLOAD</h6>
+            {
+              files.length > 0
+              ? files.map(file => (
+                  <div style={{...baseStyle}}>
+                    <img src={file.preview} style={{width:250,height:'auto'}}/>                  
+                  </div>
+                ))
+              : <div style={{...baseStyle}}>
+                  <img src={this.props.fba.photoURL} style={{width:250,height:'auto'}}/>
+                </div>
+            }
           </div>      
         </div>
       </div>
