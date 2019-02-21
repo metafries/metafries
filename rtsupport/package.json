@@ -29,6 +29,7 @@
     "luxon": "^1.7.1",
     "material-ui-pickers": "^2.0.5",
     "react-dom": "^16.5.2",
+    "react-dropzone": "^8.1.0",
     "react-load-script": "0.0.6",
     "react-places-autocomplete": "^7.2.0",
     "react-redux": "^5.1.1",

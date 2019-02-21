@@ -8,6 +8,7 @@ import Footer from '../../nav/Footer.jsx'
 import { updatePassword } from '../../auth/authActions.jsx'
 
 const mapState = (state) => ({
+  fba: state.firebase.auth, 
   providerId: state.firebase.auth.providerData[0].providerId,    
   auth: state.auth
 })
@@ -16,7 +17,7 @@ const actions = {
     updatePassword
 }
 
-const Dashboard = ({auth, providerId, updatePassword}) => {
+const Dashboard = ({auth, fba, providerId, updatePassword}) => {
   return (
     <div className='row'>
         <div className='col-lg-4'>
@@ -25,7 +26,10 @@ const Dashboard = ({auth, providerId, updatePassword}) => {
         <div className='col-lg-8'>
             <Switch>
                 <Redirect exact from='/settings' to='/settings/profile'/>
-                <Route path='/settings/profile' component={Profile}/>
+                <Route 
+                    path='/settings/profile'
+                    render={() => <Profile fba={fba}/>}
+                />
                 <Route 
                     path='/settings/account' 
                     render=

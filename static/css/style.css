@@ -198,6 +198,9 @@ div.mdl-progress::after {
 .red-text {
   color: red;
 }
+.green-text {
+  color: green;
+}
 
 .info-text-box {
   color: #444;
