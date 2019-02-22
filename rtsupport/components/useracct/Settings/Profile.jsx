@@ -34,6 +34,7 @@ class Profile extends Component {
     })
   }
   render() {
+    const {fba, providerId} = this.props 
     const {files} = this.state
     return (
       <div>
@@ -107,11 +108,15 @@ class Profile extends Component {
               files.length > 0
               ? files.map(file => (
                   <div style={{...baseStyle}}>
-                    <img src={file.preview} style={{width:250,height:'auto'}}/>                  
+                    <img src={file.preview} style={{maxWidth:250}}/>                  
                   </div>
                 ))
               : <div style={{...baseStyle}}>
-                  <img src={this.props.fba.photoURL} style={{width:250,height:'auto'}}/>
+                  {
+                    providerId && providerId == 'facebook.com'
+                    ? <img src={fba.photoURL+'?height=250'} style={{maxWidth:250}}/>
+                    : <img src={fba.photoURL} style={{maxWidth:250}}/>                    
+                  }
                 </div>
             }
           </div>      

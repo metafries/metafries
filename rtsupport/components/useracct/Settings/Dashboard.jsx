@@ -28,7 +28,13 @@ const Dashboard = ({auth, fba, providerId, updatePassword}) => {
                 <Redirect exact from='/settings' to='/settings/profile'/>
                 <Route 
                     path='/settings/profile'
-                    render={() => <Profile fba={fba}/>}
+                    render=
+                    {
+                        () => <Profile 
+                            fba={fba} 
+                            providerId={providerId}
+                            />
+                    }
                 />
                 <Route 
                     path='/settings/account' 
