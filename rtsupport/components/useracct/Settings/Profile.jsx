@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
+import Cropper from 'react-cropper'
+import 'cropperjs/dist/cropper.css'
 
 const baseStyle = {
   width: 255,
@@ -23,19 +25,34 @@ const rejectStyle = {
 
 class Profile extends Component {
   state = {
-    files: [],
-    multipleSelect: false,
+    photoURL: this.props.fba.photoURL,
+    preview: null,
+    binaryCroppedCanvas: {},
+  }
+  componentDidMount() {
+    const {fba, providerId} = this.props 
+    if (providerId && providerId == 'facebook.com') {
+      this.setState({
+        photoURL: fba.photoURL+'?height=250'
+      })
+    }
   }
   onDrop = (files) => {
     this.setState({
-      files: files.map(file => Object.assign(file, {
-        preview: URL.createObjectURL(file)
-      }))
+      photoURL: files.map(file => URL.createObjectURL(file))[0],      
     })
+  }
+  cropImage = () => {
+    this.refs.cropper.getCroppedCanvas().toBlob(blob => {
+      this.setState({
+        preview: URL.createObjectURL(blob),
+        binaryCroppedCanvas: blob,
+      })
+    }, 'image/jpeg')
   }
   render() {
     const {fba, providerId} = this.props 
-    const {files} = this.state
+    const {photoURL, preview} = this.state
     return (
       <div>
         <h3 className='mb-0 font-weight-bold'>Public Profile</h3>
@@ -101,24 +118,27 @@ class Profile extends Component {
           </div>      
           <div class="col-lg-4 mb-2">
             <h6>STEP2 - CROP THE IMAGE</h6>
+            <div style={{...baseStyle}}>
+              <Cropper
+                style={{height:250,width:'100%'}}
+                ref='cropper'
+                src={photoURL}
+                aspectRatio={1}
+                viewMode={0}
+                dragMode='move'
+                guides={false}
+                scalable={true}
+                cropBoxMovable={true}
+                cropBoxResizable={true}
+                crop={this.cropImage}
+              />
+            </div>
           </div>      
           <div class="col-lg-4 mb-2">
             <h6>STEP3 - PREVIEW AND UPLOAD</h6>
-            {
-              files.length > 0
-              ? files.map(file => (
-                  <div style={{...baseStyle}}>
-                    <img src={file.preview} style={{maxWidth:250}}/>                  
-                  </div>
-                ))
-              : <div style={{...baseStyle}}>
-                  {
-                    providerId && providerId == 'facebook.com'
-                    ? <img src={fba.photoURL+'?height=250'} style={{maxWidth:250}}/>
-                    : <img src={fba.photoURL} style={{maxWidth:250}}/>                    
-                  }
-                </div>
-            }
+            <div style={{...baseStyle}}>
+              <img src={preview} style={{maxWidth:250}}/>                  
+            </div>
           </div>      
         </div>
       </div>
