@@ -25,7 +25,7 @@ const rejectStyle = {
 
 class Profile extends Component {
   state = {
-    photoURL: this.props.fba.photoURL,
+    photoURL: this.props.fba.photoURL || "/static/images/whazup-square-logo.png",
     preview: null,
     binaryCroppedCanvas: {},
   }
@@ -137,7 +137,7 @@ class Profile extends Component {
           <div class="col-lg-4 mb-2">
             <h6>STEP3 - PREVIEW AND UPLOAD</h6>
             <div style={{...baseStyle}}>
-              <img src={preview} style={{maxWidth:250}}/>                  
+              <img src={preview} style={{maxWidth:'100%'}}/>                  
             </div>
           </div>      
         </div>
