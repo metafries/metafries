@@ -22,6 +22,10 @@ const rejectStyle = {
   borderColor: '#DB3545',
   backgroundColor: '#f5f5f5',
 };
+const stepsHeader = {
+  height: 38,
+  fontWeight: 650,
+}
 
 class Profile extends Component {
   state = {
@@ -57,10 +61,9 @@ class Profile extends Component {
       <div>
         <h3 className='mb-0 font-weight-bold'>Public Profile</h3>
         <hr/>        
-        <h5 className='font-weight-bold'>Avatar</h5>
         <div className='row'>
-          <div class="col-lg-4 mb-2">
-            <h6>STEP1 - ADD A NEW IMAGE</h6>
+          <div class="col-lg-4 mb-4">
+            <h6 style={stepsHeader}>STEP1 - ADD A NEW IMAGE</h6>
             <Dropzone 
               accept="image/*"
               multiple={false}
@@ -116,8 +119,8 @@ class Profile extends Component {
               }
             </Dropzone>
           </div>      
-          <div class="col-lg-4 mb-2">
-            <h6>STEP2 - CROP THE IMAGE</h6>
+          <div class="col-lg-4 mb-4">
+            <h6 style={stepsHeader}>STEP2 - CROP THE IMAGE<br/></h6>
             <div style={{...baseStyle}}>
               <Cropper
                 style={{height:250,width:'100%'}}
@@ -134,13 +137,19 @@ class Profile extends Component {
               />
             </div>
           </div>      
-          <div class="col-lg-4 mb-2">
-            <h6>STEP3 - PREVIEW AND UPLOAD</h6>
+          <div class="col-lg-4 mb-4">
+            <h6 style={stepsHeader}>STEP3 - PREVIEW THE CROPPED IMAGE</h6>
             <div style={{...baseStyle}}>
               <img src={preview} style={{maxWidth:'100%'}}/>                  
             </div>
           </div>      
         </div>
+        <hr/>
+        <button 
+          type="button" 
+          class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">
+          Set New Profile Picture
+        </button>                  
       </div>
     )
   }
