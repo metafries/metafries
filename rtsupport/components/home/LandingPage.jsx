@@ -142,30 +142,30 @@ class LandingPage extends Component {
             authenticated &&
             <h6 className='pl-4 font-italic'>Sup? {fbp.displayName}</h6>
           }
-          {
-            authenticated &&
-            <a 
-              role="button" 
-              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-5 font-weight-bold"
-              href='/userid'
-            >
-              <i class="fas fa-home icon text-center mr-4"></i>Home           
-            </a>
-          }
           <a 
             role="button" 
             class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-5 font-weight-bold"
             href='/userid'
           >
-            <i class="fas fa-fire icon text-center mr-4"></i>Trending           
+            <i class="fas fa-search icon text-center mr-4"></i>Search           
           </a>
           <a 
             role="button" 
             class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-5 font-weight-bold"
             href='/userid'            
           >
-            <i class="fas fa-map icon text-center mr-4"></i>Explore
-          </a>  
+            <i class="fas fa-chart-line icon text-center mr-4"></i>Trending           
+          </a>
+          {
+            authenticated &&
+            <a 
+              role="button" 
+              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-5 font-weight-bold"
+              href={`/profile/${fba.uid}`}
+            >
+              <i class="fas fa-address-card icon text-center mr-4"></i>Profile           
+            </a>
+          }         
           {
             authenticated &&
             <a 
