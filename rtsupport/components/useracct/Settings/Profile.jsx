@@ -29,34 +29,63 @@ const stepsHeader = {
 
 class Profile extends Component {
   state = {
-    photoURL: this.props.fba.photoURL || "/static/images/whazup-square-logo.png",
+    photoURL: this.props.fba.photoURL || 
+      "/static/images/whazup-square-logo.png",
     preview: null,
-    binaryCroppedCanvas: {},
+    croppedCanvas: {},
+    fileName: '',
+    uploadImgOkMsg: '',
+    uploadImgErrMsg: '',
   }
   componentDidMount() {
     const {fba, providerId} = this.props 
     if (providerId && providerId == 'facebook.com') {
-      this.setState({
-        photoURL: fba.photoURL+'?height=250'
-      })
+      if (!fba.photoURL.includes('firebasestorage')) {
+        this.setState({
+          photoURL: fba.photoURL+'?height=250'
+        })  
+      }
     }
   }
   onDrop = (files) => {
     this.setState({
-      photoURL: files.map(file => URL.createObjectURL(file))[0],      
+      photoURL: files.map(file => URL.createObjectURL(file))[0],   
+      fileName: files[0].name,
     })
   }
   cropImage = () => {
     this.refs.cropper.getCroppedCanvas().toBlob(blob => {
       this.setState({
         preview: URL.createObjectURL(blob),
-        binaryCroppedCanvas: blob,
+        croppedCanvas: blob,
       })
     }, 'image/jpeg')
   }
+  uploadImage = async () => {
+    this.setState({
+      uploadImgOkMsg: '',
+      uploadImgErrMsg: '',  
+    })
+    const {croppedCanvas, fileName} = this.state
+    try {
+      if (fileName.length == 0) {
+        this.setState({
+          fileName: (new Date()).getTime().toString()
+        })
+      }
+      await this.props.setNewProfilePicture(croppedCanvas, fileName)
+      this.setState({
+        uploadImgOkMsg: 'Profile Picture changed successfully.'
+      })
+    } catch (error) {
+      this.setState({
+        uploadImgErrMsg: error.message
+      })
+    }
+  }
   render() {
-    const {fba, providerId} = this.props 
-    const {photoURL, preview} = this.state
+    const {fba, providerId, loading} = this.props 
+    const {photoURL, preview, uploadImgOkMsg, uploadImgErrMsg} = this.state
     return (
       <div>
         <h3 className='mb-0 font-weight-bold'>Public Profile</h3>
@@ -144,12 +173,40 @@ class Profile extends Component {
             </div>
           </div>      
         </div>
+        {
+          uploadImgOkMsg.length > 0 &&
+          <h6 className='input-ok-msg mb-3 p-2'>
+            <i class="fas fa-check-circle mr-2"></i>
+            {uploadImgOkMsg}
+          </h6>        
+        }
+        {
+          uploadImgErrMsg.length > 0 &&
+          <h6 className='input-err-msg mb-3 p-2'>
+            <i class="fas fa-exclamation-triangle mr-2"></i>
+            {uploadImgErrMsg}
+          </h6>        
+        }
         <hr/>
-        <button 
-          type="button" 
-          class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">
-          Set New Profile Picture
-        </button>                  
+        {
+          loading
+          ? <div className='h5'>
+              <span 
+                class="spinner-border mr-2" 
+                role="status" 
+                aria-hidden="true">
+              </span>
+              <span className='h3'>
+                Uploading...
+              </span>
+            </div>  
+          : <button 
+              onClick={this.uploadImage}
+              type="button" 
+              class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">
+              Set New Profile Picture
+            </button>                  
+        }  
       </div>
     )
   }
