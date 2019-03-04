@@ -31,7 +31,7 @@ async (
             }
         )
     } catch (error) {
-        throw new Error('ERR_UPLOAD_IMAGE_FAILED')
+        throw new Error('Failed to Upload the Image.')
     } finally {
         dispatch(finishAsyncAction())        
     }

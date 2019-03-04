@@ -75,7 +75,7 @@ class Profile extends Component {
       }
       await this.props.setNewProfilePicture(croppedCanvas, fileName)
       this.setState({
-        uploadImgOkMsg: 'Profile Picture changed successfully.'
+        uploadImgOkMsg: 'Avatar has Changed.'
       })
     } catch (error) {
       this.setState({
@@ -171,42 +171,42 @@ class Profile extends Component {
             <div style={{...baseStyle}}>
               <img src={preview} style={{maxWidth:'100%'}}/>                  
             </div>
+            {
+              loading
+              ? <div className='h5 mt-2 w-100 text-center'>
+                  <span 
+                    class="spinner-border mr-2" 
+                    role="status" 
+                    aria-hidden="true">
+                  </span>
+                  <span className='h3'>
+                    Uploading...
+                  </span>
+                </div>  
+              : <button 
+                  onClick={this.uploadImage}
+                  type="button" 
+                  class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold w-100 mt-2">
+                  Set New Profile Picture
+                </button>                  
+            }  
+            {
+              uploadImgOkMsg.length > 0 &&
+              <h6 className='input-ok-msg my-2 p-2'>
+                <i class="fas fa-check-circle mr-2"></i>
+                {uploadImgOkMsg}
+              </h6>        
+            }
+            {
+              uploadImgErrMsg.length > 0 &&
+              <h6 className='input-err-msg my-2 p-2'>
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                {uploadImgErrMsg}
+              </h6>        
+            }            
           </div>      
         </div>
-        {
-          uploadImgOkMsg.length > 0 &&
-          <h6 className='input-ok-msg mb-3 p-2'>
-            <i class="fas fa-check-circle mr-2"></i>
-            {uploadImgOkMsg}
-          </h6>        
-        }
-        {
-          uploadImgErrMsg.length > 0 &&
-          <h6 className='input-err-msg mb-3 p-2'>
-            <i class="fas fa-exclamation-triangle mr-2"></i>
-            {uploadImgErrMsg}
-          </h6>        
-        }
         <hr/>
-        {
-          loading
-          ? <div className='h5'>
-              <span 
-                class="spinner-border mr-2" 
-                role="status" 
-                aria-hidden="true">
-              </span>
-              <span className='h3'>
-                Uploading...
-              </span>
-            </div>  
-          : <button 
-              onClick={this.uploadImage}
-              type="button" 
-              class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">
-              Set New Profile Picture
-            </button>                  
-        }  
       </div>
     )
   }
