@@ -5,23 +5,24 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 import { DateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import LuxonUtils from '@date-io/luxon';
 import { DateTime } from "luxon";
-
-const validInput = 'form-control rounded-0'
-const invalidInput = 'form-control rounded-0 input-err'
-const hideErrMsg = 'red-text d-none'
-const showErrMsg = 'red-text d-block'
+import { 
+  VALID_INPUT, 
+  INVALID_INPUT,
+  HIDE_ERR_MSG,
+  SHOW_ERR_MSG,
+} from './formConstants.jsx'
 
 class EventForm extends Component {
   state = {
     selectedOption: null,    
     event: this.props.event,
-    title_input: validInput,  
-    title_err_msg: hideErrMsg,  
+    title_input: VALID_INPUT,  
+    title_err_msg: HIDE_ERR_MSG,  
     titleInputLength: 0,
     address: '',
     scriptLoaded: false,
-    addr_input: validInput,  
-    addr_err_msg: hideErrMsg,  
+    addr_input: VALID_INPUT,  
+    addr_err_msg: HIDE_ERR_MSG,  
     selectedStartDateError: false,
     selectedEndDateError: false,
     descInputLength: 0,
@@ -47,13 +48,13 @@ class EventForm extends Component {
   isNotEmptyTitle = (e) => {
     if (e.target.value.trim().length == 0) {      
       this.setState({
-        title_err_msg: showErrMsg,
-        title_input: invalidInput,        
+        title_err_msg: SHOW_ERR_MSG,
+        title_input: INVALID_INPUT,        
       })  
     } else {
       this.setState({
-        title_err_msg: hideErrMsg,
-        title_input: validInput,                
+        title_err_msg: HIDE_ERR_MSG,
+        title_input: VALID_INPUT,                
       })  
     }
   }
@@ -81,13 +82,13 @@ class EventForm extends Component {
     })
     if (this.state.event.location.trim() == 0) {
       this.setState({
-        addr_err_msg: showErrMsg,
-        addr_input: invalidInput,        
+        addr_err_msg: SHOW_ERR_MSG,
+        addr_input: INVALID_INPUT,        
       })  
     } else {
       this.setState({
-        addr_err_msg: hideErrMsg,
-        addr_input: validInput,                
+        addr_err_msg: HIDE_ERR_MSG,
+        addr_input: VALID_INPUT,                
       })  
     }
   };
@@ -180,15 +181,15 @@ class EventForm extends Component {
     } = this.state
     if (titleInputLength == 0) {
       this.setState({
-        title_err_msg: showErrMsg,
-        title_input: invalidInput,        
+        title_err_msg: SHOW_ERR_MSG,
+        title_input: INVALID_INPUT,        
       })  
       return
     } 
     if (event.location.trim() == 0) {
       this.setState({
-        addr_err_msg: showErrMsg,
-        addr_input: invalidInput,        
+        addr_err_msg: SHOW_ERR_MSG,
+        addr_input: INVALID_INPUT,        
       })  
       return
     }
@@ -269,7 +270,10 @@ class EventForm extends Component {
             className={title_input} 
             placeholder="Add a concise title"
           />
-          <small className={title_err_msg}>Title is required.</small>
+          <small className={title_err_msg}>
+            <i class="fas fa-exclamation-triangle mr-1"></i>
+            Title is required.
+          </small>
         </div>            
         <div class="form-group">
           <h5 className='font-weight-bold'>Location</h5>
@@ -313,7 +317,10 @@ class EventForm extends Component {
               )}
             </PlacesAutocomplete>
           }
-          <small className={addr_err_msg}>Location is required.</small>
+          <small className={addr_err_msg}>
+            <i class="fas fa-exclamation-triangle mr-1"></i>
+            Location is required.
+          </small>
         </div>
         <div class="form-group">
           <h5 className='font-weight-bold'>Start Date, Time</h5>
@@ -330,8 +337,15 @@ class EventForm extends Component {
                 )}                
                 onFocus={this.isValidDateTime}                                
                 error={selectedStartDateError}                        
-                {...(selectedStartDateError ? 
-                  { helperText: "An event start time must be greater than the current time." } : {}
+                {...(selectedStartDateError 
+                  ? { 
+                      helperText: 
+                      <span>
+                        <i class="fas fa-exclamation-triangle mr-1"></i>
+                        An event start time must be greater than the current time.
+                      </span>
+                    } 
+                  : {}
                 )}                
               />
             </div>
@@ -352,8 +366,15 @@ class EventForm extends Component {
                 )} 
                 onFocus={this.isValidDateTime}
                 error={this.state.selectedEndDateError}                        
-                {...(selectedEndDateError ? 
-                  { helperText: "The event end time must be greater than the start time." } : {}
+                {...(selectedEndDateError 
+                  ? { 
+                      helperText: 
+                      <span>
+                        <i class="fas fa-exclamation-triangle mr-1"></i>
+                        The event end time must be greater than the start time.
+                      </span>
+                    } 
+                  : {}
                 )}                 
               />
             </div>

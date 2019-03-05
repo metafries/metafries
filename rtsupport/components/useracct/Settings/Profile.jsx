@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
+import ProfileForm from '../../forms/ProfileForm.jsx'
+import { ACTIVE, NOT_ACTIVE } from '../../nav/navConstants.jsx'
 
 const baseStyle = {
   width: 255,
@@ -36,6 +38,7 @@ class Profile extends Component {
     fileName: '',
     uploadImgOkMsg: '',
     uploadImgErrMsg: '',
+    defaultOpts: true,
   }
   componentDidMount() {
     const {fba, providerId} = this.props 
@@ -46,6 +49,11 @@ class Profile extends Component {
         })  
       }
     }
+  }
+  hendledefaultOpts = () => {
+    this.setState(prevState => ({
+      defaultOpts: !prevState.defaultOpts
+    }))
   }
   onDrop = (files) => {
     this.setState({
@@ -85,128 +93,145 @@ class Profile extends Component {
   }
   render() {
     const {fba, providerId, loading} = this.props 
-    const {photoURL, preview, uploadImgOkMsg, uploadImgErrMsg} = this.state
+    const {photoURL, preview, uploadImgOkMsg, uploadImgErrMsg, defaultOpts} = this.state
     return (
       <div>
-        <h3 className='mb-0 font-weight-bold'>Public Profile</h3>
-        <hr/>        
-        <div className='row'>
-          <div class="col-lg-4 mb-4">
-            <h6 style={stepsHeader}>STEP1 - ADD A NEW IMAGE</h6>
-            <Dropzone 
-              accept="image/*"
-              multiple={false}
-              onDrop={this.onDrop}
-              >
-              {
-                ({ 
-                  getRootProps, 
-                  getInputProps, 
-                  isDragActive, 
-                  isDragAccept, 
-                  isDragReject, 
-                  acceptedFiles, 
-                  rejectedFiles 
-                }) => {
-                  let styles = {...baseStyle}
-                  styles = isDragActive ? {...styles, ...activeStyle} : styles
-                  styles = isDragReject ? {...styles, ...rejectStyle} : styles
-              
-                  return (
-                    <div
-                      {...getRootProps()}
-                      style={styles}
+        <button 
+          type="button" 
+          class={defaultOpts ? ACTIVE : NOT_ACTIVE}
+          onClick={this.hendledefaultOpts}>
+          AVATAR
+        </button>
+        <button 
+          type="button" 
+          class={defaultOpts ? NOT_ACTIVE : ACTIVE}
+          onClick={this.hendledefaultOpts}>
+          INTRO
+        </button>
+        <hr/>    
+        {
+          defaultOpts
+          ? <div>
+              <div className='row'>
+                <div class="col-lg-4 mb-4">
+                  <h6 style={stepsHeader}>STEP1 - ADD A NEW IMAGE</h6>
+                  <Dropzone 
+                    accept="image/*"
+                    multiple={false}
+                    onDrop={this.onDrop}
                     >
-                      <input {...getInputProps()} />
-                      <div className='pt-5'>
-                        {
-                          !isDragReject &&
-                          <h6 className='pt-5 mt-5 mx-4'>                            
-                            {
-                              isDragAccept 
-                              ? <span className='green-text'>
-                                  <i class="fas fa-check-circle mr-2"></i>Add This Image
-                                </span>
-                              : <span>
-                                  <i class="fas fa-upload mr-2"></i>
-                                  Drag then Drop a New Image Here OR Click/Tap To Add
-                                </span>
-                            }
-                          </h6>
-                        }
-                        {
-                          isDragReject &&
-                          <h6 className='pt-5 mt-5 mx-4 red-text'>
-                            <i class="fas fa-exclamation-triangle mr-2"></i>
-                            Invalid File Type
-                          </h6>
-                        }
-                      </div>
-                    </div>
-                  )
-                }
-              }
-            </Dropzone>
-          </div>      
-          <div class="col-lg-4 mb-4">
-            <h6 style={stepsHeader}>STEP2 - CROP THE IMAGE<br/></h6>
-            <div style={{...baseStyle}}>
-              <Cropper
-                style={{height:250,width:'100%'}}
-                ref='cropper'
-                src={photoURL}
-                aspectRatio={1}
-                viewMode={0}
-                dragMode='move'
-                guides={false}
-                scalable={true}
-                cropBoxMovable={true}
-                cropBoxResizable={true}
-                crop={this.cropImage}
-              />
-            </div>
-          </div>      
-          <div class="col-lg-4 mb-4">
-            <h6 style={stepsHeader}>STEP3 - PREVIEW THE CROPPED IMAGE</h6>
-            <div style={{...baseStyle}}>
-              <img src={preview} style={{maxWidth:'100%'}}/>                  
-            </div>
-            {
-              loading
-              ? <div className='h5 mt-2 w-100 text-center'>
-                  <span 
-                    class="spinner-border mr-2" 
-                    role="status" 
-                    aria-hidden="true">
-                  </span>
-                  <span className='h3'>
-                    Uploading...
-                  </span>
+                    {
+                      ({ 
+                        getRootProps, 
+                        getInputProps, 
+                        isDragActive, 
+                        isDragAccept, 
+                        isDragReject, 
+                        acceptedFiles, 
+                        rejectedFiles 
+                      }) => {
+                        let styles = {...baseStyle}
+                        styles = isDragActive ? {...styles, ...activeStyle} : styles
+                        styles = isDragReject ? {...styles, ...rejectStyle} : styles
+                    
+                        return (
+                          <div
+                            {...getRootProps()}
+                            style={styles}
+                          >
+                            <input {...getInputProps()} />
+                            <div className='pt-5'>
+                              {
+                                !isDragReject &&
+                                <h6 className='pt-5 mt-5 mx-4'>                            
+                                  {
+                                    isDragAccept 
+                                    ? <span className='green-text'>
+                                        <i class="fas fa-check-circle mr-2"></i>Add This Image
+                                      </span>
+                                    : <span>
+                                        <i class="fas fa-upload mr-2"></i>
+                                        Drag then Drop a New Image Here OR Click/Tap To Add
+                                      </span>
+                                  }
+                                </h6>
+                              }
+                              {
+                                isDragReject &&
+                                <h6 className='pt-5 mt-5 mx-4 red-text'>
+                                  <i class="fas fa-exclamation-triangle mr-2"></i>
+                                  Invalid File Type
+                                </h6>
+                              }
+                            </div>
+                          </div>
+                        )
+                      }
+                    }
+                  </Dropzone>
+                </div>      
+                <div class="col-lg-4 mb-4">
+                  <h6 style={stepsHeader}>STEP2 - CROP THE IMAGE<br/></h6>
+                  <div style={{...baseStyle}}>
+                    <Cropper
+                      style={{height:250,width:'100%'}}
+                      ref='cropper'
+                      src={photoURL}
+                      aspectRatio={1}
+                      viewMode={0}
+                      dragMode='move'
+                      guides={false}
+                      scalable={true}
+                      cropBoxMovable={true}
+                      cropBoxResizable={true}
+                      crop={this.cropImage}
+                    />
+                  </div>
+                </div>      
+                <div class="col-lg-4 mb-4">
+                  <h6 style={stepsHeader}>STEP3 - PREVIEW THE CROPPED IMAGE</h6>
+                  <div style={{...baseStyle}}>
+                    <img src={preview} style={{maxWidth:'100%'}}/>                  
+                  </div>
                 </div>  
-              : <button 
-                  onClick={this.uploadImage}
-                  type="button" 
-                  class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold w-100 mt-2">
-                  Set New Profile Picture
-                </button>                  
-            }  
-            {
-              uploadImgOkMsg.length > 0 &&
-              <h6 className='input-ok-msg my-2 p-2'>
-                <i class="fas fa-check-circle mr-2"></i>
-                {uploadImgOkMsg}
-              </h6>        
-            }
-            {
-              uploadImgErrMsg.length > 0 &&
-              <h6 className='input-err-msg my-2 p-2'>
-                <i class="fas fa-exclamation-triangle mr-2"></i>
-                {uploadImgErrMsg}
-              </h6>        
-            }            
-          </div>      
-        </div>
-        <hr/>
+              </div>
+              {
+                uploadImgOkMsg.length > 0 &&
+                <h6 className='input-ok-msg my-2 p-2'>
+                  <i class="fas fa-check-circle mr-2"></i>
+                  {uploadImgOkMsg}
+                </h6>        
+              }
+              {
+                uploadImgErrMsg.length > 0 &&
+                <h6 className='input-err-msg my-2 p-2'>
+                  <i class="fas fa-exclamation-triangle mr-2"></i>
+                  {uploadImgErrMsg}
+                </h6>        
+              }            
+              <hr/>
+              {
+                loading
+                ? <div className='h5'>
+                    <span 
+                      class="spinner-border mr-2" 
+                      role="status" 
+                      aria-hidden="true">
+                    </span>
+                    <span className='h3'>
+                      Uploading...
+                    </span>
+                  </div>  
+                : <button 
+                    onClick={this.uploadImage}
+                    type="button" 
+                    class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">
+                    Set New Profile Picture
+                  </button>                  
+              }   
+            </div>
+          : <ProfileForm fba={fba}/>          
+        }    
       </div>
     )
   }
