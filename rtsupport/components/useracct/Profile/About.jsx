@@ -2,19 +2,35 @@ import React, { Component } from 'react'
 
 class About extends Component {
     render() {
-        const {fba} = this.props
+        const {fbp} = this.props
         return (
             <div class="col-lg-4 mb-4">
-                <a href={fba.photoURL}>
-                    <img src={fba.photoURL} style={{maxWidth:'100%'}}/>
+                <a href={fbp.avatarUrl}>
+                    <img src={fbp.avatarUrl} style={{maxWidth:'100%'}}/>
                 </a>
                 <h2 className='transbox p-3 text-right'>
-                    {fba.displayName}
-                    <h6 className='text-light mb-0'>- subscribers</h6>
+                    {fbp.displayName}
+                    <h6 className='text-light mb-0'>-- subscribers</h6>
                 </h2>
-                <h5><i class="fas fa-building mr-2 icon"></i>-</h5>
-                <h5><i class="fas fa-map-marker-alt mr-2 icon"></i>-</h5>
-                <h5><i class="fas fa-link mr-2 icon"></i>-</h5>
+                {
+                    fbp.bio && fbp.bio.length != 0 &&
+                    <h5 className='my-4'>{fbp.bio}</h5>
+                }
+                {
+                    fbp.company && fbp.company.length != 0 &&
+                    <h5><i class="fas fa-building mr-2 icon"></i>{fbp.company}</h5>
+                }
+                {
+                    fbp.location && fbp.location.length != 0 &&
+                    <h5><i class="fas fa-map-marker-alt mr-2 icon"></i>{fbp.location}</h5>
+                }
+                {
+                    fbp.website && fbp.website.length != 0 &&
+                    <h5>
+                        <i class="fas fa-link mr-2 icon"></i>
+                        <a href={fbp.website}>{fbp.website}</a>
+                    </h5>
+                }
                 <a 
                     role='button' 
                     href='/settings/profile'
