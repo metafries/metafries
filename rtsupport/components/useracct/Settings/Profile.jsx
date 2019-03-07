@@ -31,7 +31,7 @@ const stepsHeader = {
 
 class Profile extends Component {
   state = {
-    photoURL: this.props.fba.photoURL || 
+    photoURL: this.props.fbp.avatarUrl || 
       "/static/images/whazup-square-logo.png",
     preview: null,
     croppedCanvas: {},
@@ -41,11 +41,11 @@ class Profile extends Component {
     defaultOpts: true,
   }
   componentDidMount() {
-    const {fba, providerId} = this.props 
+    const {fbp, providerId} = this.props 
     if (providerId && providerId == 'facebook.com') {
-      if (!fba.photoURL.includes('firebasestorage')) {
+      if (!fbp.avatarUrl.includes('firebasestorage')) {
         this.setState({
-          photoURL: fba.photoURL+'?height=250'
+          photoURL: fbp.avatarUrl+'?height=250'
         })  
       }
     }
@@ -92,7 +92,7 @@ class Profile extends Component {
     }
   }
   render() {
-    const {fba, providerId, loading} = this.props 
+    const {updateProfile, fbp, fba, providerId, loading} = this.props 
     const {photoURL, preview, uploadImgOkMsg, uploadImgErrMsg, defaultOpts} = this.state
     return (
       <div>
@@ -230,7 +230,11 @@ class Profile extends Component {
                   </button>                  
               }   
             </div>
-          : <ProfileForm fba={fba}/>          
+          : <ProfileForm 
+              updateProfile={updateProfile}  
+              fbp={fbp}              
+              fba={fba}          
+            />          
         }    
       </div>
     )

@@ -12,17 +12,20 @@ class ProfileForm extends Component {
     state = {
         username_input: VALID_INPUT,  
         username_err_msg: HIDE_ERR_MSG,      
-        usernameInputLength: this.props.fba.displayName.length,
+        usernameInputLength: this.props.fbp.displayName.length,
         bioInputLength: 0,
         scriptLoaded: false,
         profile: {
-            username: this.props.fba.displayName,
-            website: '',
-            company: '',
-            location: '',
-            bio: '',            
-        }
+            displayName: this.props.fbp.displayName,
+            website: this.props.fbp.website || '',
+            company: this.props.fbp.company || '',
+            location: this.props.fbp.location || '',
+            bio: this.props.fbp.bio || '',            
+        },
+        updateOkMsg: '',
+        updateErrMsg: '',  
     }
+
     handleScriptLoad = () => {
         this.setState({
             scriptLoaded: true
@@ -47,7 +50,7 @@ class ProfileForm extends Component {
         this.setState({
             profile: userInput
         })
-        if (e.target.name == 'username') {
+        if (e.target.name == 'displayName') {
             this.setState({
                 usernameInputLength: e.target.value.trim().length
             })
@@ -69,6 +72,26 @@ class ProfileForm extends Component {
             })
         }
     }
+    handleSubmit = (e) => {
+        e.preventDefault() 
+        this.setState({
+            updateOkMsg: '',
+            updateErrMsg: '',  
+        })          
+        const {usernameInputLength, profile} = this.state
+        if (usernameInputLength != 0) {
+            try {
+                this.props.updateProfile(profile)   
+                this.setState({
+                    updateOkMsg: 'Profile updated successfully — '
+                })             
+            } catch(error) {
+                this.setState({
+                    updateErrMsg: error.message
+                })
+            }
+        }
+    }        
     render() {
         const {
             username_input, 
@@ -77,9 +100,11 @@ class ProfileForm extends Component {
             bioInputLength,
             scriptLoaded,
             profile,
+            updateOkMsg,
+            updateErrMsg,
         } = this.state
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <Script
                     url='https://maps.googleapis.com/maps/api/js?key=AIzaSyA8xyoeTTfh5SOxWdF8C5J9oD0PrBQv3WQ&libraries=places'
                     onLoad={this.handleScriptLoad}
@@ -91,8 +116,8 @@ class ProfileForm extends Component {
                         maxlength='64'
                         type="text" 
                         class={username_input} 
-                        name='username'
-                        value={profile.username}
+                        name='displayName'
+                        value={profile.displayName}
                         onChange={this.onInputChange}
                     />
                     <small className={username_err_msg}>
@@ -179,9 +204,24 @@ class ProfileForm extends Component {
                         placeholder="Write more details about yourself"
                     />
                 </div>
+                {
+                    updateOkMsg.length > 0 &&
+                    <h6 className='input-ok-msg my-2 p-2'>
+                        <i class="fas fa-check-circle mr-2"></i>
+                        {updateOkMsg}
+                        <a href={`/profile/${this.props.fba.uid}`}>view your profile.</a>
+                    </h6>        
+                }
+                {
+                    updateErrMsg.length > 0 &&
+                    <h6 className='input-err-msg my-2 p-2'>
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        {updateErrMsg}
+                    </h6>        
+                }            
                 <hr/>
                 <button 
-                    type="button" 
+                    type="submit" 
                     class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">
                     Update Profile
                 </button>         
