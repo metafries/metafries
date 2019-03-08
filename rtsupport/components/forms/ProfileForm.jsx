@@ -111,7 +111,7 @@ class ProfileForm extends Component {
                 />
                 <div className="form-group">
                     <small className='float-right'>{usernameInputLength}/64</small>
-                    <h5 className='font-weight-bold'>Username</h5>
+                    <h5 className='font-weight-bold'>Name</h5>
                     <input 
                         maxlength='64'
                         type="text" 
@@ -126,7 +126,7 @@ class ProfileForm extends Component {
                     </small>
                 </div>   
                 <div className="form-group">
-                    <h5 className='font-weight-bold'>Website</h5>
+                    <h5 className='font-weight-bold'>URL</h5>
                     <input 
                         type="url" 
                         className="form-control rounded-0" 

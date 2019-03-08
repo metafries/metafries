@@ -5,15 +5,20 @@ import About from './About.jsx'
 import Overview from './Overview.jsx'
 
 const mapState = (state) => ({
+  providerId: state.firebase.auth.providerData[0].providerId,      
   fbp: state.firebase.profile,
 })
 
 class Dashboard extends Component {
   render() {
-    const {fbp} = this.props
+    const {providerId, fbp} = this.props
+    const authenticated = fbp.isLoaded && !fbp.isEmpty        
     return (
       <div className='row'>
-        <About fbp={fbp}/>
+        {
+          authenticated &&
+          <About providerId={providerId} fbp={fbp}/>          
+        }
         <Overview/>
         <Footer/>
       </div>

@@ -1,12 +1,25 @@
 import React, { Component } from 'react'
 
 class About extends Component {
+    state = {
+        avatarUrl: this.props.fbp.avatarUrl
+    }
+    componentDidMount() {
+        const {fbp, providerId} = this.props 
+        if (providerId && providerId == 'facebook.com') {
+            if (!fbp.avatarUrl.includes('firebasestorage')) {
+                this.setState({
+                    avatarUrl: fbp.avatarUrl+'?height=250'
+                })  
+            }
+        }
+    }        
     render() {
         const {fbp} = this.props
         return (
             <div class="col-lg-4 mb-4">
                 <a href={fbp.avatarUrl}>
-                    <img src={fbp.avatarUrl} style={{maxWidth:'100%'}}/>
+                    <img src={this.state.avatarUrl} style={{width:'100%'}}/>
                 </a>
                 <h2 className='transbox p-3 text-right'>
                     {fbp.displayName}

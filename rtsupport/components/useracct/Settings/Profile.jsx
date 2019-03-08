@@ -98,19 +98,19 @@ class Profile extends Component {
       <div>
         <button 
           type="button" 
-          class={defaultOpts ? ACTIVE : NOT_ACTIVE}
+          class={defaultOpts ? NOT_ACTIVE : ACTIVE}          
           onClick={this.hendledefaultOpts}>
           AVATAR
         </button>
         <button 
           type="button" 
-          class={defaultOpts ? NOT_ACTIVE : ACTIVE}
+          class={defaultOpts ? ACTIVE : NOT_ACTIVE}          
           onClick={this.hendledefaultOpts}>
           INTRO
         </button>
         <hr/>    
         {
-          defaultOpts
+          ! defaultOpts
           ? <div>
               <div className='row'>
                 <div class="col-lg-4 mb-4">
