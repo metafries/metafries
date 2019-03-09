@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Photos from './Photos.jsx'
 
 class About extends Component {
     state = {
@@ -18,9 +19,7 @@ class About extends Component {
         const {fbp} = this.props
         return (
             <div class="col-lg-4 mb-4">
-                <a href={fbp.avatarUrl}>
-                    <img src={this.state.avatarUrl} style={{width:'100%'}}/>
-                </a>
+                <Photos avatarUrl={this.state.avatarUrl} fbp={fbp}/>
                 <h2 className='transbox p-3 text-right'>
                     {fbp.displayName}
                     <h6 className='text-light mb-0'>-- subscribers</h6>
