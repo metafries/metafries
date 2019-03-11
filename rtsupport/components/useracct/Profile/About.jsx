@@ -16,10 +16,14 @@ class About extends Component {
         }
     }        
     render() {
-        const {fbp} = this.props
+        const {photos, fbp} = this.props
         return (
             <div class="col-lg-4 mb-4">
-                <Photos avatarUrl={this.state.avatarUrl} fbp={fbp}/>
+                <Photos 
+                    photos={photos}
+                    fbp={fbp}
+                    avatarUrl={this.state.avatarUrl} 
+                />
                 <h2 className='transbox p-3 text-right'>
                     {fbp.displayName}
                     <h6 className='text-light mb-0'>-- subscribers</h6>
