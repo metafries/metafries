@@ -32,6 +32,10 @@ class ProfileForm extends Component {
         })
     }    
     handleAddrChange = address => {
+        this.setState({
+            updateOkMsg: '',
+            updateErrMsg: '',  
+        })
         const update = this.state.profile;
         update.location = address
         this.setState({
@@ -39,12 +43,21 @@ class ProfileForm extends Component {
         })
     };    
     handleAddrSelect = address => {
+        const update = this.state.profile;
+        update.location = address
+        this.setState({
+            profile: update
+        })
         geocodeByAddress(address)
             .then(results => getLatLng(results[0]))
             .then(latLng => console.log('Success', latLng))
             .catch(error => console.error('Error', error));
     };        
     onInputChange = (e) => {
+        this.setState({
+            updateOkMsg: '',
+            updateErrMsg: '',  
+        })
         const userInput = this.state.profile
         userInput[e.target.name] = e.target.value
         this.setState({
