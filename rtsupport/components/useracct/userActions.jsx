@@ -1,4 +1,5 @@
 import { startAsyncAction, finishAsyncAction } from '../async/asyncActions.jsx'
+import cuid from 'cuid'
 
 export const updateProfile = (user) => 
     async (
@@ -18,7 +19,7 @@ export const updateProfile = (user) =>
         }
     }
 
-export const setNewProfilePicture = (file, fileName) => 
+export const setNewProfilePicture = (file) => 
 async (
     dispatch,
     getState,
@@ -27,10 +28,11 @@ async (
     const firebase = getFirebase()
     const firestore = getFirestore()
     const currentUser = firebase.auth().currentUser
-    const storagePath = `${currentUser.uid}/images`
-    const fileOpts = {name: fileName}
-    dispatch(startAsyncAction())
+    const storagePath = `${currentUser.uid}/profile_pictures`
+    const imgId = cuid()
+    const fileOpts = {name: imgId}
     try {
+        dispatch(startAsyncAction())        
         let uploadedFile = await firebase.uploadFile(storagePath, file, null, fileOpts)
         let downloadURL = await uploadedFile.uploadTaskSnapshot.ref.getDownloadURL()
         let userDoc = await firestore.get(`users/${currentUser.uid}`)
@@ -40,12 +42,12 @@ async (
             {
                 collection: 'users',
                 doc: currentUser.uid,
-                subcollections: [{collection: 'photos'}]
+                subcollections: [{collection: 'profile_pictures'}]
             },
             {
                 downloadURL: downloadURL,
                 uploadedAt: firestore.FieldValue.serverTimestamp(),
-                fileName: fileName,
+                imgId: imgId,
             }
         )
     } catch (error) {

@@ -11,8 +11,8 @@ const fetchPhotos = ({fba}) => {
     {
       collection: 'users',
       doc: fba.uid,
-      subcollections: [{collection: 'photos'}],
-      storeAs: 'photos',
+      subcollections: [{collection: 'profile_pictures'}],
+      storeAs: 'profile_pictures',
     }
   ]
 }
@@ -21,7 +21,7 @@ const mapState = (state) => ({
   providerId: state.firebase.auth.providerData[0].providerId,      
   fbp: state.firebase.profile,
   fba: state.firebase.auth,
-  photos: state.firestore.ordered.photos,
+  photos: state.firestore.ordered.profile_pictures,
 })
 
 class Dashboard extends Component {

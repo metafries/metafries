@@ -35,7 +35,6 @@ class Profile extends Component {
       "/static/images/whazup-square-logo.png",
     preview: null,
     croppedCanvas: {},
-    fileName: '',
     uploadImgOkMsg: '',
     uploadImgErrMsg: '',
     defaultOpts: true,
@@ -58,7 +57,6 @@ class Profile extends Component {
   onDrop = (files) => {
     this.setState({
       photoURL: files.map(file => URL.createObjectURL(file))[0],   
-      fileName: files[0].name,
     })
   }
   cropImage = () => {
@@ -74,14 +72,9 @@ class Profile extends Component {
       uploadImgOkMsg: '',
       uploadImgErrMsg: '',  
     })
-    const {croppedCanvas, fileName} = this.state
+    const {croppedCanvas} = this.state
     try {
-      if (fileName.length == 0) {
-        this.setState({
-          fileName: (new Date()).getTime().toString()
-        })
-      }
-      await this.props.setNewProfilePicture(croppedCanvas, fileName)
+      await this.props.setNewProfilePicture(croppedCanvas)
       this.setState({
         uploadImgOkMsg: 'Avatar has Changed.'
       })
