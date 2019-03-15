@@ -50,7 +50,7 @@ class About extends Component {
                 <a 
                     role='button' 
                     href='/settings/profile'
-                    className='btn btn-outline-dark rounded-0 mt-2 font-weight-bold w-100 border-2'
+                    className='btn btn-outline-dark btn-lg py-0 rounded-0 mt-2 font-weight-bold w-100 border-2'
                     >
                     EDIT
                 </a>

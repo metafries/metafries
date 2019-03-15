@@ -9,8 +9,8 @@ import ScrollToTop from './app/common/util/ScrollToTop.jsx'
 
 const store = configureStore()
 
-let alerter = require('./alerter');
-alerter('viva nuts!');
+// let alerter = require('./alerter');
+// alerter('viva nuts!');
 
 ReactDOM.render(
     <Provider store={store}>
