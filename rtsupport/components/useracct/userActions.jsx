@@ -56,3 +56,24 @@ async (
         dispatch(finishAsyncAction())        
     }
 }
+
+export const deleteProfilePicture = (photo) =>
+    async (
+        dispatch,
+        getState,
+        {getFirebase, getFirestore},
+    ) => {
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        const currentUser = firebase.auth().currentUser
+        try {
+            await firebase.deleteFile(`${currentUser.uid}/profile_pictures/${photo.imgId}`)
+            await firestore.delete({
+                collection: 'users',
+                doc: currentUser.uid,
+                subcollections: [{collection: 'profile_pictures', doc: photo.id}]
+            })
+        } catch (e) {
+            throw new Error('ERR_DELETE_PROFILE_PICTURE')
+        }
+    }

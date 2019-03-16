@@ -5,6 +5,7 @@ import { compose } from 'redux'
 import Footer from '../../nav/Footer.jsx'
 import About from './About.jsx'
 import Overview from './Overview.jsx'
+import { deleteProfilePicture } from '../userActions.jsx'
 
 const fetchPhotos = ({fba}) => {
   return [
@@ -24,17 +25,23 @@ const mapState = (state) => ({
   photos: state.firestore.ordered.profile_pictures,
 })
 
+const actions = {
+  deleteProfilePicture,
+}
+
 class Dashboard extends Component {
   render() {
-    const {photos, fbp, providerId} = this.props
+    const {deleteProfilePicture, photos, fba, fbp, providerId} = this.props
     const authenticated = fbp.isLoaded && !fbp.isEmpty        
     return (
       <div className='row'>
         {
           authenticated &&
           <About 
+            deleteProfilePicture={deleteProfilePicture}
             photos={photos}
             fbp={fbp}
+            fba={fba}
             providerId={providerId}             
           />          
         }
@@ -46,6 +53,6 @@ class Dashboard extends Component {
 }
 
 export default compose(
-  connect(mapState),
+  connect(mapState, actions),
   firestoreConnect(auth => fetchPhotos(auth)),
 )(Dashboard)

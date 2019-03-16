@@ -16,11 +16,13 @@ class About extends Component {
         }
     }        
     render() {
-        const {photos, fbp} = this.props
+        const {deleteProfilePicture, photos, fba, fbp} = this.props
         return (
             <div class="col-lg-4 mb-4">
                 <Photos 
+                    deleteProfilePicture={deleteProfilePicture}
                     photos={photos}
+                    fba={fba}
                     fbp={fbp}
                     avatarUrl={this.state.avatarUrl} 
                 />

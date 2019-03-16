@@ -1,8 +1,26 @@
 import React, { Component } from 'react'
 
 class Photos extends Component {
+  state = {
+    deleteImgOkMsg: '',
+    deleteImgErrMsg: '',
+  }
+  handleDelete = (photo) => async() => {
+      try {
+        this.props.deleteProfilePicture(photo)
+        $('#'+photo.imgId).modal('hide')    
+        this.setState({
+            deleteImgOkMsg: 'The photo removed successfully - '
+        })
+      } catch (e) {
+        this.setState({
+            deleteImgErrMsg: e.message,
+        })
+      }
+  }
   render() {
-    const {photos, fbp} = this.props
+    const {photos, fba, fbp} = this.props
+    const {deleteImgOkMsg, deleteImgErrMsg} = this.state
     let filteredPhotos
     if (photos && photos.length > 0) {
         filteredPhotos = photos.filter(photo => {
@@ -11,6 +29,21 @@ class Photos extends Component {
     }
     return (
       <div>
+        {
+            deleteImgOkMsg.length > 0 &&
+            <h5 className='input-ok-msg my-2 p-2'>
+                <i class="fas fa-check-circle mr-2"></i>
+                {deleteImgOkMsg}
+                <a href={`/profile/${this.props.fba.uid}`}>reload the latest profile.</a>
+            </h5>        
+        }        
+        {
+            deleteImgErrMsg.length > 0 &&
+            <h5 className='input-err-msg my-2 p-2'>
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                {deleteImgErrMsg}
+            </h5>        
+        }                                                                    
         {
             fbp.avatarUrl && fbp.avatarUrl.length > 0 &&
             <div id="profilePictures" class="carousel slide" data-ride="carousel" data-interval="false">
@@ -99,7 +132,13 @@ class Photos extends Component {
                                                 </a>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger btn-lg rounded-0 w-100 font-weight-bold">Delete This Photo</button>
+                                                <button 
+                                                    type="button" 
+                                                    class="btn btn-danger btn-lg rounded-0 w-100 font-weight-bold"
+                                                    onClick={this.handleDelete(photo)}
+                                                >
+                                                    Delete This Photo
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
