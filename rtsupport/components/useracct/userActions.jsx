@@ -67,13 +67,20 @@ export const deleteProfilePicture = (photo) =>
         const firestore = getFirestore()
         const currentUser = firebase.auth().currentUser
         try {
-            await firebase.deleteFile(`${currentUser.uid}/profile_pictures/${photo.imgId}`)
-            await firestore.delete({
-                collection: 'users',
-                doc: currentUser.uid,
-                subcollections: [{collection: 'profile_pictures', doc: photo.id}]
-            })
-        } catch (e) {
-            throw new Error('ERR_DELETE_PROFILE_PICTURE')
+            dispatch(startAsyncAction())                    
+            if (photo.downloadURL == currentUser.photoURL) {
+                await firebase.updateProfile({avatarUrl: ''})
+                await currentUser.updateProfile({photoURL: ''})        
+            }
+            if (photo.imgId) {
+                await firestore.delete({
+                    collection: 'users',
+                    doc: currentUser.uid,
+                    subcollections: [{collection: 'profile_pictures', doc: photo.id}]
+                })    
+                await firebase.deleteFile(`${currentUser.uid}/profile_pictures/${photo.imgId}`)                                
+            }
+        } finally {
+            dispatch(finishAsyncAction())                    
         }
     }

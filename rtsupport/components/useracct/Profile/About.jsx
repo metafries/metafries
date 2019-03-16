@@ -16,7 +16,7 @@ class About extends Component {
         }
     }        
     render() {
-        const {deleteProfilePicture, photos, fba, fbp} = this.props
+        const {loading, deleteProfilePicture, photos, fba, fbp} = this.props
         return (
             <div class="col-lg-4 mb-4">
                 <Photos 
@@ -25,6 +25,7 @@ class About extends Component {
                     fba={fba}
                     fbp={fbp}
                     avatarUrl={this.state.avatarUrl} 
+                    loading={loading}
                 />
                 <h2 className='transbox p-3 text-right'>
                     {fbp.displayName}

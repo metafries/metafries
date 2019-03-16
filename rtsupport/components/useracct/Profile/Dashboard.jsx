@@ -23,6 +23,7 @@ const mapState = (state) => ({
   fbp: state.firebase.profile,
   fba: state.firebase.auth,
   photos: state.firestore.ordered.profile_pictures,
+  loading: state.async.loading,  
 })
 
 const actions = {
@@ -31,7 +32,7 @@ const actions = {
 
 class Dashboard extends Component {
   render() {
-    const {deleteProfilePicture, photos, fba, fbp, providerId} = this.props
+    const {loading, deleteProfilePicture, photos, fba, fbp, providerId} = this.props
     const authenticated = fbp.isLoaded && !fbp.isEmpty        
     return (
       <div className='row'>
@@ -43,6 +44,7 @@ class Dashboard extends Component {
             fbp={fbp}
             fba={fba}
             providerId={providerId}             
+            loading={loading}           
           />          
         }
         <Overview/>
