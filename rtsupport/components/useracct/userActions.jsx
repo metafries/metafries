@@ -73,12 +73,12 @@ export const deleteProfilePicture = (photo) =>
                 await currentUser.updateProfile({photoURL: ''})        
             }
             if (photo.imgId) {
+                await firebase.deleteFile(`${currentUser.uid}/profile_pictures/${photo.imgId}`)                                                
                 await firestore.delete({
                     collection: 'users',
                     doc: currentUser.uid,
                     subcollections: [{collection: 'profile_pictures', doc: photo.id}]
                 })    
-                await firebase.deleteFile(`${currentUser.uid}/profile_pictures/${photo.imgId}`)                                
             }
         } finally {
             dispatch(finishAsyncAction())                    
