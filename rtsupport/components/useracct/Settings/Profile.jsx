@@ -76,7 +76,7 @@ class Profile extends Component {
     try {
       await this.props.setNewProfilePicture(croppedCanvas)
       this.setState({
-        uploadImgOkMsg: 'Avatar has Changed.'
+        uploadImgOkMsg: 'Your avatar has changed successfully - '
       })
     } catch (error) {
       this.setState({
@@ -91,19 +91,19 @@ class Profile extends Component {
       <div>
         <button 
           type="button" 
-          class={defaultOpts ? NOT_ACTIVE : ACTIVE}          
+          class={defaultOpts ? ACTIVE : NOT_ACTIVE}
           onClick={this.hendledefaultOpts}>
           AVATAR
         </button>
         <button 
           type="button" 
-          class={defaultOpts ? ACTIVE : NOT_ACTIVE}          
+          class={defaultOpts ? NOT_ACTIVE : ACTIVE}
           onClick={this.hendledefaultOpts}>
           INTRO
         </button>
         <hr/>    
         {
-          ! defaultOpts
+          defaultOpts
           ? <div>
               <div className='row'>
                 <div class="col-lg-4 mb-4">
@@ -193,6 +193,7 @@ class Profile extends Component {
                 <h6 className='input-ok-msg my-2 p-2'>
                   <i class="fas fa-check-circle mr-2"></i>
                   {uploadImgOkMsg}
+                  <a href={`/profile/${fba.uid}`}>view profile.</a>
                 </h6>        
               }
               {
