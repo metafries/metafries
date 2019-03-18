@@ -5,7 +5,7 @@ import { compose } from 'redux'
 import Footer from '../../nav/Footer.jsx'
 import About from './About.jsx'
 import Overview from './Overview.jsx'
-import { deleteProfilePicture } from '../userActions.jsx'
+import { setAvatar, deleteProfilePicture } from '../userActions.jsx'
 
 const fetchPhotos = ({fba}) => {
   return [
@@ -27,18 +27,20 @@ const mapState = (state) => ({
 })
 
 const actions = {
+  setAvatar,
   deleteProfilePicture,
 }
 
 class Dashboard extends Component {
   render() {
-    const {loading, deleteProfilePicture, photos, fba, fbp, providerId} = this.props
+    const {loading, setAvatar, deleteProfilePicture, photos, fba, fbp, providerId} = this.props
     const authenticated = fbp.isLoaded && !fbp.isEmpty        
     return (
       <div className='row'>
         {
           authenticated &&
           <About 
+            setAvatar={setAvatar}
             deleteProfilePicture={deleteProfilePicture}
             photos={photos}
             fbp={fbp}

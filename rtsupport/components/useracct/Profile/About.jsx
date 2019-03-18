@@ -16,10 +16,11 @@ class About extends Component {
         }
     }        
     render() {
-        const {loading, deleteProfilePicture, photos, fba, fbp} = this.props
+        const {loading, setAvatar, deleteProfilePicture, photos, fba, fbp} = this.props
         return (
             <div class="col-lg-4 mb-4">
                 <Photos 
+                    setAvatar={setAvatar}
                     deleteProfilePicture={deleteProfilePicture}
                     photos={photos}
                     fba={fba}

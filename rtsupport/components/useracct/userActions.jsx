@@ -84,3 +84,20 @@ export const deleteProfilePicture = (photo) =>
             dispatch(finishAsyncAction())                    
         }
     }
+
+export const setAvatar = (photo) => 
+    async (
+        dispatch,
+        getState,
+        {getFirebase},
+    ) => {
+        const firebase = getFirebase()
+        const currentUser = firebase.auth().currentUser        
+        try {
+            dispatch(startAsyncAction())                                
+            await firebase.updateProfile({avatarUrl: photo.downloadURL})
+            await currentUser.updateProfile({photoURL: photo.downloadURL})
+        } finally {
+            dispatch(finishAsyncAction())                    
+        }
+    }

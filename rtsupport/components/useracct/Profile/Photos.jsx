@@ -1,7 +1,24 @@
 import React, { Component } from 'react'
 
 class Photos extends Component {
+  state = {
+      setAvatarOnClick: false,
+      deleteOnClick: false,
+  }
+  handleSetAvatar = (photo) => async() => {
+    this.setState({
+        setAvatarOnClick: true,
+    })
+    try {
+        await this.props.setAvatar(photo)
+    } finally {
+        location.reload()
+    }
+  }
   handleDelete = (photo) => async() => {
+    this.setState({
+        deleteOnClick: true,
+    })
     try {
         await this.props.deleteProfilePicture(photo)        
     } finally {
@@ -10,6 +27,7 @@ class Photos extends Component {
   }
   render() {
     const {loading, photos, fba, fbp} = this.props
+    const {setAvatarOnClick, deleteOnClick} = this.state
     let filteredPhotos, uploadedFile
     if (photos && photos.length > 0) {
         filteredPhotos = photos.filter(photo => {
@@ -36,7 +54,8 @@ class Photos extends Component {
                             aria-hidden="true">
                         </span>
                         <span className='h2 mb-0'>
-                            Deleting...
+                            {setAvatarOnClick && 'Setting...'}
+                            {deleteOnClick && 'Deleting...'}                            
                         </span>
                     </div>  
                 :   <div>
@@ -105,6 +124,7 @@ class Photos extends Component {
                                                     <button 
                                                         type="button" 
                                                         class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
+                                                        onClick={this.handleSetAvatar(photo)}                                                        
                                                     >
                                                         <i class="fas fa-user-circle mr-2"></i>AVATAR
                                                     </button>                    
@@ -179,6 +199,7 @@ class Photos extends Component {
                                                     <button 
                                                         type="button" 
                                                         class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
+                                                        onClick={this.handleSetAvatar(photo)}
                                                     >
                                                         <i class="fas fa-user-circle mr-2"></i>AVATAR
                                                     </button>                    
