@@ -7,19 +7,20 @@ import GroupForm from '../../forms/GroupForm.jsx'
 import { createEvent } from '../../events/eventActions.jsx'
 import Footer from '../../nav/Footer.jsx'
 import { DateTime } from "luxon";
-import cuid from 'cuid'
 
-const mapState = () => {
+const mapState = (state) => {
     let event = {
-        hostedBy: 'Anonymous',
+        hostedBy: '',
         title: '',
         location: '',
+        latlng: null,
         startDate: DateTime.local().plus({minutes:1}).toFormat('yyyy/MM/dd, HH:mm'),
         endDate: DateTime.local().plus({minutes:2}).toFormat('yyyy/MM/dd, HH:mm'),
         description: '',
         permission: 0  
     }
     return {
+        fba: state.firebase.auth,            
         event
     }
 }  
@@ -30,22 +31,13 @@ const actions = {
 
 class Dashboard extends Component {
     handleCreateEvent = (event) => {
-        const nobodyPhotoURL = '/static/images/whazup-square-logo.png'
-        const newEvent = {
-            ...event,
-            id: cuid(),
-            hostPhotoURL: nobodyPhotoURL,
-            attendees: [
-                { id: 'b', name: event.hostedBy, photoURL: nobodyPhotoURL },
-            ],
-        }
-        this.props.createEvent(newEvent)
+        this.props.createEvent(event)
         this.props.history.push('/userid')
     }
     render() {
-        const {event} = this.props
+        const {fba, event} = this.props
         const options = [
-            { label: event.hostedBy, value: event.hostedBy },
+            { label: fba.displayName, value: fba.displayName },
         ]
         return (
             <div className='row'>
@@ -59,7 +51,8 @@ class Dashboard extends Component {
                             path='/create/event' 
                             render={()=>
                                 <EventForm 
-                                    options={options}                                
+                                    options={options}  
+                                    fba={fba}
                                     event={event} 
                                     handleCreateEvent={this.handleCreateEvent}
                                 />

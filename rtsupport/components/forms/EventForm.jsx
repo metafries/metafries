@@ -28,11 +28,11 @@ class EventForm extends Component {
     descInputLength: 0,
   }
   componentDidMount() {
-    const {event, isManage} = this.props
+    const {fba, event, isManage} = this.props
     this.setState({
       selectedOption: { 
-        label: event.hostedBy, 
-        value: event.hostedBy 
+        label: fba.displayName, 
+        value: fba.displayName
       },
     })  
     this.setState({

@@ -49,7 +49,11 @@ class HomePage extends Component {
             {
               this.props.loading
               ? <div className='col-lg-8'><Loader/></div>
-              : <EventList events={this.props.events} handleDeleteEvent={this.handleDeleteEvent} />              
+              : <EventList 
+                  events={this.props.events} 
+                  handleDeleteEvent={this.handleDeleteEvent} 
+                  fba={fba}
+                />              
             }
             <Footer/>
             </div>

@@ -21,7 +21,7 @@ class EventListItem extends Component {
     this.props.onDeleteEvent(cancelEvent.id)
   }
   render() {
-    const {event} = this.props;
+    const {fba, event} = this.props;
     return (
       <div className='card border-dark rounded-0 mb-3'>
         <div id={event.id} class="carousel slide" data-ride="carousel" data-interval="2000">
@@ -55,10 +55,16 @@ class EventListItem extends Component {
             <tbody>
               <tr>
                 <th scope="row" className='border-0'>
-                  <img src={event.hostPhotoURL} className="signout float-right" alt="..."/>
+                  <img src={event.hostAvatarUrl} className="signout float-right" alt="..."/>
                 </th>
                 <td className='border-0'>
-                  <h3>{event.title}</h3>
+                  <h3>
+                    {event.title}
+                    {
+                      fba.uid == event.hostUid &&
+                      <a href="#" class="badge badge-dark rounded-0 ml-2">HOST</a>
+                    }                  
+                  </h3>
                   <h5>
                     {event.permission == 0 && <span><i class="fas fa-globe mr-2"></i>Public</span>}
                     {event.permission == 1 && <span><i class="fas fa-lock mr-2"></i>Private</span>}

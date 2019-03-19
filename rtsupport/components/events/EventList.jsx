@@ -6,11 +6,11 @@ class EventList extends Component {
     this.props.handleDeleteEvent(cancelEvent_id)
   }
   render() {
-    const {events} = this.props;
+    const {fba, events} = this.props;
     return (
       <div className='col-lg-8'>
         {events && events.map((e) => (
-          <EventListItem key={e.id} event={e} events={events} onDeleteEvent={this.onDeleteEvent} />        
+          <EventListItem key={e.id} fba={fba} event={e} events={events} onDeleteEvent={this.onDeleteEvent} />        
         ))}
       </div>
     )
