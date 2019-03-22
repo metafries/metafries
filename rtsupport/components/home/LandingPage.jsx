@@ -128,15 +128,15 @@ class LandingPage extends Component {
                   >
                   <img className='attendee' src='/static/images/github-icon.png'/>
                 </button>
+                {
+                  !authenticated && auth.useThirdPartyError &&
+                  <h6 className='input-err-msg mt-3 mb-0 p-2'>
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    {auth.useThirdPartyError.message}
+                  </h6>              
+                }
               </div>
             </div>
-          }
-          {
-            !authenticated && auth.useThirdPartyError &&
-            <h6 className='input-err-msg mb-3 p-2'>
-              <i class="fas fa-exclamation-triangle mr-2"></i>
-              {auth.useThirdPartyError.message}
-            </h6>              
           }
           {
             authenticated &&
