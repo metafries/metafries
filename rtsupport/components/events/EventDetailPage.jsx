@@ -25,7 +25,7 @@ class EventDetailPage extends Component {
     let selectedEvent = await firestore.get(`events/${match.params.id}`)
     if (!selectedEvent.exists) {
       this.setState({
-        eventNotFoundMsg: 'Event Not Found - '
+        eventNotFoundMsg: 'The event may have been deleted'
       })
     }
   }
@@ -36,10 +36,11 @@ class EventDetailPage extends Component {
       <div className='row'>
         {
           eventNotFoundMsg.length > 0 &&
-          <h6 className='input-err-msg p-2 container-fluid mx-3'>
-            <i class="fas fa-exclamation-triangle mr-2"></i>
+          <h6 className='input-err-msg px-2 container-fluid mx-3'>
+            <i class="fas fa-exclamation-triangle mr-2 my-2 h4"></i>
             {eventNotFoundMsg}
-            <a href='/create'>CREATE</a>
+            <i class="fas fa-minus mx-2"></i>
+            <a href="/create" className='badge badge-pill badge-light my-2'>create a new one.</a>
           </h6>
         }
         {

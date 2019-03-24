@@ -76,7 +76,7 @@ class Profile extends Component {
     try {
       await this.props.setNewProfilePicture(croppedCanvas)
       this.setState({
-        uploadImgOkMsg: 'Your avatar has changed successfully - '
+        uploadImgOkMsg: 'Your avatar has changed successfully'
       })
     } catch (error) {
       this.setState({
@@ -190,10 +190,13 @@ class Profile extends Component {
               </div>
               {
                 uploadImgOkMsg.length > 0 &&
-                <h6 className='input-ok-msg my-2 p-2'>
-                  <i class="fas fa-check-circle mr-2"></i>
+                <h6 className='input-ok-msg my-2 px-2'>
+                  <i class="fas fa-check-circle mr-2 my-2 h4"></i>
                   {uploadImgOkMsg}
-                  <a href={`/profile/${fba.uid}`}>view profile.</a>
+                  <i class="fas fa-minus mx-2"></i>
+                  <a href={`/profile/${fba.uid}`} className='badge badge-pill badge-light my-2'>
+                    view your profile.
+                  </a>
                 </h6>        
               }
               {

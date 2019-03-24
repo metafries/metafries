@@ -96,7 +96,7 @@ class ProfileForm extends Component {
             try {
                 this.props.updateProfile(profile)   
                 this.setState({
-                    updateOkMsg: 'Profile updated successfully — '
+                    updateOkMsg: 'Profile updated successfully'
                 })             
             } catch(error) {
                 this.setState({
@@ -219,10 +219,13 @@ class ProfileForm extends Component {
                 </div>
                 {
                     updateOkMsg.length > 0 &&
-                    <h6 className='input-ok-msg my-2 p-2'>
-                        <i class="fas fa-check-circle mr-2"></i>
+                    <h6 className='input-ok-msg my-2 px-2'>
+                        <i class="fas fa-check-circle mr-2 my-2 h4"></i>
                         {updateOkMsg}
-                        <a href={`/profile/${this.props.fba.uid}`}>view your profile.</a>
+                        <i class="fas fa-minus mx-2"></i>
+                        <a href={`/profile/${this.props.fba.uid}`} className='badge badge-pill badge-light my-2'> 
+                            view your profile.
+                        </a>
                     </h6>        
                 }
                 {
