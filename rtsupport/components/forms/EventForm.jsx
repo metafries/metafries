@@ -30,19 +30,26 @@ class EventForm extends Component {
   componentDidMount() {
     const {fba, event, isManage} = this.props
     this.setState({
-      selectedOption: { 
-        label: fba.displayName, 
-        value: fba.displayName
-      },
-    })  
-    this.setState({
       titleInputLength: event.title.trim().length
     })
     this.setState({
       descInputLength: event.description.trim().length
     })
     if (isManage) {
+      this.setState({
+        selectedOption: { 
+          label: event.hostedBy, 
+          value: event.hostedBy,
+        },
+      })
       this.isValidDateTime()      
+    } else {
+      this.setState({
+        selectedOption: { 
+          label: fba.displayName, 
+          value: fba.displayName,
+        },
+      })    
     }
   }
   isNotEmptyTitle = (e) => {

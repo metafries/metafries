@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withFirestore, isEmpty } from 'react-redux-firebase'
+import { DateTime } from "luxon";
 import Menu from './Menu.jsx'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import EventForm from '../../forms/EventForm.jsx'
@@ -9,9 +11,10 @@ import Footer from '../../nav/Footer.jsx'
 
 const mapState = (state, ownProps) => {
     const eventId = ownProps.match.params.id
+    const {events} = state.firestore.ordered    
     let event = {}
-    if (eventId && state.events.length > 0) {
-      event = state.events.find(e => e.id === eventId)
+    if (eventId && events && events.length > 0) {
+      event = events.find(e => e.id === eventId)
     }
     return {event}
 }  
@@ -21,15 +24,22 @@ const actions = {
 }
 
 class Dashboard extends Component {
+    async componentDidMount() {
+        const {firestore, match} = this.props
+        await firestore.get(`events/${match.params.id}`)        
+    }
     handleUpdateEvent = (event) => {
         this.props.updateEvent(event)
         this.props.history.push(`/events/${event.id}`)
     }
     render() {
         const {event} = this.props 
+        if (!isEmpty(event) && typeof event.startDate !== 'string') {
+            event.startDate = DateTime.fromJSDate(event.startDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')
+            event.endDate = DateTime.fromJSDate(event.endDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')        
+        }
         const options = [
             { label: event.hostedBy, value: event.hostedBy },
-            { label: 'Anonymous', value: 'Anonymous' },    
         ]
         return (
             <div className='row'>
@@ -66,4 +76,4 @@ class Dashboard extends Component {
     }
 }
 
-export default connect(mapState, actions)(Dashboard)
+export default withFirestore(connect(mapState, actions)(Dashboard))
