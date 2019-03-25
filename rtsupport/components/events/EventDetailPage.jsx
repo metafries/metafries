@@ -6,12 +6,14 @@ import EventDetailInfo from './EventDetailInfo.jsx'
 import EventDetailChat from './EventDetailChat.jsx'
 import EventDetailSidebar from './EventDetailSidebar.jsx'
 import Footer from '../nav/Footer.jsx'
+import { objToArray } from '../../app/common/util/shapers.js'
 
 const mapState = (state, ownProps) => {
   const eventId = ownProps.match.params.id
+  const {events} = state.firestore.ordered
   let event = {}
-  if (eventId && state.events.length > 0) {
-    event = state.events.find(e => e.id === eventId)
+  if (eventId && events && events.length > 0) {
+    event = events.find(e => e.id == eventId)
   }
   return {event}
 }
@@ -31,6 +33,7 @@ class EventDetailPage extends Component {
   }
   render() {
     const {event} = this.props
+    const convertedAttendees = event && event.attendees && objToArray(event.attendees)
     const {eventNotFoundMsg} = this.state
     return (
       <div className='row'>
@@ -53,7 +56,7 @@ class EventDetailPage extends Component {
         {
           eventNotFoundMsg.length == 0 &&
           <div className='col-lg-4'>
-            <EventDetailSidebar attendees={event.attendees}/>
+            <EventDetailSidebar attendees={convertedAttendees}/>
             <EventDetailChat/>
           </div>
         }

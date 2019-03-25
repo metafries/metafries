@@ -1,5 +1,13 @@
 import { DateTime } from "luxon";
 
+export const objToArray = (obj) => {
+    if (obj) {
+        return Object.entries(obj).map(
+            e => Object.assign(e[1],{id: e[0]})
+        )
+    }
+}
+
 export const shapeNewEvent = (currentUser, avatarUrl, event) => {
     event.startDate = DateTime
         .fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')

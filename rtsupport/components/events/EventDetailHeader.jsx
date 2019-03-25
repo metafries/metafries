@@ -8,7 +8,7 @@ const EventDetailHeader = ({event}) => {
           <tbody>
             <tr>
               <th scope="row" className='border-0'>
-                <img src={event.hostPhotoURL} className="contact float-right" alt="..."/>
+                <img src={event.hostAvatarUrl} className="contact float-right" alt="..."/>
               </th>
               <td className='border-0'>
                 <h2>{event.title}</h2>

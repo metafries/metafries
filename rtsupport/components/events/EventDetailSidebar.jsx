@@ -13,10 +13,10 @@ const EventDetailSidebar = ({attendees}) => {
             {attendees && attendees.map((attendee) => (
               <tr key={attendee.id}>
                 <th scope="row" className='signout px-0'>
-                  <img src={attendee.photoURL} className="signout rounded-circle" alt="..."/>
+                  <img src={attendee.avatarUrl} className="signout rounded-circle" alt="..."/>
                 </th>
                 <td>
-                  <strong>{attendee.name} </strong>
+                  <strong>{attendee.displayName} </strong>
                   {isHost && <span class="badge badge-secondary rounded-0">Host</span>}              
                   <br/>
                   <small>41 minutes ago</small>

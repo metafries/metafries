@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import EventDetailMap from './EventDetailMap.jsx'
+import { DateTime } from "luxon";
 
 class EventDetailInfo extends Component {
   state = {
@@ -24,7 +25,11 @@ class EventDetailInfo extends Component {
             </tr>
             <tr>
               <th scope="row"><i class="fas fa-calendar-day"></i></th>
-              <td>{event.startDate} - {event.endDate}</td>
+              <td>
+                {event.startDate && DateTime.fromJSDate(event.startDate.toDate()).toFormat('ff')}
+                <span className='mx-2'>-</span>
+                {event.endDate && DateTime.fromJSDate(event.endDate.toDate()).toFormat('ff')}
+              </td>
             </tr>
             <tr>
               <th scope="row"><i class="fas fa-map-marked-alt"></i></th>
