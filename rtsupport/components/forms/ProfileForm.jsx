@@ -219,11 +219,11 @@ class ProfileForm extends Component {
                 </div>
                 {
                     updateOkMsg.length > 0 &&
-                    <h6 className='input-ok-msg my-2 px-2'>
-                        <i class="fas fa-check-circle mr-2 my-2 h4"></i>
-                        {updateOkMsg}
-                        <i class="fas fa-minus mx-2"></i>
-                        <a href={`/profile/${this.props.fba.uid}`} className='badge badge-pill badge-light my-2'> 
+                    <h6 className='input-ok-msg my-1 p-2'>
+                        <i class="fas fa-check-circle mr-2 my-1"></i>
+                        <span className='my-1'>{updateOkMsg}</span>
+                        <i class="fas fa-minus mx-2 my-1"></i>
+                        <a href={`/profile/${this.props.fba.uid}`} className='badge badge-pill badge-dark my-1 py-0'> 
                             view your profile.
                         </a>
                     </h6>        
@@ -231,7 +231,7 @@ class ProfileForm extends Component {
                 {
                     updateErrMsg.length > 0 &&
                     <h6 className='input-err-msg my-2 p-2'>
-                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        <i class="fas fa-exclamation-circle mr-2"></i>
                         {updateErrMsg}
                     </h6>        
                 }            

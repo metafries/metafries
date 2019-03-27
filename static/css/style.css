@@ -121,26 +121,26 @@ div.mdl-progress::after {
 .input-ok-msg {
   font-size: 21px;  
   font-weight: bold;
-  color: white;
-  border: 4px solid rgba(0, 0, 0, 0.2);
-  background-color: #07b107;
+  color: #444;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-color: #00fc00;
 }
 
 .input-ok-msg a {
-  color: #07b107;
+  color: #00fc00;
   font-size: inherit;
 }
 
 .input-err-msg {
   font-size: 21px;
   font-weight: bold;  
-  color: white;
-  border: 4px solid rgba(0, 0, 0, 0.2);
-  background-color: #f11414;
+  color: #444;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-color: #fc4000;
 }
 
 .input-err-msg a {
-  color: #f11414;  
+  color: #fc4000;  
   font-size: inherit;
 }
 

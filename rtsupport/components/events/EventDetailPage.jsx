@@ -39,11 +39,11 @@ class EventDetailPage extends Component {
       <div className='row'>
         {
           eventNotFoundMsg.length > 0 &&
-          <h6 className='input-err-msg px-2 container-fluid mx-3'>
-            <i class="fas fa-exclamation-triangle mr-2 my-2 h4"></i>
-            {eventNotFoundMsg}
-            <i class="fas fa-minus mx-2"></i>
-            <a href="/create" className='badge badge-pill badge-light my-2'>create a new one.</a>
+          <h6 className='input-err-msg p-2 container-fluid mx-3'>
+            <i class="fas fa-exclamation-circle mr-2 my-1"></i>
+            <span className='my-1'>{eventNotFoundMsg}</span>
+            <i class="fas fa-minus mx-2 my-1"></i>
+            <a href="/create" className='badge badge-pill badge-dark my-1 py-0'>create a new one.</a>
           </h6>
         }
         {

@@ -103,7 +103,7 @@ class Account extends Component {
           {
             auth.updatePwdError &&
             <h6 className='input-err-msg mb-3 p-2'>
-              <i class="fas fa-exclamation-triangle mr-2"></i>
+              <i class="fas fa-exclamation-circle mr-2"></i>
               {auth.updatePwdError.message}
             </h6>
           }          

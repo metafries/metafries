@@ -190,11 +190,11 @@ class Profile extends Component {
               </div>
               {
                 uploadImgOkMsg.length > 0 &&
-                <h6 className='input-ok-msg my-2 px-2'>
-                  <i class="fas fa-check-circle mr-2 my-2 h4"></i>
-                  {uploadImgOkMsg}
-                  <i class="fas fa-minus mx-2"></i>
-                  <a href={`/profile/${fba.uid}`} className='badge badge-pill badge-light my-2'>
+                <h6 className='input-ok-msg my-1 p-2'>
+                  <i class="fas fa-check-circle mr-2 my-1"></i>
+                  <span className='my-1'>{uploadImgOkMsg}</span>
+                  <i class="fas fa-minus mx-2 my-1"></i>
+                  <a href={`/profile/${fba.uid}`} className='badge badge-pill badge-dark my-1 py-0'>
                     view your profile.
                   </a>
                 </h6>        
@@ -202,7 +202,7 @@ class Profile extends Component {
               {
                 uploadImgErrMsg.length > 0 &&
                 <h6 className='input-err-msg my-2 p-2'>
-                  <i class="fas fa-exclamation-triangle mr-2"></i>
+                  <i class="fas fa-exclamation-circle mr-2"></i>
                   {uploadImgErrMsg}
                 </h6>        
               }            
