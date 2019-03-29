@@ -1,4 +1,7 @@
+import { DateTime } from "luxon";
 import { 
+    SUCCESS,
+    ERROR,
     UPDATE_EVENT, 
     DELETE_EVENT,
     FETCH_EVENTS,
@@ -46,12 +49,38 @@ export const createEvent = (event) => {
 }
 
 export const updateEvent = (event) => {
-  return {
-    type: UPDATE_EVENT,
-    payload: {
-      event
+    return async(dispatch, getState, {getFirestore}) => {
+        const firestore = getFirestore()
+        event.startDate = DateTime
+            .fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')
+            .toJSDate()
+        event.endDate = DateTime
+            .fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')
+            .toJSDate()
+        try {
+            dispatch(startAsyncAction())
+            await firestore.update(`events/${event.id}`, event)
+            dispatch({
+                type: SUCCESS,
+                payload: {
+                    opts: UPDATE_EVENT,
+                    ok: {
+                        message: 'The event updated successfully',
+                    },
+                },
+            })
+        } catch (e) {
+            dispatch({
+                type: ERROR,
+                payload: {
+                    opts: UPDATE_EVENT,
+                    err: e,
+                },
+            })
+        } finally {
+            dispatch(finishAsyncAction())
+        }
     }
-  }
 }
 
 export const deleteEvent = (eventId) => {

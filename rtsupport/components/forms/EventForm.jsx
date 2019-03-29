@@ -66,6 +66,10 @@ class EventForm extends Component {
     }
   }
   handleChange = (selectedOption) => {
+    if (this.props.isManage) {
+      this.props.informMsg.updateEventOk = null
+      this.props.informMsg.updateEventErr = null  
+    }
     this.setState({ 
       selectedOption 
     });
@@ -81,6 +85,10 @@ class EventForm extends Component {
     })
   }
   handleAddrChange = address => {
+    if (this.props.isManage) {
+      this.props.informMsg.updateEventOk = null
+      this.props.informMsg.updateEventErr = null  
+    }
     this.setState({ address });
     const update = this.state.event;
     update.location = address
@@ -140,6 +148,10 @@ class EventForm extends Component {
     });
   };
   isValidDateTime = () => {
+    if (this.props.isManage) {
+      this.props.informMsg.updateEventOk = null
+      this.props.informMsg.updateEventErr = null  
+    }
     const {event, selectedStartDateError} = this.state
     const showStartDate = DateTime.fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')
     const showEndDate = DateTime.fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')
@@ -160,6 +172,10 @@ class EventForm extends Component {
     }
   }
   onInputChange = (e) => {
+    if (this.props.isManage) {
+      this.props.informMsg.updateEventOk = null
+      this.props.informMsg.updateEventErr = null  
+    }
     const userInput = this.state.event;
     userInput[e.target.name] = e.target.value;
     this.setState({
@@ -231,6 +247,7 @@ class EventForm extends Component {
       selectedEndDateError,
       descInputLength,
     } = this.state;
+    const {isManage, loading, informMsg} = this.props
     const inputProps = {
       value: address,
       onChange: this.onChange,
@@ -427,14 +444,43 @@ class EventForm extends Component {
           <h5 class="form-check-label font-weight-bold mx-2">Private</h5>
           <small class="text-muted ml-2">You choose who can join this event.</small>
         </div>
+        {
+          isManage && informMsg.updateEventOk &&
+          <h6 className='input-ok-msg mt-3 p-2'>
+            <i class="fas fa-check-circle mr-2 my-1"></i>
+            <span className='my-1'>{informMsg.updateEventOk.message}</span>
+            <i class="fas fa-minus mx-2 my-1"></i>
+            <a href={`/events/${this.props.event.id}`} className='badge badge-pill badge-dark my-1 py-0'> 
+                view the event.
+            </a>
+          </h6>        
+        }
+        {
+          isManage && informMsg.updateEventErr &&
+          <h6 className='input-err-msg mt-3 p-2'>
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            {informMsg.updateEventErr.message}
+          </h6>        
+        }            
         <hr/>
         {
           this.props.isManage
-          ? <button 
-              type="submit" 
-              class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">
-              Update Event
-            </button>
+          ? loading
+            ? <div className='h5'>
+                <span 
+                  class="spinner-border mr-2" 
+                  role="status" 
+                  aria-hidden="true">
+                </span>
+                <span className='h3'>
+                  Updating...
+                </span>
+              </div>  
+            : <button 
+                type="submit" 
+                class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">
+                Update Event
+              </button>
           : <button 
               type="submit" 
               class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">

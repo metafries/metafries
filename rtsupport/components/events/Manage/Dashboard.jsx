@@ -16,7 +16,11 @@ const mapState = (state, ownProps) => {
     if (eventId && events && events.length > 0) {
       event = events.find(e => e.id === eventId)
     }
-    return {event}
+    return {
+        loading: state.async.loading,
+        informMsg: state.events,
+        event
+    }
 }  
 
 const actions = {
@@ -29,12 +33,16 @@ class Dashboard extends Component {
         await firestore.get(`events/${match.params.id}`)        
     }
     handleUpdateEvent = (event) => {
-        this.props.updateEvent(event)
-        this.props.history.push(`/events/${event.id}`)
+        try {
+            this.props.updateEvent(event)            
+        } finally {
+            event.startDate = DateTime.fromJSDate(event.startDate).toFormat('yyyy/MM/dd, HH:mm')
+            event.endDate = DateTime.fromJSDate(event.endDate).toFormat('yyyy/MM/dd, HH:mm')        
+        }
     }
     render() {
-        const {event} = this.props 
-        if (!isEmpty(event) && typeof event.startDate !== 'string') {
+        const {loading, informMsg, event} = this.props 
+        if (event.startDate && event.startDate.seconds) {
             event.startDate = DateTime.fromJSDate(event.startDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')
             event.endDate = DateTime.fromJSDate(event.endDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')        
         }
@@ -57,6 +65,8 @@ class Dashboard extends Component {
                             path={`/manage/events/${event.id}/info`} 
                             render={()=>
                                 <EventForm 
+                                    loading={loading}
+                                    informMsg={informMsg}
                                     options={options}
                                     event={event} 
                                     handleUpdateEvent={this.handleUpdateEvent}

@@ -28,6 +28,10 @@ export const inform = (state, payload) => {
                 updatePwdError: null,
             }
             break
+        default: 
+            return {
+                ...state,
+            }        
     }
 }
 
@@ -63,6 +67,10 @@ export const errors = (state, payload) => {
                 updatePwdError: payload.errmsg,
             }
             break
+        default: 
+            return {
+                ...state,
+            }
     }
 }
 

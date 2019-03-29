@@ -26,9 +26,15 @@ class EventDetailInfo extends Component {
             <tr>
               <th scope="row"><i class="fas fa-calendar-day"></i></th>
               <td>
-                {event.startDate && DateTime.fromJSDate(event.startDate.toDate()).toFormat('ff')}
+                {
+                  event.startDate && event.startDate.seconds &&
+                  DateTime.fromJSDate(event.startDate.toDate()).toFormat('ff')
+                }
                 <span className='mx-2'>-</span>
-                {event.endDate && DateTime.fromJSDate(event.endDate.toDate()).toFormat('ff')}
+                {
+                  event.endDate && event.endDate.seconds &&
+                  DateTime.fromJSDate(event.endDate.toDate()).toFormat('ff')
+                }
               </td>
             </tr>
             <tr>

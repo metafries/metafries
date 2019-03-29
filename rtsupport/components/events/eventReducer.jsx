@@ -1,12 +1,48 @@
 import { createReducer } from '../../app/common/util/reducerUtil.js'
 import { 
+  SUCCESS,
+  ERROR,
   CREATE_EVENT, 
   UPDATE_EVENT, 
   DELETE_EVENT,
   FETCH_EVENTS,
 } from './eventConstants.jsx'
 
-const initState = []
+const initState = {
+  updateEventOk: null,
+  updateEventErr: null,  
+}
+
+  export const informOk = (state, payload) => {
+    switch (payload.opts) {
+      case UPDATE_EVENT:
+        return {
+          ...state,
+          updateEventOk: payload.ok,
+          updateEventErr: null,
+        }
+        break
+      default: 
+        return {
+          ...state,
+        }            
+    }
+  }
+
+  export const informErr = (state, payload) => {
+    switch (payload.opts) {
+      case UPDATE_EVENT:
+        return {
+          ...state,
+          updateEventErr: payload.err,
+        }
+        break
+      default: 
+        return {
+          ...state,
+        }                    
+    }
+  }
 
   export const createEvent = (state, payload) => {
       return [Object.assign({}, payload.event), ...state]
@@ -28,6 +64,8 @@ const initState = []
   }
 
   export default createReducer(initState, {
+      [SUCCESS]: informOk,
+      [ERROR]: informErr,
       [CREATE_EVENT]: createEvent,
       [UPDATE_EVENT]: updateEvent,
       [DELETE_EVENT]: deleteEvent,
