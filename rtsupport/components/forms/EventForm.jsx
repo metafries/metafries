@@ -127,6 +127,10 @@ class EventForm extends Component {
       .catch(error => console.error('Error', error));
   };
   handlePermissionChange = (e) => {
+    if (this.props.isManage) {
+      this.props.informMsg.updateEventOk = null
+      this.props.informMsg.updateEventErr = null  
+    }
     const update = this.state.event;
     update.permission = e.target.value
     this.setState({
