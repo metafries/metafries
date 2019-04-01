@@ -231,7 +231,12 @@ class EventForm extends Component {
       return
     }
     if (this.props.isManage) {
-      this.props.handleUpdateEvent(event)          
+      try {
+        this.props.updateEvent(event)            
+      } finally {
+        event.startDate = DateTime.fromJSDate(event.startDate).toFormat('yyyy/MM/dd, HH:mm')
+        event.endDate = DateTime.fromJSDate(event.endDate).toFormat('yyyy/MM/dd, HH:mm')   
+      }      
     } else {
       this.props.handleCreateEvent(event)                  
     }

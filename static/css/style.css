@@ -227,3 +227,7 @@ div.mdl-progress::after {
 .border-2 {
   border-width: 2px
 }
+
+.menu-header a {
+  color: #303aa5;
+}

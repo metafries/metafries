@@ -4,7 +4,7 @@ import { withFirestore, isEmpty } from 'react-redux-firebase'
 import { DateTime } from "luxon";
 import Menu from './Menu.jsx'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import EventForm from '../../forms/EventForm.jsx'
+import Info from './Info.jsx'
 import Attendees from './Attendees.jsx'
 import { updateEvent } from '../eventActions.jsx'
 import Footer from '../../nav/Footer.jsx'
@@ -32,16 +32,8 @@ class Dashboard extends Component {
         const {firestore, match} = this.props
         await firestore.get(`events/${match.params.id}`)        
     }
-    handleUpdateEvent = (event) => {
-        try {
-            this.props.updateEvent(event)            
-        } finally {
-            event.startDate = DateTime.fromJSDate(event.startDate).toFormat('yyyy/MM/dd, HH:mm')
-            event.endDate = DateTime.fromJSDate(event.endDate).toFormat('yyyy/MM/dd, HH:mm')        
-        }
-    }
     render() {
-        const {loading, informMsg, event} = this.props 
+        const {loading, updateEvent, informMsg, event} = this.props 
         if (event.startDate && event.startDate.seconds) {
             event.startDate = DateTime.fromJSDate(event.startDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')
             event.endDate = DateTime.fromJSDate(event.endDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')        
@@ -64,12 +56,12 @@ class Dashboard extends Component {
                         <Route 
                             path={`/manage/events/${event.id}/info`} 
                             render={()=>
-                                <EventForm 
+                                <Info 
                                     loading={loading}
+                                    updateEvent={updateEvent}                                    
                                     informMsg={informMsg}
                                     options={options}
                                     event={event} 
-                                    handleUpdateEvent={this.handleUpdateEvent}
                                     isManage={true}
                                 />
                             }
