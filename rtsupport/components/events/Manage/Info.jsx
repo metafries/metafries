@@ -40,7 +40,9 @@ class Info extends Component {
                             event={event} 
                             isManage={true}        
                         />
-                    :   <Poster/>
+                    :   <Poster
+                            event={event}
+                        />
                 }
             </div>
         )

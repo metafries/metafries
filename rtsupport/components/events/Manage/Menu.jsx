@@ -5,7 +5,7 @@ const Menu = ({event}) => {
     return (
         <div className="btn-group-vertical w-100 mb-4">
             <div className='menu-header mb-4'>
-                <span className='mr-2'>/</span>
+                <img src={event.hostAvatarUrl} className="attendee rounded-circle mr-2" alt="..."/>
                 <a href='#'>{event.hostedBy}</a>
                 <span className='mx-2'>/</span>
                 <a href={`/events/${event.id}`}>{event.title}</a>
