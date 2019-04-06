@@ -36,7 +36,7 @@ const Dashboard = ({
   return (
     <div className='row'>
         <div className='col-lg-4'>
-            <Menu/>
+            <Menu fba={fba} fbp={fbp}/>
         </div>    
         <div className='col-lg-8'>
             {

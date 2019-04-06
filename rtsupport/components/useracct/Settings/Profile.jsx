@@ -6,14 +6,32 @@ import ProfileForm from '../../forms/ProfileForm.jsx'
 import { ACTIVE, NOT_ACTIVE } from '../../nav/navConstants.jsx'
 
 const baseStyle = {
-  width: 255,
-  height: 255,
-  borderWidth: 2,
-  borderColor: '#666',
+  width: 'auto',
+  height: 95,
+  borderWidth: 1,
+  borderColor: '#000',
   borderStyle: 'dashed',
   borderRadius: 0,
-  marginLeft: 'auto',
+  backgroundColor: '#f5f5f5',
 };
+const ratioContainer = {
+  position: 'relative',
+  width: '100%',
+  minWidth: 250,
+  paddingTop: '100%',
+  borderWidth: 1,
+  borderStyle: 'dashed',
+  borderRadius: 0,
+  backgroundColor: '#000',
+}
+const ratioContent= {
+  width: '100%',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0,
+}
 const activeStyle = {
   borderStyle: 'solid',
   borderColor: '#28A645',
@@ -25,8 +43,7 @@ const rejectStyle = {
   backgroundColor: '#f5f5f5',
 };
 const stepsHeader = {
-  height: 38,
-  fontWeight: 650,
+  fontWeight: 'bold',
 }
 
 class Profile extends Component {
@@ -93,26 +110,28 @@ class Profile extends Component {
           type="button" 
           class={defaultOpts ? ACTIVE : NOT_ACTIVE}
           onClick={this.hendledefaultOpts}>
-          AVATAR
+          INTRO
         </button>
         <button 
           type="button" 
           class={defaultOpts ? NOT_ACTIVE : ACTIVE}
-          onClick={this.hendledefaultOpts}>
-          INTRO
+          onClick={this.hendledefaultOpts}>          
+          AVATAR
         </button>
         <hr/>    
         {
-          defaultOpts
+          ! defaultOpts
           ? <div>
-              <div className='row'>
-                <div class="col-lg-4 mb-4">
-                  <h6 style={stepsHeader}>STEP1 - ADD A NEW IMAGE</h6>
+              <div className='row mb-4'>
+                <div className='col-lg-4'>
+                  <h5 style={stepsHeader} className='my-4'>Step1 - Add a New Image</h5>
+                </div>
+                <div className='col-lg-6'>
                   <Dropzone 
                     accept="image/*"
                     multiple={false}
                     onDrop={this.onDrop}
-                    >
+                  >
                     {
                       ({ 
                         getRootProps, 
@@ -133,41 +152,44 @@ class Profile extends Component {
                             style={styles}
                           >
                             <input {...getInputProps()} />
-                            <div className='pt-5'>
                               {
-                                !isDragReject &&
-                                <h6 className='pt-5 mt-5 mx-4'>                            
-                                  {
-                                    isDragAccept 
-                                    ? <span className='green-text'>
-                                        <i class="fas fa-check-circle mr-2"></i>Add This Image
-                                      </span>
-                                    : <span>
-                                        <i class="fas fa-upload mr-2"></i>
-                                        Drag then Drop a New Image Here OR Click/Tap To Add
-                                      </span>
-                                  }
-                                </h6>
+                                  !isDragReject &&
+                                  <h5 className='m-3'>                            
+                                    {
+                                      isDragAccept 
+                                      ? <span className='green-text float-right'>
+                                          <i class="fas fa-check-circle mr-2"></i>Add This Image
+                                        </span>
+                                      : <span>
+                                          <i class="far fa-image h4 mr-2"></i>
+                                          Drag and Drop an Image HERE or Click/Tap to Add
+                                        </span>
+                                    }
+                                  </h5>
                               }
                               {
                                 isDragReject &&
-                                <h6 className='pt-5 mt-5 mx-4 red-text'>
+                                <h5 className='red-text float-right m-3'>
                                   <i class="fas fa-exclamation-triangle mr-2"></i>
                                   Invalid File Type
-                                </h6>
+                                </h5>
                               }
-                            </div>
                           </div>
                         )
                       }
                     }
-                  </Dropzone>
-                </div>      
-                <div class="col-lg-4 mb-4">
-                  <h6 style={stepsHeader}>STEP2 - CROP THE IMAGE<br/></h6>
-                  <div style={{...baseStyle}}>
+                  </Dropzone>   
+                </div> 
+                <div className='col-lg-2'></div>
+              </div>
+              <div className='row mb-4'>
+                <div className='col-lg-4'>
+                  <h5 style={stepsHeader} className='my-4'>Step2 - Crop the Image</h5>
+                </div>
+                <div className='col-lg-6'>
+                  <div style={ratioContainer}>
                     <Cropper
-                      style={{height:250,width:'100%'}}
+                      style={ratioContent}
                       ref='cropper'
                       src={photoURL}
                       aspectRatio={1}
@@ -180,13 +202,19 @@ class Profile extends Component {
                       crop={this.cropImage}
                     />
                   </div>
-                </div>      
-                <div class="col-lg-4 mb-4">
-                  <h6 style={stepsHeader}>STEP3 - PREVIEW THE CROPPED IMAGE</h6>
-                  <div style={{...baseStyle}}>
-                    <img src={preview} style={{maxWidth:'100%'}}/>                  
+                </div>
+                <div className='col-lg-2'></div>
+              </div>
+              <div className='row mb-4'>
+                <div className='col-lg-4'>
+                  <h5 style={stepsHeader} className='my-4'>Step3 - Preview the Cropped Image</h5>
+                </div>
+                <div className='col-lg-6'>
+                  <div style={ratioContainer}>
+                    <img src={preview} style={ratioContent}/>                  
                   </div>
-                </div>  
+                </div>
+                <div className='col-lg-2'></div>
               </div>
               {
                 uploadImgOkMsg.length > 0 &&
