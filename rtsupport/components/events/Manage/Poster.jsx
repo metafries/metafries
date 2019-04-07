@@ -108,7 +108,7 @@ class Poster extends Component {
                                   </span>
                                 : <span>
                                     <i class="far fa-image h4 mr-2"></i>
-                                    Drag and Drop an Image HERE Or Click/Tap to Add
+                                    Drag and Drop an Image HERE or Click/Tap to Add
                                   </span>
                               }
                             </h5>
