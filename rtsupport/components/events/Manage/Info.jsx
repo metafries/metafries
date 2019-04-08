@@ -42,6 +42,9 @@ class Info extends Component {
                         />
                     :   <Poster
                             event={event}
+                            loading={loading}
+                            setNewMainPoster={this.props.setNewMainPoster}
+                            informMsg={informMsg}
                         />
                 }
             </div>

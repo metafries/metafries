@@ -48,8 +48,8 @@ class Poster extends Component {
   state = {
     posterUrl: this.props.event.posterUrl || 
       '/static/images/IMG_20180706_185041.jpg',
-      preview: null,
-      croppedCanvas: {},  
+    preview: null,
+    croppedCanvas: {},  
   }
   onDrop = (files) => {
     this.setState({
@@ -64,7 +64,16 @@ class Poster extends Component {
       })
     }, 'image/jpeg')
   }
+  uploadImage = async() => {
+    this.props.informMsg.uploadImgOk = null
+    this.props.informMsg.uploadImgErr = null
+    this.props.setNewMainPoster(
+      this.props.event,
+      this.state.croppedCanvas,
+    )
+  }
   render() {
+    const {event, loading, informMsg} = this.props
     const {preview, posterUrl} = this.state
     return (
       <div>
@@ -149,7 +158,7 @@ class Poster extends Component {
             </div>
           </div>
         </div>
-        <div className='row'>
+        <div className='row mb-4'>
           <div className='col-lg-4'>
             <h5 style={stepsHeader} className='my-4'>Step3 - Preview the Cropped Image</h5>
           </div>
@@ -159,6 +168,44 @@ class Poster extends Component {
             </div>
           </div>
         </div>
+        {
+          informMsg.uploadImgOk &&
+          <h6 className='input-ok-msg my-1 p-2'>
+            <i class="fas fa-check-circle mr-2 my-1"></i>
+            <span className='my-1'>{informMsg.uploadImgOk.message}</span>
+            <i class="fas fa-minus mx-2 my-1"></i>
+            <a href={`/events/${event.id}`} className='badge badge-pill badge-dark my-1 py-0'>
+              view the event.
+            </a>
+          </h6>        
+        }
+        {
+          informMsg.uploadImgErr &&
+          <h6 className='input-err-msg my-2 p-2'>
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            {informMsg.uploadImgErr.message}
+          </h6>        
+        }            
+        <hr/>
+        {
+          loading
+          ? <div className='h5'>
+              <span 
+                class="spinner-border mr-2" 
+                role="status" 
+                aria-hidden="true">
+              </span>
+              <span className='h3'>
+                Uploading...
+              </span>
+            </div>  
+          : <button 
+              onClick={this.uploadImage}
+              type="button" 
+              class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold">
+              Set New Main Poster
+            </button>                  
+        }   
       </div>
     )
   }

@@ -6,7 +6,7 @@ import Menu from './Menu.jsx'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Info from './Info.jsx'
 import Attendees from './Attendees.jsx'
-import { updateEvent } from '../eventActions.jsx'
+import { updateEvent, setNewMainPoster } from '../eventActions.jsx'
 import Footer from '../../nav/Footer.jsx'
 
 const mapState = (state, ownProps) => {
@@ -24,7 +24,8 @@ const mapState = (state, ownProps) => {
 }  
 
 const actions = {
-    updateEvent
+    updateEvent,
+    setNewMainPoster,
 }
 
 class Dashboard extends Component {
@@ -33,7 +34,7 @@ class Dashboard extends Component {
         await firestore.get(`events/${match.params.id}`)        
     }
     render() {
-        const {loading, updateEvent, informMsg, event} = this.props 
+        const {loading, updateEvent, setNewMainPoster, informMsg, event} = this.props 
         if (event.startDate && event.startDate.seconds) {
             event.startDate = DateTime.fromJSDate(event.startDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')
             event.endDate = DateTime.fromJSDate(event.endDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')        
@@ -59,6 +60,7 @@ class Dashboard extends Component {
                                 <Info 
                                     loading={loading}
                                     updateEvent={updateEvent}                                    
+                                    setNewMainPoster={setNewMainPoster}
                                     informMsg={informMsg}
                                     options={options}
                                     event={event} 

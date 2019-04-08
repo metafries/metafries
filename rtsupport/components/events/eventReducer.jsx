@@ -4,6 +4,7 @@ import {
   ERROR,
   CREATE_EVENT, 
   UPDATE_EVENT, 
+  SET_NEW_MAIN_POSTER,
   DELETE_EVENT,
   FETCH_EVENTS,
 } from './eventConstants.jsx'
@@ -11,6 +12,8 @@ import {
 const initState = {
   updateEventOk: null,
   updateEventErr: null,  
+  uploadImgOk: null,
+  uploadImgErr: null,
 }
 
   export const informOk = (state, payload) => {
@@ -20,6 +23,13 @@ const initState = {
           ...state,
           updateEventOk: payload.ok,
           updateEventErr: null,
+        }
+        break
+      case SET_NEW_MAIN_POSTER:
+        return {
+          ...state,
+          uploadImgOk: payload.ok,
+          uploadImgErr: null,
         }
         break
       default: 
@@ -37,6 +47,11 @@ const initState = {
           updateEventErr: payload.err,
         }
         break
+      case SET_NEW_MAIN_POSTER:
+        return {
+          ...state,
+          uploadImgErr: payload.err
+        }
       default: 
         return {
           ...state,

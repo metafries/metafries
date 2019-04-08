@@ -1,8 +1,10 @@
 import { DateTime } from "luxon";
+import cuid from 'cuid'
 import { 
     SUCCESS,
     ERROR,
     UPDATE_EVENT, 
+    SET_NEW_MAIN_POSTER,
     DELETE_EVENT,
     FETCH_EVENTS,
 } from './eventConstants.jsx'
@@ -82,6 +84,68 @@ export const updateEvent = (event) => {
         }
     }
 }
+
+export const setNewMainPoster = (event, file) =>
+    async (
+        dispatch,
+        getState,
+        {getFirebase, getFirestore},
+    ) => {
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        const eventId = event.id                
+        const storagePath = `events/${eventId}/posters`
+        const imgId = cuid()
+        const fileOpts = {name: imgId}
+        try {
+            dispatch(startAsyncAction())
+            let uploadedFile = await firebase.uploadFile(storagePath, file, null, fileOpts)
+            let downloadURL = await uploadedFile.uploadTaskSnapshot.ref.getDownloadURL()
+            let eventDoc = await firestore.get(`events/${eventId}`)
+            event.startDate = DateTime
+                .fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')
+                .toJSDate()
+            event.endDate = DateTime
+                .fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')
+                .toJSDate()
+            const newPoster = {
+                ...event,
+                posterUrl: downloadURL,
+            }
+            await firestore.update(`events/${eventId}`, newPoster)
+            await firestore.add(
+                {
+                    collection: 'events',
+                    doc: eventId,
+                    subcollections: [{collection: 'posters'}],
+                },
+                {
+                    downloadURL: downloadURL,
+                    uploadedAt: firestore.FieldValue.serverTimestamp(),
+                    imgId: imgId,
+                }    
+            )
+            dispatch({
+                type: SUCCESS,
+                payload: {
+                    opts: SET_NEW_MAIN_POSTER,
+                    ok: {
+                        message: 'Your poster has changed successfully',
+                    },
+                },
+            })
+        } catch (e) {
+            dispatch({
+                type: ERROR,
+                payload: {
+                    opts: SET_NEW_MAIN_POSTER,
+                    err: 'Failed to Upload the Image.',
+                },
+            })
+        } finally {
+            dispatch(finishAsyncAction())
+        }
+    }
 
 export const deleteEvent = (eventId) => {
     return {
