@@ -108,23 +108,18 @@ export const setNewMainPoster = (event, file) =>
             event.endDate = DateTime
                 .fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')
                 .toJSDate()
-            const newPoster = {
+            const _event = {
                 ...event,
                 posterUrl: downloadURL,
             }
-            await firestore.update(`events/${eventId}`, newPoster)
-            await firestore.add(
-                {
-                    collection: 'events',
-                    doc: eventId,
-                    subcollections: [{collection: 'posters'}],
-                },
-                {
-                    downloadURL: downloadURL,
-                    uploadedAt: firestore.FieldValue.serverTimestamp(),
-                    imgId: imgId,
-                }    
-            )
+            await firestore.update(`events/${eventId}`, _event)
+            const poster = {
+                downloadURL: downloadURL,
+                uploadedAt: firestore.FieldValue.serverTimestamp(),
+            }
+            await firestore.update(`events/${eventId}`, {
+                [`posters.${imgId}`]: poster,
+            })
             dispatch({
                 type: SUCCESS,
                 payload: {
@@ -139,7 +134,9 @@ export const setNewMainPoster = (event, file) =>
                 type: ERROR,
                 payload: {
                     opts: SET_NEW_MAIN_POSTER,
-                    err: 'Failed to Upload the Image.',
+                    err: {
+                        message: 'Failed to upload the image.',
+                    }
                 },
             })
         } finally {
