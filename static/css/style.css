@@ -50,6 +50,7 @@ html, body {
   color: #ddc213;
 }
 
+.text-000 {color: #000};
 div.mdl-progress::after {
   display: block;
   content: 'Authenticating...';

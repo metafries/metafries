@@ -16,7 +16,7 @@ const ratioContainer = {
   position: 'relative',
   width: '100%',
   minWidth: 250,
-  paddingTop: '56.25%',
+  paddingTop: '75%',
   borderWidth: 1,
   borderStyle: 'dashed',
   borderRadius: 0,
@@ -146,7 +146,7 @@ class Poster extends Component {
                 style={ratioContent}
                 ref='cropper'
                 src={posterUrl}
-                aspectRatio={16/9}
+                aspectRatio={4/3}
                 viewMode={0}
                 dragMode='move'
                 guides={false}
