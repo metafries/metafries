@@ -27,36 +27,36 @@ class HomePage extends Component {
         const {fbp, fba} = this.props
         const authenticated = fba.isLoaded && !fba.isEmpty        
         return (
-          <div className='row'>
-            <div className='col-lg-4 mb-3'>
-              <div class="input-group mb-3">
-                <input 
-                  type="text" 
-                  class="form-control border-dark rounded-0" 
-                  placeholder={
-                    authenticated 
-                    ? "Sup? "+(fbp.displayName||'')
-                    : "Search..."
-                  }
-                />
-                <div class="input-group-append"><button class="btn btn-outline-dark rounded-0" type="button"><i class="fas fa-search"></i></button></div>
+          <div>
+            <div className='row'>
+              <div className='col-lg-2'></div>
+              <div className='col-lg-3 px-3'>
+                <h4 className='mb-0 font-weight-bold'>
+                  <img src={fbp.avatarUrl} className='signout mr-2 rounded-circle'/>
+                  {fbp.displayName}
+                </h4>              
+                <div class="input-group my-3">
+                  <input 
+                    type="text" 
+                    class="form-control border-dark rounded-0" 
+                    placeholder="Search..."
+                  />
+                  <div class="input-group-append"><button class="btn btn-dark rounded-0" type="button"><i class="fas fa-search"></i></button></div>
+                </div>
               </div>
-              <div class="accordion" id="dashboard">
-                <SearchEvent/>
-                <InstantMsg/>
-              </div>
+              {
+                this.props.loading
+                ? <div className='col-lg-5 px-0'><Loader/></div>
+                : <EventList 
+                    events={this.props.events} 
+                    handleDeleteEvent={this.handleDeleteEvent} 
+                    fba={fba}
+                  />              
+              }
+              <div className='col-lg-2'></div>
             </div>
-            {
-              this.props.loading
-              ? <div className='col-lg-8'><Loader/></div>
-              : <EventList 
-                  events={this.props.events} 
-                  handleDeleteEvent={this.handleDeleteEvent} 
-                  fba={fba}
-                />              
-            }
             <Footer/>
-            </div>
+          </div>
         )
   }
 }

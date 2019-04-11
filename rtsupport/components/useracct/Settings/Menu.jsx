@@ -10,7 +10,7 @@ const Menu = ({fba, fbp}) => {
               <tr>
                 <th scope="row" className='border-0 float-right p-0'>
                 <a href={`/profile/${fba.uid}`}>
-                  <img src={fbp.avatarUrl} className="hoster rounded mr-3" alt="..."/>
+                  <img src={fbp.avatarUrl} className="hoster mr-3" alt="..."/>
                 </a>
                 </th>
                 <td className='border-0 p-0'>

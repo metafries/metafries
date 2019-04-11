@@ -43,36 +43,40 @@ class Dashboard extends Component {
             { label: event.hostedBy, value: event.hostedBy },
         ]
         return (
-            <div className='row'>
-                <div className='col-lg-4'>
-                    <Menu event={event}/>
-                </div>    
-                <div className='col-lg-8'>
-                    <Switch>
-                        <Redirect 
-                            exact 
-                            from={`/manage/events/${event.id}`} 
-                            to={`/manage/events/${event.id}/info`}
-                        />
-                        <Route 
-                            path={`/manage/events/${event.id}/info`} 
-                            render={()=>
-                                <Info 
-                                    loading={loading}
-                                    updateEvent={updateEvent}                                    
-                                    setNewMainPoster={setNewMainPoster}
-                                    informMsg={informMsg}
-                                    options={options}
-                                    event={event} 
-                                    isManage={true}
-                                />
-                            }
-                        />
-                        <Route 
-                            path={`/manage/events/${event.id}/attendees`} 
-                            render={()=><Attendees attendees={event.attendees}/>}
-                        />
-                    </Switch>
+            <div>
+                <div className='row'>
+                    <div className='col-lg-2'></div>
+                    <div className='col-lg-3 px-3'>
+                        <Menu event={event}/>
+                    </div>    
+                    <div className='col-lg-5 px-3'>
+                        <Switch>
+                            <Redirect 
+                                exact 
+                                from={`/manage/events/${event.id}`} 
+                                to={`/manage/events/${event.id}/info`}
+                            />
+                            <Route 
+                                path={`/manage/events/${event.id}/info`} 
+                                render={()=>
+                                    <Info 
+                                        loading={loading}
+                                        updateEvent={updateEvent}                                    
+                                        setNewMainPoster={setNewMainPoster}
+                                        informMsg={informMsg}
+                                        options={options}
+                                        event={event} 
+                                        isManage={true}
+                                    />
+                                }
+                            />
+                            <Route 
+                                path={`/manage/events/${event.id}/attendees`} 
+                                render={()=><Attendees attendees={event.attendees}/>}
+                            />
+                        </Switch>
+                    </div>
+                    <div className='col-lg-2'></div>
                 </div>
                 <Footer/>
             </div>

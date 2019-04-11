@@ -5,7 +5,7 @@ class SearchEvent extends Component {
     return (
         <div class="card rounded-0 border-dark border-bottom-0">
             <div class="card-header border-dark px-0 py-0 bg-white" id="headingOne">
-                <button class="btn btn-outline-dark rounded-0 btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                <button class="btn btn-dark rounded-0 btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                 <i class="fas fa-filter"></i> <strong>Filter</strong>
                 </button>
             </div>      

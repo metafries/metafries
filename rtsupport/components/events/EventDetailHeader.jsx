@@ -4,7 +4,7 @@ import EventPosters from './EventPosters.jsx'
 const EventDetailHeader = ({event}) => {
   return (
     <div class="card mb-3 rounded-0">
-      <div className='card-body transbox'>
+      <div className='card-body transbox px-3'>
         <table class="table">
           <tbody>
             <tr>

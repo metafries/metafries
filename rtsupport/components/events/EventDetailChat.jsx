@@ -14,10 +14,10 @@ class EventDetailChat extends Component {
   render() {
     return (
       <div className='card rounded-0'>
-        <div className='card-header rounded-0 transbox'>
+        <div className='card-header rounded-0 transbox px-3'>
           <h5 className='mb-0'>4 Comments</h5>              
         </div>
-        <div className='card-body'>
+        <div className='card-body px-3'>
           <table class="table">
             <tbody>
               <tr>

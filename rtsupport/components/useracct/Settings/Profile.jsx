@@ -126,7 +126,7 @@ class Profile extends Component {
                 <div className='col-lg-4'>
                   <h5 style={stepsHeader} className='my-4'>Step1 - Add a New Image</h5>
                 </div>
-                <div className='col-lg-6'>
+                <div className='col-lg-8'>
                   <Dropzone 
                     accept="image/*"
                     multiple={false}
@@ -180,13 +180,12 @@ class Profile extends Component {
                     }
                   </Dropzone>   
                 </div> 
-                <div className='col-lg-2'></div>
               </div>
               <div className='row mb-4'>
                 <div className='col-lg-4'>
                   <h5 style={stepsHeader} className='my-4'>Step2 - Crop the Image</h5>
                 </div>
-                <div className='col-lg-6'>
+                <div className='col-lg-8'>
                   <div style={ratioContainer}>
                     <Cropper
                       style={ratioContent}
@@ -203,18 +202,16 @@ class Profile extends Component {
                     />
                   </div>
                 </div>
-                <div className='col-lg-2'></div>
               </div>
               <div className='row mb-4'>
                 <div className='col-lg-4'>
                   <h5 style={stepsHeader} className='my-4'>Step3 - Preview the Cropped Image</h5>
                 </div>
-                <div className='col-lg-6'>
+                <div className='col-lg-8'>
                   <div style={ratioContainer}>
                     <img src={preview} style={ratioContent}/>                  
                   </div>
                 </div>
-                <div className='col-lg-2'></div>
               </div>
               {
                 uploadImgOkMsg.length > 0 &&

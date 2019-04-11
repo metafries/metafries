@@ -4,10 +4,10 @@ const EventDetailSidebar = ({attendees}) => {
   const isHost = false
   return (
     <div className='card rounded-0'>
-      <div className='card-header rounded-0 transbox'>
+      <div className='card-header rounded-0 transbox px-3'>
         <h5 className='mb-0'>{attendees && attendees.length} Attendees</h5>              
       </div>
-      <div className='card-body'>
+      <div className='card-body px-3'>
         <table class="table">
           <tbody>
             {attendees && attendees.map((attendee) => (

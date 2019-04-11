@@ -36,20 +36,24 @@ class Dashboard extends Component {
     const {loading, setAvatar, deleteProfilePicture, photos, fba, fbp, providerId} = this.props
     const authenticated = fbp.isLoaded && !fbp.isEmpty        
     return (
-      <div className='row'>
-        {
-          authenticated &&
-          <About 
-            setAvatar={setAvatar}
-            deleteProfilePicture={deleteProfilePicture}
-            photos={photos}
-            fbp={fbp}
-            fba={fba}
-            providerId={providerId}             
-            loading={loading}           
-          />          
-        }
-        <Overview/>
+      <div>
+        <div className='row'>
+          <div className='col-lg-2'></div>
+          {
+            authenticated &&
+            <About 
+              setAvatar={setAvatar}
+              deleteProfilePicture={deleteProfilePicture}
+              photos={photos}
+              fbp={fbp}
+              fba={fba}
+              providerId={providerId}             
+              loading={loading}           
+            />          
+          }
+          <Overview/>
+          <div className='col-lg-2'></div>
+        </div>
         <Footer/>
       </div>
     )

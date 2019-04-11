@@ -36,30 +36,34 @@ class EventDetailPage extends Component {
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)
     const {eventNotFoundMsg} = this.state
     return (
-      <div className='row'>
-        {
-          eventNotFoundMsg.length > 0 &&
-          <h6 className='input-err-msg p-2 container-fluid mx-3'>
-            <i class="fas fa-exclamation-circle mr-2 my-1"></i>
-            <span className='my-1'>{eventNotFoundMsg}</span>
-            <i class="fas fa-minus mx-2 my-1"></i>
-            <a href="/create" className='badge badge-pill badge-dark my-1 py-0'>create a new one.</a>
-          </h6>
-        }
-        {
-          eventNotFoundMsg.length == 0 &&
-          <div className='col-lg-8'>
-            <EventDetailHeader event={event}/>
-            <EventDetailInfo event={event}/>
-          </div>
-        }
-        {
-          eventNotFoundMsg.length == 0 &&
-          <div className='col-lg-4'>
-            <EventDetailSidebar attendees={convertedAttendees}/>
-            <EventDetailChat/>
-          </div>
-        }
+      <div>
+        <div className='row'>
+          <div className='col-lg-2'></div>
+          {
+            eventNotFoundMsg.length > 0 &&
+            <h6 className='input-err-msg p-2 container-fluid mx-3'>
+              <i class="fas fa-exclamation-circle mr-2 my-1"></i>
+              <span className='my-1'>{eventNotFoundMsg}</span>
+              <i class="fas fa-minus mx-2 my-1"></i>
+              <a href="/create" className='badge badge-pill badge-dark my-1 py-0'>create a new one.</a>
+            </h6>
+          }
+          {
+            eventNotFoundMsg.length == 0 &&
+            <div className='col-lg-5 px-0'>
+              <EventDetailHeader event={event}/>
+              <EventDetailInfo event={event}/>
+            </div>
+          }
+          {
+            eventNotFoundMsg.length == 0 &&
+            <div className='col-lg-3 px-0'>
+              <EventDetailSidebar attendees={convertedAttendees}/>
+              <EventDetailChat/>
+            </div>
+          }
+          <div className='col-lg-2'></div>
+        </div>
         <Footer/>
       </div>
     )

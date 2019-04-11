@@ -16,16 +16,16 @@ class EventDetailInfo extends Component {
     return (
       <div>
         <hr/>
-        <h4 className='font-weight-bold pl-2'>5,752 views</h4>
+        <h4 className='font-weight-bold px-3'>5,752 views</h4>
         <table class="table">
           <tbody>
             <tr>
-              <th scope="row"><i class="fas fa-info"></i></th>
-              <td>{event.description}</td>
+              <th scope="row" className='px-0'><i class="fas fa-info ml-3"></i></th>
+              <td className='px-3'>{event.description}</td>
             </tr>
             <tr>
-              <th scope="row"><i class="fas fa-calendar-day"></i></th>
-              <td>
+              <th scope="row" className='px-0'><i class="fas fa-calendar-day ml-3"></i></th>
+              <td className='px-3'>
                 {
                   event.startDate && event.startDate.seconds &&
                   DateTime.fromJSDate(event.startDate.toDate()).toFormat('ff')
@@ -38,8 +38,8 @@ class EventDetailInfo extends Component {
               </td>
             </tr>
             <tr>
-              <th scope="row"><i class="fas fa-map-marked-alt"></i></th>
-              <td>
+              <th scope="row" className='px-0'><i class="fas fa-map-marked-alt ml-3"></i></th>
+              <td className='px-3'>
                 {event.location}
                 <br/>
                 <button 

@@ -34,47 +34,51 @@ const Dashboard = ({
 }) => {
   const authenticated = fbp.isLoaded && !fbp.isEmpty    
   return (
-    <div className='row'>
-        <div className='col-lg-4'>
-            <Menu fba={fba} fbp={fbp}/>
-        </div>    
-        <div className='col-lg-8'>
-            {
-                authenticated &&
-                <Switch>
-                <Redirect exact from='/settings' to='/settings/profile'/>
-                <Route 
-                    path='/settings/profile'
-                    render=
+        <div>
+            <div className='row'>
+                <div className='col-lg-2'></div>
+                <div className='col-lg-3 px-3'>
+                    <Menu fba={fba} fbp={fbp}/>
+                </div>    
+                <div className='col-lg-5 px-3'>
                     {
-                        () => 
-                        <Profile 
-                            fbp={fbp} 
-                            fba={fba} 
-                            providerId={providerId}
-                            updateProfile={updateProfile}                                                        
-                            setNewProfilePicture={setNewProfilePicture}
-                            loading={loading}
+                        authenticated &&
+                        <Switch>
+                        <Redirect exact from='/settings' to='/settings/profile'/>
+                        <Route 
+                            path='/settings/profile'
+                            render=
+                            {
+                                () => 
+                                <Profile 
+                                    fbp={fbp} 
+                                    fba={fba} 
+                                    providerId={providerId}
+                                    updateProfile={updateProfile}                                                        
+                                    setNewProfilePicture={setNewProfilePicture}
+                                    loading={loading}
+                                />
+                            }
                         />
-                    }
-                />
-                <Route 
-                    path='/settings/account' 
-                    render=
-                    {
-                        () => 
-                        <Account 
-                            providerId={providerId}                        
-                            auth={auth} 
-                            updatePassword={updatePassword} 
+                        <Route 
+                            path='/settings/account' 
+                            render=
+                            {
+                                () => 
+                                <Account 
+                                    providerId={providerId}                        
+                                    auth={auth} 
+                                    updatePassword={updatePassword} 
+                                />
+                            }
                         />
+                    </Switch>
                     }
-                />
-            </Switch>
-            }
+                </div>
+                <div className='col-lg-2'></div>
+            </div>
+            <Footer/>
         </div>
-        <Footer/>
-    </div>
   )
 }
 

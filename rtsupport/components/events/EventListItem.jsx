@@ -25,7 +25,7 @@ class EventListItem extends Component {
     const {fba, event} = this.props;
     return (
       <div className='card border-0 rounded-0 mb-3'>
-        <div className='card-body transbox py-0'>
+        <div className='card-body transbox py-0 px-3'>
           <table class="table">
             <tbody>
               <tr className='h6'>
@@ -74,7 +74,7 @@ class EventListItem extends Component {
           </table>
         </div>  
         {event.posters && <EventPosters event={event} />}
-        <div class="card-footer transbox rounded-0">
+        <div class="card-footer transbox rounded-0 px-3">
           <LinkContainer to={`/events/${event.id}`}>
             <button 
               type="button" 

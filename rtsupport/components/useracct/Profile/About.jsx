@@ -18,7 +18,7 @@ class About extends Component {
     render() {
         const {loading, setAvatar, deleteProfilePicture, photos, fba, fbp} = this.props
         return (
-            <div class="col-lg-4 mb-4">
+            <div class="col-lg-3 px-0 mb-4">
                 <Photos 
                     setAvatar={setAvatar}
                     deleteProfilePicture={deleteProfilePicture}
@@ -32,36 +32,38 @@ class About extends Component {
                     {fbp.displayName}
                     <h6 className='text-light mb-0'>-- subscribers</h6>
                 </h2>
-                {
-                    fbp.bio && fbp.bio.length != 0 &&
-                    <h5 className='my-4'>{fbp.bio}</h5>
-                }
-                {
-                    fbp.company && fbp.company.length != 0 &&
-                    <h5><i class="fas fa-building mr-2 icon"></i>{fbp.company}</h5>
-                }
-                {
-                    fbp.location && fbp.location.length != 0 &&
-                    <h5><i class="fas fa-map-marker-alt mr-2 icon"></i>{fbp.location}</h5>
-                }
-                {
-                    fbp.website && fbp.website.length != 0 &&
-                    <h5>
-                        <i class="fas fa-link mr-2 icon"></i>
-                        <a href={fbp.website}>{fbp.website}</a>
-                    </h5>
-                }
-                <a 
-                    role='button' 
-                    href='/settings/profile'
-                    className='btn btn-outline-dark btn-lg py-0 rounded-0 mt-2 font-weight-bold w-100 border-2'
-                    >
-                    EDIT
-                </a>
-                <hr/>
-                <h3 className='mb-0 font-weight-bold'>Groups</h3>
-                <hr/>
-                <img className='signout' src='/static/images/whazup-square-logo.png'/>
+                <div className='card rounded-0'>
+                    <div className='card-body px-3 py-0'>
+                        {
+                            fbp.bio && fbp.bio.length != 0 &&
+                            <h5>{fbp.bio}</h5>
+                        }
+                        {
+                            fbp.company && fbp.company.length != 0 &&
+                            <h5><i class="fas fa-building mr-2 icon"></i>{fbp.company}</h5>
+                        }
+                        {
+                            fbp.location && fbp.location.length != 0 &&
+                            <h5><i class="fas fa-map-marker-alt mr-2 icon"></i>{fbp.location}</h5>
+                        }
+                        {
+                            fbp.website && fbp.website.length != 0 &&
+                            <h5>
+                                <i class="fas fa-link mr-2 icon"></i>
+                                <a href={fbp.website}>{fbp.website}</a>
+                            </h5>
+                        }
+                    </div>
+                    <div className='card-footer rounded-0 bg-white px-3'>
+                        <a 
+                            role='button' 
+                            href='/settings/profile'
+                            className='btn btn-outline-dark btn-lg py-0 rounded-0 font-weight-bold w-100 border-2'
+                            >
+                            EDIT
+                        </a>     
+                    </div>
+                </div>
             </div>
         )
     }

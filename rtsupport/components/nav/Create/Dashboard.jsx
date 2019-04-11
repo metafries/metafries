@@ -40,26 +40,30 @@ class Dashboard extends Component {
             { label: fba.displayName, value: fba.displayName },
         ]
         return (
-            <div className='row'>
-                <div className='col-lg-4'>
-                    <Menu/>
-                </div>    
-                <div className='col-lg-8'>
-                    <Switch>
-                        <Redirect exact from='/create' to='/create/event'/>
-                        <Route 
-                            path='/create/event' 
-                            render={()=>
-                                <EventForm 
-                                    options={options}  
-                                    fba={fba}
-                                    event={event} 
-                                    handleCreateEvent={this.handleCreateEvent}
-                                />
-                            }
-                        />
-                        <Route path='/create/group' component={GroupForm}/>
-                    </Switch>
+            <div>
+                <div className='row'>
+                    <div className='col-lg-2'></div>
+                    <div className='col-lg-3 px-3'>
+                        <Menu/>
+                    </div>    
+                    <div className='col-lg-5 px-3'>
+                        <Switch>
+                            <Redirect exact from='/create' to='/create/event'/>
+                            <Route 
+                                path='/create/event' 
+                                render={()=>
+                                    <EventForm 
+                                        options={options}  
+                                        fba={fba}
+                                        event={event} 
+                                        handleCreateEvent={this.handleCreateEvent}
+                                    />
+                                }
+                            />
+                            <Route path='/create/group' component={GroupForm}/>
+                        </Switch>
+                    </div>
+                    <div className='col-lg-2'></div>
                 </div>
                 <Footer/>
             </div>

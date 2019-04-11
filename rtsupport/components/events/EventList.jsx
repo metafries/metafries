@@ -8,7 +8,7 @@ class EventList extends Component {
   render() {
     const {fba, events} = this.props;
     return (
-      <div className='col-lg-8'>
+      <div className='col-lg-5 px-0'>
         {events && events.map((e) => (
           <EventListItem key={e.id} fba={fba} event={e} events={events} onDeleteEvent={this.onDeleteEvent} />        
         ))}

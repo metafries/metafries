@@ -10,7 +10,7 @@ const Menu = ({event}) => {
                         <tr>
                             <th scope="row" className='border-0 float-right p-0'>
                                 <a href={`/profile/${event.hostUid}`}>
-                                    <img src={event.hostAvatarUrl} className="hoster rounded mr-3" alt="..."/>                                
+                                    <img src={event.hostAvatarUrl} className="hoster mr-3" alt="..."/>                                
                                 </a>
                             </th>
                             <td className='border-0 p-0'>
