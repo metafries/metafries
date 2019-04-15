@@ -32,7 +32,7 @@ class SignUpForm extends Component {
         <form onSubmit={this.handleSignup}>
             <small className='float-right'>{usernameInputLength}/64</small>
             <div class="input-group mb-3 border border-white">
-                <div class="input-group-prepend p-2 text-dark bg-white">
+                <div class="input-group-prepend pb-0 pt-2 px-2 text-dark bg-white">
                     <h6 className='mb-0'><i class="fas fa-user icon text-center"></i></h6>
                 </div>
                 <input 
@@ -45,7 +45,7 @@ class SignUpForm extends Component {
                 />
             </div>          
             <div class="input-group mb-3 border border-white">
-                <div class="input-group-prepend p-2 text-dark bg-white">
+                <div class="input-group-prepend pb-0 pt-2 px-2 text-dark bg-white">
                     <h6 className='mb-0'><i class="fas fa-envelope icon text-center"></i></h6>
                 </div>
                 <input 
@@ -56,7 +56,7 @@ class SignUpForm extends Component {
                 />
             </div>
             <div class="input-group mb-3 border border-white">
-                <div class="input-group-prepend p-2 text-dark bg-white">
+                <div class="input-group-prepend pb-0 pt-2 px-2 text-dark bg-white">
                     <h6 className='mb-0'><i class="fas fa-lock icon text-center"></i></h6>
                 </div>
                 <input 

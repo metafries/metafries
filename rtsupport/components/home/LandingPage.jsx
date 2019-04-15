@@ -50,12 +50,14 @@ class LandingPage extends Component {
     return (
       <div className='row'>
         <div className='col-lg-4'></div>
-        <div className='col-lg-4 pb-5'>
-          <img className="logo mb-2" src="/static/images/_logo.png"/>
-          <h4 className='mb-4 ml-5 pl-5 font-italic font-weight-bold'>Let's Meet Up!</h4>
+        <div className='col-lg-4 pb-5 px-0'>
+          <div className='mx-3'>
+            <img className="logo mb-2" src="/static/images/_logo.png"/>
+            <h4 className='mb-4 ml-5 pl-5 font-italic font-weight-bold'>Let's Meet Up!</h4>
+          </div>
           {
             !authenticated &&
-            <div className='card border-dark rounded-0 mb-3'>
+            <div className='card border-dark rounded-0'>
               <div className='card-header border-dark bg-white font-weight-bold p-0'>
                 <button 
                   type="button" 
@@ -140,18 +142,20 @@ class LandingPage extends Component {
           }
           {
             authenticated &&
-            <h6 className='pl-4 font-italic'>Sup? {fbp.displayName}</h6>
+            <h6 className='pl-4 font-italic font-weight-bold l-msg'>
+              Sup? <a href={`/profile/${fba.uid}`}>{fbp.displayName}</a>
+            </h6>
           }
           <a 
             role="button" 
-            class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-5 font-weight-bold"
+            class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
             href='/userid'
           >
             <i class="fas fa-search icon text-center mr-4"></i>Search           
           </a>
           <a 
             role="button" 
-            class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-5 font-weight-bold"
+            class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
             href='/userid'            
           >
             <i class="fas fa-chart-line icon text-center mr-4"></i>Trending           
@@ -160,7 +164,7 @@ class LandingPage extends Component {
             authenticated &&
             <a 
               role="button" 
-              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-5 font-weight-bold"
+              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
               href={`/profile/${fba.uid}`}
             >
               <i class="fas fa-address-card icon text-center mr-4"></i>Profile           
@@ -170,7 +174,7 @@ class LandingPage extends Component {
             authenticated &&
             <a 
               role="button" 
-              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-5 font-weight-bold"
+              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
               href='/create'
             >
               <i class="fas fa-plus icon text-center mr-4"></i>Create           
@@ -180,7 +184,7 @@ class LandingPage extends Component {
             authenticated &&
             <a 
               role="button" 
-              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-5 font-weight-bold"
+              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
               href='/settings'
             >
               <i class="fas fa-wrench icon text-center mr-4"></i>Settings           
@@ -190,7 +194,7 @@ class LandingPage extends Component {
             authenticated &&
             <a 
               role="button" 
-              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-5 font-weight-bold"
+              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
               href='#'
               onClick={this.handleSignOut}
             >
@@ -201,11 +205,13 @@ class LandingPage extends Component {
               />
               Sign out           
             </a>
-          }                    
-          <hr/>
-          <small className='font-weight-bold'>
-            <i class="far fa-copyright mr-2"></i>2019 Metafries
-          </small>
+          }          
+          <div className='mx-3'>
+            <hr/>
+            <small className='font-weight-bold'>
+              <i class="far fa-copyright mr-2"></i>2019 Metafries
+            </small>
+          </div>
         </div>
         <div className='col-lg-4'></div>
       </div>

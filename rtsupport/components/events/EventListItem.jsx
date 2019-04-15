@@ -24,7 +24,7 @@ class EventListItem extends Component {
   render() {
     const {fba, event} = this.props;
     return (
-      <div className='card border-0 rounded-0 mb-3'>
+      <div className='card border-0 rounded-0 mb-2'>
         <div className='card-body transbox py-0 px-3'>
           <table class="table">
             <tbody>

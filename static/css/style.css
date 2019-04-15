@@ -229,6 +229,16 @@ div.mdl-progress::after {
   border-width: 2px
 }
 
-.menu-header a {
+.menu-header a, .l-msg a{
   color: #303aa5;
+}
+
+.search-bar:focus {
+  border: 5px solid #303aa5;
+  margin-bottom: 15px;
+}
+
+.search-icon:hover {
+  color: #303aa5;
+  border: 5px solid #fff;
 }

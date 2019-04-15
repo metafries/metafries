@@ -19,11 +19,11 @@ class NavBar extends Component {
     return (
         <div className='row'>
             <div className='col-lg-2'></div>
-            <div className='col-lg-8 py-2'>
+            <div className='col-lg-8'>
                 <div className="navbar navbar-light box-shadow pl-2">
                     <div className="container-fluid d-flex justify-content-between px-0">
                         <a className="navbar-brand d-flex align-items-center" href="/"><img className="logo" src="/static/images/_logo.png"/></a>
-                        <a className="nav-button"><span id="nav-icon3" className='mb-5'><span></span><span></span><span></span><span></span></span></a>
+                        <a className="nav-button border-0"><span id="nav-icon3" className='mb-5'><span></span><span></span><span></span><span></span></span></a>
                     </div>
                 </div> 
                 <div className="fixed-top main-menu">

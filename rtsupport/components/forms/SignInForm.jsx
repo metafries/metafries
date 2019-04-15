@@ -18,7 +18,7 @@ class SignInForm extends Component {
         return (
             <form onSubmit={this.handleLogin}>
                 <div class="input-group mb-3 border border-white">
-                    <div class="input-group-prepend p-2 text-dark bg-white">
+                    <div class="input-group-prepend pb-0 pt-2 px-2 text-dark bg-white">
                         <h6 className='mb-0'><i class="fas fa-envelope icon text-center"></i></h6>
                     </div>
                     <input 
@@ -29,7 +29,7 @@ class SignInForm extends Component {
                     />
                 </div>
                 <div class="input-group mb-3 border border-white">
-                    <div class="input-group-prepend p-2 text-dark bg-white">
+                    <div class="input-group-prepend pb-0 pt-2 px-2 text-dark bg-white">
                         <h6 className='mb-0'><i class="fas fa-lock icon text-center"></i></h6>
                     </div>
                     <input 
