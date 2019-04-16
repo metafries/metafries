@@ -1,4 +1,5 @@
 import React from 'react'
+import { LinkContainer } from 'react-router-bootstrap'
 
 const Menu = ({fba, fbp}) => {
   const authenticated = fba.isLoaded && !fba.isEmpty
@@ -32,32 +33,38 @@ const Menu = ({fba, fbp}) => {
           </tbody>
         </table>
       </div>
-      <button 
-        type="button" 
-        className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
-        >
-        <i class="fas fa-minus mr-2"></i>
-        RECOMMENDED
-      </button>
-      {
-        authenticated &&
+      <LinkContainer to={`/search/${fba.uid}/recommended`}>
         <button 
           type="button" 
           className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
           >
           <i class="fas fa-minus mr-2"></i>
-          SUBSCRIPTIONS
+          RECOMMENDED
         </button>
+      </LinkContainer>
+      {
+        authenticated &&
+        <LinkContainer to={`/search/${fba.uid}/subscriptions`}>
+          <button 
+            type="button" 
+            className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
+            >
+            <i class="fas fa-minus mr-2"></i>
+            SUBSCRIPTIONS
+          </button>
+        </LinkContainer>
       }
       {
         authenticated &&
-        <button 
-          type="button" 
-          className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
-          >
-          <i class="fas fa-minus mr-2"></i>
-          ACTIVITY
-        </button>
+        <LinkContainer to={`/search/${fba.uid}/activity`}>
+          <button 
+            type="button" 
+            className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
+            >
+            <i class="fas fa-minus mr-2"></i>
+            ACTIVITY
+          </button>
+        </LinkContainer>
       }
     </div>
   )

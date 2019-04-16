@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import Menu from './Menu.jsx'
-import EventList from '../events/EventList.jsx'
+import Recommended from '../useracct/Recommended.jsx'
+import Subscriptions from '../useracct/Subscriptions.jsx'
+import Activity from '../useracct/Activity.jsx'
 import SearchEvent from '../controlpanel/SearchEvent.jsx'
 import InstantMsg from '../controlpanel/InstantMsg.jsx'
 import { deleteEvent } from '../events/eventActions.jsx'
@@ -34,12 +37,28 @@ class HomePage extends Component {
                 <Menu fba={fba} fbp={fbp}/>
               </div>
               <div className='col-lg-5 px-0'>
-                <EventList 
-                  events={this.props.events} 
-                  handleDeleteEvent={this.handleDeleteEvent} 
-                  fba={fba}
-                  loading={this.props.loading}
-                />    
+                <Switch>
+                  <Redirect 
+                    exact from={`/search/${fba.uid}`} to={`/search/${fba.uid}/recommended`}
+                    />
+                  <Route
+                    path={`/search/${fba.uid}/recommended`}
+                    render={() => <Recommended
+                      events={this.props.events} 
+                      handleDeleteEvent={this.handleDeleteEvent} 
+                      fba={fba}
+                      loading={this.props.loading}
+                    />}
+                  />
+                  <Route
+                    path={`/search/${fba.uid}/subscriptions`}
+                    render={() => <Subscriptions/>}
+                  />
+                  <Route
+                    path={`/search/${fba.uid}/activity`}
+                    render={() => <Activity/>}
+                  />
+                </Switch>
               </div>
               <div className='col-lg-2'></div>
             </div>

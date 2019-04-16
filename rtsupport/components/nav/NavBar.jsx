@@ -29,8 +29,8 @@ class NavBar extends Component {
                 <div className="fixed-top main-menu">
                     <div className="vertical-center px-3">
                         <ul className="nav flex-column horizontal-center">
-                            <li className="nav-item delay-1"><a className="nav-link px-2" href="/userid"><i class="fas fa-search signout text-center mr-2"></i>SEARCH</a></li>                    
-                            <li className="nav-item delay-2"><a className="nav-link px-2" href="/userid"><i class="fas fa-chart-line signout text-center mr-2"></i>TRENDING</a></li>
+                            <li className="nav-item delay-1"><a className="nav-link px-2" href={`/search/${fba.uid}`}><i class="fas fa-search signout text-center mr-2"></i>SEARCH</a></li>                    
+                            <li className="nav-item delay-2"><a className="nav-link px-2" href="/trending"><i class="fas fa-chart-line signout text-center mr-2"></i>TRENDING</a></li>
                             <li className="nav-item delay-3"><hr/></li>
                             {authenticated && <li className="nav-item delay-4"><a className="nav-link px-2" href={`/profile/${fba.uid}`}><i class="fas fa-address-card signout text-center mr-2"></i>PROFILE</a></li>}
                             {authenticated && <li className="nav-item delay-5"><a className="nav-link px-2" href="/create"><i class="fas fa-plus signout text-center mr-2"></i>CREATE</a></li>}

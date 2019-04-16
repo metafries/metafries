@@ -149,14 +149,14 @@ class LandingPage extends Component {
           <a 
             role="button" 
             class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
-            href='/userid'
+            href={`/search/${fba.uid}`}
           >
             <i class="fas fa-search icon text-center mr-4"></i>Search           
           </a>
           <a 
             role="button" 
             class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
-            href='/userid'            
+            href='/trending'            
           >
             <i class="fas fa-chart-line icon text-center mr-4"></i>Trending           
           </a>
