@@ -23,7 +23,7 @@ const Recommended = ({
         </div>
         <h6 className='info-text-box mb-3 mx-3 p-2'>
           <i class="fas fa-info-circle mr-2"></i>
-          The searching scope has narrowed down to the recommended.
+          The searching results are now limited to the recommended.
         </h6>
         <EventList 
             events={events} 

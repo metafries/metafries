@@ -27,7 +27,7 @@ const Menu = ({fba, fbp}) => {
                   ? <a href={`/profile/${fba.uid}`}>{fbp.displayName}</a>                  
                   : <span>Anonymous</span>
                 }
-                <span className='ml-2'>/ Limited Search</span>
+                <span className='ml-2'>/ Personal Search</span>
               </td>
             </tr>
           </tbody>
@@ -62,7 +62,7 @@ const Menu = ({fba, fbp}) => {
             className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
             >
             <i class="fas fa-minus mr-2"></i>
-            ACTIVITY
+            ACTIVITY LOG
           </button>
         </LinkContainer>
       }

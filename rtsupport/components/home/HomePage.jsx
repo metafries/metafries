@@ -5,7 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Menu from './Menu.jsx'
 import Recommended from '../useracct/Recommended.jsx'
 import Subscriptions from '../useracct/Subscriptions.jsx'
-import Activity from '../useracct/Activity.jsx'
+import ActivityLog from '../useracct/ActivityLog.jsx'
 import SearchEvent from '../controlpanel/SearchEvent.jsx'
 import InstantMsg from '../controlpanel/InstantMsg.jsx'
 import { deleteEvent } from '../events/eventActions.jsx'
@@ -52,11 +52,16 @@ class HomePage extends Component {
                   />
                   <Route
                     path={`/search/${fba.uid}/subscriptions`}
-                    render={() => <Subscriptions/>}
+                    render={() => <Subscriptions
+                      events={this.props.events} 
+                      handleDeleteEvent={this.handleDeleteEvent} 
+                      fba={fba}
+                      loading={this.props.loading}
+                    />}
                   />
                   <Route
                     path={`/search/${fba.uid}/activity`}
-                    render={() => <Activity/>}
+                    render={() => <ActivityLog/>}
                   />
                 </Switch>
               </div>

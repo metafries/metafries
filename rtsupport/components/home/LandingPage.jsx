@@ -146,20 +146,41 @@ class LandingPage extends Component {
               Sup? <a href={`/profile/${fba.uid}`}>{fbp.displayName}</a>
             </h6>
           }
-          <a 
-            role="button" 
-            class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
-            href={`/search/${fba.uid}`}
-          >
-            <i class="fas fa-search icon text-center mr-4"></i>Search           
-          </a>
-          <a 
-            role="button" 
-            class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
-            href='/trending'            
-          >
-            <i class="fas fa-chart-line icon text-center mr-4"></i>Trending           
-          </a>
+          {
+            !authenticated &&
+            <a 
+              role="button" 
+              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left font-weight-bold"
+              href={`/search/${fba.uid}`}
+              >
+              <img
+                src="/static/images/whazup-square-logo.png"
+                class="rounded-circle attendee mr-2 ml-1"
+                alt="..."
+              />
+              Anonymous Mode           
+            </a>
+          }
+          {
+            authenticated &&
+            <a 
+              role="button" 
+              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
+              href={`/search/${fba.uid}`}
+              >
+              <i class="fas fa-search icon text-center mr-4"></i>Search           
+            </a>
+          }
+          {
+            authenticated &&
+            <a 
+              role="button" 
+              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
+              href='/trending'            
+              >
+              <i class="fas fa-chart-line icon text-center mr-4"></i>Trending           
+            </a>
+          }
           {
             authenticated &&
             <a 

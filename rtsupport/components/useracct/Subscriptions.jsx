@@ -1,6 +1,12 @@
 import React from 'react'
+import EventList from '../events/EventList.jsx'
 
-const Subscriptions = () => {
+const Subscriptions = ({
+    events,
+    handleDeleteEvent,
+    fba,
+    loading,
+}) => {
   return (
     <div>
         <div class="input-group mb-2 px-3">
@@ -17,8 +23,14 @@ const Subscriptions = () => {
         </div>
         <h6 className='info-text-box mb-3 mx-3 p-2'>
           <i class="fas fa-info-circle mr-2"></i>
-          The searching scope has narrowed down to your subscriptions.
+          The searching results are now limited to your subscriptions.
         </h6>
+        <EventList 
+            events={events} 
+            handleDeleteEvent={handleDeleteEvent} 
+            fba={fba}
+            loading={loading}
+        />    
     </div>
   )
 }
