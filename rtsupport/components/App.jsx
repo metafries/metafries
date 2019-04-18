@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import HomePage from './home/HomePage.jsx'
-import Trending from './home/Trending.jsx'
+import Trending from './trending/Dashboard.jsx'
 import Profile from './useracct/Profile/Dashboard.jsx'
 import LandingPage from './home/LandingPage.jsx'
 import Settings from './useracct/Settings/Dashboard.jsx'

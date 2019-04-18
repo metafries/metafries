@@ -18,9 +18,6 @@ class EventListItem extends Component {
       })
     })
   }
-  getDeleteEventId = (cancelEvent) => {
-    this.props.onDeleteEvent(cancelEvent.id)
-  }
   render() {
     const {fba, event} = this.props;
     return (
