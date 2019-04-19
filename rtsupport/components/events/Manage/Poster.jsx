@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from "react-router-dom";
 import Dropzone from 'react-dropzone'
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
@@ -67,10 +68,14 @@ class Poster extends Component {
   uploadImage = async() => {
     this.props.informMsg.uploadImgOk = null
     this.props.informMsg.uploadImgErr = null
-    this.props.setNewMainPoster(
-      this.props.event,
-      this.state.croppedCanvas,
-    )
+    try {
+      await this.props.setNewMainPoster(
+        this.props.event,
+        this.state.croppedCanvas,
+      )  
+    } finally {
+      this.props.history.push(`/events/${this.props.event.id}`)      
+    }
   }
   render() {
     const {event, loading, informMsg} = this.props
@@ -211,4 +216,4 @@ class Poster extends Component {
   }
 }
 
-export default Poster
+export default withRouter(Poster)

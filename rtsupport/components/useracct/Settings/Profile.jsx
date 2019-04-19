@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from "react-router-dom";
 import Dropzone from 'react-dropzone'
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
@@ -99,6 +100,8 @@ class Profile extends Component {
       this.setState({
         uploadImgErrMsg: error.message
       })
+    } finally {
+      this.props.history.push(`/profile/${this.props.fba.uid}`)
     }
   }
   render() {
@@ -263,4 +266,4 @@ class Profile extends Component {
   }
 }
 
-export default Profile
+export default withRouter(Profile)
