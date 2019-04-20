@@ -27,6 +27,9 @@ const Menu = ({event}) => {
             <LinkContainer to={`/manage/events/${event.id}/attendees`}>
               <button type="button" className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"><i class="fas fa-minus mr-2"></i>ATTENDEES</button>
             </LinkContainer>
+            <LinkContainer to={`/manage/events/${event.id}/status`}>
+              <button type="button" className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"><i class="fas fa-minus mr-2"></i>STATUS</button>
+            </LinkContainer>
         </div>
     )        
 }

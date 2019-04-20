@@ -17,7 +17,8 @@ const mapState = (state) => {
         startDate: DateTime.local().plus({minutes:1}).toFormat('yyyy/MM/dd, HH:mm'),
         endDate: DateTime.local().plus({minutes:2}).toFormat('yyyy/MM/dd, HH:mm'),
         description: '',
-        permission: 0  
+        permission: 0,
+        status: 0,
     }
     return {
         fba: state.firebase.auth,            
@@ -32,7 +33,7 @@ const actions = {
 class Dashboard extends Component {
     handleCreateEvent = (event) => {
         this.props.createEvent(event)
-        this.props.history.push('/userid')
+        this.props.history.push(`/search/${this.props.fba.uid}/subscriptions`)
     }
     render() {
         const {fba, event} = this.props

@@ -6,6 +6,7 @@ import Menu from './Menu.jsx'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Info from './Info.jsx'
 import Attendees from './Attendees.jsx'
+import Status from './Status.jsx'
 import { updateEvent, setNewMainPoster } from '../eventActions.jsx'
 import Footer from '../../nav/Footer.jsx'
 
@@ -73,6 +74,10 @@ class Dashboard extends Component {
                             <Route 
                                 path={`/manage/events/${event.id}/attendees`} 
                                 render={()=><Attendees attendees={event.attendees}/>}
+                            />
+                            <Route
+                                path={`/manage/events/${event.id}/status`}
+                                render={()=><Status event={event}/>}
                             />
                         </Switch>
                     </div>
