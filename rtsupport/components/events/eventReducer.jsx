@@ -4,6 +4,7 @@ import {
   ERROR,
   CREATE_EVENT, 
   UPDATE_EVENT, 
+  UPDATE_STATUS,
   SET_NEW_MAIN_POSTER,
   DELETE_EVENT,
   FETCH_EVENTS,
@@ -12,6 +13,8 @@ import {
 const initState = {
   updateEventOk: null,
   updateEventErr: null,  
+  updateStatusOk: null,
+  updateStatusErr: null,
   uploadImgOk: null,
   uploadImgErr: null,
 }
@@ -23,6 +26,13 @@ const initState = {
           ...state,
           updateEventOk: payload.ok,
           updateEventErr: null,
+        }
+        break
+      case UPDATE_STATUS:
+        return {
+          ...state,
+          updateStatusOk: payload.ok,
+          updateStatusErr: null,
         }
         break
       case SET_NEW_MAIN_POSTER:
@@ -45,6 +55,12 @@ const initState = {
         return {
           ...state,
           updateEventErr: payload.err,
+        }
+        break
+      case UPDATE_STATUS:
+        return {
+          ...state,
+          updateStatusErr: payload.err,
         }
         break
       case SET_NEW_MAIN_POSTER:

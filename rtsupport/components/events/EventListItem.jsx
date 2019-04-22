@@ -32,7 +32,29 @@ class EventListItem extends Component {
                 <td className='border border-0'>
                   {
                     fba.uid == event.hostUid &&
-                    <h5><a href="#" class="badge badge-dark rounded-0">HOST</a></h5>                                      
+                    <h5 className='d-inline mr-2'>
+                      <a href="#" class="badge badge-dark rounded-0 mb-2">HOST</a>
+                    </h5>                                      
+                  }                
+                  {
+                    event.status == 0 && 
+                    event.endDate && DateTime.fromJSDate(event.endDate.toDate()) > DateTime.local() &&
+                    <h5 className='d-inline mr-2'>
+                      <span class="badge active-tag rounded-0 mb-2">ACTIVE</span>
+                    </h5>
+                  }
+                  {
+                    event.status == 0 && 
+                    event.endDate && DateTime.fromJSDate(event.endDate.toDate()) < DateTime.local() &&
+                    <h5 className='d-inline mr-2'>
+                      <span class="badge badge-secondary rounded-0 mb-2">PAST</span>
+                    </h5>
+                  }
+                  {
+                    event.status == 1 && 
+                    <h5 className='d-inline mr-2'>
+                      <span class="badge canceled-tag rounded-0 mb-2">CANCELED</span>
+                    </h5>
                   }
                   <h4>{event.title}</h4>
                   <h5>

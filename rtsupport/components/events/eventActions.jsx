@@ -4,6 +4,7 @@ import {
     SUCCESS,
     ERROR,
     UPDATE_EVENT, 
+    UPDATE_STATUS,
     SET_NEW_MAIN_POSTER,
     DELETE_EVENT,
     FETCH_EVENTS,
@@ -137,6 +138,40 @@ export const setNewMainPoster = (event, file) =>
                     err: {
                         message: 'Failed to upload the image.',
                     }
+                },
+            })
+        } finally {
+            dispatch(finishAsyncAction())
+        }
+    }
+
+export const updateStatus = (code, eventId) => 
+    async (
+        dispatch, 
+        getState, 
+        {getFirestore}
+    ) => {
+        const firestore = getFirestore()
+        try {
+            dispatch(startAsyncAction())
+            await firestore.update(`events/${eventId}`, {
+                status: code
+            })
+            dispatch({
+                type: SUCCESS,
+                payload: {
+                    opts: UPDATE_STATUS,
+                    ok: {
+                        message: 'The status updated successfully',
+                    },
+                },
+            })
+        } catch (e) {
+            dispatch({
+                type: ERROR,
+                payload: {
+                    opts: UPDATE_STATUS,
+                    err: 'ERR_UPDATE_STATUS',
                 },
             })
         } finally {

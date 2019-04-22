@@ -15,7 +15,10 @@ const mapState = (state, ownProps) => {
   if (eventId && events && events.length > 0) {
     event = events.find(e => e.id == eventId)
   }
-  return {event}
+  return {
+    fba: state.firebase.auth,
+    event
+  }
 }
 
 class EventDetailPage extends Component {
@@ -32,7 +35,7 @@ class EventDetailPage extends Component {
     }
   }
   render() {
-    const {event} = this.props
+    const {fba, event} = this.props
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)
     const {eventNotFoundMsg} = this.state
     return (
@@ -51,7 +54,7 @@ class EventDetailPage extends Component {
           {
             eventNotFoundMsg.length == 0 &&
             <div className='col-lg-5 px-0'>
-              <EventDetailHeader event={event}/>
+              <EventDetailHeader fba={fba} event={event}/>
               <EventDetailInfo event={event}/>
             </div>
           }

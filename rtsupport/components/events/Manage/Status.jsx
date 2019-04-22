@@ -5,16 +5,26 @@ class Status extends Component {
         event: this.props.event,
     }
     handleStatusChange = (e) => {
+        this.props.informMsg = null
         const update = this.state.event;
         update.status = e.target.value
         this.setState({
             event: update
         })
     }    
+    onFormSubmit = (e) => {
+        e.preventDefault()
+        const {event} = this.state
+        if (event.status == 2) {
+            console.log('TODO: DELETE EVENT')
+        } else {
+            this.props.updateStatus(event.status, event.id)                        
+        }
+    }
     render() {
-        const {event} = this.props        
+        const {event, loading, informMsg} = this.props        
         return (
-            <form>
+            <form onSubmit={this.onFormSubmit}>
                 <div class="form-check mb-3">
                     <input 
                         type="radio"
@@ -40,7 +50,7 @@ class Status extends Component {
                     />
                     <div className='ml-2'>
                         <h5 class="form-check-label font-weight-bold">Cancel</h5>
-                        <small class="text-muted">A canceled tag will be added and people will still be able to view this event.</small>
+                        <small class="text-muted">A canceled tag will be added but people will still be able to view this event.</small>
                     </div>
                 </div>          
                 <div class="form-check mb-3">
@@ -56,13 +66,38 @@ class Status extends Component {
                         <small class="text-muted">Everything related to this event will be deleted.</small>
                     </div>
                 </div>           
+                {
+                    !loading && informMsg && informMsg.updateStatusOk &&
+                    <h6 className='input-ok-msg mt-3 p-2'>
+                        <i class="fas fa-check-circle mr-2 my-1"></i>
+                        <span className='my-1'>{informMsg.updateStatusOk.message}</span>
+                        <i class="fas fa-minus mx-2 my-1"></i>
+                        <a href={`/events/${event.id}`} className='badge badge-pill badge-dark my-1 py-0'> 
+                            view the event.
+                        </a>
+                    </h6>        
+                }
                 <hr/>
-                <button 
-                    type="submit" 
-                    class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold"
-                    >
-                    Confirm
-                </button>
+                {
+                    loading
+                    ?   <div className='h5'>
+                            <span 
+                                class="spinner-border mr-2" 
+                                role="status" 
+                                aria-hidden="true"
+                                >
+                            </span>
+                            <span className='h3'>
+                                Updating...
+                            </span>
+                        </div>  
+                    :   <button 
+                            type="submit" 
+                            class="btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold"
+                            >
+                            Confirm
+                        </button>
+                }
             </form>
         )
     }

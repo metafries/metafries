@@ -132,6 +132,10 @@ div.mdl-progress::after {
   font-size: inherit;
 }
 
+.active-tag {
+  color: #444;
+  background: #00fc00;
+}
 .input-err-msg {
   font-size: 21px;
   font-weight: bold;  
@@ -145,6 +149,10 @@ div.mdl-progress::after {
   font-size: inherit;
 }
 
+.canceled-tag {
+  color: #444;
+  background: #fc4000;
+}
 .form-control.input-err {
   border-color: red;
   border-width: 2px;

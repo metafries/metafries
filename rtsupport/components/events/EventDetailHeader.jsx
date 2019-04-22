@@ -1,7 +1,8 @@
 import React from 'react'
+import { DateTime } from "luxon";
 import EventPosters from './EventPosters.jsx'
 
-const EventDetailHeader = ({event}) => {
+const EventDetailHeader = ({fba, event}) => {
   return (
     <div class="card mb-3 rounded-0">
       <div className='card-body transbox px-3'>
@@ -12,6 +13,32 @@ const EventDetailHeader = ({event}) => {
                 <img src={event.hostAvatarUrl} className="contact float-right" alt="..."/>
               </th>
               <td className='border-0'>
+                {
+                  fba.uid == event.hostUid &&
+                  <h5 className='d-inline mr-2'>
+                    <a href="#" class="badge badge-dark rounded-0 mb-2">HOST</a>
+                  </h5>
+                }
+                {
+                  event.status == 0 && 
+                  event.endDate && DateTime.fromJSDate(event.endDate.toDate()) > DateTime.local() &&
+                  <h5 className='d-inline mr-2'>
+                    <span class="badge active-tag rounded-0 mb-2">ACTIVE</span>
+                  </h5>
+                }
+                {
+                  event.status == 0 && 
+                  event.endDate && DateTime.fromJSDate(event.endDate.toDate()) < DateTime.local() &&
+                  <h5 className='d-inline mr-2'>
+                    <span class="badge badge-secondary rounded-0 mb-2">PAST</span>
+                  </h5>
+                }
+                {
+                  event.status == 1 && 
+                  <h5 className='d-inline mr-2'>
+                    <span class="badge canceled-tag rounded-0 mb-2">CANCELED</span>
+                  </h5>
+                }
                 <h2>{event.title}</h2>
                 <h4 className='mb-0'>
                   {event.permission == 0 && <span><i class="fas fa-globe mr-2"></i>Public</span>}
