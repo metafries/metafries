@@ -20,15 +20,15 @@ const EventDetailHeader = ({fba, event}) => {
                   </h5>
                 }
                 {
-                  event.status == 0 && 
-                  event.endDate && DateTime.fromJSDate(event.endDate.toDate()) > DateTime.local() &&
+                  event.status == 0 && event.endDate === 'object' && 
+                  DateTime.fromJSDate(event.endDate.toDate()) > DateTime.local() &&
                   <h5 className='d-inline mr-2'>
                     <span class="badge active-tag rounded-0 mb-2">ACTIVE</span>
                   </h5>
                 }
                 {
-                  event.status == 0 && 
-                  event.endDate && DateTime.fromJSDate(event.endDate.toDate()) < DateTime.local() &&
+                  event.status == 0 && event.endDate === 'object' && 
+                  DateTime.fromJSDate(event.endDate.toDate()) < DateTime.local() &&
                   <h5 className='d-inline mr-2'>
                     <span class="badge badge-secondary rounded-0 mb-2">PAST</span>
                   </h5>
