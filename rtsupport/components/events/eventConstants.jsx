@@ -1,3 +1,5 @@
+export const TOGGLE_ON = 'text-center w-25 toggle-on'
+export const TOGGLE_OFF = 'text-center w-25'
 export const SUCCESS = 'SUCCESS'
 export const ERROR = 'ERROR'
 export const CREATE_EVENT = 'CREATE_EVENT'

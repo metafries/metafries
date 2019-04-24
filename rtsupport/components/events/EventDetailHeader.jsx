@@ -1,11 +1,12 @@
 import React from 'react'
 import { DateTime } from "luxon";
 import EventPosters from './EventPosters.jsx'
+import { TOGGLE_ON, TOGGLE_OFF } from './eventConstants.jsx'
 
-const EventDetailHeader = ({fba, event}) => {
+const EventDetailHeader = ({isGoing, isHost, fba, event}) => {
   return (
     <div class="card mb-3 rounded-0">
-      <div className='card-body transbox px-3'>
+      <div className='card-body transbox px-3 pb-0'>
         <table class="table">
           <tbody>
             <tr>
@@ -51,13 +52,16 @@ const EventDetailHeader = ({fba, event}) => {
           </tbody>      
         </table>
         <hr className='edh-h'/>
-        <a 
-          role="button" 
-          class="btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100" 
-          href={`/manage/events/${event.id}`}
-        >
-          MANAGE
-        </a>
+        {
+          isHost &&
+          <a 
+            role="button" 
+            class="btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100 mb-3" 
+            href={`/manage/events/${event.id}`}
+            >
+            MANAGE
+          </a>
+        }
       </div>  
       {event.posters && <EventPosters event={event}/>}
       <table class="table transbox m-0">
@@ -68,7 +72,10 @@ const EventDetailHeader = ({fba, event}) => {
                 <i class="fas fa-fire"></i><br/>Like
               </button>
             </th>
-            <th scope="col" className='text-center w-25'>
+            <th 
+              scope="col" 
+              className={isGoing ? isHost ? TOGGLE_ON + ' disabled' : TOGGLE_ON : TOGGLE_OFF}
+              >
               <button type='button' className='edh-b font-weight-bold'>
                 <i class="fas fa-check"></i><br/>Going
               </button>

@@ -110,6 +110,11 @@ div.mdl-progress::after {
   cursor:pointer;
 }
 
+.toggle-on,
+.toggle-on button {
+  background: #000;
+  color: #fff;
+}
 .edh-a {
   color: yellow;  
 }
@@ -249,4 +254,11 @@ div.mdl-progress::after {
 .search-icon:hover {
   color: #303aa5;
   border: 5px solid #fff;
+}
+
+th.disabled {
+  cursor: not-allowed;
+}
+th.disabled button {
+  pointer-events: none;
 }
