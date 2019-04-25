@@ -18,6 +18,7 @@ class EventDetailHeader extends Component {
   }
   render() {
     const {isGoing, isHost, fba, event} = this.props
+    const authenticated = fba.isLoaded && !fba.isEmpty
     return (
       <div class="card mb-3 rounded-0">
         <div className='card-body transbox px-3 pb-0'>
@@ -81,7 +82,7 @@ class EventDetailHeader extends Component {
         <table class="table transbox m-0">
           <thead>
             <tr>
-              <th scope="col" className='text-center w-25'>
+              <th scope="col" className={authenticated ? TOGGLE_OFF : TOGGLE_OFF + ' disabled'}>
                 <button type='button' className='edh-b font-weight-bold'>
                   <i class="fas fa-fire"></i><br/>Like
                 </button>
@@ -92,8 +93,16 @@ class EventDetailHeader extends Component {
                   {
                     event.status == 0 && event.endDate && typeof event.endDate === 'object' && 
                     DateTime.fromJSDate(event.endDate.toDate()) > DateTime.local()
-                      ? isGoing ? isHost ? TOGGLE_ON + ' disabled' : TOGGLE_ON : TOGGLE_OFF
-                      : isGoing ? TOGGLE_ON + ' disabled': TOGGLE_OFF + ' disabled'
+                      ? isGoing 
+                        ? isHost 
+                          ? TOGGLE_ON + ' disabled' 
+                          : TOGGLE_ON 
+                        : authenticated 
+                          ? TOGGLE_OFF 
+                          : TOGGLE_OFF + ' disabled'
+                      : isGoing 
+                        ? TOGGLE_ON + ' disabled'
+                        : TOGGLE_OFF + ' disabled'
                   }                
                 >
                 <button 
@@ -109,7 +118,7 @@ class EventDetailHeader extends Component {
                   <i class="fas fa-share"></i><br/>Share
                 </button>
               </th>
-              <th scope="col" className='text-center w-25'>
+              <th scope="col" className={authenticated ? TOGGLE_OFF : TOGGLE_OFF + ' disabled'}>
                 <button type='button' className='edh-b font-weight-bold'>
                   <i class="fas fa-bookmark"></i><br/>Save
                 </button>
