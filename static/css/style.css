@@ -261,4 +261,5 @@ th.disabled {
 }
 th.disabled button {
   pointer-events: none;
+  color: #999;
 }

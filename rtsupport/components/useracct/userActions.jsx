@@ -1,5 +1,6 @@
 import { startAsyncAction, finishAsyncAction } from '../async/asyncActions.jsx'
 import cuid from 'cuid'
+import { DateTime } from "luxon"
 
 export const updateProfile = (user) => 
     async (
@@ -99,5 +100,56 @@ export const setAvatar = (photo) =>
             await currentUser.updateProfile({photoURL: photo.downloadURL})
         } finally {
             dispatch(finishAsyncAction())                    
+        }
+    }
+
+export const goingToggleOn = (event) =>
+    async (
+        dispatch, 
+        getState, 
+        {getFirebase, getFirestore},
+    ) => {
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        const currentUser = firebase.auth().currentUser
+        const attendee = {
+            going: true,
+            joinDate: DateTime.local().toJSDate(),
+            avatarUrl: getState().firebase.profile.avatarUrl,
+            displayName: currentUser.displayName,
+            host: false,
+        }
+        try {
+            await firestore.update(`events/${event.id}`, {
+                [`attendees.${currentUser.uid}`]: attendee
+            })
+            await firestore.set(`event_attendee/${event.id}_${currentUser.uid}`, {
+                    eventId: event.id,
+                    userId: currentUser.uid,
+                    eventStartDate: event.startDate,
+                    eventEndDate: event.endDate,
+                    host: false,
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+export const goingToggleOff = (event) => 
+    async (
+        dispatch,
+        getState,
+        {getFirebase, getFirestore},
+    ) => {
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        const currentUser = firebase.auth().currentUser
+        try {
+            await firestore.update(`events/${event.id}`, {
+                [`attendees.${currentUser.uid}`]: firestore.FieldValue.delete()
+            })
+            await firestore.delete(`event_attendee/${event.id}_${currentUser.uid}`)
+        } catch (e) {
+            console.log(e)
         }
     }

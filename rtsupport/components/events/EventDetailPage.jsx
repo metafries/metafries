@@ -6,6 +6,7 @@ import EventDetailInfo from './EventDetailInfo.jsx'
 import EventDetailChat from './EventDetailChat.jsx'
 import EventDetailSidebar from './EventDetailSidebar.jsx'
 import Footer from '../nav/Footer.jsx'
+import { goingToggleOn, goingToggleOff } from '../useracct/userActions.jsx'
 import { objToArray } from '../../app/common/util/shapers.js'
 
 const mapState = (state, ownProps) => {
@@ -21,21 +22,25 @@ const mapState = (state, ownProps) => {
   }
 }
 
+const actions = {
+  goingToggleOn,
+  goingToggleOff,
+}
+
 class EventDetailPage extends Component {
   state = {
     eventNotFoundMsg: '',
   }
   async componentDidMount() {
     const {firestore, match} = this.props
-    let selectedEvent = await firestore.get(`events/${match.params.id}`)
-    if (!selectedEvent.exists) {
-      this.setState({
-        eventNotFoundMsg: 'The event may have been deleted'
-      })
-    }
+    await firestore.setListener(`events/${match.params.id}`)
+  }
+  async componentWillUnmount() {
+    const {firestore, match} = this.props
+    await firestore.unsetListener(`events/${match.params.id}`)
   }
   render() {
-    const {fba, event} = this.props
+    const {goingToggleOn, goingToggleOff, fba, event} = this.props
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)
     const isHost = fba.uid == event.hostUid
     const isGoing = convertedAttendees && convertedAttendees.some(a => a.id == fba.uid)
@@ -56,7 +61,14 @@ class EventDetailPage extends Component {
           {
             eventNotFoundMsg.length == 0 &&
             <div className='col-lg-5 px-0'>
-              <EventDetailHeader isGoing={isGoing} isHost={isHost} fba={fba} event={event}/>
+              <EventDetailHeader 
+                goingToggleOn={goingToggleOn} 
+                goingToggleOff={goingToggleOff}
+                isGoing={isGoing} 
+                isHost={isHost} 
+                fba={fba} 
+                event={event}
+              />
               <EventDetailInfo event={event}/>
             </div>
           }
@@ -75,4 +87,4 @@ class EventDetailPage extends Component {
   }
 }
 
-export default withFirestore(connect(mapState)(EventDetailPage))
+export default withFirestore(connect(mapState, actions)(EventDetailPage))
