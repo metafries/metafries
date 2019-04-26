@@ -1,4 +1,5 @@
 import React from 'react'
+import { DateTime } from "luxon";
 
 const EventDetailSidebar = ({attendees}) => {
   const isHost = false
@@ -16,10 +17,17 @@ const EventDetailSidebar = ({attendees}) => {
                   <img src={attendee.avatarUrl} className="signout rounded-circle" alt="..."/>
                 </th>
                 <td>
-                  <strong>{attendee.displayName} </strong>
+                  <strong>
+                    {attendee.displayName}
+                    <small className='ml-1 text-secondary'>
+                      <span className='mr-1'>Joined</span>
+                      {
+                        attendee.joinDate && typeof attendee.joinDate === 'object' &&
+                        DateTime.fromJSDate(attendee.joinDate.toDate()).toFormat('ff')
+                      }
+                    </small>
+                  </strong>
                   {isHost && <span class="badge badge-secondary rounded-0">Host</span>}              
-                  <br/>
-                  <small>41 minutes ago</small>
                 </td>
                 <td className='pr-0'>
                   <button 

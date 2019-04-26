@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { DateTime } from "luxon";
 import EventPosters from './EventPosters.jsx'
+import { objToArray } from '../../app/common/util/shapers.js'
 
 class EventListItem extends Component {
   state = {
@@ -20,6 +21,7 @@ class EventListItem extends Component {
   }
   render() {
     const {fba, event} = this.props;
+    const convertedAttendees = event && event.attendees && objToArray(event.attendees)    
     return (
       <div className='card border-0 rounded-0 mb-2'>
         <div className='card-body transbox py-0 px-3'>
@@ -63,7 +65,7 @@ class EventListItem extends Component {
                     <strong> · </strong>
                     Hosted by <a href='#' className='edh-a'>{event.hostedBy}</a>
                   </h5>
-                  <small className='text-000 font-weight-bold'>CREATED AT {DateTime.fromJSDate(event.createdAt.toDate()).toFormat('FF')}</small>
+                  <small className='text-000 font-weight-bold'>Created {DateTime.fromJSDate(event.createdAt.toDate()).toFormat('FF')}</small>
                 </td>
               </tr>
               <tr className='h6'>
@@ -81,9 +83,11 @@ class EventListItem extends Component {
               <tr className='h6'>
                 <th scope="row" className='text-right'>TRENDS</th>
                 <td>
+                  <span className='mr-2'>
+                    {convertedAttendees && convertedAttendees.length} Going
+                  </span>
                   <span className='mr-2'>-- Views</span>
                   <span className='mr-2'>-- Likes</span>
-                  <span className='mr-2'>-- Going</span>
                   <span className='mr-2'>-- Shares</span>
                   <span className='mr-2'>-- Save</span>
                   <span className='mr-2'>-- Comments</span>
