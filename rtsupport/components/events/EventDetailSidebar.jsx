@@ -1,8 +1,7 @@
 import React from 'react'
 import { DateTime } from "luxon";
 
-const EventDetailSidebar = ({attendees}) => {
-  const isHost = false
+const EventDetailSidebar = ({hostUid, attendees}) => {
   return (
     <div className='card rounded-0'>
       <div className='card-header rounded-0 transbox px-3'>
@@ -14,20 +13,24 @@ const EventDetailSidebar = ({attendees}) => {
             {attendees && attendees.map((attendee) => (
               <tr key={attendee.id}>
                 <th scope="row" className='signout px-0'>
-                  <img src={attendee.avatarUrl} className="signout rounded-circle" alt="..."/>
+                  <a href={`/profile/${attendee.id}`}>
+                    <img src={attendee.avatarUrl} className="signout rounded-circle" alt="..."/>
+                  </a>
                 </th>
                 <td>
+                  {hostUid == attendee.id && <span class="badge badge-dark rounded-0 mr-1">HOST</span>}
                   <strong>
-                    {attendee.displayName}
-                    <small className='ml-1 text-secondary'>
-                      <span className='mr-1'>Joined</span>
-                      {
-                        attendee.joinDate && typeof attendee.joinDate === 'object' &&
-                        DateTime.fromJSDate(attendee.joinDate.toDate()).toFormat('ff')
-                      }
-                    </small>
+                    <a className='eds-a' href={`/profile/${attendee.id}`}>
+                      {attendee.displayName}
+                    </a>
                   </strong>
-                  {isHost && <span class="badge badge-secondary rounded-0">Host</span>}              
+                  <small className='ml-1 text-secondary'>
+                    <span className='mr-1'>Joined</span>
+                    {
+                      attendee.joinDate && typeof attendee.joinDate === 'object' &&
+                      DateTime.fromJSDate(attendee.joinDate.toDate()).toFormat('ff')
+                    }
+                  </small>
                 </td>
                 <td className='pr-0'>
                   <button 

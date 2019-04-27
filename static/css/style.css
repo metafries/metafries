@@ -124,6 +124,15 @@ div.mdl-progress::after {
   text-decoration: none;  
 }
 
+.eds-a {
+  color: #000;
+}
+
+.eds-a:hover {
+  color: #303aa5;
+  text-decoration: none;    
+}
+
 .input-ok-msg {
   font-size: 21px;  
   font-weight: bold;

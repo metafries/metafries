@@ -26,7 +26,9 @@ class EventDetailHeader extends Component {
             <tbody>
               <tr>
                 <th scope="row" className='border-0'>
-                  <img src={event.hostAvatarUrl} className="contact float-right" alt="..."/>
+                  <a href={`/profile/${event.hostUid}`}>
+                    <img src={event.hostAvatarUrl} className="hoster float-right" alt="..."/>
+                  </a>
                 </th>
                 <td className='border-0'>
                   {
@@ -60,7 +62,7 @@ class EventDetailHeader extends Component {
                     {event.permission == 0 && <span><i class="fas fa-globe mr-2"></i>Public</span>}
                     {event.permission == 1 && <span><i class="fas fa-lock mr-2"></i>Private</span>}
                     <strong> · </strong>
-                    Hosted by <a href='#' className='edh-a'>{event.hostedBy}</a>
+                    Hosted by <a href={`/profile/${event.hostUid}`} className='edh-a'>{event.hostedBy}</a>
                   </h4>
                 </td>
               </tr>
