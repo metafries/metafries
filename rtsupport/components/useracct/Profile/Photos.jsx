@@ -26,7 +26,7 @@ class Photos extends Component {
     }
   }
   render() {
-    const {loading, photos, fba, fbp} = this.props
+    const {isCurrentUser, providerId, loading, photos, fba, fbp} = this.props
     const {setAvatarOnClick, deleteOnClick} = this.state
     let filteredPhotos, uploadedFile
     if (photos && photos.length > 0) {
@@ -65,22 +65,37 @@ class Photos extends Component {
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
                                             <a href={fbp.avatarUrl} target="_blank">
-                                                <img src={this.props.avatarUrl} class="d-block w-100" alt="..."/>
-                                            </a>                        
-                                            <button 
-                                                type="button" 
-                                                class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0 disabled'
-                                            >
-                                                <i class="fas fa-user-circle mr-2"></i>IN USE
-                                            </button>                    
-                                            <button 
-                                                type="button" 
-                                                class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
-                                                data-toggle="modal" 
-                                                data-target="#inUseAvatar"
-                                            >
-                                                <i class="fas fa-trash-alt mr-2"></i>DELETE
-                                            </button>  
+                                                <img 
+                                                    src=
+                                                    {
+                                                        providerId && providerId == 'facebook.com' &&
+                                                        !fbp.avatarUrl.includes('firebasestorage')
+                                                        ? fbp.avatarUrl+'?height=250'
+                                                        : fbp.avatarUrl
+                                                    } 
+                                                    class="d-block w-100" alt="..."
+                                                />
+                                            </a>    
+                                            {
+                                                isCurrentUser &&
+                                                <button 
+                                                    type="button" 
+                                                    class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0 disabled'
+                                                    >
+                                                    <i class="fas fa-user-circle mr-2"></i>IN USE
+                                                </button>                    
+                                            }        
+                                            {
+                                                isCurrentUser &&
+                                                <button 
+                                                    type="button" 
+                                                    class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
+                                                    data-toggle="modal" 
+                                                    data-target="#inUseAvatar"
+                                                    >
+                                                    <i class="fas fa-trash-alt mr-2"></i>DELETE
+                                                </button>  
+                                            }            
                                             {
                                                 filteredPhotos && filteredPhotos.length > 0 &&
                                                 <h6 class="mb-0 font-weight-bold text-right bg-dark text-white py-1 px-3">
@@ -98,7 +113,16 @@ class Photos extends Component {
                                                         </div>
                                                         <div class="modal-body">
                                                             <a href={fbp.avatarUrl} target="_blank">
-                                                                <img src={this.props.avatarUrl} class="d-block w-100" alt="..."/>
+                                                                <img 
+                                                                    src=
+                                                                    {
+                                                                        providerId && providerId == 'facebook.com' &&
+                                                                        !fbp.avatarUrl.includes('firebasestorage')
+                                                                        ? fbp.avatarUrl+'?height=250'
+                                                                        : fbp.avatarUrl
+                                                                    }                 
+                                                                    class="d-block w-100" alt="..."
+                                                                />
                                                             </a>
                                                         </div>
                                                         <div class="modal-footer">
@@ -121,21 +145,27 @@ class Photos extends Component {
                                                     <a href={photo.downloadURL} target="_blank">
                                                         <img src={photo.downloadURL} class="d-block w-100" alt="..."/>
                                                     </a>
-                                                    <button 
-                                                        type="button" 
-                                                        class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
-                                                        onClick={this.handleSetAvatar(photo)}                                                        
-                                                    >
-                                                        <i class="fas fa-user-circle mr-2"></i>AVATAR
-                                                    </button>                    
-                                                    <button 
-                                                        type="button" 
-                                                        class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
-                                                        data-toggle="modal" 
-                                                        data-target={'#'+photo.imgId}        
-                                                    >
-                                                        <i class="fas fa-trash-alt mr-2"></i>DELETE
-                                                    </button>  
+                                                    {
+                                                        isCurrentUser &&
+                                                        <button 
+                                                            type="button" 
+                                                            class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
+                                                            onClick={this.handleSetAvatar(photo)}                                                        
+                                                            >
+                                                            <i class="fas fa-user-circle mr-2"></i>AVATAR
+                                                        </button>                    
+                                                    }
+                                                    {
+                                                        isCurrentUser &&
+                                                        <button 
+                                                            type="button" 
+                                                            class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
+                                                            data-toggle="modal" 
+                                                            data-target={'#'+photo.imgId}        
+                                                            >
+                                                            <i class="fas fa-trash-alt mr-2"></i>DELETE
+                                                        </button>  
+                                                    }
                                                     <h6 class="mb-0 font-weight-bold text-right bg-dark text-white py-1 px-3">
                                                         {index+2}/{filteredPhotos.length+1}
                                                     </h6>
@@ -171,14 +201,14 @@ class Photos extends Component {
                                     </div>
                                     {
                                         filteredPhotos && filteredPhotos.length > 0 &&
-                                        <a style={{marginBottom:75}} class="carousel-control-prev" href="#profilePictures" role="button" data-slide="prev">
+                                        <a style={isCurrentUser ? {marginBottom:70} : {marginBottom:30}} class="carousel-control-prev" href="#profilePictures" role="button" data-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="sr-only">Previous</span>
                                         </a>                
                                     }
                                     {
                                         filteredPhotos && filteredPhotos.length > 0 &&
-                                        <a style={{marginBottom:75}} class="carousel-control-next" href="#profilePictures" role="button" data-slide="next">
+                                        <a style={isCurrentUser ? {marginBottom:70} : {marginBottom:30}} class="carousel-control-next" href="#profilePictures" role="button" data-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="sr-only">Next</span>
                                         </a>
@@ -196,21 +226,27 @@ class Photos extends Component {
                                                     <a href={photo.downloadURL} target="_blank">
                                                         <img src={photo.downloadURL} class="d-block w-100" alt="..."/>
                                                     </a>
-                                                    <button 
-                                                        type="button" 
-                                                        class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
-                                                        onClick={this.handleSetAvatar(photo)}
-                                                    >
-                                                        <i class="fas fa-user-circle mr-2"></i>AVATAR
-                                                    </button>                    
-                                                    <button 
-                                                        type="button" 
-                                                        class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
-                                                        data-toggle="modal" 
-                                                        data-target={'#'+photo.imgId}        
-                                                    >
-                                                        <i class="fas fa-trash-alt mr-2"></i>DELETE
-                                                    </button>  
+                                                    {
+                                                        isCurrentUser &&
+                                                        <button 
+                                                            type="button" 
+                                                            class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
+                                                            onClick={this.handleSetAvatar(photo)}
+                                                            >
+                                                            <i class="fas fa-user-circle mr-2"></i>AVATAR
+                                                        </button>                    
+                                                    }
+                                                    {
+                                                        isCurrentUser &&
+                                                        <button 
+                                                            type="button" 
+                                                            class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
+                                                            data-toggle="modal" 
+                                                            data-target={'#'+photo.imgId}        
+                                                            >
+                                                            <i class="fas fa-trash-alt mr-2"></i>DELETE
+                                                        </button>  
+                                                    }
                                                     {
                                                         filteredPhotos && filteredPhotos.length > 1 &&
                                                         <h6 class="mb-0 font-weight-bold text-right bg-dark text-white py-1 px-3">
@@ -249,14 +285,14 @@ class Photos extends Component {
                                     </div>
                                     {
                                         filteredPhotos && filteredPhotos.length > 1 &&
-                                        <a style={{marginBottom:75}} class="carousel-control-prev" href="#profilePictures" role="button" data-slide="prev">
+                                        <a style={isCurrentUser ? {marginBottom:70} : {marginBottom:30}} class="carousel-control-prev" href="#profilePictures" role="button" data-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="sr-only">Previous</span>
                                         </a>                
                                     }
                                     {
                                         filteredPhotos && filteredPhotos.length > 1 &&
-                                        <a style={{marginBottom:75}} class="carousel-control-next" href="#profilePictures" role="button" data-slide="next">
+                                        <a style={isCurrentUser ? {marginBottom:70} : {marginBottom:30}} class="carousel-control-next" href="#profilePictures" role="button" data-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="sr-only">Next</span>
                                         </a>
