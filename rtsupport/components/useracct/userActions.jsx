@@ -115,7 +115,7 @@ export const goingToggleOn = (event) =>
         const attendee = {
             going: true,
             joinDate: DateTime.local().toJSDate(),
-            avatarUrl: getState().firebase.profile.avatarUrl,
+            avatarUrl: getState().firebase.profile.avatarUrl || '/static/images/whazup-square-logo.png',
             displayName: currentUser.displayName,
             host: false,
         }
