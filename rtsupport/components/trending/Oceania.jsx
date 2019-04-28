@@ -1,7 +1,7 @@
 import React from 'react'
 import EventList from '../events/EventList.jsx'
 
-const Oceania = ({fba, events}) => {
+const Oceania = ({loading, fba, events}) => {
   return (
     <div>
         <div class="input-group mb-2 px-3">
@@ -20,7 +20,7 @@ const Oceania = ({fba, events}) => {
           <i class="fas fa-info-circle mr-2"></i>
           The searching results are now limited to the Oceania region.
         </h6>
-        <EventList fba={fba} events={events}/>
+        <EventList loading={loading} fba={fba} events={events}/>
     </div>
   )
 }

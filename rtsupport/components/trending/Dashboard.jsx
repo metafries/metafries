@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { firestoreConnect } from 'react-redux-firebase'
+import { firestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Footer from '../nav/Footer.jsx'
 import Menu from './Menu.jsx'
@@ -19,6 +19,7 @@ const mapState = (state) => ({
 })
 
 const Dashboard = ({fbp, fba, events}) => {
+    const loading = !isLoaded(events) || isEmpty(events)    
     return (
         <div>
             <div className='row'>
@@ -33,31 +34,31 @@ const Dashboard = ({fbp, fba, events}) => {
                         />
                         <Route
                             path={`/trending/asia`}
-                            render={() => <Asia fba={fba} events={events}/>}
+                            render={() => <Asia loading={loading} fba={fba} events={events}/>}
                         />
                         <Route
                             path={`/trending/africa`}
-                            render={() => <Africa fba={fba} events={events}/>}
+                            render={() => <Africa loading={loading} fba={fba} events={events}/>}
                         />
                         <Route
                             path={`/trending/europe`}
-                            render={() => <Europe fba={fba} events={events}/>}
+                            render={() => <Europe loading={loading} fba={fba} events={events}/>}
                         />
                         <Route
                             path={`/trending/northamerica`}
-                            render={() => <NorthAmerica fba={fba} events={events}/>}
+                            render={() => <NorthAmerica loading={loading} fba={fba} events={events}/>}
                         />
                         <Route
                             path={`/trending/southamerica`}
-                            render={() => <SouthAmerica fba={fba} events={events}/>}
+                            render={() => <SouthAmerica loading={loading} fba={fba} events={events}/>}
                         />
                         <Route
                             path={`/trending/oceania`}
-                            render={() => <Oceania fba={fba} events={events}/>}
+                            render={() => <Oceania loading={loading} fba={fba} events={events}/>}
                         />
                         <Route
                             path={`/trending/antarctica`}
-                            render={() => <Antarctica fba={fba} events={events}/>}
+                            render={() => <Antarctica loading={loading} fba={fba} events={events}/>}
                         />
                     </Switch>                    
                 </div>
