@@ -11,7 +11,12 @@ class EventList extends Component {
           this.props.loading
           ? <Loader/>
           : <div>
-              {events && events.map((e) => (
+              <h5 className='mx-3 font-weight-bold '>
+                Total of
+                <span className='mx-1'>{events && events.length}</span>
+                {events && events.length > 1 ? 'Events' : 'Event'}
+              </h5>
+              {events && events.length > 0 && events.map((e) => (
                 <EventListItem key={e.id} fba={fba} event={e} events={events} />        
               ))}
             </div>

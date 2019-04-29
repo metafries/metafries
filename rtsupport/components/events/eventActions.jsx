@@ -18,6 +18,68 @@ import {
 
 import { fetchSampleData } from '../../app/data/mockApi.js'
 import { shapeNewEvent } from '../../app/common/util/shapers.js'
+import firebase from '../../app/config/firebase.js'
+
+export const recommendedEvents = () => 
+    async (dispatch, getState) => {
+        let today = new Date(Date.now())
+        const firestore = firebase.firestore()
+        const eventsQuery = firestore
+            .collection('events')
+            .where('endDate', '>=', today)
+        try {
+            dispatch(startAsyncAction())
+            let querySnap = await eventsQuery.get()
+            let events = []
+            for (let i=0; i<querySnap.docs.length; i++) {
+                let evt = {
+                    ...querySnap.docs[i].data(),
+                    id: querySnap.docs[i].id,
+                }
+                events.push(evt)
+            }
+            dispatch({
+                type: FETCH_EVENTS,
+                payload: {
+                    events,
+                }        
+            })
+        } catch (e) {
+            console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())            
+        }
+    }
+
+export const subscribedEvents = () => 
+    async (dispatch, getState) => {
+        const firestore = firebase.firestore()
+        const eventsQuery = firestore
+            .collection('events')
+            .orderBy('createdAt', 'desc')
+        try {
+            dispatch(startAsyncAction())
+            let querySnap = await eventsQuery.get()
+            let events = []
+            for (let i=0; i<querySnap.docs.length; i++) {
+                let evt = {
+                    ...querySnap.docs[i].data(),
+                    id: querySnap.docs[i].id,
+                }
+                events.push(evt)
+            }
+            dispatch({
+                type: FETCH_EVENTS,
+                payload: {
+                    events,
+                }        
+            })
+        } catch (e) {
+            console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())            
+        }
+    }
 
 export const fetchEvents = (events) => {
     return {

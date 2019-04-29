@@ -1,14 +1,26 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import EventList from '../events/EventList.jsx'
+import { subscribedEvents } from '../events/eventActions.jsx'
 
-const Subscriptions = ({
-    events,
-    handleDeleteEvent,
-    fba,
-    loading,
-}) => {
-  return (
-    <div>
+const mapState = (state) => ({
+  fba: state.firebase.auth,
+  events: state.events,
+  loading: state.async.loading,
+})
+
+const actions = {
+  subscribedEvents
+}
+
+class Subscriptions extends Component {
+  componentDidMount() {
+    this.props.subscribedEvents()
+  }
+  render() {
+    const {events, fba, loading} = this.props    
+    return (
+      <div>
         <div class="input-group mb-2 px-3">
           <input 
             type="text" 
@@ -27,12 +39,11 @@ const Subscriptions = ({
         </h6>
         <EventList 
             events={events} 
-            handleDeleteEvent={handleDeleteEvent} 
             fba={fba}
             loading={loading}
         />    
-    </div>
-  )
+      </div>
+    )
+  }
 }
-
-export default Subscriptions
+export default connect(mapState, actions)(Subscriptions)

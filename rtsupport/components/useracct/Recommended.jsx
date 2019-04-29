@@ -1,14 +1,32 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import EventList from '../events/EventList.jsx'
+import { recommendedEvents } from '../events/eventActions.jsx'
 
-const Recommended = ({
-    events,
-    handleDeleteEvent,
-    fba,
-    loading,
-}) => {
-  return (
-    <div>
+const mapState = (state) => ({
+  fba: state.firebase.auth,
+  events: state.events,
+  loading: state.async.loading,
+})
+
+const actions = {
+  recommendedEvents
+}
+
+class Recommended extends Component {
+  componentDidMount() {
+    this.props.recommendedEvents()
+  }
+  render() {
+    const {events, fba, loading} = this.props
+    let filteredEvents
+    if (events && events.length > 0) {
+      filteredEvents = events.filter(evt => {
+        return evt.status == 0
+      })
+    }
+    return (
+      <div>
         <div class="input-group mb-2 px-3">
           <input 
             type="text" 
@@ -26,13 +44,13 @@ const Recommended = ({
           The searching results are now limited to the recommended.
         </h6>
         <EventList 
-            events={events} 
-            handleDeleteEvent={handleDeleteEvent} 
+            events={filteredEvents} 
             fba={fba}
             loading={loading}
         />    
-    </div>
-  )
+      </div>
+    )
+  }
 }
 
-export default Recommended
+export default connect(mapState, actions)(Recommended)

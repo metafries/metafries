@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
-import { firestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Menu from './Menu.jsx'
 import Recommended from '../useracct/Recommended.jsx'
@@ -14,7 +13,6 @@ import Footer from '../nav/Footer.jsx'
 const mapState = (state) => ({
   fbp: state.firebase.profile,
   fba: state.firebase.auth,
-  events: state.firestore.ordered.events,
 })
 
 const actions = {
@@ -26,9 +24,8 @@ class HomePage extends Component {
     this.props.deleteEvent(cancelEvent_id)
   }
   render() {
-        const {events, fbp, fba} = this.props
+        const {fbp, fba} = this.props
         const authenticated = fba.isLoaded && !fba.isEmpty    
-        const loading = !isLoaded(events) || isEmpty(events)
         return (
           <div>
             <div className='row'>
@@ -44,19 +41,13 @@ class HomePage extends Component {
                   <Route
                     path={`/search/${fba.uid}/recommended`}
                     render={() => <Recommended
-                      events={this.props.events} 
                       handleDeleteEvent={this.handleDeleteEvent} 
-                      fba={fba}
-                      loading={loading}
                     />}
                   />
                   <Route
                     path={`/search/${fba.uid}/subscriptions`}
                     render={() => <Subscriptions
-                      events={this.props.events} 
                       handleDeleteEvent={this.handleDeleteEvent} 
-                      fba={fba}
-                      loading={loading}
                     />}
                   />
                   <Route
@@ -73,6 +64,4 @@ class HomePage extends Component {
   }
 }
 
-export default connect(mapState, actions)(
-  firestoreConnect([{ collection: 'events' }])(HomePage)
-);
+export default connect(mapState, actions)(HomePage)
