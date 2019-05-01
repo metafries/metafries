@@ -1,9 +1,61 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import EventList from '../events/EventList.jsx'
+import { totalSubscriptions, subscribedEvents } from '../events/eventActions.jsx'
+import Loader from '../layout/Loader.jsx'
 
-const Africa = ({loading, fba, events}) => {
-  return (
-    <div>
+const mapState = (state) => ({
+  fba: state.firebase.auth,
+  events: state.events,
+  loading: state.async.loading,
+})
+
+const actions = {
+  totalSubscriptions,
+  subscribedEvents
+}
+
+class Africa extends Component {
+  state = {
+    loader: false,
+    initialize: true,
+    loadedEvents: [],
+    opts: 0,
+  }
+  async componentDidMount() {
+    this.setState({
+      opts: await this.props.totalSubscriptions()
+    })
+    let next = await this.props.subscribedEvents()
+    if (next && next.docs && next.docs.length > 1) {
+      this.setState({
+        loader: true,
+        initialize: false,
+      })
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.events !== nextProps.events) {
+      this.setState({
+        loadedEvents: [...this.state.loadedEvents, ...nextProps.events]
+      })
+    }
+  }
+  loadMoreEvents = async() => {
+    const {events} = this.props
+    let lastEvent = events && events[events.length-1]
+    let next = await this.props.subscribedEvents(lastEvent)
+    if (next && next.docs && next.docs.length <= 1) {
+      this.setState({
+        loader: false
+      })
+    }
+  }
+  render() {
+    const {fba, loading} = this.props    
+    const {opts, initialize, loadedEvents, loader} = this.state
+    return (
+      <div>
         <div class="input-group mb-2 px-3">
           <input 
             type="text" 
@@ -18,11 +70,27 @@ const Africa = ({loading, fba, events}) => {
         </div>
         <h6 className='info-text-box mb-3 mx-3 p-2'>
           <i class="fas fa-info-circle mr-2"></i>
-          The searching results are now limited to the African Region.
+          The searching results are now limited to your subscriptions.
         </h6>
-        <EventList loading={loading} fba={fba} events={events}/>
-    </div>
-  )
+        <EventList 
+            opts={opts}
+            events={loadedEvents} 
+            fba={fba}
+            loading={initialize}
+        />   
+        {
+          loading && !initialize
+          ? <Loader/>
+          : <button 
+              onClick={this.loadMoreEvents} 
+              type="button" 
+              class={loader ? "btn btn-link" : "btn btn-link disabled"}
+              >
+              More
+            </button>
+        } 
+      </div>
+    )
+  }
 }
-
-export default Africa
+export default connect(mapState, actions)(Africa)

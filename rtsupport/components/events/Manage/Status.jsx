@@ -7,7 +7,7 @@ class Status extends Component {
     handleStatusChange = (e) => {
         this.props.informMsg = null
         const update = this.state.event;
-        update.status = e.target.value
+        update.status = parseInt(e.target.value)
         this.setState({
             event: update
         })

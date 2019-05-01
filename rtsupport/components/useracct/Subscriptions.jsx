@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import EventList from '../events/EventList.jsx'
-import { subscribedEvents } from '../events/eventActions.jsx'
+import { totalSubscriptions, subscribedEvents } from '../events/eventActions.jsx'
+import Loader from '../layout/Loader.jsx'
 
 const mapState = (state) => ({
   fba: state.firebase.auth,
@@ -10,15 +11,49 @@ const mapState = (state) => ({
 })
 
 const actions = {
+  totalSubscriptions,
   subscribedEvents
 }
 
 class Subscriptions extends Component {
-  componentDidMount() {
-    this.props.subscribedEvents()
+  state = {
+    loader: false,
+    initialize: true,
+    loadedEvents: [],
+    opts: 0,
+  }
+  async componentDidMount() {
+    this.setState({
+      opts: await this.props.totalSubscriptions()
+    })
+    let next = await this.props.subscribedEvents()
+    if (next && next.docs && next.docs.length > 1) {
+      this.setState({
+        loader: true,
+        initialize: false,
+      })
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.events !== nextProps.events) {
+      this.setState({
+        loadedEvents: [...this.state.loadedEvents, ...nextProps.events]
+      })
+    }
+  }
+  loadMoreEvents = async() => {
+    const {events} = this.props
+    let lastEvent = events && events[events.length-1]
+    let next = await this.props.subscribedEvents(lastEvent)
+    if (next && next.docs && next.docs.length <= 1) {
+      this.setState({
+        loader: false
+      })
+    }
   }
   render() {
-    const {events, fba, loading} = this.props    
+    const {fba, loading} = this.props    
+    const {opts, initialize, loadedEvents, loader} = this.state
     return (
       <div>
         <div class="input-group mb-2 px-3">
@@ -38,10 +73,22 @@ class Subscriptions extends Component {
           The searching results are now limited to your subscriptions.
         </h6>
         <EventList 
-            events={events} 
+            opts={opts}
+            events={loadedEvents} 
             fba={fba}
-            loading={loading}
-        />    
+            loading={initialize}
+        />   
+        {
+          loading && !initialize
+          ? <Loader/>
+          : <button 
+              onClick={this.loadMoreEvents} 
+              type="button" 
+              class={loader ? "btn btn-link" : "btn btn-link disabled"}
+              >
+              More
+            </button>
+        } 
       </div>
     )
   }

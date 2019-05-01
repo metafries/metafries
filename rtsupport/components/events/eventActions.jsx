@@ -20,16 +20,48 @@ import { fetchSampleData } from '../../app/data/mockApi.js'
 import { shapeNewEvent } from '../../app/common/util/shapers.js'
 import firebase from '../../app/config/firebase.js'
 
-export const recommendedEvents = () => 
-    async (dispatch, getState) => {
+export const totalRecommended = () =>
+    async () => {
         let today = new Date(Date.now())
         const firestore = firebase.firestore()
         const eventsQuery = firestore
             .collection('events')
+            .where('status', '==', 0) 
             .where('endDate', '>=', today)
         try {
+            let eventsQuerySnap = await eventsQuery.get()
+            return eventsQuerySnap.docs.length
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+export const recommendedEvents = (lastEvent) => 
+    async (dispatch, getState) => {
+        let today = new Date(Date.now())
+        const firestore = firebase.firestore()
+        const eventsRef = firestore.collection('events')
+        try {
             dispatch(startAsyncAction())
-            let querySnap = await eventsQuery.get()
+            let lastEventSnap = lastEvent 
+                && await firestore.collection('events').doc(lastEvent.id).get()
+            let query = lastEvent
+                ? eventsRef
+                    .where('status', '==', 0)                
+                    .where('endDate', '>=', today)
+                    .orderBy('endDate')
+                    .startAfter(lastEventSnap)
+                    .limit(2)
+                : eventsRef
+                    .where('status', '==', 0)                                    
+                    .where('endDate', '>=', today)
+                    .orderBy('endDate')
+                    .limit(2)
+            let querySnap = await query.get()
+            if (querySnap.docs.length === 0) {
+                dispatch(finishAsyncAction())            
+                return querySnap               
+            }
             let events = []
             for (let i=0; i<querySnap.docs.length; i++) {
                 let evt = {
@@ -38,12 +70,14 @@ export const recommendedEvents = () =>
                 }
                 events.push(evt)
             }
+            console.log(events)
             dispatch({
                 type: FETCH_EVENTS,
                 payload: {
                     events,
                 }        
             })
+            return querySnap
         } catch (e) {
             console.log(e)
         } finally {
@@ -51,15 +85,41 @@ export const recommendedEvents = () =>
         }
     }
 
-export const subscribedEvents = () => 
-    async (dispatch, getState) => {
+export const totalSubscriptions = () =>
+    async () => {
         const firestore = firebase.firestore()
         const eventsQuery = firestore
             .collection('events')
             .orderBy('createdAt', 'desc')
         try {
+            let eventsQuerySnap = await eventsQuery.get()
+            return eventsQuerySnap.docs.length
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+export const subscribedEvents = (lastEvent) => 
+    async (dispatch, getState) => {
+        const firestore = firebase.firestore()
+        const eventsRef = firestore.collection('events')
+        try {
             dispatch(startAsyncAction())
-            let querySnap = await eventsQuery.get()
+            let lastEventSnap = lastEvent 
+                && await firestore.collection('events').doc(lastEvent.id).get()
+            let query = lastEvent
+                ? eventsRef
+                    .orderBy('createdAt', 'desc')
+                    .startAfter(lastEventSnap)
+                    .limit(2)
+                : eventsRef
+                    .orderBy('createdAt', 'desc')
+                    .limit(2)    
+            let querySnap = await query.get()
+            if (querySnap.docs.length === 0) {
+                dispatch(finishAsyncAction())            
+                return querySnap               
+            }        
             let events = []
             for (let i=0; i<querySnap.docs.length; i++) {
                 let evt = {
@@ -74,6 +134,7 @@ export const subscribedEvents = () =>
                     events,
                 }        
             })
+            return querySnap
         } catch (e) {
             console.log(e)
         } finally {

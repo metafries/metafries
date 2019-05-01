@@ -20,8 +20,9 @@ class EventListItem extends Component {
     })
   }
   render() {
-    const {fba, event} = this.props;
-    const convertedAttendees = event && event.attendees && objToArray(event.attendees)    
+    const {opts, events, fba, event} = this.props;
+    const convertedAttendees = event && event.attendees && objToArray(event.attendees)  
+    const total = opts ? opts : events && events.length
     return (
       <div className='card border-0 rounded-0 mb-2'>
         <div className='card-body transbox py-0 px-3'>
@@ -107,6 +108,7 @@ class EventListItem extends Component {
               VIEW
             </button>        
           </LinkContainer>
+          <hr class="hr-text mb-0 mt-2" data-content={`${this.props.index+1}/${total}`}/>
         </div>
       </div>
     )

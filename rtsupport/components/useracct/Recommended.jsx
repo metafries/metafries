@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import EventList from '../events/EventList.jsx'
-import { recommendedEvents } from '../events/eventActions.jsx'
+import { totalRecommended, recommendedEvents } from '../events/eventActions.jsx'
+import Loader from '../layout/Loader.jsx'
 
 const mapState = (state) => ({
   fba: state.firebase.auth,
@@ -10,21 +11,49 @@ const mapState = (state) => ({
 })
 
 const actions = {
+  totalRecommended,
   recommendedEvents
 }
 
 class Recommended extends Component {
-  componentDidMount() {
-    this.props.recommendedEvents()
+  state = {
+    loader: false,
+    initialize: true,
+    loadedEvents: [],
+    opts: 0,
   }
-  render() {
-    const {events, fba, loading} = this.props
-    let filteredEvents
-    if (events && events.length > 0) {
-      filteredEvents = events.filter(evt => {
-        return evt.status == 0
+  async componentDidMount() {
+    this.setState({
+      opts: await this.props.totalRecommended()
+    })
+    let next = await this.props.recommendedEvents()
+    if (next && next.docs && next.docs.length > 1) {      
+      this.setState({
+        loader: true,
+        initialize: false,
       })
     }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.events !== nextProps.events) {
+      this.setState({
+        loadedEvents: [...this.state.loadedEvents, ...nextProps.events]
+      })
+    }
+  }
+  loadMoreEvents = async() => {
+    const {events} = this.props
+    let lastEvent = events && events[events.length-1]
+    let next = await this.props.recommendedEvents(lastEvent)
+    if (next && next.docs && next.docs.length <= 1) {
+      this.setState({
+        loader: false
+      })
+    }
+  }
+  render() {
+    const {fba, loading} = this.props
+    const {opts, initialize, loadedEvents, loader} = this.state
     return (
       <div>
         <div class="input-group mb-2 px-3">
@@ -44,10 +73,22 @@ class Recommended extends Component {
           The searching results are now limited to the recommended.
         </h6>
         <EventList 
-            events={filteredEvents} 
+            opts={opts}
+            events={loadedEvents} 
             fba={fba}
-            loading={loading}
-        />    
+            loading={initialize}
+        />   
+        {
+          loading && !initialize
+          ? <Loader/>
+          : <button 
+              onClick={this.loadMoreEvents} 
+              type="button" 
+              class={loader ? "btn btn-link" : "btn btn-link disabled"}
+              >
+              More
+            </button>
+        } 
       </div>
     )
   }
