@@ -73,22 +73,15 @@ class SouthAmerica extends Component {
           The searching results are now limited to your subscriptions.
         </h6>
         <EventList 
-            opts={opts}
-            events={loadedEvents} 
-            fba={fba}
-            loading={initialize}
+          loadMoreEvents={this.loadMoreEvents}
+          loader={loader}
+          loading={loading}
+          opts={opts}
+          events={loadedEvents} 
+          fba={fba}
+          initialize={initialize}
         />   
-        {
-          loading && !initialize
-          ? <Loader/>
-          : <button 
-              onClick={this.loadMoreEvents} 
-              type="button" 
-              class={loader ? "btn btn-link" : "btn btn-link disabled"}
-              >
-              More
-            </button>
-        } 
+        {loading && !initialize && opts != loadedEvents.length && <Loader/>}                
       </div>
     )
   }

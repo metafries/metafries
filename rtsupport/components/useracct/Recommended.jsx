@@ -73,22 +73,15 @@ class Recommended extends Component {
           The searching results are now limited to the recommended.
         </h6>
         <EventList 
+            loadMoreEvents={this.loadMoreEvents}
+            loader={loader}
+            loading={loading}
             opts={opts}
             events={loadedEvents} 
             fba={fba}
-            loading={initialize}
+            initialize={initialize}
         />   
-        {
-          loading && !initialize
-          ? <Loader/>
-          : <button 
-              onClick={this.loadMoreEvents} 
-              type="button" 
-              class={loader ? "btn btn-link" : "btn btn-link disabled"}
-              >
-              More
-            </button>
-        } 
+        {loading && !initialize && opts != loadedEvents.length && <Loader/>}
       </div>
     )
   }
