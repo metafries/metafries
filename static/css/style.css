@@ -188,6 +188,12 @@ div.mdl-progress::after {
   border-width: 3px;
 }
 
+.follow-btn {
+  background-color: #444;
+  color: #ff0;
+  border-color: #ff0;
+  border-width: 2px;
+}
 .hr-text {
   line-height: 1em;
   position: relative;

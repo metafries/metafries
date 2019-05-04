@@ -5,6 +5,7 @@ class About extends Component {
     render() {
         const {providerId, loading, setAvatar, deleteProfilePicture, photos, fba, fbp} = this.props
         const isCurrentUser = fba.uid === fbp.id
+        const authenticated = fba.isLoaded && !fba.isEmpty            
         return (
             <div class="col-lg-3 px-0 mb-4">
                 <Photos 
@@ -29,8 +30,17 @@ class About extends Component {
                             className='btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100'
                             >
                             EDIT
-                        </a>     
+                        </a>    
                     }
+                    {
+                        authenticated && !isCurrentUser &&
+                        <button 
+                            type="button" 
+                            className='btn btn-dark btn-lg rounded-0 font-weight-bold text-ddc213 w-100 follow-btn py-0'
+                            >
+                            SUBSCRIBE
+                        </button>    
+                    } 
                 </h2>
                 <div className='card rounded-0'>
                     <div className='card-body px-3 py-0'>
@@ -65,6 +75,14 @@ class About extends Component {
                                 <span><a href={fbp.website}>{fbp.website}</a></span>
                             </h5>
                         }
+                    </div>
+                </div>
+                <div className='card rounded-0'>
+                    <div className='card-header rounded-0 transbox px-3'>
+                        <h5 className='mb-0'>1 Group</h5>
+                    </div>
+                    <div className='card-body px-3'>
+                        <img className='signout' src='/static/images/whazup-square-logo.png'/>
                     </div>
                 </div>
             </div>

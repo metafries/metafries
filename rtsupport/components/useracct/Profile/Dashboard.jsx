@@ -48,7 +48,7 @@ class Dashboard extends Component {
             providerId={providerId}             
             loading={loading}           
           />          
-          <Overview/>
+          <Overview fba={fba} fbp={fbp}/>
           <div className='col-lg-2'></div>
         </div>
         <Footer/>
