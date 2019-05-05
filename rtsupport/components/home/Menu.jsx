@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 const Menu = ({fba, fbp}) => {
   const authenticated = fba.isLoaded && !fba.isEmpty
   return (
-    <div className="btn-group-vertical w-100 mb-4">
+    <div className="btn-group-vertical w-100">
       <div className='menu-header mb-3'>
         <table class="table mb-0">
           <tbody>
@@ -16,7 +16,7 @@ const Menu = ({fba, fbp}) => {
                       <img src={fbp.avatarUrl} className="hoster mr-3" alt="..."/>
                     </a>
                   : <img 
-                      src='/static/images/whazup-square-logo.png' 
+                      src='/static/images/anonymous-user.png' 
                       className="hoster mr-3" alt="..."
                       />
                 }

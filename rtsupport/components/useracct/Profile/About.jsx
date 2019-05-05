@@ -33,10 +33,21 @@ class About extends Component {
                         </a>    
                     }
                     {
+                        !authenticated &&
+                        <span className='disabled'>
+                            <button 
+                                type="button" 
+                                className='btn btn-dark follow-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
+                                >
+                                SUBSCRIBE
+                            </button>   
+                        </span> 
+                    }                     
+                    {
                         authenticated && !isCurrentUser &&
                         <button 
                             type="button" 
-                            className='btn btn-dark btn-lg rounded-0 font-weight-bold text-ddc213 w-100 follow-btn py-0'
+                            className='btn btn-dark follow-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
                             >
                             SUBSCRIBE
                         </button>    

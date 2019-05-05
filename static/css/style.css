@@ -189,9 +189,9 @@ div.mdl-progress::after {
 }
 
 .follow-btn {
-  background-color: #444;
-  color: #ff0;
-  border-color: #ff0;
+  background-color: #494694;
+  color: #fff;
+  border-color: #494694;
   border-width: 2px;
 }
 .hr-text {
@@ -240,6 +240,10 @@ div.mdl-progress::after {
   background-color: #333;
 }
 
+.anonymous-btn {
+  background-color: #a9a9a9;
+}
+
 .red-text {
   color: red;
 }
@@ -271,10 +275,28 @@ div.mdl-progress::after {
   border: 5px solid #fff;
 }
 
-th.disabled {
-  cursor: not-allowed;
+th.disabled, 
+span.disabled, 
+div.disabled,
+li.disabled {
+  cursor: not-allowed;  
 }
-th.disabled button {
+th.disabled button,
+li.disabled a {
   pointer-events: none;
   color: #a9a9a9;
+}
+span.disabled button,
+div.disabled button {
+  pointer-events: none;
+  color: #a9a9a9;
+  border-color: #a9a9a9;
+  border-width: 2px;
+}
+div.disabled button {
+  pointer-events: none;
+  color: #a9a9a9;
+  border-color: #a9a9a9;
+  border-width: 2px;
+  height: 48px;
 }

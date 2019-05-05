@@ -32,8 +32,32 @@ class HomePage extends Component {
               <div className='col-lg-2'></div>
               <div className='col-lg-3 px-3'>
                 <Menu fba={fba} fbp={fbp}/>
+                {
+                  !authenticated &&
+                  <div className='btn-group-vertical w-100 disabled'>
+                    <button 
+                      type="button" 
+                      className="btn btn-lg btn-outline-dark rounded-0 font-weight-bold text-left px-2 my-1"
+                      >
+                      <i class="fas fa-minus mr-2"></i>
+                      SUBSCRIPTIONS
+                    </button>
+                  </div>
+                }
+                {
+                  !authenticated &&
+                  <div className='btn-group-vertical w-100 disabled'>
+                    <button 
+                      type="button" 
+                      className="btn btn-lg btn-outline-dark rounded-0 font-weight-bold text-left px-2 my-1"
+                      >
+                      <i class="fas fa-minus mr-2"></i>
+                      ACTIVITY LOG
+                    </button>
+                  </div>
+                }                
               </div>
-              <div className='col-lg-5 px-0'>
+              <div className='col-lg-5 px-0 mt-4'>
                 <Switch>
                   <Redirect 
                     exact from={`/search/${fba.uid}`} to={`/search/${fba.uid}/recommended`}

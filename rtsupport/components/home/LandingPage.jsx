@@ -130,6 +130,17 @@ class LandingPage extends Component {
                   >
                   <img className='attendee' src='/static/images/github-icon.png'/>
                 </button>
+                <a 
+                  role="button" 
+                  class="btn btn-lg rounded-0 p-0 social-block anonymous-btn mr-2"
+                  href={`/search/${fba.uid}`}
+                >
+                  <img
+                    src="/static/images/anonymous-user.png"
+                    class="attendee"
+                    alt="..."
+                  />
+                </a>
                 {
                   !authenticated && auth.useThirdPartyError &&
                   <h6 className='input-err-msg mt-3 mb-0 p-2'>
@@ -145,21 +156,6 @@ class LandingPage extends Component {
             <h6 className='pl-4 font-italic font-weight-bold l-msg'>
               Sup? <a href={`/profile/${fba.uid}`}>{fbp.displayName}</a>
             </h6>
-          }
-          {
-            !authenticated &&
-            <a 
-              role="button" 
-              class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left font-weight-bold"
-              href={`/search/${fba.uid}`}
-              >
-              <img
-                src="/static/images/whazup-square-logo.png"
-                class="rounded-circle attendee mr-2 ml-1"
-                alt="..."
-              />
-              Anonymous Mode           
-            </a>
           }
           {
             authenticated &&
