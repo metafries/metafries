@@ -42,7 +42,7 @@ class EventDetailPage extends Component {
   render() {
     const {goingToggleOn, goingToggleOff, fba, event} = this.props
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)
-    const isHost = fba.uid == event.hostUid
+    const isHost = event && fba.uid == event.hostUid
     const isGoing = convertedAttendees && convertedAttendees.some(a => a.id == fba.uid)
     const {eventNotFoundMsg} = this.state
     return (
@@ -67,15 +67,15 @@ class EventDetailPage extends Component {
                 isGoing={isGoing} 
                 isHost={isHost} 
                 fba={fba} 
-                event={event}
+                event={event || {}}
               />
-              <EventDetailInfo event={event}/>
+              <EventDetailInfo event={event || {}}/>
             </div>
           }
           {
             eventNotFoundMsg.length == 0 &&
             <div className='col-lg-3 px-0'>
-              <EventDetailSidebar hostUid={event.hostUid} attendees={convertedAttendees}/>
+              <EventDetailSidebar hostUid={event.hostUid || {}} attendees={convertedAttendees}/>
               <EventDetailChat/>
             </div>
           }
