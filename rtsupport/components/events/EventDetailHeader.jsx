@@ -73,7 +73,7 @@ class EventDetailHeader extends Component {
             isHost &&
             <a 
               role="button" 
-              class="btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100 mb-3" 
+              class="btn btn-outline-light l-btn btn-lg rounded-0 font-weight-bold py-0 w-100 mb-3" 
               href={`/manage/events/${event.id}`}
               >
               MANAGE

@@ -27,7 +27,7 @@ class About extends Component {
                         <a 
                             role='button' 
                             href='/settings/profile'
-                            className='btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100'
+                            className='btn btn-outline-light l-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
                             >
                             EDIT
                         </a>    

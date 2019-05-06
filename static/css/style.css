@@ -181,18 +181,12 @@ div.mdl-progress::after {
   border-width: 3px;  
 }
 
+.follow-btn,
 .l-btn:hover {
-  background-color: #4A4599;
-  color: white;
-  border-color: #4A4599;
+  background-color: #000;
+  color: #ff0;
+  border-color: #fff;
   border-width: 3px;
-}
-
-.follow-btn {
-  background-color: #494694;
-  color: #fff;
-  border-color: #494694;
-  border-width: 2px;
 }
 .hr-text {
   line-height: 1em;

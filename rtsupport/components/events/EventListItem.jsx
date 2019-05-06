@@ -104,7 +104,7 @@ class EventListItem extends Component {
           <LinkContainer to={`/events/${event.id}`}>
             <button 
               type="button" 
-              className="btn btn-outline-light btn-lg rounded-0 font-weight-bold py-0 w-100">
+              className="btn btn-outline-light l-btn btn-lg rounded-0 font-weight-bold py-0 w-100">
               VIEW
             </button>        
           </LinkContainer>
