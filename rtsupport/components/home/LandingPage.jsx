@@ -132,14 +132,10 @@ class LandingPage extends Component {
                 </button>
                 <a 
                   role="button" 
-                  class="btn btn-lg rounded-0 p-0 social-block anonymous-btn mr-2"
+                  class="btn btn-outline-light l-btn wl-btn btn-lg rounded-0 font-weight-bold py-1 px-2 signout"
                   href={`/search/${fba.uid}`}
                 >
-                  <img
-                    src="/static/images/anonymous-user.png"
-                    class="attendee"
-                    alt="..."
-                  />
+                  <i class="fas fa-user"></i>
                 </a>
                 {
                   !authenticated && auth.useThirdPartyError &&

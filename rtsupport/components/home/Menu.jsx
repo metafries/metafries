@@ -16,7 +16,7 @@ const Menu = ({fba, fbp}) => {
                       <img src={fbp.avatarUrl} className="hoster mr-3" alt="..."/>
                     </a>
                   : <img 
-                      src='/static/images/anonymous-user.png' 
+                      src='/static/images/whazup-square-logo.png' 
                       className="hoster mr-3" alt="..."
                       />
                 }

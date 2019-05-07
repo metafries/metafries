@@ -188,6 +188,18 @@ div.mdl-progress::after {
   border-color: #fff;
   border-width: 3px;
 }
+.output-btn {
+  background-color: #000;
+  color: #ddc213;
+  border-color: #fff;
+  border-width: 3px;
+}
+.wl-btn:hover {
+  background-color: #000;
+  color: #ff0;
+  border-color: #000;
+  border-width: 3px;
+}
 .hr-text {
   line-height: 1em;
   position: relative;
@@ -285,7 +297,7 @@ div.disabled button {
   pointer-events: none;
   color: #a9a9a9;
   border-color: #a9a9a9;
-  border-width: 2px;
+  border-width: 3px;
 }
 div.disabled button {
   pointer-events: none;

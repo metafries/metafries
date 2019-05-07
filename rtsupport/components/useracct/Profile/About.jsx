@@ -37,7 +37,7 @@ class About extends Component {
                         <span className='disabled'>
                             <button 
                                 type="button" 
-                                className='btn btn-dark follow-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
+                                className='btn btn-lg rounded-0 font-weight-bold py-0 w-100'
                                 >
                                 SUBSCRIBE
                             </button>   
@@ -47,7 +47,7 @@ class About extends Component {
                         authenticated && !isCurrentUser &&
                         <button 
                             type="button" 
-                            className='btn btn-dark follow-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
+                            className='btn btn-dark output-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
                             >
                             SUBSCRIBE
                         </button>    
