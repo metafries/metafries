@@ -8,24 +8,14 @@ import Overview from './Overview.jsx'
 import { setAvatar, deleteProfilePicture } from '../userActions.jsx'
 import { fetchPhotos } from '../../useracct/userQueries.jsx'
 
-const mapState = (state, ownProps) => {
-  let othersUid = null
-  let profile = {}
-  if (ownProps.match.params.id === state.auth.uid) {
-    profile = state.firebase.profile
-  } else {
-    profile = !isEmpty(state.firestore.ordered.profile) && state.firestore.ordered.profile[0]
-    othersUid = ownProps.match.params.id
-  }
-  return {
-    providerId: state.firebase.auth.providerData && state.firebase.auth.providerData[0].providerId,      
-    fbp: profile,
-    othersUid,
-    fba: state.firebase.auth,
-    photos: state.firestore.ordered.profile_pictures,
-    loading: state.async.loading,    
-  }
-}
+const mapState = (state, ownProps) => ({
+  providerId: state.firebase.auth.providerData && state.firebase.auth.providerData[0].providerId,      
+  fbp: !isEmpty(state.firestore.ordered.profile) && state.firestore.ordered.profile[0],
+  profileId: ownProps.match.params.id,
+  fba: state.firebase.auth,
+  photos: state.firestore.ordered.profile_pictures,
+  loading: state.async.loading,    
+})
 
 const actions = {
   setAvatar,
@@ -34,12 +24,13 @@ const actions = {
 
 class Dashboard extends Component {
   render() {
-    const {loading, setAvatar, deleteProfilePicture, photos, fba, fbp, providerId} = this.props
+    const {profileId, loading, setAvatar, deleteProfilePicture, photos, fba, fbp, providerId} = this.props
     return (
       <div>
         <div className='row'>
           <div className='col-lg-2'></div>
           <About 
+            profileId={profileId}
             setAvatar={setAvatar}
             deleteProfilePicture={deleteProfilePicture}
             photos={photos}
@@ -48,7 +39,11 @@ class Dashboard extends Component {
             providerId={providerId}             
             loading={loading}           
           />          
-          <Overview fba={fba} fbp={fbp}/>
+          <Overview
+            profileId={profileId} 
+            fba={fba} 
+            fbp={fbp}
+          />
           <div className='col-lg-2'></div>
         </div>
         <Footer/>
@@ -59,5 +54,5 @@ class Dashboard extends Component {
 
 export default compose(
   connect(mapState, actions),
-  firestoreConnect((auth, othersUid) => fetchPhotos(auth, othersUid)),
+  firestoreConnect((profileId) => fetchPhotos(profileId)),
 )(Dashboard)
