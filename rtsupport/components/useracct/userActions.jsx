@@ -129,6 +129,7 @@ export const goingToggleOn = (event) =>
                     eventStartDate: event.startDate,
                     eventEndDate: event.endDate,
                     host: false,
+                    status: event.status,
             })
         } catch (e) {
             console.log(e)

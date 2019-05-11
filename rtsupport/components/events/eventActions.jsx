@@ -20,6 +20,70 @@ import { fetchSampleData } from '../../app/data/mockApi.js'
 import { shapeNewEvent } from '../../app/common/util/shapers.js'
 import firebase from '../../app/config/firebase.js'
 
+export const getTotalSaved = (userId) =>
+    async () => {
+        const firestore = firebase.firestore()
+        const eventsQuery = firestore
+            .collection('event_attendee')
+            .where('userId', '==', userId)
+        try {
+            let eventsQuerySnap = await eventsQuery.get()
+            return eventsQuerySnap.docs.length
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+export const getTotalAttended = (userId) =>
+    async () => {
+        let today = new Date(Date.now())
+        const firestore = firebase.firestore()
+        const eventsQuery = firestore
+            .collection('event_attendee')
+            .where('userId', '==', userId)
+            .where('eventEndDate', '<', today)
+            .where('status', '==', 0)
+        try {
+            let eventsQuerySnap = await eventsQuery.get()
+            return eventsQuerySnap.docs.length
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+export const getTotalGoing = (userId) =>
+    async () => {
+        let today = new Date(Date.now())
+        const firestore = firebase.firestore()
+        const eventsQuery = firestore
+            .collection('event_attendee')
+            .where('userId', '==', userId)
+            .where('eventEndDate', '>=', today)
+        try {
+            let eventsQuerySnap = await eventsQuery.get()
+            return eventsQuerySnap.docs.length
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+export const getTotalHosting = (userId) =>
+    async () => {
+        let today = new Date(Date.now())
+        const firestore = firebase.firestore()
+        const eventsQuery = firestore
+            .collection('event_attendee')
+            .where('userId', '==', userId)
+            .where('host', '==', true)
+            .where('eventEndDate', '>=', today)
+        try {
+            let eventsQuerySnap = await eventsQuery.get()
+            return eventsQuerySnap.docs.length
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    
 export const totalRecommended = () =>
     async () => {
         let today = new Date(Date.now())
@@ -166,6 +230,7 @@ export const createEvent = (event) => {
                     eventStartDate: event.startDate,
                     eventEndDate: event.endDate,
                     host: true,
+                    status: 0,
                 }
             )
         } catch (e) {

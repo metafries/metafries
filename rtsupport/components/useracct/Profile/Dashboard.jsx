@@ -6,6 +6,7 @@ import Footer from '../../nav/Footer.jsx'
 import About from './About.jsx'
 import Overview from './Overview.jsx'
 import { setAvatar, deleteProfilePicture } from '../userActions.jsx'
+import { getTotalSaved, getTotalAttended, getTotalGoing, getTotalHosting } from '../../events/eventActions.jsx'
 import { fetchPhotos } from '../../useracct/userQueries.jsx'
 
 const mapState = (state, ownProps) => ({
@@ -18,13 +19,33 @@ const mapState = (state, ownProps) => ({
 })
 
 const actions = {
+  getTotalSaved,
+  getTotalAttended,
+  getTotalGoing,
+  getTotalHosting,
   setAvatar,
   deleteProfilePicture,
 }
 
 class Dashboard extends Component {
+  state = {
+    totalSaved: 0,
+    totalAttended: 0,
+    totalGoing: 0,
+    totalHosting: 0,
+  }
+  async componentDidMount() {
+    const {profileId} = this.props
+    this.setState({
+      totalSaved: await this.props.getTotalSaved(profileId),
+      totalAttended: await this.props.getTotalAttended(profileId),
+      totalGoing: await this.props.getTotalGoing(profileId),
+      totalHosting: await this.props.getTotalHosting(profileId),
+    })
+  }
   render() {
     const {profileId, loading, setAvatar, deleteProfilePicture, photos, fba, fbp, providerId} = this.props
+    const {totalSaved, totalAttended, totalGoing, totalHosting} = this.state
     return (
       <div>
         <div className='row'>
@@ -40,6 +61,10 @@ class Dashboard extends Component {
             loading={loading}           
           />          
           <Overview
+            totalSaved={totalSaved}
+            totalAttended={totalAttended}
+            totalGoing={totalGoing}
+            totalHosting={totalHosting}
             profileId={profileId} 
             fba={fba} 
             fbp={fbp}
