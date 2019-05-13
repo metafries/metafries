@@ -34,6 +34,59 @@ export const getTotalSaved = (userId) =>
         }
     }
 
+export const getSavedEvents = (userId, lastEvent) => 
+    async (dispatch, getState) => {
+        const firestore = firebase.firestore()
+        const eventsRef = firestore.collection('event_attendee')
+        try {
+            dispatch(startAsyncAction())
+            let lastEventSnap = lastEvent 
+                && await firestore
+                    .collection('event_attendee')
+                    .doc(lastEvent.compositeId)
+                    .get()
+            let query = lastEvent
+                ? eventsRef
+                    .where('userId', '==', userId)
+                    .startAfter(lastEventSnap)
+                    .limit(2)
+                : eventsRef
+                    .where('userId', '==', userId)
+                    .limit(2)
+            let querySnap = await query.get()
+            if (querySnap.docs.length === 0) {
+                dispatch(finishAsyncAction())            
+                return querySnap               
+            }
+            let events = []
+            for (let i=0; i<querySnap.docs.length; i++) {
+                let evt = await firestore
+                    .collection('events')
+                    .doc(querySnap.docs[i].data().eventId)
+                    .get()
+                    events.push({
+                        ...evt.data(), 
+                        id: querySnap.docs[i].data().eventId,
+                        compositeId: 
+                            querySnap.docs[i].data().eventId 
+                                + '_'
+                                + querySnap.docs[i].data().userId
+                    })
+            }
+            dispatch({
+                type: FETCH_EVENTS,
+                payload: {
+                    events,
+                }        
+            })
+            return querySnap
+        } catch (e) {
+            console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())            
+        }
+    }
+    
 export const getTotalAttended = (userId) =>
     async () => {
         let today = new Date(Date.now())
@@ -48,6 +101,66 @@ export const getTotalAttended = (userId) =>
             return eventsQuerySnap.docs.length
         } catch (e) {
             console.log(e)
+        }
+    }
+
+export const getAttendedEvents = (userId, lastEvent) => 
+    async (dispatch, getState) => {
+        let today = new Date(Date.now())        
+        const firestore = firebase.firestore()
+        const eventsRef = firestore.collection('event_attendee')
+        try {
+            dispatch(startAsyncAction())
+            let lastEventSnap = lastEvent 
+                && await firestore
+                    .collection('event_attendee')
+                    .doc(lastEvent.compositeId)
+                    .get()
+            let query = lastEvent
+                ? eventsRef
+                    .where('userId', '==', userId)
+                    .where('eventEndDate', '<', today)
+                    .where('status', '==', 0)  
+                    .orderBy('eventEndDate', 'desc')      
+                    .startAfter(lastEventSnap)
+                    .limit(2)
+                : eventsRef
+                    .where('userId', '==', userId)
+                    .where('eventEndDate', '<', today)
+                    .where('status', '==', 0)        
+                    .orderBy('eventEndDate', 'desc')
+                    .limit(2)
+            let querySnap = await query.get()
+            if (querySnap.docs.length === 0) {
+                dispatch(finishAsyncAction())            
+                return querySnap               
+            }
+            let events = []
+            for (let i=0; i<querySnap.docs.length; i++) {
+                let evt = await firestore
+                    .collection('events')
+                    .doc(querySnap.docs[i].data().eventId)
+                    .get()
+                    events.push({
+                        ...evt.data(), 
+                        id: querySnap.docs[i].data().eventId,
+                        compositeId: 
+                            querySnap.docs[i].data().eventId 
+                                + '_'
+                                + querySnap.docs[i].data().userId
+                    })
+                }
+            dispatch({
+                type: FETCH_EVENTS,
+                payload: {
+                    events,
+                }        
+            })
+            return querySnap
+        } catch (e) {
+            console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())            
         }
     }
 
@@ -67,6 +180,62 @@ export const getTotalGoing = (userId) =>
         }
     }
 
+export const getGoingEvents = (userId, lastEvent) => 
+    async (dispatch, getState) => {
+        let today = new Date(Date.now())        
+        const firestore = firebase.firestore()
+        const eventsRef = firestore.collection('event_attendee')
+        try {
+            dispatch(startAsyncAction())
+            let lastEventSnap = lastEvent 
+                && await firestore
+                    .collection('event_attendee')
+                    .doc(lastEvent.compositeId)
+                    .get()
+            let query = lastEvent
+                ? eventsRef
+                    .where('userId', '==', userId)
+                    .where('eventEndDate', '>=', today)    
+                    .startAfter(lastEventSnap)
+                    .limit(2)
+                : eventsRef
+                    .where('userId', '==', userId)
+                    .where('eventEndDate', '>=', today)    
+                    .limit(2)
+            let querySnap = await query.get()
+            if (querySnap.docs.length === 0) {
+                dispatch(finishAsyncAction())            
+                return querySnap               
+            }
+            let events = []
+            for (let i=0; i<querySnap.docs.length; i++) {
+                let evt = await firestore
+                    .collection('events')
+                    .doc(querySnap.docs[i].data().eventId)
+                    .get()
+                    events.push({
+                        ...evt.data(), 
+                        id: querySnap.docs[i].data().eventId,
+                        compositeId: 
+                            querySnap.docs[i].data().eventId 
+                                + '_'
+                                + querySnap.docs[i].data().userId
+                    })
+                }
+            dispatch({
+                type: FETCH_EVENTS,
+                payload: {
+                    events,
+                }        
+            })
+            return querySnap
+        } catch (e) {
+            console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())            
+        }
+    }
+    
 export const getTotalHosting = (userId) =>
     async () => {
         let today = new Date(Date.now())
@@ -81,6 +250,65 @@ export const getTotalHosting = (userId) =>
             return eventsQuerySnap.docs.length
         } catch (e) {
             console.log(e)
+        }
+    }
+
+export const getHostingEvents = (userId, lastEvent) => 
+    async (dispatch, getState) => {
+        let today = new Date(Date.now())        
+        const firestore = firebase.firestore()
+        const eventsRef = firestore.collection('event_attendee')
+        try {
+            dispatch(startAsyncAction())
+            let lastEventSnap = lastEvent 
+                && await firestore
+                    .collection('event_attendee')
+                    .doc(lastEvent.compositeId)
+                    .get()
+            let query = lastEvent
+                ? eventsRef
+                    .where('userId', '==', userId)
+                    .where('host', '==', true)
+                    .where('eventEndDate', '>=', today)    
+                    .startAfter(lastEventSnap)
+                    .limit(2)
+                : eventsRef
+                    .where('userId', '==', userId)
+                    .where('host', '==', true)
+                    .where('eventEndDate', '>=', today)    
+                    .limit(2)
+            let querySnap = await query.get()
+            if (querySnap.docs.length === 0) {
+                dispatch(finishAsyncAction())            
+                return querySnap               
+            }
+            let events = []
+            for (let i=0; i<querySnap.docs.length; i++) {
+                let evt = await firestore
+                    .collection('events')
+                    .doc(querySnap.docs[i].data().eventId)
+                    .get()
+                    events.push({
+                        ...evt.data(), 
+                        id: querySnap.docs[i].data().eventId,
+                        compositeId: 
+                            querySnap.docs[i].data().eventId 
+                                + '_'
+                                + querySnap.docs[i].data().userId
+                    })
+            }
+            console.log(events)
+            dispatch({
+                type: FETCH_EVENTS,
+                payload: {
+                    events,
+                }        
+            })
+            return querySnap
+        } catch (e) {
+            console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())            
         }
     }
     
@@ -134,7 +362,6 @@ export const recommendedEvents = (lastEvent) =>
                 }
                 events.push(evt)
             }
-            console.log(events)
             dispatch({
                 type: FETCH_EVENTS,
                 payload: {

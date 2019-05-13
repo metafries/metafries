@@ -18,41 +18,43 @@ class About extends Component {
                     providerId={providerId} 
                     loading={loading}
                 />
-                <h2 className='transbox p-3 text-right'>
-                    {fbp.displayName}
-                    <h6 className='text-light mb-0'>-- subscribers</h6>
-                    <hr className='edh-h my-2'/>
-                    {
-                        isCurrentUser &&
-                        <a 
-                            role='button' 
-                            href='/settings/profile'
-                            className='btn btn-outline-light l-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
-                            >
-                            EDIT
-                        </a>    
-                    }
-                    {
-                        !authenticated &&
-                        <span className='disabled'>
+                <div className='card rounded-0'>
+                    <h2 className='transbox p-3 text-right'>
+                        {fbp.displayName}
+                        <h6 className='text-light mb-0'>-- subscribers</h6>
+                        <hr className='edh-h my-2'/>
+                        {
+                            isCurrentUser &&
+                            <a 
+                                role='button' 
+                                href='/settings/profile'
+                                className='btn btn-outline-light l-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
+                                >
+                                EDIT
+                            </a>    
+                        }
+                        {
+                            !authenticated &&
+                            <span className='disabled'>
+                                <button 
+                                    type="button" 
+                                    className='btn btn-lg rounded-0 font-weight-bold py-0 w-100'
+                                    >
+                                    SUBSCRIBE
+                                </button>   
+                            </span> 
+                        }                     
+                        {
+                            authenticated && !isCurrentUser &&
                             <button 
                                 type="button" 
-                                className='btn btn-lg rounded-0 font-weight-bold py-0 w-100'
+                                className='btn btn-dark output-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
                                 >
                                 SUBSCRIBE
-                            </button>   
-                        </span> 
-                    }                     
-                    {
-                        authenticated && !isCurrentUser &&
-                        <button 
-                            type="button" 
-                            className='btn btn-dark output-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
-                            >
-                            SUBSCRIBE
-                        </button>    
-                    } 
-                </h2>
+                            </button>    
+                        } 
+                    </h2>                
+                </div>
                 <div className='card rounded-0'>
                     <div className='card-body px-3 py-0'>
                         {

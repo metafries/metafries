@@ -9,7 +9,7 @@ import Saved from './Saved.jsx'
 
 class Overview extends Component {
   render() {
-    const {totalSaved, totalAttended, totalGoing, totalHosting, fba, fbp} = this.props 
+    const {profileId, totalSaved, totalAttended, totalGoing, totalHosting, fba, fbp} = this.props 
     const isCurrentUser = fba.uid === fbp.id  
     return (
       <div class="col-lg-5 px-0">
@@ -69,15 +69,15 @@ class Overview extends Component {
           />          
           <Route
             path={`/profile/${fbp.id}/hosting`}
-            render={() => <Hosting fba={fba} fbp={fbp}/>}
+            render={() => <Hosting profileId={profileId} fba={fba} fbp={fbp}/>}
           />          
           <Route
             path={`/profile/${fbp.id}/going`}
-            render={() => <Going fba={fba} fbp={fbp}/>}
+            render={() => <Going profileId={profileId} fba={fba} fbp={fbp}/>}
           />                    
           <Route
             path={`/profile/${fbp.id}/attended`}
-            render={() => <Attended fba={fba} fbp={fbp}/>}
+            render={() => <Attended profileId={profileId} fba={fba} fbp={fbp}/>}
           />                              
           <Route
             path={`/profile/${fbp.id}/liked`}
@@ -85,7 +85,7 @@ class Overview extends Component {
           />                                        
           <Route
             path={`/profile/${fbp.id}/saved`}
-            render={() => <Saved fba={fba} fbp={fbp}/>}
+            render={() => <Saved profileId={profileId} fba={fba} fbp={fbp}/>}
           />                                                  
         </Switch>
       </div>

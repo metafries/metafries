@@ -1,8 +1,59 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import EventList from '../../events/EventList.jsx'
+import { getTotalAttended, getAttendedEvents } from '../../events/eventActions.jsx'
+import Loader from '../../layout/Loader.jsx'
+
+const mapState = (state) => ({
+  events: state.events,
+  loading: state.async.loading,
+})
+
+const actions = {
+  getTotalAttended,
+  getAttendedEvents,
+}
 
 class Attended extends Component {
+  state = {
+    loader: false,
+    initialize: true,
+    loadedEvents: [],
+    total: 0,
+  }
+  async componentDidMount() {
+    const {profileId} = this.props
+    this.setState({
+      total: await this.props.getTotalAttended(profileId)
+    })
+    let next = await this.props.getAttendedEvents(profileId)
+    if (next && next.docs && next.docs.length > 1) {      
+      this.setState({
+        loader: true,
+        initialize: false,
+      })
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.events !== nextProps.events) {
+      this.setState({
+        loadedEvents: [...this.state.loadedEvents, ...nextProps.events]
+      })
+    }
+  }
+  loadMoreEvents = async() => {
+    const {profileId, events} = this.props
+    let lastEvent = events && events[events.length-1]
+    let next = await this.props.getAttendedEvents(profileId, lastEvent)
+    if (next && next.docs && next.docs.length <= 1) {
+      this.setState({
+        loader: false
+      })
+    }
+  }
   render() {
-    const {fba, fbp} = this.props  
+    const {loading, fba, fbp} = this.props  
+    const {total, initialize, loadedEvents, loader} = this.state    
     const isCurrentUser = fba.uid === fbp.id  
     return (
       <div>
@@ -28,13 +79,19 @@ class Attended extends Component {
           }
           attended.
         </h6>
-        <h6 className='info-text-box mb-3 p-2 mx-3'>
-          <i class="fas fa-info-circle mr-2"></i>
-          Haven't attended any events yet.
-        </h6>
+        <EventList 
+            loadMoreEvents={this.loadMoreEvents}
+            loader={loader}
+            loading={loading}
+            opts={total}
+            events={loadedEvents} 
+            fba={fba}
+            initialize={initialize}
+        />   
+        {loading && !initialize && total != loadedEvents.length && <Loader/>}
       </div>
     )
   }
 }
 
-export default Attended
+export default connect(mapState, actions)(Attended)
