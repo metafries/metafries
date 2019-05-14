@@ -15,7 +15,8 @@ const mapState = (state, ownProps) => ({
   profileId: ownProps.match.params.id,
   fba: state.firebase.auth,
   photos: state.firestore.ordered.profile_pictures,
-  loading: state.async.loading,    
+  loading: state.async.loading,  
+  processing: state.async.processing,  
 })
 
 const actions = {
@@ -44,7 +45,7 @@ class Dashboard extends Component {
     })
   }
   render() {
-    const {profileId, loading, setAvatar, deleteProfilePicture, photos, fba, fbp, providerId} = this.props
+    const {processing, profileId, loading, setAvatar, deleteProfilePicture, photos, fba, fbp, providerId} = this.props
     const {totalSaved, totalAttended, totalGoing, totalHosting} = this.state
     return (
       <div>
@@ -58,7 +59,7 @@ class Dashboard extends Component {
             fbp={fbp}
             fba={fba}
             providerId={providerId}             
-            loading={loading}           
+            loading={processing}           
           />          
           <Overview
             totalSaved={totalSaved}

@@ -1,4 +1,9 @@
-import { startAsyncAction, finishAsyncAction } from '../async/asyncActions.jsx'
+import {
+    startPhotoAction, 
+    finishPhotoAction, 
+    startAsyncAction, 
+    finishAsyncAction 
+} from '../async/asyncActions.jsx'
 import cuid from 'cuid'
 import { DateTime } from "luxon"
 
@@ -68,7 +73,7 @@ export const deleteProfilePicture = (photo) =>
         const firestore = getFirestore()
         const currentUser = firebase.auth().currentUser
         try {
-            dispatch(startAsyncAction())                    
+            dispatch(startPhotoAction())                    
             if (photo.downloadURL == currentUser.photoURL) {
                 await firebase.updateProfile({avatarUrl: ''})
                 await currentUser.updateProfile({photoURL: ''})        
@@ -82,7 +87,7 @@ export const deleteProfilePicture = (photo) =>
                 })    
             }
         } finally {
-            dispatch(finishAsyncAction())                    
+            dispatch(finishPhotoAction())                    
         }
     }
 
@@ -95,11 +100,11 @@ export const setAvatar = (photo) =>
         const firebase = getFirebase()
         const currentUser = firebase.auth().currentUser        
         try {
-            dispatch(startAsyncAction())                                
+            dispatch(startPhotoAction())                                
             await firebase.updateProfile({avatarUrl: photo.downloadURL})
             await currentUser.updateProfile({photoURL: photo.downloadURL})
         } finally {
-            dispatch(finishAsyncAction())                    
+            dispatch(finishPhotoAction())                    
         }
     }
 

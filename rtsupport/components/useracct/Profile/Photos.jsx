@@ -47,7 +47,7 @@ class Photos extends Component {
         <div>
             {
                 loading
-                ?   <div className='vertical-center px-4 mx-5'>
+                ?   <div className='text-center px-4 mx-5 my-2'>
                         <span 
                             class="spinner-border mr-2" 
                             role="status" 
