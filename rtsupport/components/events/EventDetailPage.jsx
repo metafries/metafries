@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withFirestore } from 'react-redux-firebase'
+import { firebaseConnect, withFirestore } from 'react-redux-firebase'
+import { compose } from 'redux'
 import EventDetailHeader from './EventDetailHeader.jsx'
 import EventDetailInfo from './EventDetailInfo.jsx'
 import EventDetailChat from './EventDetailChat.jsx'
 import EventDetailSidebar from './EventDetailSidebar.jsx'
 import Footer from '../nav/Footer.jsx'
-import { goingToggleOn, goingToggleOff } from '../useracct/userActions.jsx'
+import { addEventComment, goingToggleOn, goingToggleOff } from '../useracct/userActions.jsx'
 import { objToArray } from '../../app/common/util/shapers.js'
 
 const mapState = (state, ownProps) => {
@@ -17,12 +18,14 @@ const mapState = (state, ownProps) => {
     event = events.find(e => e.id == eventId)
   }
   return {
+    err: state.async.err,
     fba: state.firebase.auth,
     event
   }
 }
 
 const actions = {
+  addEventComment,
   goingToggleOn,
   goingToggleOff,
 }
@@ -40,7 +43,8 @@ class EventDetailPage extends Component {
     await firestore.unsetListener(`events/${match.params.id}`)
   }
   render() {
-    const {goingToggleOn, goingToggleOff, fba, event} = this.props
+    const {err, addEventComment, goingToggleOn, goingToggleOff, fba, event} = this.props
+    const authenticated = fba.isLoaded && !fba.isEmpty
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)
     const isHost = event && fba.uid == event.hostUid
     const isGoing = convertedAttendees && convertedAttendees.some(a => a.id == fba.uid)
@@ -76,7 +80,7 @@ class EventDetailPage extends Component {
             eventNotFoundMsg.length == 0 &&
             <div className='col-lg-3 px-0'>
               <EventDetailSidebar hostUid={event && event.hostUid || {}} attendees={convertedAttendees}/>
-              <EventDetailChat/>
+              <EventDetailChat authenticated={authenticated} err={err} eventId={event.id} addEventComment={addEventComment}/>
             </div>
           }
           <div className='col-lg-2'></div>
@@ -87,4 +91,8 @@ class EventDetailPage extends Component {
   }
 }
 
-export default withFirestore(connect(mapState, actions)(EventDetailPage))
+export default compose(
+  withFirestore,
+  connect(mapState, actions),
+  firebaseConnect((props) => ([`event_chat/${props.match.params.id}`])),
+)(EventDetailPage)

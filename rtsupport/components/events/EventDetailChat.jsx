@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import EventDetailReply from './EventDetailReply.jsx'
+import CommentForm from '../forms/CommentForm.jsx'
 
 class EventDetailChat extends Component {
   state = {
@@ -20,21 +21,21 @@ class EventDetailChat extends Component {
         <div className='card-body px-3'>
           <table class="table">
             <tbody>
-              <tr>
-                <th scope="row" className='signout rounded-circle px-0 py-3'>
-                  <img src='/static/images/whazup-square-logo.png' className="signout rounded-circle" alt="..."/>
-                </th>
-                <td className='pr-0'>
-                  <form>
-                    <textarea 
-                      class="form-control rounded-0" 
-                      placeholder="Enter Comment ..." 
-                      rows="3">
-                    </textarea>    
-                    <button type="submit" class="btn btn-dark rounded-0 text-ddc213 font-weight-bold float-right mt-2">Post</button>          
-                  </form>
-                </td>
-              </tr>
+              {
+                this.props.authenticated &&
+                <tr>
+                  <th scope="row" className='signout rounded-circle px-0 py-3'>
+                    <img src='/static/images/whazup-square-logo.png' className="signout rounded-circle" alt="..."/>
+                  </th>
+                  <td className='pr-0'>
+                    <CommentForm 
+                      err={this.props.err} 
+                      eventId={this.props.eventId} 
+                      addEventComment={this.props.addEventComment}
+                    />
+                  </td>
+                </tr>
+              }
               <EventDetailReply replyTarget={this.state.replyTarget}/>
               <tr>
                 <th scope="row" className='signout rounded-circle px-0 py-3'>

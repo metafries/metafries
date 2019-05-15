@@ -1,4 +1,5 @@
 import {
+    asyncActionError,
     startPhotoAction, 
     finishPhotoAction, 
     startAsyncAction, 
@@ -6,6 +7,21 @@ import {
 } from '../async/asyncActions.jsx'
 import cuid from 'cuid'
 import { DateTime } from "luxon"
+
+export const addEventComment = (eventId, comment) => 
+    async (
+        dispatch,
+        getState,
+        {getFirebase},
+    ) => {
+        const firebase = getFirebase()
+        try {
+            await firebase.push(`event_chat/${eventId}`, comment)
+        } catch (e) {
+            dispatch(asyncActionError())
+            console.log(e)
+        }
+    }
 
 export const updateProfile = (user) => 
     async (

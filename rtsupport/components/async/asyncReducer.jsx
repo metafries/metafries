@@ -8,6 +8,7 @@ import {
 } from './asyncConstants.jsx'
 
 const initState = {
+    err: false,
     processing: false,
     loading: false
 }
@@ -29,7 +30,7 @@ export const asyncActionFinished = (state) => {
 }
 
 export const asyncActionError = (state) => {
-    return {...state, loading: false}
+    return {...state, err: true, loading: false}
 }
 
 export default createReducer(initState, {
