@@ -15,8 +15,17 @@ export const addEventComment = (eventId, comment) =>
         {getFirebase},
     ) => {
         const firebase = getFirebase()
+        const profile = getState().firebase.profile
+        const currentUser = firebase.auth().currentUser
+        let newComment = {
+            displayName: profile.displayName,
+            avatarUrl: profile.avatarUrl || '/static/images/whazup-square-logo.png',
+            uid: currentUser.uid,
+            text: comment,
+            date: Date.now(),
+        }
         try {
-            await firebase.push(`event_chat/${eventId}`, comment)
+            await firebase.push(`event_chat/${eventId}`, newComment)
         } catch (e) {
             dispatch(asyncActionError())
             console.log(e)
