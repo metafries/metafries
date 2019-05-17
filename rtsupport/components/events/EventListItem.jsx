@@ -1,8 +1,19 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { isEmpty, firebaseConnect, withFirestore } from 'react-redux-firebase'
+import { compose } from 'redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { DateTime } from "luxon";
 import EventPosters from './EventPosters.jsx'
 import { objToArray } from '../../app/common/util/shapers.js'
+
+const mapState = (state, ownProps) => {
+  return {
+    eventChat: 
+      !isEmpty(state.firebase.data.event_chat) &&
+      objToArray(state.firebase.data.event_chat[ownProps.event.id]),
+  }
+}
 
 class EventListItem extends Component {
   state = {
@@ -20,7 +31,7 @@ class EventListItem extends Component {
     })
   }
   render() {
-    const {opts, events, fba, event} = this.props;
+    const {eventChat, opts, events, fba, event} = this.props;
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)  
     const total = opts ? opts : events && events.length
     return (
@@ -89,11 +100,13 @@ class EventListItem extends Component {
                   <span className='mr-2'>
                     {convertedAttendees && convertedAttendees.length} Going
                   </span>
-                  <span className='mr-2'>-- Views</span>
-                  <span className='mr-2'>-- Likes</span>
-                  <span className='mr-2'>-- Shares</span>
-                  <span className='mr-2'>-- Save</span>
-                  <span className='mr-2'>-- Comments</span>
+                  <span className='mx-2'>
+                    {eventChat ? eventChat.length+' Comments' : '0 Comment'}
+                  </span>
+                  <span className='mx-2'>-- Views</span>
+                  <span className='mx-2'>-- Likes</span>
+                  <span className='mx-2'>-- Shares</span>
+                  <span className='mx-2'>-- Save</span>
                 </td>
               </tr>
             </tbody>      
@@ -115,4 +128,7 @@ class EventListItem extends Component {
   }
 }
 
-export default EventListItem
+export default compose(
+  connect(mapState, null),
+  firebaseConnect((props) => ([`event_chat/${props.event.id}`])),
+)(EventListItem)

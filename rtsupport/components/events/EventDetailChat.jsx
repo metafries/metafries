@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import distanceInWords from 'date-fns/distance_in_words'
 import EventDetailReply from './EventDetailReply.jsx'
 import CommentForm from '../forms/CommentForm.jsx'
 
@@ -13,21 +14,37 @@ class EventDetailChat extends Component {
     })
   }
   render() {
+    const {authenticated, fba, eventChat} = this.props
     return (
       <div className='card rounded-0'>
         <div className='card-header rounded-0 transbox px-3'>
-          <h5 className='mb-0'>4 Comments</h5>              
+          <h5 className='mb-0'>
+            {eventChat ? eventChat.length+' Comments' : '0 Comment'}
+          </h5>
         </div>
-        <div className='card-body px-3'>
-          <table class="table">
+        <div className='card-body px-3 pt-2 pb-0'>
+          {
+            !authenticated &&
+            <h6 className='info-text-box my-3 p-2'>
+              <i class="fas fa-info-circle mr-2"></i>
+              You are currently in anonymous mode，
+              <a href='/'>Log In</a> to add or reply to the comment.
+            </h6>
+          }
+          <table class="table mb-0">
             <tbody>
               {
-                this.props.authenticated &&
+                authenticated &&
                 <tr>
-                  <th scope="row" className='signout rounded-circle px-0 py-3'>
-                    <img src='/static/images/whazup-square-logo.png' className="signout rounded-circle" alt="..."/>
+                  <th scope="row" className='signout rounded-circle px-0 py-3 border-0'>
+                    <a href={`/profile/${fba.uid}`}>
+                      <img 
+                        src={fba.photoURL || '/static/images/whazup-square-logo.png'} 
+                        className="signout rounded-circle" alt="..."
+                      />
+                    </a>
                   </th>
-                  <td className='pr-0'>
+                  <td className='pr-0 border-0'>
                     <CommentForm 
                       err={this.props.err} 
                       eventId={this.props.eventId} 
@@ -37,78 +54,47 @@ class EventDetailChat extends Component {
                 </tr>
               }
               <EventDetailReply replyTarget={this.state.replyTarget}/>
-              <tr>
-                <th scope="row" className='signout rounded-circle px-0 py-3'>
-                  <img src='/static/images/whazup-square-logo.png' className="signout rounded-circle" alt="..."/>
-                </th>
-                <td className='pr-0'>
-                  <strong>Matt </strong><small>Today at 5:42PM</small>
-                  <p className='mb-0'>How artistic!</p>
-                  <button 
-                    type="button" 
-                    class="btn btn-link btn-sm p-0" 
-                    data-toggle="modal" 
-                    data-target="#eventidreply_1"
-                    value='eventidreply_1'
-                    onClick={this.onCommentReply}>
-                    Reply
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row" className='signout rounded-circle px-0 py-3'>
-                  <img src='/static/images/whazup-square-logo.png' className="signout rounded-circle" alt="..."/>
-                </th>
-                <td>
-                  <strong>Elliot Fu </strong><small>Yesterday at 12:30AM</small>
-                  <p className='mb-0'>This has been very useful for my research. Thanks as well!</p>
-                  <button 
-                    type="button" 
-                    class="btn btn-link btn-sm p-0"
-                    data-toggle="modal"
-                    data-target="#eventidreply_2"
-                    value='eventidreply_2'
-                    onClick={this.onCommentReply}>
-                    Reply
-                  </button>
-                  <th scope="row" className='signout rounded-circle px-0 py-3'>
-                    <img src='/static/images/whazup-square-logo.png' className="signout rounded-circle" alt="..."/>
-                  </th>
-                  <td>
-                    <strong>Jenny Hess </strong><small>Just now</small>
-                    <p className='mb-0'>Elliot you are always so right!</p>
-                    <button 
-                      type="button" 
-                      class="btn btn-link btn-sm p-0"
-                      data-toggle="modal"
-                      data-target="#eventidreply_2_1"
-                      value='eventidreply_2_1'
-                      onClick={this.onCommentReply}>
-                      Reply
-                    </button>
-                  </td>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row" className='signout rounded-circle px-0 py-3'>
-                  <img src='/static/images/whazup-square-logo.png' className="signout rounded-circle" alt="..."/>
-                </th>
-                <td className='pr-0'>
-                  <strong>Joe Henderson </strong><small>5 days ago</small>
-                  <p className='mb-0'>Dude, this is awesome. Thanks so much</p>
-                  <button 
-                    type="button" 
-                    class="btn btn-link btn-sm p-0" 
-                    data-toggle="modal" 
-                    data-target="#eventidreply_3"
-                    value='eventidreply_3'
-                    onClick={this.onCommentReply}>
-                    Reply
-                  </button>
-                </td>
-              </tr>
+              {
+                eventChat && eventChat.map((comment) => (
+                  <tr key={comment.id}>
+                    <th scope="row" className='signout rounded-circle px-0 py-3'>
+                      <a href={`/profile/${comment.uid}`}>
+                        <img src={comment.avatarUrl} className="signout rounded-circle" alt="..."/>
+                      </a>
+                    </th>
+                    <td className='pr-0'>
+                      <a className='eds-a' href={`/profile/${comment.uid}`}>
+                        <strong>{comment.displayName}</strong>
+                      </a>
+                      <small className='ml-1'>
+                        {distanceInWords(comment.date, Date.now())} ago
+                      </small>
+                      <p className='mb-0'>{comment.text}</p>
+                      <button 
+                        type="button" 
+                        class="btn btn-link btn-sm p-0" 
+                        data-toggle="modal" 
+                        data-target={`#${comment.id}`}
+                        value={comment.id}
+                        onClick={this.onCommentReply}
+                        >
+                        Reply
+                      </button>
+                    </td>
+                  </tr>  
+                ))
+              }
             </tbody>      
-          </table>        
+          </table>   
+          {
+            !eventChat &&
+            <div className='card-footer px-0 bg-white'>
+              <h6 className='info-text-box p-2'>
+                <i class="fas fa-info-circle mr-2"></i>
+                No comment yet.       
+              </h6>
+            </div>
+          }
         </div>
       </div>
     )  

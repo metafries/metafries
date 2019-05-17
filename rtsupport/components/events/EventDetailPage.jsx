@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { firebaseConnect, withFirestore } from 'react-redux-firebase'
+import { isEmpty, firebaseConnect, withFirestore } from 'react-redux-firebase'
 import { compose } from 'redux'
 import EventDetailHeader from './EventDetailHeader.jsx'
 import EventDetailInfo from './EventDetailInfo.jsx'
@@ -18,6 +18,9 @@ const mapState = (state, ownProps) => {
     event = events.find(e => e.id == eventId)
   }
   return {
+    eventChat: 
+      !isEmpty(state.firebase.data.event_chat) &&
+      objToArray(state.firebase.data.event_chat[ownProps.match.params.id]),
     err: state.async.err,
     fba: state.firebase.auth,
     event
@@ -43,7 +46,7 @@ class EventDetailPage extends Component {
     await firestore.unsetListener(`events/${match.params.id}`)
   }
   render() {
-    const {err, addEventComment, goingToggleOn, goingToggleOff, fba, event} = this.props
+    const {eventChat, err, addEventComment, goingToggleOn, goingToggleOff, fba, event} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)
     const isHost = event && fba.uid == event.hostUid
@@ -80,7 +83,7 @@ class EventDetailPage extends Component {
             eventNotFoundMsg.length == 0 &&
             <div className='col-lg-3 px-0'>
               <EventDetailSidebar hostUid={event && event.hostUid || {}} attendees={convertedAttendees}/>
-              <EventDetailChat authenticated={authenticated} err={err} eventId={event.id} addEventComment={addEventComment}/>
+              <EventDetailChat fba={fba} eventChat={eventChat && eventChat.reverse()} authenticated={authenticated} err={err} eventId={event && event.id} addEventComment={addEventComment}/>
             </div>
           }
           <div className='col-lg-2'></div>

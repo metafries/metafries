@@ -13,16 +13,11 @@ class CommentForm extends Component {
         comment_input: VALID_INPUT,                
     }
     isNotEmptyComment = (e) => {
-        if (e.target.value.trim().length == 0) {      
-          this.setState({
-            comment_err_msg: SHOW_ERR_MSG,
-            comment_input: INVALID_INPUT,        
-          })  
-        } else {
-          this.setState({
-            comment_err_msg: HIDE_ERR_MSG,
-            comment_input: VALID_INPUT,                
-          })  
+        if (e.target.value.trim().length > 0) {      
+            this.setState({
+                comment_err_msg: HIDE_ERR_MSG,
+                comment_input: VALID_INPUT,                
+            })      
         }
       }    
     onInputChange = (e) => {
