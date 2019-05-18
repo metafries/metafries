@@ -40,7 +40,7 @@ class EventDetailChat extends Component {
                     <a href={`/profile/${fba.uid}`}>
                       <img 
                         src={fba.photoURL || '/static/images/whazup-square-logo.png'} 
-                        className="signout rounded-circle" alt="..."
+                        className="mt-3 signout rounded-circle" alt="..."
                       />
                     </a>
                   </th>
@@ -66,7 +66,7 @@ class EventDetailChat extends Component {
                       <a className='eds-a' href={`/profile/${comment.uid}`}>
                         <strong>{comment.displayName}</strong>
                       </a>
-                      <small className='ml-1'>
+                      <small className='ml-1 text-secondary'>
                         {distanceInWords(comment.date, Date.now())} ago
                       </small>
                       <p className='mb-0'>{comment.text}</p>
