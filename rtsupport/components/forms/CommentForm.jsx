@@ -52,7 +52,7 @@ class CommentForm extends Component {
                         ?   <span className='disabled float-right'>
                                 <button 
                                     type="submit" 
-                                    class="btn btn-outline-dark rounded-0 font-weight-bold mt-2"
+                                    class="btn btn-outline-dark rounded-0 font-weight-bold mt-2 px-2"
                                     >
                                     Post
                                 </button>          
@@ -60,7 +60,7 @@ class CommentForm extends Component {
                         :   <button 
                                 type="submit" 
                                 style={{borderWidth:'3px'}} 
-                                class="btn btn-dark rounded-0 text-ddc213 font-weight-bold float-right mt-2"
+                                class="btn btn-dark rounded-0 text-ddc213 font-weight-bold float-right mt-2 px-2"
                                 >
                                 Post
                             </button>

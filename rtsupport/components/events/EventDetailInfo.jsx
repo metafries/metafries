@@ -44,7 +44,7 @@ class EventDetailInfo extends Component {
                 <br/>
                 <button 
                   type="button" 
-                  class="btn btn-outline-dark l-btn wl-btn rounded-0 mt-2 font-weight-bold"
+                  class="btn btn-outline-dark l-btn wl-btn rounded-0 mt-2 font-weight-bold px-2"
                   onClick={this.showMapToggle}
                 >
                   {this.state.showMap ? 'Hide Map' : 'Show Map'}

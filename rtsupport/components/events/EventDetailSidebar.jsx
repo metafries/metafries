@@ -35,7 +35,7 @@ const EventDetailSidebar = ({hostUid, attendees}) => {
                 <td className='pr-0'>
                   <button 
                     type="button" 
-                    class="btn btn-dark rounded-0 font-weight-bold text-ddc213 float-right">
+                    class="btn btn-dark rounded-0 font-weight-bold text-ddc213 float-right px-2">
                     <i class="fas fa-user-plus"></i>
                   </button>           
                 </td>

@@ -4,15 +4,6 @@ import EventDetailReply from './EventDetailReply.jsx'
 import CommentForm from '../forms/CommentForm.jsx'
 
 class EventDetailChat extends Component {
-  state = {
-    replyTarget: ''
-  }
-  onCommentReply = (e) => {
-    console.log(e.target.value)
-    this.setState({
-      replyTarget: e.target.value
-    })
-  }
   render() {
     const {authenticated, fba, eventChat} = this.props
     return (
@@ -53,7 +44,6 @@ class EventDetailChat extends Component {
                   </td>
                 </tr>
               }
-              <EventDetailReply replyTarget={this.state.replyTarget}/>
               {
                 eventChat && eventChat.map((comment) => (
                   <tr key={comment.id}>
@@ -66,19 +56,37 @@ class EventDetailChat extends Component {
                       <a className='eds-a' href={`/profile/${comment.uid}`}>
                         <strong>{comment.displayName}</strong>
                       </a>
-                      <small className='ml-1 text-secondary'>
+                      <p className='mb-0'>{comment.text}</p>
+                      <small className='ml-1 text-secondary d-block'>
                         {distanceInWords(comment.date, Date.now())} ago
                       </small>
-                      <p className='mb-0'>{comment.text}</p>
                       <button 
                         type="button" 
-                        class="btn btn-link btn-sm p-0" 
+                        class="btn btn-outline-dark l-btn wl-btn rounded-0 mt-2 font-weight-bold p-1" 
                         data-toggle="modal" 
                         data-target={`#${comment.id}`}
                         value={comment.id}
                         onClick={this.onCommentReply}
                         >
                         Reply
+                        <span className='ml-1'>0</span>
+                      </button>
+                      <EventDetailReply replyTarget={comment.id}/>
+                      <button 
+                        type="button" 
+                        style={{borderWidth:'3px'}}
+                        class="btn btn-dark text-ddc213 rounded-0 mt-2 font-weight-bold p-1 float-right"
+                        >
+                        <i class="fas fa-arrow-down"></i>
+                        <span className='ml-1'>0</span>
+                      </button>
+                      <button 
+                        type="button" 
+                        style={{borderWidth:'3px'}}
+                        class="btn btn-dark text-ddc213 rounded-0 mt-2 font-weight-bold p-1 float-right mr-1"
+                        >
+                        <i class="fas fa-arrow-up"></i>
+                        <span className='ml-1'>0</span>
                       </button>
                     </td>
                   </tr>  
