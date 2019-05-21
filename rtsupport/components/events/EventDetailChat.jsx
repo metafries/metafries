@@ -16,11 +16,11 @@ class EventDetailChat extends Component {
         <div className='card-body px-3 pt-2 pb-0'>
           {
             !authenticated &&
-            <h6 className='info-text-box my-3 p-2'>
+            <h5 className='my-3'>
               <i class="fas fa-info-circle mr-2"></i>
               You are currently in anonymous mode，
-              <a href='/'>Log In</a> to add or reply to the comment.
-            </h6>
+              <a href='/'>SIGN IN</a> to add or reply to the comment.
+            </h5>
           }
           <table class="table mb-0">
             <tbody>
@@ -71,7 +71,14 @@ class EventDetailChat extends Component {
                         Reply
                         <span className='ml-1'>0</span>
                       </button>
-                      <EventDetailReply replyTarget={comment.id}/>
+                      <EventDetailReply 
+                        err={this.props.err} 
+                        eventId={this.props.eventId} 
+                        addEventComment={this.props.addEventComment}      
+                        authenticated={authenticated}
+                        fba={fba} 
+                        replyTarget={comment}
+                      />
                       <button 
                         type="button" 
                         style={{borderWidth:'3px'}}
@@ -97,10 +104,10 @@ class EventDetailChat extends Component {
           {
             !eventChat &&
             <div className='card-footer px-0 bg-white'>
-              <h6 className='info-text-box p-2'>
+              <h5 className='mb-0'>
                 <i class="fas fa-info-circle mr-2"></i>
                 No comment yet.       
-              </h6>
+              </h5>
             </div>
           }
         </div>
