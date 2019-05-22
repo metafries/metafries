@@ -1,5 +1,16 @@
 import { DateTime } from "luxon";
 
+export const createDataTree = dataset => {
+    let hashTable = Object.create(null)
+    dataset.forEach(a => hashTable[a.id] = {...a, nodes: []})
+    let dataTree = []
+    dataset.forEach(a => {
+        if (a.targetCode) hashTable[a.targetCode].nodes.push(hashTable[a.id])
+        else dataTree.push(hashTable[a.id])
+    })
+    return dataTree
+};
+
 export const objToArray = (obj) => {
     if (obj) {
         return Object.entries(obj).map(

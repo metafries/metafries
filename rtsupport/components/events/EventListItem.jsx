@@ -5,7 +5,7 @@ import { compose } from 'redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { DateTime } from "luxon";
 import EventPosters from './EventPosters.jsx'
-import { objToArray } from '../../app/common/util/shapers.js'
+import { createDataTree, objToArray } from '../../app/common/util/shapers.js'
 
 const mapState = (state, ownProps) => {
   return {
@@ -34,6 +34,7 @@ class EventListItem extends Component {
     const {eventChat, opts, events, fba, event} = this.props;
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)  
     const total = opts ? opts : events && events.length
+    const chatTree = !isEmpty(eventChat) && createDataTree(eventChat.reverse())    
     return (
       <div className='card border-0 rounded-0 mb-2'>
         <div className='card-body transbox py-0 px-3'>
@@ -101,7 +102,13 @@ class EventListItem extends Component {
                     {convertedAttendees && convertedAttendees.length} Going
                   </span>
                   <span className='mx-2'>
-                    {eventChat ? eventChat.length+' Comments' : '0 Comment'}
+                    {
+                      chatTree 
+                        ? chatTree.length > 1 
+                            ? chatTree.length + ' Comments' 
+                            : chatTree.length + ' Comment' 
+                        : '0 Comment'
+                    }
                   </span>
                   <span className='mx-2'>-- Views</span>
                   <span className='mx-2'>-- Likes</span>

@@ -8,7 +8,7 @@ import EventDetailChat from './EventDetailChat.jsx'
 import EventDetailSidebar from './EventDetailSidebar.jsx'
 import Footer from '../nav/Footer.jsx'
 import { addEventComment, goingToggleOn, goingToggleOff } from '../useracct/userActions.jsx'
-import { objToArray } from '../../app/common/util/shapers.js'
+import { createDataTree, objToArray } from '../../app/common/util/shapers.js'
 
 const mapState = (state, ownProps) => {
   const eventId = ownProps.match.params.id
@@ -52,6 +52,7 @@ class EventDetailPage extends Component {
     const isHost = event && fba.uid == event.hostUid
     const isGoing = convertedAttendees && convertedAttendees.some(a => a.id == fba.uid)
     const {eventNotFoundMsg} = this.state
+    const chatTree = !isEmpty(eventChat) && createDataTree(eventChat.reverse())
     return (
       <div>
         <div className='row'>
@@ -83,7 +84,7 @@ class EventDetailPage extends Component {
             eventNotFoundMsg.length == 0 &&
             <div className='col-lg-3 px-0'>
               <EventDetailSidebar hostUid={event && event.hostUid || {}} attendees={convertedAttendees}/>
-              <EventDetailChat fba={fba} eventChat={eventChat && eventChat.reverse()} authenticated={authenticated} err={err} eventId={event && event.id} addEventComment={addEventComment}/>
+              <EventDetailChat fba={fba} eventChat={chatTree} authenticated={authenticated} err={err} eventId={event && event.id} addEventComment={addEventComment}/>
             </div>
           }
           <div className='col-lg-2'></div>

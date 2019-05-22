@@ -17,6 +17,7 @@ class CommentForm extends Component {
         const trimComment = this.state.comment.trim()
         this.props.addEventComment(
             this.props.eventId,
+            this.props.targetCode,                        
             trimComment,
         )
         this.setState({

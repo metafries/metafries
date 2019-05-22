@@ -10,7 +10,13 @@ class EventDetailChat extends Component {
       <div className='card rounded-0'>
         <div className='card-header rounded-0 transbox px-3'>
           <h5 className='mb-0'>
-            {eventChat ? eventChat.length+' Comments' : '0 Comment'}
+            {
+              eventChat 
+                ? eventChat.length > 1 
+                    ? eventChat.length + ' Comments' 
+                    : eventChat.length + ' Comment' 
+                : '0 Comment'
+            }
           </h5>
         </div>
         <div className='card-body px-3 pt-2 pb-0'>
@@ -40,6 +46,7 @@ class EventDetailChat extends Component {
                       err={this.props.err} 
                       eventId={this.props.eventId} 
                       addEventComment={this.props.addEventComment}
+                      targetCode={0}
                     />
                   </td>
                 </tr>
@@ -57,7 +64,7 @@ class EventDetailChat extends Component {
                         <strong>{comment.displayName}</strong>
                       </a>
                       <p className='mb-0'>{comment.text}</p>
-                      <small className='ml-1 text-secondary d-block'>
+                      <small className='text-secondary d-block'>
                         {distanceInWords(comment.date, Date.now())} ago
                       </small>
                       <button 
@@ -68,10 +75,16 @@ class EventDetailChat extends Component {
                         value={comment.id}
                         onClick={this.onCommentReply}
                         >
-                        Reply
-                        <span className='ml-1'>0</span>
+                        <span className='ml-1'>
+                          {
+                            comment.nodes.length > 1
+                              ? comment.nodes.length + ' Replies' 
+                              : comment.nodes.length + ' Reply' 
+                          }
+                        </span>
                       </button>
                       <EventDetailReply 
+                        nodes={comment.nodes}
                         err={this.props.err} 
                         eventId={this.props.eventId} 
                         addEventComment={this.props.addEventComment}      

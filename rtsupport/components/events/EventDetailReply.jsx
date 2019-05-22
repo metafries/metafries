@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import distanceInWords from 'date-fns/distance_in_words'
 import CommentForm from '../forms/CommentForm.jsx'
+import { createDataTree } from '../../app/common/util/shapers.js'
 
 class EventDetailReply extends Component {
     render() {
-        const {authenticated, fba, replyTarget} = this.props
+        const {nodes, authenticated, fba, replyTarget} = this.props
         return (
             <div className='modal fade' id={replyTarget.id} tabindex="-1" role="dialog">
                  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -24,7 +26,7 @@ class EventDetailReply extends Component {
                         <div class="modal-body">
                             {
                                 !authenticated &&
-                                <h5 className='mb-0'>
+                                <h5 className='mb-4 mt-2'>
                                     <i class="fas fa-info-circle mr-2"></i>
                                     You are currently in anonymous mode，
                                     <a href='/'>SIGN IN</a> to reply to the comment.
@@ -48,17 +50,54 @@ class EventDetailReply extends Component {
                                                     err={this.props.err} 
                                                     eventId={this.props.eventId} 
                                                     addEventComment={this.props.addEventComment}
+                                                    targetCode={replyTarget.id}
                                                 />                  
                                             </td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
-                            <hr/>
-                            <h5 className='mb-0'>
-                                <i class="fas fa-info-circle mr-2"></i>
-                                No reply yet.       
-                            </h5>
+                            <h5 className='font-weight-bold'>
+                                {
+                                    nodes.length > 1
+                                        ? nodes.length + ' Replies' 
+                                        : nodes.length != 0 && nodes.length + ' Reply' 
+                                }
+                            </h5>                                                                
+                            {
+                                nodes && nodes.map((reply) => (
+                                    <table class="table mb-0">
+                                        <tbody>
+                                            <tr key={reply.id}>
+                                                <th scope="row" className='signout rounded-circle px-0 py-3'>
+                                                    <a href={`/profile/${reply.uid}`}>
+                                                        <img src={reply.avatarUrl} className="signout rounded-circle" alt="..."/>
+                                                    </a>
+                                                </th>
+                                                <td className='pr-0'>
+                                                    <a className='eds-a' href={`/profile/${reply.uid}`}>
+                                                        <strong>{reply.displayName}</strong>
+                                                    </a>
+                                                    <p className='mb-0'>{reply.text}</p>
+                                                    <small className='text-secondary d-block'>
+                                                        {distanceInWords(reply.date, Date.now())} ago
+                                                    </small>
+                                                </td>
+                                            </tr>  
+                                        </tbody>
+                                    </table>
+                                ))
+                            }
+                            {
+                                nodes.length == 0 &&
+                                <div>
+                                    <hr className='mt-0'/>
+                                    <h5 className='mb-0'>
+                                        <i class="fas fa-info-circle mr-2"></i>
+                                        No reply yet.       
+                                    </h5>
+                                </div>
+                            }
                         </div>
                     </div>
                  </div>

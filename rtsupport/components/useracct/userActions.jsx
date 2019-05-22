@@ -8,7 +8,7 @@ import {
 import cuid from 'cuid'
 import { DateTime } from "luxon"
 
-export const addEventComment = (eventId, comment) => 
+export const addEventComment = (eventId, targetCode, comment) => 
     async (
         dispatch,
         getState,
@@ -18,6 +18,7 @@ export const addEventComment = (eventId, comment) =>
         const profile = getState().firebase.profile
         const currentUser = firebase.auth().currentUser
         let newComment = {
+            targetCode,
             displayName: profile.displayName,
             avatarUrl: profile.avatarUrl || '/static/images/whazup-square-logo.png',
             uid: currentUser.uid,
