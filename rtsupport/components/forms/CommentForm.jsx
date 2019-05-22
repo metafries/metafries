@@ -22,6 +22,7 @@ class CommentForm extends Component {
         )
         this.setState({
             comment: '',
+            commentInputLength: 0,
         })
     }
     render() {
