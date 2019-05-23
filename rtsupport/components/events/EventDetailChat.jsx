@@ -76,11 +76,7 @@ class EventDetailChat extends Component {
                         onClick={this.onCommentReply}
                         >
                         <span className='ml-1'>
-                          {
-                            comment.nodes.length > 1
-                              ? comment.nodes.length + ' Replies' 
-                              : comment.nodes.length + ' Reply' 
-                          }
+                          {`Reply (${comment.nodes.length})`}
                         </span>
                       </button>
                       <EventDetailReply 
