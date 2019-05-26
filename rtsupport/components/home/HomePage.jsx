@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Menu from './Menu.jsx'
 import Recommended from '../useracct/Recommended.jsx'
@@ -10,9 +11,17 @@ import InstantMsg from '../controlpanel/InstantMsg.jsx'
 import { deleteEvent } from '../events/eventActions.jsx'
 import Footer from '../nav/Footer.jsx'
 
+const queryActivities = [
+  {
+    collection: 'activity',
+    orderBy: ['timestamp', 'desc'],
+  }
+]
+
 const mapState = (state) => ({
   fbp: state.firebase.profile,
   fba: state.firebase.auth,
+  activities: state.firestore.ordered.activity,  
 })
 
 const actions = {
@@ -24,7 +33,7 @@ class HomePage extends Component {
     this.props.deleteEvent(cancelEvent_id)
   }
   render() {
-        const {fbp, fba} = this.props
+        const {activities, fbp, fba} = this.props
         const authenticated = fba.isLoaded && !fba.isEmpty    
         return (
           <div>
@@ -76,7 +85,7 @@ class HomePage extends Component {
                   />
                   <Route
                     path={`/search/${fba.uid}/activity`}
-                    render={() => <ActivityLog/>}
+                    render={() => <ActivityLog activity={activities}/>}
                   />
                 </Switch>
               </div>
@@ -88,4 +97,6 @@ class HomePage extends Component {
   }
 }
 
-export default connect(mapState, actions)(HomePage)
+export default connect(mapState, actions)(
+  firestoreConnect(queryActivities)(HomePage)
+)

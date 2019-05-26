@@ -14,6 +14,7 @@ const newActivity = (type, target, data) => {
         hostAvatarUrl: data.hostAvatarUrl,
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
         hostUid: data.hostUid,
+        status: data.status,
     }
 }
 
