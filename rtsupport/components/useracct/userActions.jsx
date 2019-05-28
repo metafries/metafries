@@ -7,6 +7,7 @@ import {
 } from '../async/asyncActions.jsx'
 import cuid from 'cuid'
 import { DateTime } from "luxon"
+import firebase from '../../app/config/firebase.js'
 
 export const addEventComment = (eventId, targetCode, comment) => 
     async (
@@ -121,14 +122,35 @@ export const setAvatar = (photo) =>
     async (
         dispatch,
         getState,
-        {getFirebase},
     ) => {
-        const firebase = getFirebase()
+        const firestore = firebase.firestore()
         const currentUser = firebase.auth().currentUser        
+        let eventAttendeeRef = firestore.collection('event_attendee')
         try {
             dispatch(startPhotoAction())                                
             await firebase.updateProfile({avatarUrl: photo.downloadURL})
             await currentUser.updateProfile({photoURL: photo.downloadURL})
+            let batch = firestore.batch()            
+            let eventAttendeeQuery = await eventAttendeeRef
+                .where('userId', '==', currentUser.uid)
+            let eventAttendeeQuerySnap = await eventAttendeeQuery.get()
+            for (let i=0; i<eventAttendeeQuerySnap.docs.length; i++) {
+                let eventDocRef = await firestore
+                    .collection('events')
+                    .doc(eventAttendeeQuerySnap.docs[i].data().eventId)
+                let eventSnap = await eventDocRef.get()
+                if (eventSnap.data().hostUid === currentUser.uid) {
+                    batch.update(eventDocRef, {
+                        hostAvatarUrl: photo.downloadURL,
+                        [`attendees.${currentUser.uid}.avatarUrl`]: photo.downloadURL,
+                    })
+                } else {
+                    batch.update(eventDocRef, {
+                        [`attendees.${currentUser.uid}.avatarUrl`]: photo.downloadURL,
+                    })                    
+                }
+            }
+            await batch.commit()
         } finally {
             dispatch(finishPhotoAction())                    
         }
