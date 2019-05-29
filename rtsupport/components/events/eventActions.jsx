@@ -467,8 +467,8 @@ export const createEvent = (event) => {
 }
 
 export const updateEvent = (event) => {
-    return async(dispatch, getState, {getFirestore}) => {
-        const firestore = getFirestore()
+    return async(dispatch, getState) => {
+        const firestore = firebase.firestore()
         event.startDate = DateTime
             .fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')
             .toJSDate()
@@ -477,7 +477,33 @@ export const updateEvent = (event) => {
             .toJSDate()
         try {
             dispatch(startAsyncAction())
-            await firestore.update(`events/${event.id}`, event)
+            let eventDocRef = firestore.collection('events').doc(event.id)
+            let startDateEqual = DateTime
+                .fromObject(getState().firestore.ordered.events[0].startDate)
+                .equals(DateTime.fromObject(event.startDate))
+            let endDateEqual = DateTime
+                .fromObject(getState().firestore.ordered.events[0].endDate)
+                .equals(DateTime.fromObject(event.endDate))
+            if (startDateEqual || endDateEqual) {
+                let batch = firestore.batch()
+                await batch.update(eventDocRef, event)
+                let eventAttendeeRef = firestore.collection('event_attendee')
+                let eventAttendeeQuery = await eventAttendeeRef
+                    .where('eventId', '==', event.id)
+                let eventAttendeeQuerySnap = await eventAttendeeQuery.get()
+                for (let i=0; i<eventAttendeeQuerySnap.docs.length; i++) {
+                    let eventAttendeeDocRef = await firestore
+                        .collection('event_attendee')
+                        .doc(eventAttendeeQuerySnap.docs[i].id)
+                    await batch.update(eventAttendeeDocRef, {
+                        eventStartDate: event.startDate,
+                        eventEndDate: event.endDate,
+                    })
+                }
+                await batch.commit()
+            } else {
+                await eventDocRef.update(event)
+            }
             dispatch({
                 type: SUCCESS,
                 payload: {
