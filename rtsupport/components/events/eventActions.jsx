@@ -496,8 +496,12 @@ export const updateEvent = (event) => {
                         .collection('event_attendee')
                         .doc(eventAttendeeQuerySnap.docs[i].id)
                     await batch.update(eventAttendeeDocRef, {
-                        eventStartDate: event.startDate,
-                        eventEndDate: event.endDate,
+                        eventStartDate: DateTime
+                            .fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')
+                            .toJSDate(),
+                        eventEndDate: DateTime
+                            .fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')
+                            .toJSDate(),
                     })
                 }
                 await batch.commit()
