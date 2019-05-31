@@ -68,10 +68,9 @@ class Photos extends Component {
                                                 <img 
                                                     src=
                                                     {
-                                                        providerId && providerId == 'facebook.com' &&
-                                                        !fbp.avatarUrl.includes('firebasestorage')
-                                                        ? fbp.avatarUrl+'?height=250'
-                                                        : fbp.avatarUrl
+                                                        fbp.avatarUrl.includes('graph.facebook.com')
+                                                            ? fbp.avatarUrl+'?height=250'
+                                                            : fbp.avatarUrl
                                                     } 
                                                     class="d-block w-100" alt="..."
                                                 />

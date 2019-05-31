@@ -59,12 +59,10 @@ class Profile extends Component {
   }
   componentDidMount() {
     const {fbp, providerId} = this.props 
-    if (providerId && providerId == 'facebook.com') {
-      if (!fbp.avatarUrl.includes('firebasestorage')) {
-        this.setState({
-          photoURL: fbp.avatarUrl+'?height=250'
-        })  
-      }
+    if (fbp.avatarUrl && fbp.avatarUrl.includes('graph.facebook.com')) {
+      this.setState({
+        photoURL: fbp.avatarUrl+'?height=250'
+      })  
     }
   }
   hendledefaultOpts = () => {
