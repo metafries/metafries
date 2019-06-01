@@ -8,8 +8,10 @@ import Overview from './Overview.jsx'
 import { setAvatar, deleteProfilePicture } from '../userActions.jsx'
 import { getTotalSaved, getTotalAttended, getTotalGoing, getTotalHosting } from '../../events/eventActions.jsx'
 import { fetchPhotos } from '../../useracct/userQueries.jsx'
+import Loader from '../../layout/Loader.jsx'
 
 const mapState = (state, ownProps) => ({
+  requesting: state.firestore.status.requesting,
   providerId: state.firebase.auth.providerData && state.firebase.auth.providerData[0].providerId,      
   fbp: !isEmpty(state.firestore.ordered.profile) && state.firestore.ordered.profile[0],
   profileId: ownProps.match.params.id,
@@ -30,6 +32,7 @@ const actions = {
 
 class Dashboard extends Component {
   state = {
+    initialize: true,
     totalSaved: 0,
     totalAttended: 0,
     totalGoing: 0,
@@ -38,6 +41,7 @@ class Dashboard extends Component {
   async componentDidMount() {
     const {profileId} = this.props
     this.setState({
+      initialize: false,
       totalSaved: await this.props.getTotalSaved(profileId),
       totalAttended: await this.props.getTotalAttended(profileId),
       totalGoing: await this.props.getTotalGoing(profileId),
@@ -46,7 +50,9 @@ class Dashboard extends Component {
   }
   render() {
     const {processing, profileId, loading, setAvatar, deleteProfilePicture, photos, fba, fbp, providerId} = this.props
-    const {totalSaved, totalAttended, totalGoing, totalHosting} = this.state
+    const {initialize, totalSaved, totalAttended, totalGoing, totalHosting} = this.state
+    const loadingProfile = this.props.requesting[`users/${this.props.match.params.id}`]
+    if (initialize || loadingProfile) return <Loader/>
     return (
       <div>
         <div className='row'>
