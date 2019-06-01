@@ -9,6 +9,7 @@ import EventDetailSidebar from './EventDetailSidebar.jsx'
 import Footer from '../nav/Footer.jsx'
 import { addEventComment, goingToggleOn, goingToggleOff } from '../useracct/userActions.jsx'
 import { createDataTree, objToArray } from '../../app/common/util/shapers.js'
+import Loader from '../layout/Loader.jsx'
 
 const mapState = (state, ownProps) => {
   const eventId = ownProps.match.params.id
@@ -18,6 +19,7 @@ const mapState = (state, ownProps) => {
     event = events.find(e => e.id == eventId)
   }
   return {
+    requesting: state.firestore.status.requesting,
     eventChat: 
       !isEmpty(state.firebase.data.event_chat) &&
       objToArray(state.firebase.data.event_chat[ownProps.match.params.id]),
@@ -35,11 +37,15 @@ const actions = {
 
 class EventDetailPage extends Component {
   state = {
+    initialize: true,
     eventNotFoundMsg: '',
   }
   async componentDidMount() {
     const {firestore, match} = this.props
     await firestore.setListener(`events/${match.params.id}`)
+    this.setState({
+      initialize: false,
+    })
   }
   async componentWillUnmount() {
     const {firestore, match} = this.props
@@ -53,6 +59,8 @@ class EventDetailPage extends Component {
     const isGoing = convertedAttendees && convertedAttendees.some(a => a.id == fba.uid)
     const {eventNotFoundMsg} = this.state
     const chatTree = !isEmpty(eventChat) && createDataTree(eventChat.reverse())
+    const loadingEvent = this.props.requesting[`events/${this.props.match.params.id}`] 
+    if (this.state.initialize || loadingEvent) return <Loader/>
     return (
       <div>
         <div className='row'>
