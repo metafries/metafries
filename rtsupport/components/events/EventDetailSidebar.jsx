@@ -2,6 +2,11 @@ import React from 'react'
 import { DateTime } from "luxon";
 
 const EventDetailSidebar = ({hostUid, attendees}) => {
+  attendees && attendees.sort(function(a,b) {
+    return b.joinDate.toDate() - a.joinDate.toDate()
+  })
+  const attendeeList = attendees && attendees.slice(0,attendees.length-1)
+  attendeeList.unshift(attendees[attendees.length-1])
   return (
     <div className='card rounded-0'>
       <div className='card-header rounded-0 transbox px-3'>
@@ -10,7 +15,7 @@ const EventDetailSidebar = ({hostUid, attendees}) => {
       <div className='card-body px-3'>
         <table class="table">
           <tbody>
-            {attendees && attendees.map((attendee) => (
+            {attendeeList && attendeeList.map((attendee) => (
               <tr key={attendee.id}>
                 <th scope="row" className='signout px-0'>
                   <a href={`/profile/${attendee.id}`}>
@@ -18,13 +23,14 @@ const EventDetailSidebar = ({hostUid, attendees}) => {
                   </a>
                 </th>
                 <td>
-                  {hostUid == attendee.id && <span class="badge badge-dark rounded-0 mr-1">HOST</span>}
-                  <strong>
-                    <a className='eds-a' href={`/profile/${attendee.id}`}>
-                      {attendee.displayName}
-                    </a>
-                  </strong>
-                  <small className='ml-1 text-secondary'>
+                  <a className='eds-a font-weight-bold' href={`/profile/${attendee.id}`}>
+                    {attendee.displayName}
+                  </a>
+                  {
+                    hostUid == attendee.id && 
+                    <span class="badge badge-dark rounded-0 ml-2">HOST</span>
+                  }
+                  <small className='d-block text-secondary'>
                     <span className='mr-1'>Joined</span>
                     {
                       attendee.joinDate && typeof attendee.joinDate === 'object' &&
