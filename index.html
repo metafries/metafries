@@ -1,71 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-    <title>METAFRIES</title>    
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta property="og:url" content="https://metafries.com/">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="MetaFries">
-    <meta property="og:description" content="">
-    <meta property="og:image" content="https://metafries.com/static/images/400dpiLogoCropped.jpg">
-    <meta property="fb:app_id" content="1686998031417610">    
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>   
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/menu.css">        
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">    
-</head>
-<body>    
-    <div id="fb-root"></div>
-    <script>
-        if (window.location.href != 'https://metafries.com/') {
-            //window.location.replace('https://metafries.com/');
-        }
-        function checkLoginStatus() {
-            FB.login(function(response) {
-                if (response.authResponse) {
-                    FB.api('/me', {fields: 'name, picture, email'}, function(response) {
-                        document.getElementById('welcomeMsg').innerHTML = 
-                            '<hr>Welcome to MetaFries,<br><img src="' + response.picture.data.url + '">' + response.name + '(' + response.email + ')';
-                    });
-                } else {
-                    console.log('User cancelled login or did not fully authorize.');
-                }
-            }, {scope: 'email'});
-        }
-        function shareOnFB() {            
-            FB.ui({
-                method: 'share',
-                href: 'https://metafries.com/'
-            }, function(response){});
-        }
-        (function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=1686998031417610&autoLogAppEvents=1';
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
-    <header class="head-main fixed-top bg-white" id="navbar"></header>
-    <div class="container-fluid notmenu">
-        <div id="events"></div>                        
-        <div class="row text-center">
-            <div class="col-lg-9"></div>      
-            <div class="col-lg-3"></div>
+    <head>
+        <title>Metafries</title>    
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>   
+        <link rel="shortcut icon" type="image/x-icon" href="/static/images/whazup-square-logo.png">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/menu.css">        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">    
+    </head>
+    <body>    
+        <header class="head-main fixed-top bg-white" id="navbar"></header>
+        <div class="container-fluid notmenu">
+            <div id="events"></div>                        
+            <div class="row text-center">
+                <div class="col-lg-9"></div>      
+                <div class="col-lg-3"></div>
+            </div>
         </div>
-    </div>
-    <script src="/static/bundle.js"></script>
-    <script src="/static/js/menu.js"></script>    
-    <script src="https://fb.me/react-0.14.3.min.js"></script>
-    <script src="https://fb.me/react-dom-0.14.3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser.js"></script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-</body>
+        <script src="/static/bundle.js"></script>
+        <script src="/static/js/menu.js"></script>    
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+        <script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser.js"></script>
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    </body>
 </html>
