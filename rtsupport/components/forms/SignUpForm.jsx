@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import githubUsernameRegex from 'github-username-regex';
 import { signup } from '../auth/authActions.jsx'
 
 const actions = {
@@ -8,6 +9,7 @@ const actions = {
 
 class SignUpForm extends Component {
     state = {
+        showUsernameRules: false,
         usernameInputLength: 0
     }
     onInputChange = (e) => {
@@ -20,6 +22,15 @@ class SignUpForm extends Component {
     handleSignup = (e) => {
         e.preventDefault()
         this.props.isEmptyUsername($('input[name=username]').val())
+        if (!githubUsernameRegex.test($('input[name=username]').val())) {
+            this.setState({
+                showUsernameRules: true,
+            })
+        } else {
+            this.setState({
+                showUsernameRules: false,
+            })
+        }
         this.props.signup({
             username: $('input[name=username]').val(),
             email: $('input[name=email]').val(),
@@ -27,7 +38,7 @@ class SignUpForm extends Component {
         })
     }
     render() {
-        const {usernameInputLength} = this.state
+        const {showUsernameRules, usernameInputLength} = this.state        
         return (
         <form onSubmit={this.handleSignup}>
             <small className='float-right'>{usernameInputLength}/64</small>
@@ -71,7 +82,17 @@ class SignUpForm extends Component {
                 className="mb-3 btn btn-dark output-btn btn-lg rounded-0 font-weight-bold py-0 w-100"
             >
                 SIGN UP
-            </button>                
+            </button>    
+            {
+                showUsernameRules &&
+                <h6 className='input-err-msg mb-3 p-2'>
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    Username 
+                    [1] May only contain alphanumeric characters or hyphens. 
+                    [2] Cannot have multiple consecutive hyphens.
+                    [3] Cannot begin or end with a hyphen.
+                </h6>
+            }                    
         </form>
         )
     }

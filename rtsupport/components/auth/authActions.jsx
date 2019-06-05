@@ -58,6 +58,7 @@ export const useThirdParty = (selectedProvider) =>
                     `users/${data.user.uid}`,
                     {
                         displayName: data.profile.displayName,
+                        userName: data.profile.displayName,
                         avatarUrl: data.profile.avatarUrl,
                         createdAt: firestore.FieldValue.serverTimestamp(),                        
                     }
@@ -82,24 +83,40 @@ export const signup = (user) =>
     ) => {
         const firebase = getFirebase()
         const firestore = getFirestore()
-        try {
-            await firebase
+        const userQuery = firebase.firestore()
+            .collection('users')
+            .where('userName', '==', user.username)
+        try {          
+            let userQuerySnap = await userQuery.get()  
+            if (userQuerySnap.docs.length === 1) {
+                dispatch({
+                    type: ERROR,
+                    payload: {
+                        opts: SIGNUP,
+                        errmsg: {message:'The username is already in use.'}
+                    }
+                })    
+                return                
+            } else {
+                await firebase
                     .auth()
                     .createUserWithEmailAndPassword(
                         user.email,
                         user.password
                     )
-            let currentUser = firebase.auth().currentUser;    
-            currentUser.updateProfile({
-                displayName: user.username
-            })     
-            firestore.set(
-                `users/${currentUser.uid}`,
-                {
-                    displayName: user.username,
-                    createdAt: firestore.FieldValue.serverTimestamp()
-                }
-            )
+                let currentUser = firebase.auth().currentUser;    
+                currentUser.updateProfile({
+                    displayName: user.username
+                })     
+                firestore.set(
+                    `users/${currentUser.uid}`,
+                    {
+                        displayName: user.username,
+                        userName: user.username,
+                        createdAt: firestore.FieldValue.serverTimestamp()
+                    }
+                )
+            }
         } catch(error) {
             dispatch({
                 type: ERROR,
