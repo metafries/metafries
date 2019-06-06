@@ -77,12 +77,26 @@ class SignUpForm extends Component {
                     name='password'
                 />
             </div>
-            <button 
-                type="submit" 
-                className="mb-3 btn btn-dark output-btn btn-lg rounded-0 font-weight-bold py-0 w-100"
-            >
-                SIGN UP
-            </button>    
+            {
+                this.props.loading
+                ?   <div className='text-center'>
+                        <span 
+                            class="spinner-border mr-2" 
+                            role="status" 
+                            aria-hidden="true"
+                            >
+                        </span>
+                        <span className='h3'>
+                            Processing...
+                        </span>
+                    </div>  
+                :   <button 
+                        type="submit" 
+                        className="mb-3 btn btn-dark output-btn btn-lg rounded-0 font-weight-bold py-0 w-100"
+                        >
+                        SIGN UP
+                    </button>    
+            }
             {
                 showUsernameRules &&
                 <h6 className='input-err-msg mb-3 p-2'>

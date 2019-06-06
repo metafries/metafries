@@ -8,6 +8,7 @@ import { useThirdParty } from '../auth/authActions.jsx'
 const active = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold active'
 const notActive = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold'
 const mapState = (state) => ({
+  loading: state.async.loading,
   fbp: state.firebase.profile,
   fba: state.firebase.auth,  
   auth: state.auth
@@ -45,7 +46,7 @@ class LandingPage extends Component {
     this.props.firebase.logout()
   }
   render() {
-    const {fbp, fba, auth, useThirdParty} = this.props
+    const {loading, fbp, fba, auth, useThirdParty} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
     return (
       <div className='row'>
@@ -78,7 +79,7 @@ class LandingPage extends Component {
                 { 
                   this.state.defaultOpts 
                   ? <SignInForm/> 
-                  : <SignUpForm isEmptyUsername={this.isEmptyUsername}/> 
+                  : <SignUpForm loading={loading} isEmptyUsername={this.isEmptyUsername}/> 
                 }
                 {
                   !this.state.defaultOpts && this.state.username_err_msg &&

@@ -8,6 +8,11 @@ import {
     ERROR 
 } from './authConstants.jsx'
 
+import {
+    startAsyncAction,
+    finishAsyncAction,
+} from '../async/asyncActions.jsx'
+
 export const updatePassword = (creds) => 
     async (
         dispatch,
@@ -87,6 +92,7 @@ export const signup = (user) =>
             .collection('users')
             .where('userName', '==', user.username)
         try {          
+            dispatch(startAsyncAction())            
             let userQuerySnap = await userQuery.get()  
             if (userQuerySnap.docs.length === 1) {
                 dispatch({
@@ -125,6 +131,8 @@ export const signup = (user) =>
                     errmsg: error
                 }
             })
+        } finally {
+            dispatch(finishAsyncAction())            
         }
     }
 
