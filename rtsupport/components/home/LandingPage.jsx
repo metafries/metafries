@@ -82,14 +82,14 @@ class LandingPage extends Component {
                   : <SignUpForm loading={loading} isEmptyUsername={this.isEmptyUsername}/> 
                 }
                 {
-                  !this.state.defaultOpts && this.state.username_err_msg &&
+                  !loading && !this.state.defaultOpts && this.state.username_err_msg &&
                   <h6 className='input-err-msg mb-3 p-2'>
                     <i class="fas fa-exclamation-circle mr-2"></i>
                     Username is required.
                   </h6>          
                 }
                 {
-                  !this.state.defaultOpts && auth.signupError &&
+                  !loading && !this.state.defaultOpts && auth.signupError &&
                   <h6 className='input-err-msg mb-3 p-2'>
                     <i class="fas fa-exclamation-circle mr-2"></i>
                     {auth.signupError.message}

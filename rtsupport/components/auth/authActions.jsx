@@ -99,7 +99,7 @@ export const signup = (user) =>
                     type: ERROR,
                     payload: {
                         opts: SIGNUP,
-                        errmsg: {message:'The username is already in use.'}
+                        errmsg: {message:'The username is already in use by another account.'}
                     }
                 })    
                 return                

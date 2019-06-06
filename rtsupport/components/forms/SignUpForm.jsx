@@ -39,6 +39,7 @@ class SignUpForm extends Component {
     }
     render() {
         const {showUsernameRules, usernameInputLength} = this.state        
+        const {loading} = this.props
         return (
         <form onSubmit={this.handleSignup}>
             <small className='float-right'>{usernameInputLength}/64</small>
@@ -78,7 +79,7 @@ class SignUpForm extends Component {
                 />
             </div>
             {
-                this.props.loading
+                loading
                 ?   <div className='text-center'>
                         <span 
                             class="spinner-border mr-2" 
@@ -98,7 +99,7 @@ class SignUpForm extends Component {
                     </button>    
             }
             {
-                showUsernameRules &&
+                !loading && showUsernameRules &&
                 <h6 className='input-err-msg mb-3 p-2'>
                     <i class="fas fa-exclamation-circle mr-2"></i>
                     Username 
