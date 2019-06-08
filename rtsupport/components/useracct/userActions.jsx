@@ -56,9 +56,8 @@ export const setNewProfilePicture = (file) =>
 async (
     dispatch,
     getState,
-    {getFirebase, getFirestore}
+    {getFirestore}
 ) => {
-    const firebase = getFirebase()
     const firestore = getFirestore()
     const currentUser = firebase.auth().currentUser
     const storagePath = `${currentUser.uid}/profile_pictures`
@@ -83,6 +82,29 @@ async (
                 imgId: imgId,
             }
         )
+        const firestorejs = firebase.firestore()
+        let eventAttendeeRef = firestorejs.collection('event_attendee')    
+        let batch = firestorejs.batch()            
+        let eventAttendeeQuery = await eventAttendeeRef
+            .where('userId', '==', currentUser.uid)
+        let eventAttendeeQuerySnap = await eventAttendeeQuery.get()
+        for (let i=0; i<eventAttendeeQuerySnap.docs.length; i++) {
+            let eventDocRef = await firestorejs
+                .collection('events')
+                .doc(eventAttendeeQuerySnap.docs[i].data().eventId)
+            let eventSnap = await eventDocRef.get()
+            if (eventSnap.data().hostUid === currentUser.uid) {
+                batch.update(eventDocRef, {
+                    hostAvatarUrl: downloadURL,
+                    [`attendees.${currentUser.uid}.avatarUrl`]: downloadURL,
+                })
+            } else {
+                batch.update(eventDocRef, {
+                    [`attendees.${currentUser.uid}.avatarUrl`]: downloadURL,
+                })                    
+            }
+        }
+        await batch.commit()
     } catch (error) {
         throw new Error('Failed to Upload the Image.')
     } finally {
