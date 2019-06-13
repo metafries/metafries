@@ -15,6 +15,7 @@ const initState = {
     useThirdPartyError: null,
     signupError: null,
     loginError: null,    
+    isValidUsername: true,
     authenticated: false,
     identity: ''
 }
@@ -56,6 +57,7 @@ export const errors = (state, payload) => {
         case THIRD_PARTY:
             return {
                 ...state,
+                signupError: null,
                 useThirdPartyError: payload.errmsg,
                 authenticated: false,
                 identity: ''
@@ -79,6 +81,7 @@ export const login = (state, payload) => {
         ...state,
         errmsg: null,
         authenticated: true,
+        useThirdPartyError: null,
         identity: payload.creds.email
     }
 }

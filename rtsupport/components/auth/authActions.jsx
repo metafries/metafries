@@ -13,6 +13,8 @@ import {
     finishAsyncAction,
 } from '../async/asyncActions.jsx'
 
+import githubUsernameRegex from 'github-username-regex';
+
 export const updatePassword = (creds) => 
     async (
         dispatch,
@@ -54,21 +56,82 @@ export const useThirdParty = (selectedProvider) =>
         const firebase = getFirebase()
         const firestore = getFirestore()
         try {
+            dispatch(startAsyncAction())                                                            
+            getState().auth.isValidUsername = false
+            getState().auth.useThirdPartyError = null
             let data = await firebase.login({
                 provider: selectedProvider,
                 type: 'popup'
             })
+            const providedUsername = data.additionalUserInfo.profile.name
+            const userQuery = firebase.firestore()
+                .collection('users')
+                .where('userName', '==', providedUsername)    
+            let userQuerySnap = await userQuery.get() 
+            const user = firebase.auth().currentUser
             if (data.additionalUserInfo.isNewUser) {
-                await firestore.set(
-                    `users/${data.user.uid}`,
-                    {
-                        displayName: data.profile.displayName,
-                        userName: data.profile.displayName,
-                        avatarUrl: data.profile.avatarUrl,
-                        createdAt: firestore.FieldValue.serverTimestamp(),                        
+                if (githubUsernameRegex.test(providedUsername)) {
+                    if (userQuerySnap.docs.length === 1) {
+                        await firestore.delete({
+                            collection: 'users',
+                            doc: user.uid,
+                        })        
+                        user.delete().then(function() {
+                            dispatch({
+                                type: ERROR,
+                                payload: {
+                                    opts: THIRD_PARTY,
+                                    errmsg: {
+                                        provider: selectedProvider,
+                                        username: providedUsername,    
+                                        message:'The username is already in use by another account.'
+                                    }
+                                }
+                            })       
+                        }).catch(function(error) {
+                            console.log(error)
+                        })
+                    } else {
+                        getState().auth.isValidUsername = true
+                        getState().auth.useThirdPartyError = null
+                        await firestore.set(
+                            `users/${data.user.uid}`,
+                            {
+                                displayName: data.profile.displayName,
+                                userName: data.profile.displayName,
+                                avatarUrl: data.profile.avatarUrl,
+                                createdAt: firestore.FieldValue.serverTimestamp(),                        
+                            }
+                        )      
                     }
-                )
-            }
+                } else {
+                    await firestore.delete({
+                        collection: 'users',
+                        doc: user.uid,
+                    })        
+                    user.delete().then(function() {
+                        dispatch({
+                            type: ERROR,
+                            payload: {
+                                opts: THIRD_PARTY,
+                                errmsg: {
+                                    provider: selectedProvider,
+                                    username: providedUsername,
+                                    message:
+                                        'Username'+
+                                        '[1] May only contain alphanumeric characters or hyphens.' +
+                                        '[2] Cannot have multiple consecutive hyphens.'+
+                                        '[3] Cannot begin or end with a hyphen.'}
+                            }
+                        })    
+                    }).catch(function(error) {
+                        console.log(error)
+                    })
+                }
+            } else {
+                getState().auth.isValidUsername = true
+                getState().auth.useThirdPartyError = null
+            }      
         } catch(error) {
             dispatch({
                 type: ERROR,
@@ -77,6 +140,8 @@ export const useThirdParty = (selectedProvider) =>
                     errmsg: error
                 }
             })
+        } finally {
+            dispatch(finishAsyncAction())                        
         }
     }
 
@@ -86,6 +151,8 @@ export const signup = (user) =>
         getState,
         {getFirebase, getFirestore}
     ) => {
+        getState().auth.isValidUsername = true
+        getState().auth.useThirdPartyError = null
         const firebase = getFirebase()
         const firestore = getFirestore()
         const userQuery = firebase.firestore()
@@ -142,6 +209,8 @@ export const login = (creds) => {
         getState, 
         {getFirebase}
     ) => {
+        getState().auth.isValidUsername = true
+        getState().auth.useThirdPartyError = null
         const firebase = getFirebase()
         try {
             await firebase
