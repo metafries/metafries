@@ -15,6 +15,7 @@ class SignInForm extends Component {
         })
     }
     render() {
+        const {loading, isValidUsername} = this.props
         return (
             <form onSubmit={this.handleLogin}>
                 <div class="input-group mb-3 border border-white">
@@ -39,12 +40,26 @@ class SignInForm extends Component {
                         name='password'
                     />
                 </div>
-                <button 
-                    type="submit" 
-                    className="mb-3 btn btn-dark output-btn btn-lg rounded-0 font-weight-bold py-0 w-100"
-                >
-                    LOG IN
-                </button>        
+                {
+                    loading && isValidUsername
+                    ?   <div className='text-center'>
+                            <span 
+                                class="spinner-border mr-2" 
+                                role="status" 
+                                aria-hidden="true"
+                                >
+                            </span>
+                            <span className='h3'>
+                                Processing...
+                            </span>
+                        </div>  
+                    :   <button 
+                            type="submit" 
+                            className="mb-3 btn btn-dark output-btn btn-lg rounded-0 font-weight-bold py-0 w-100"
+                            >
+                            LOG IN
+                        </button>        
+                }
             </form>
         )
     }

@@ -57,7 +57,6 @@ export const errors = (state, payload) => {
         case THIRD_PARTY:
             return {
                 ...state,
-                signupError: null,
                 useThirdPartyError: payload.errmsg,
                 authenticated: false,
                 identity: ''

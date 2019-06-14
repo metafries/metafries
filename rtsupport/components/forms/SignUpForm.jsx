@@ -99,7 +99,7 @@ class SignUpForm extends Component {
                     </button>    
             }
             {
-                !loading && showUsernameRules &&
+                !loading && showUsernameRules && isValidUsername &&
                 <h6 className='input-err-msg mb-3 p-2'>
                     <i class="fas fa-exclamation-circle mr-2"></i>
                     Username 

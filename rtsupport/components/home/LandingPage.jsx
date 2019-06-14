@@ -60,7 +60,7 @@ class LandingPage extends Component {
           {
             !authenticated && !auth.isValidUsername && !loading &&
             auth.useThirdPartyError && auth.useThirdPartyError.username &&
-            <h5 className='text-danger px-3'>
+            <h5 className='text-danger px-3 font-weight-bold'>
               <i class="fas fa-exclamation-triangle mr-2"></i>
               { 
                 `The username provided by ${auth.useThirdPartyError.provider} 
@@ -104,7 +104,10 @@ class LandingPage extends Component {
               <div className='card-body transbox'>
                 { 
                   this.state.defaultOpts 
-                  ? <SignInForm/> 
+                  ? <SignInForm 
+                      loading={loading}
+                      isValidUsername={auth.isValidUsername}
+                    /> 
                   : <SignUpForm 
                       loading={loading} 
                       isEmptyUsername={this.isEmptyUsername}
@@ -113,6 +116,7 @@ class LandingPage extends Component {
                 }
                 {
                   !loading && !this.state.defaultOpts && this.state.username_err_msg &&
+                  auth.signupError &&
                   <h6 className='input-err-msg mb-3 p-2'>
                     <i class="fas fa-exclamation-circle mr-2"></i>
                     Username is required.
@@ -168,6 +172,20 @@ class LandingPage extends Component {
                 >
                   <i class="fas fa-user"></i>
                 </a>
+                {
+                  loading && !auth.isValidUsername &&
+                  <div className='text-center mt-3'>
+                    <span 
+                      class="spinner-border mr-2" 
+                      role="status" 
+                      aria-hidden="true"
+                      >
+                    </span>
+                    <span className='h3'>
+                      Processing...
+                    </span>
+                  </div>  
+                }
                 {
                   !authenticated && auth.useThirdPartyError && !auth.useThirdPartyError.username &&
                   <h6 className='input-err-msg mt-3 mb-0 p-2'>

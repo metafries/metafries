@@ -59,6 +59,8 @@ export const useThirdParty = (selectedProvider) =>
             dispatch(startAsyncAction())                                                            
             getState().auth.isValidUsername = false
             getState().auth.useThirdPartyError = null
+            getState().auth.loginError = null
+            getState().auth.signupError = null    
             let data = await firebase.login({
                 provider: selectedProvider,
                 type: 'popup'
@@ -119,9 +121,10 @@ export const useThirdParty = (selectedProvider) =>
                                     username: providedUsername,
                                     message:
                                         'Username'+
-                                        '[1] May only contain alphanumeric characters or hyphens.' +
-                                        '[2] Cannot have multiple consecutive hyphens.'+
-                                        '[3] Cannot begin or end with a hyphen.'}
+                                        ' [1] May only contain alphanumeric characters or hyphens.' +
+                                        ' [2] Cannot have multiple consecutive hyphens.'+
+                                        ' [3] Cannot begin or end with a hyphen.'
+                                }
                             }
                         })    
                     }).catch(function(error) {
@@ -153,6 +156,8 @@ export const signup = (user) =>
     ) => {
         getState().auth.isValidUsername = true
         getState().auth.useThirdPartyError = null
+        getState().auth.loginError = null
+        getState().auth.signupError = null
         const firebase = getFirebase()
         const firestore = getFirestore()
         const userQuery = firebase.firestore()
@@ -211,8 +216,11 @@ export const login = (creds) => {
     ) => {
         getState().auth.isValidUsername = true
         getState().auth.useThirdPartyError = null
+        getState().auth.loginError = null
+        getState().auth.signupError = null
         const firebase = getFirebase()
         try {
+            dispatch(startAsyncAction())
             await firebase
                     .auth()
                     .signInWithEmailAndPassword(
@@ -233,6 +241,8 @@ export const login = (creds) => {
                     errmsg: error
                 }
             })
+        } finally {
+            dispatch(finishAsyncAction())            
         }
     }
 }
