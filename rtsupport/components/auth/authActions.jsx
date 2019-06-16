@@ -47,7 +47,7 @@ export const updatePassword = (creds) =>
         }
     }
 
-export const useThirdParty = (selectedProvider) => 
+export const useThirdParty = (selectedProvider, username) => 
     async (
         dispatch,
         getState,
@@ -65,7 +65,9 @@ export const useThirdParty = (selectedProvider) =>
                 provider: selectedProvider,
                 type: 'popup'
             })
-            const providedUsername = data.additionalUserInfo.profile.name
+            const providedUsername = username 
+                ? username 
+                : data.additionalUserInfo.profile.name
             const userQuery = firebase.firestore()
                 .collection('users')
                 .where('userName', '==', providedUsername)    
@@ -100,7 +102,7 @@ export const useThirdParty = (selectedProvider) =>
                             `users/${data.user.uid}`,
                             {
                                 displayName: data.profile.displayName,
-                                userName: data.profile.displayName,
+                                userName: providedUsername,
                                 avatarUrl: data.profile.avatarUrl,
                                 createdAt: firestore.FieldValue.serverTimestamp(),                        
                             }

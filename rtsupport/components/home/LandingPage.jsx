@@ -74,7 +74,11 @@ class LandingPage extends Component {
             auth.useThirdPartyError && auth.useThirdPartyError.username &&
             <div className='card border-dark rounded-0 mb-3'>
               <div className='card-body transbox'>
-                <UsernameForm username={auth.useThirdPartyError.username}/>
+                <UsernameForm 
+                  useThirdParty={useThirdParty}
+                  provider={auth.useThirdPartyError.provider}
+                  username={auth.useThirdPartyError.username}
+                />
                 <h6 className='input-err-msg mt-3 mb-0 p-2'>
                   <i class="fas fa-exclamation-circle mr-2"></i>
                   {auth.useThirdPartyError.message}
@@ -138,28 +142,28 @@ class LandingPage extends Component {
                 }                
                 <hr class="hr-text" data-content="Or Continue With"/>
                 <button 
-                  onClick={() => useThirdParty('facebook')}
+                  onClick={() => useThirdParty('facebook', null)}
                   type='button' 
                   className='btn btn-lg rounded-0 p-0 social-block facebook-btn mr-2'
                   >
                   <img className='attendee' src='/static/images/facebook-icon.png'/>
                 </button>
                 <button 
-                  onClick={() => useThirdParty('google')}
+                  onClick={() => useThirdParty('google', null)}
                   type='button' 
                   className='btn btn-lg rounded-0 p-0 social-block google-btn mr-2'
                   >
                   <img className='attendee' src='/static/images/google-icon.jpg'/>
                 </button>
                 <button 
-                  onClick={() => useThirdParty('twitter')}                                  
+                  onClick={() => useThirdParty('twitter', null)}                                  
                   type='button' 
                   className='btn btn-lg rounded-0 p-0 social-block twitter-btn mr-2'
                   >
                   <img className='attendee' src='/static/images/twitter-icon.png'/>
                 </button>
                 <button 
-                  onClick={() => useThirdParty('github')}                                                                    
+                  onClick={() => useThirdParty('github', null)}                                                                    
                   type='button' 
                   className='btn btn-lg rounded-0 p-0 social-block github-btn mr-2'
                   >
