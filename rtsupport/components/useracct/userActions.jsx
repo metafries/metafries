@@ -41,12 +41,8 @@ export const updateProfile = (user) =>
         {getFirebase},
     ) => {
         const firebase = getFirebase()
-        const currentUser = firebase.auth().currentUser
         try {
             await firebase.updateProfile(user)
-            await currentUser.updateProfile({
-                displayName: user.displayName
-            })     
         } catch(error) {
             throw new Error('Failed to Update the Profile.')
         }

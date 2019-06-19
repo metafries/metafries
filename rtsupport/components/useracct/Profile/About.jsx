@@ -20,7 +20,8 @@ class About extends Component {
                 />
                 <div className='card rounded-0'>
                     <h2 className='transbox p-3 text-right'>
-                        {fbp.displayName}
+                        {fbp.profileName}
+                        <h4 className='text-light'>@{fbp.displayName}</h4>
                         <h6 className='text-light mb-0'>-- subscribers</h6>
                         <hr className='edh-h my-2'/>
                         {

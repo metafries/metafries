@@ -12,11 +12,11 @@ class ProfileForm extends Component {
     state = {
         username_input: VALID_INPUT,  
         username_err_msg: HIDE_ERR_MSG,      
-        usernameInputLength: this.props.fbp.displayName.length,
+        usernameInputLength: this.props.fbp.profileName.length,
         bioInputLength: 0,
         scriptLoaded: false,
         profile: {
-            displayName: this.props.fbp.displayName,
+            profileName: this.props.fbp.profileName,
             website: this.props.fbp.website || '',
             company: this.props.fbp.company || '',
             location: this.props.fbp.location || '',
@@ -63,7 +63,7 @@ class ProfileForm extends Component {
         this.setState({
             profile: userInput
         })
-        if (e.target.name == 'displayName') {
+        if (e.target.name == 'profileName') {
             this.setState({
                 usernameInputLength: e.target.value.trim().length
             })
@@ -129,8 +129,8 @@ class ProfileForm extends Component {
                         maxlength='64'
                         type="text" 
                         class={username_input} 
-                        name='displayName'
-                        value={profile.displayName}
+                        name='profileName'
+                        value={profile.profileName}
                         onChange={this.onInputChange}
                     />
                     <small className={username_err_msg}>

@@ -98,11 +98,14 @@ export const useThirdParty = (selectedProvider, username) =>
                     } else {
                         getState().auth.isValidUsername = true
                         getState().auth.useThirdPartyError = null
+                        user.updateProfile({
+                            displayName: providedUsername
+                        })             
                         await firestore.set(
                             `users/${data.user.uid}`,
                             {
-                                displayName: data.profile.displayName,
-                                userName: providedUsername,
+                                profileName: data.profile.displayName,
+                                displayName: providedUsername,
                                 avatarUrl: data.profile.avatarUrl,
                                 createdAt: firestore.FieldValue.serverTimestamp(),                        
                             }
@@ -192,7 +195,7 @@ export const signup = (user) =>
                     `users/${currentUser.uid}`,
                     {
                         displayName: user.username,
-                        userName: user.username,
+                        profileName: user.username,
                         createdAt: firestore.FieldValue.serverTimestamp()
                     }
                 )

@@ -218,7 +218,7 @@ class LandingPage extends Component {
             authenticated && auth.isValidUsername &&
             <div>
               <h6 className='pl-4 font-italic font-weight-bold l-msg'>
-                Sup? <a href={`/profile/${fba.uid}`}>{fbp.displayName}</a>
+                Sup? <a href={`/profile/${fba.uid}`}>{fbp.profileName}</a>
               </h6>
               <a 
                 role="button" 

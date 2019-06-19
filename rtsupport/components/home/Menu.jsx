@@ -24,7 +24,7 @@ const Menu = ({fba, fbp}) => {
               <td className='border-0 p-0'>
                 {
                   authenticated
-                  ? <a href={`/profile/${fba.uid}`}>{fbp.displayName}</a>                  
+                  ? <a href={`/profile/${fba.uid}`}>{fbp.profileName}</a>                  
                   : <span>Anonymous</span>
                 }
                 <span className='ml-2'>/ Personal Search</span>

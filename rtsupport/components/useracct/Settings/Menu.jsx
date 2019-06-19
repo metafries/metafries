@@ -14,7 +14,7 @@ const Menu = ({fba, fbp}) => {
                 </a>
                 </th>
                 <td className='border-0 p-0'>
-                  <a href={`/profile/${fba.uid}`}>{fbp.displayName}</a>
+                  <a href={`/profile/${fba.uid}`}>{fbp.profileName}</a>
                   <span className='ml-2'>/ Personal Settings</span>
                 </td>
               </tr>
