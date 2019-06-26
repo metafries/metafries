@@ -84,6 +84,18 @@ class EventForm extends Component {
       scriptLoaded: true
     })
   }
+  handleLatLng = address => {
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => {
+        const update = this.state.event;
+        update.latlng = latLng
+        this.setState({
+          event: update
+        })    
+      })
+      .catch(error => console.error('Error', error));
+  }
   handleAddrChange = address => {
     if (this.props.isManage) {
       this.props.informMsg.updateEventOk = null
@@ -95,17 +107,7 @@ class EventForm extends Component {
     this.setState({
       event: update
     })
-    geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => {
-        console.log('Success', latLng)
-        const update = this.state.event;
-        update.latlng = latLng
-        this.setState({
-          event: update
-        })    
-      })
-      .catch(error => console.error('Error', error));
+    this.handleLatLng(address)
     if (this.state.event.location.trim() == 0) {
       this.setState({
         addr_err_msg: SHOW_ERR_MSG,
@@ -125,6 +127,7 @@ class EventForm extends Component {
     this.setState({
       event: update
     })
+    this.handleLatLng(address)    
   };
   handlePermissionChange = (e) => {
     if (this.props.isManage) {
