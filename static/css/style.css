@@ -306,3 +306,6 @@ div.disabled button {
   border-width: 2px;
   height: 48px;
 }
+.text-silver {
+  color: #c0c0c0;
+}

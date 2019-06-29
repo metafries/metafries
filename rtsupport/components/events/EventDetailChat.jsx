@@ -25,7 +25,7 @@ class EventDetailChat extends Component {
             <h5 className='my-3'>
               <i class="fas fa-info-circle mr-2"></i>
               You are currently in anonymous mode，
-              <a href='/'>SIGN IN</a> to add or reply to the comment.
+              <a href='/'>Log In</a> to add or reply to the comment.
             </h5>
           }
           <table class="table mb-0">

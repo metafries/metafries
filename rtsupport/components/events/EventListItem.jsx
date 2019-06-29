@@ -38,7 +38,7 @@ class EventListItem extends Component {
     return (
       <div className='card border-0 rounded-0 mb-2'>
         <div className='card-body transbox py-0 px-3'>
-          <table class="table">
+          <table class="table mb-0">
             <tbody>
               <tr className='h6'>
                 <th scope="row" className='text-right border-0'>
@@ -83,6 +83,29 @@ class EventListItem extends Component {
                   <small className='text-000 font-weight-bold'>Created {DateTime.fromJSDate(event.createdAt.toDate()).toFormat('FF')}</small>
                 </td>
               </tr>
+              </tbody>      
+          </table>
+              <button className='transbox w-25 border-0'>
+            <i class="fas fa-check mr-2"></i>
+            {convertedAttendees && convertedAttendees.length}
+          </button>
+          <button className='transbox w-25 border-0'>
+            <i class="fas fa-comment-alt mr-2"></i>
+            {
+              chatTree && chatTree.length > 1 
+                ? chatTree.length
+                : '0'
+            }
+          </button>
+          <button className='transbox w-25 border-0'>
+            <i class="fas fa-fire mr-2"></i>--
+          </button>
+          <button className='transbox w-25 border-0'>
+            <i class="fas fa-share mr-2"></i>--
+          </button>
+          <table class="table mt-2">
+            <tbody>
+
               <tr className='h6'>
                 <th scope="row" className='text-right'>VENUE</th>
                 <td>{event.location}</td>
@@ -93,27 +116,6 @@ class EventListItem extends Component {
                   {DateTime.fromJSDate(event.startDate.toDate()).toFormat('ff')}
                   <span className='mx-2'>-</span>
                   {DateTime.fromJSDate(event.endDate.toDate()).toFormat('ff')}
-                </td>
-              </tr>
-              <tr className='h6'>
-                <th scope="row" className='text-right'>TRENDS</th>
-                <td>
-                  <span className='mr-2'>
-                    {convertedAttendees && convertedAttendees.length} Going
-                  </span>
-                  <span className='mx-2'>
-                    {
-                      chatTree 
-                        ? chatTree.length > 1 
-                            ? chatTree.length + ' Comments' 
-                            : chatTree.length + ' Comment' 
-                        : '0 Comment'
-                    }
-                  </span>
-                  <span className='mx-2'>-- Views</span>
-                  <span className='mx-2'>-- Likes</span>
-                  <span className='mx-2'>-- Shares</span>
-                  <span className='mx-2'>-- Save</span>
                 </td>
               </tr>
             </tbody>      

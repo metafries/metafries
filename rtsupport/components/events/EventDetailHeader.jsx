@@ -22,7 +22,7 @@ class EventDetailHeader extends Component {
     return (
       <div class="card mb-3 rounded-0">
         <div className='card-body transbox px-3 pb-0'>
-          <table class="table">
+          <table class="table mb-0">
             <tbody>
               <tr>
                 <th scope="row" className='border-0'>
@@ -57,23 +57,27 @@ class EventDetailHeader extends Component {
                       <span class="badge canceled-tag rounded-0 mb-2">CANCELED</span>
                     </h5>
                   }
-                  <h2>{event.title}</h2>
-                  <h4 className='mb-0'>
+                  <h3>{event.title}</h3>
+                  <h5 className='mb-0'>
                     {event.permission == 0 && <span><i class="fas fa-globe mr-2"></i>Public</span>}
                     {event.permission == 1 && <span><i class="fas fa-lock mr-2"></i>Private</span>}
                     <strong> · </strong>
                     Hosted by <a href={`/profile/${event.hostUid}`} className='edh-a'>{event.hostedBy}</a>
-                  </h4>
+                    <hr className='my-3'/>
+                    <a href='#' role='button' className='eds-a font-weight-bold text-white'>-- Likes</a>
+                    <hr className='my-1'/>
+                    <a href='#' role='button' className='eds-a font-weight-bold text-white'>-- Shares</a>
+                  </h5>
                 </td>
               </tr>
             </tbody>      
           </table>
-          <hr className='edh-h'/>
+          <hr className='edh-h mt-0'/>
           {
             isHost &&
             <a 
               role="button" 
-              class="btn btn-outline-light l-btn btn-lg rounded-0 font-weight-bold py-0 w-100 mb-3" 
+              class="btn btn-outline-warning l-btn btn-lg rounded-0 font-weight-bold py-0 w-100 mb-3" 
               href={`/manage/events/${event.id}`}
               >
               MANAGE

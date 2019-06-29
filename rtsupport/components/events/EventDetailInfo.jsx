@@ -15,14 +15,15 @@ class EventDetailInfo extends Component {
     const {event} = this.props
     return (
       <div>
-        <hr/>
-        <h4 className='font-weight-bold px-3'>5,752 views</h4>
         <table class="table">
           <tbody>
-            <tr>
-              <th scope="row" className='px-0'><i class="fas fa-info ml-3"></i></th>
-              <td className='px-3'>{event.description}</td>
-            </tr>
+            {
+              event.description && event.description.length > 1 &&
+              <tr>
+                <th scope="row" className='px-0'><i class="fas fa-info ml-3"></i></th>
+                <td className='px-3'>{event.description}</td>
+              </tr>
+            }
             <tr>
               <th scope="row" className='px-0'><i class="fas fa-calendar-day ml-3"></i></th>
               <td className='px-3'>

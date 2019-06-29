@@ -19,17 +19,17 @@ class About extends Component {
                     loading={loading}
                 />
                 <div className='card rounded-0'>
-                    <h2 className='transbox p-3 text-right'>
+                    <h3 className='transbox p-3 text-right'>
                         {fbp.profileName}
-                        <h4 className='text-light'>@{fbp.displayName}</h4>
-                        <h6 className='text-light mb-0'>-- subscribers</h6>
+                        <h5 className='text-silver mb-3'>@{fbp.displayName}</h5>
+                        <h5><a href='#' role='button' className='eds-a font-weight-bold text-white'>-- subscribers</a></h5>
                         <hr className='edh-h my-2'/>
                         {
                             isCurrentUser &&
                             <a 
                                 role='button' 
                                 href='/settings/profile'
-                                className='btn btn-outline-light l-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
+                                className='btn btn-outline-warning l-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
                                 >
                                 EDIT
                             </a>    
@@ -54,7 +54,7 @@ class About extends Component {
                                 SUBSCRIBE
                             </button>    
                         } 
-                    </h2>                
+                    </h3>                
                 </div>
                 <div className='card rounded-0'>
                     <div className='card-body px-3 py-0'>
