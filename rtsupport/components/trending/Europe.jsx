@@ -52,7 +52,7 @@ class Europe extends Component {
     }
   }
   render() {
-    const {fba, loading} = this.props    
+    const {type, fba, loading} = this.props    
     const {opts, initialize, loadedEvents, loader} = this.state
     return (
       <div>
@@ -73,6 +73,7 @@ class Europe extends Component {
           The searching results are now limited to your subscriptions.
         </h6>
         <EventList 
+          type={type}
           loadMoreEvents={this.loadMoreEvents}
           loader={loader}
           loading={loading}

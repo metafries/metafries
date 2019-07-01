@@ -12,14 +12,14 @@ class EventList extends Component {
           this.props.initialize && opts != events.length
           ? <Loader/>
           : <div>
-              <h5 className='mx-3 font-weight-bold '>
+              <h6 className='mx-3 font-weight-bold mb-1'>
                 Total of
-                <span className='mx-2 h4'>
+                <span className='mx-1'>
                   {opts ? opts : events && events.length}
                 </span>
                 <span className='mr-1'>{type}</span>
                 {events && events.length > 1 ? 'Events' : 'Event'}
-              </h5>
+              </h6>
               {
                 events && events.length > 0 && 
                 <InfiniteScroll

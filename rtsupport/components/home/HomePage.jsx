@@ -74,12 +74,14 @@ class HomePage extends Component {
                   <Route
                     path={`/search/${fba.uid}/recommended`}
                     render={() => <Recommended
+                      type='Recommended'
                       handleDeleteEvent={this.handleDeleteEvent} 
                     />}
                   />
                   <Route
                     path={`/search/${fba.uid}/subscriptions`}
                     render={() => <Subscriptions
+                      type='Subscribed'
                       handleDeleteEvent={this.handleDeleteEvent} 
                     />}
                   />

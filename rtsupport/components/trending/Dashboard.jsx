@@ -34,31 +34,31 @@ const Dashboard = ({fbp, fba, events}) => {
                         />
                         <Route
                             path={`/trending/asia`}
-                            render={() => <Asia loading={loading} fba={fba} events={events}/>}
+                            render={() => <Asia type='Asia' loading={loading} fba={fba} events={events}/>}
                         />
                         <Route
                             path={`/trending/africa`}
-                            render={() => <Africa loading={loading} fba={fba} events={events}/>}
+                            render={() => <Africa type='Africa' loading={loading} fba={fba} events={events}/>}
                         />
                         <Route
                             path={`/trending/europe`}
-                            render={() => <Europe loading={loading} fba={fba} events={events}/>}
+                            render={() => <Europe type='Europe' loading={loading} fba={fba} events={events}/>}
                         />
                         <Route
                             path={`/trending/northamerica`}
-                            render={() => <NorthAmerica loading={loading} fba={fba} events={events}/>}
+                            render={() => <NorthAmerica type='North America' loading={loading} fba={fba} events={events}/>}
                         />
                         <Route
                             path={`/trending/southamerica`}
-                            render={() => <SouthAmerica loading={loading} fba={fba} events={events}/>}
+                            render={() => <SouthAmerica type='South America' loading={loading} fba={fba} events={events}/>}
                         />
                         <Route
                             path={`/trending/oceania`}
-                            render={() => <Oceania loading={loading} fba={fba} events={events}/>}
+                            render={() => <Oceania type='Oceania' loading={loading} fba={fba} events={events}/>}
                         />
                         <Route
                             path={`/trending/antarctica`}
-                            render={() => <Antarctica loading={loading} fba={fba} events={events}/>}
+                            render={() => <Antarctica type='Antartica' loading={loading} fba={fba} events={events}/>}
                         />
                     </Switch>                    
                 </div>

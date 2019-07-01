@@ -20,13 +20,13 @@ function ActivityLog({activity}) {
         <i class="fas fa-info-circle mr-2"></i>
         The searching results are now limited to the activity of yourself and the users you subscribed.
       </h6>      
-      <h5 className='mx-3 font-weight-bold '>
+      <h6 className='mx-3 font-weight-bold mb-0'>
         Total of
         <span className='mx-1'>
           {activity && activity.length}
         </span>
         {activity && activity.length > 1 ? 'Activities' : 'Activity'}
-      </h5>
+      </h6>
       <table class="table mb-0">
         <tbody>
           {
