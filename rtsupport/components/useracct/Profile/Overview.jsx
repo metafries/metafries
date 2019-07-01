@@ -65,27 +65,27 @@ class Overview extends Component {
         </div>
         <Switch>
           <Redirect 
-            exact from={`/profile/${fbp.id}`} to={`/profile/${fbp.id}/hosting`}
+            exact from={`/profile/${fbp.id}`} to={`/profile/${fbp.id}/going`}
           />          
           <Route
             path={`/profile/${fbp.id}/hosting`}
-            render={() => <Hosting profileId={profileId} fba={fba} fbp={fbp}/>}
+            render={() => <Hosting type='Hosting' profileId={profileId} fba={fba} fbp={fbp}/>}
           />          
           <Route
             path={`/profile/${fbp.id}/going`}
-            render={() => <Going profileId={profileId} fba={fba} fbp={fbp}/>}
+            render={() => <Going type='Going' profileId={profileId} fba={fba} fbp={fbp}/>}
           />                    
           <Route
             path={`/profile/${fbp.id}/attended`}
-            render={() => <Attended profileId={profileId} fba={fba} fbp={fbp}/>}
+            render={() => <Attended type='Attended' profileId={profileId} fba={fba} fbp={fbp}/>}
           />                              
           <Route
             path={`/profile/${fbp.id}/liked`}
-            render={() => <Liked fba={fba} fbp={fbp}/>}
+            render={() => <Liked type='Liked' fba={fba} fbp={fbp}/>}
           />                                        
           <Route
             path={`/profile/${fbp.id}/saved`}
-            render={() => <Saved profileId={profileId} fba={fba} fbp={fbp}/>}
+            render={() => <Saved type='Saved' profileId={profileId} fba={fba} fbp={fbp}/>}
           />                                                  
         </Switch>
       </div>

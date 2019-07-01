@@ -5,7 +5,7 @@ import Loader from '../layout/Loader.jsx'
 
 class EventList extends Component {
   render() {
-    const {loadMoreEvents, loader, loading, opts, fba, events} = this.props;
+    const {type, loadMoreEvents, loader, loading, opts, fba, events} = this.props;
     return (
       <div>
         {
@@ -14,9 +14,10 @@ class EventList extends Component {
           : <div>
               <h5 className='mx-3 font-weight-bold '>
                 Total of
-                <span className='mx-1'>
+                <span className='mx-2 h4'>
                   {opts ? opts : events && events.length}
                 </span>
+                <span className='mr-1'>{type}</span>
                 {events && events.length > 1 ? 'Events' : 'Event'}
               </h5>
               {

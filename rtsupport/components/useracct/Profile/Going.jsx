@@ -52,7 +52,7 @@ class Going extends Component {
     }
   }
   render() {
-    const {loading, fba, fbp} = this.props  
+    const {type, loading, fba, fbp} = this.props  
     const {total, initialize, loadedEvents, loader} = this.state    
     const isCurrentUser = fba.uid === fbp.id  
     return (
@@ -80,6 +80,7 @@ class Going extends Component {
           going to.
         </h6>
         <EventList 
+            type={type}
             loadMoreEvents={this.loadMoreEvents}
             loader={loader}
             loading={loading}
