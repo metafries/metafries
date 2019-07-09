@@ -5,12 +5,10 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 import { DateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import LuxonUtils from '@date-io/luxon';
 import { DateTime } from "luxon";
-import { 
-  VALID_INPUT, 
-  INVALID_INPUT,
-  HIDE_ERR_MSG,
-  SHOW_ERR_MSG,
-} from './formConstants.jsx'
+import { VALID_INPUT, INVALID_INPUT, HIDE_ERR_MSG, SHOW_ERR_MSG } from './formConstants.jsx'
+import Geocode from 'react-geocode'
+import { CONTINENT_CODE } from '../../app/data/geolocation.js'
+import { GEOCODING_API_KEY } from '../config/configConstants.jsx'
 
 class EventForm extends Component {
   state = {
@@ -84,10 +82,39 @@ class EventForm extends Component {
       scriptLoaded: true
     })
   }
+  getContinent = (latlng) => {
+    Geocode.setApiKey(GEOCODING_API_KEY)
+    Geocode.fromLatLng(latlng.lat, latlng.lng).then(
+        response => {
+            const addressComponents = response.results[0].address_components
+            let countryShortName = ''
+            addressComponents.forEach(
+                function(addressComponent) {
+                    if (addressComponent.types[0] === 'country') {
+                        countryShortName = addressComponent.short_name
+                    }
+                }
+            )
+            for (let [key, value] of Object.entries(CONTINENT_CODE)) {
+                if (value.includes(countryShortName)) {
+                  const update = this.state.event;
+                  update.continent = `${key}`
+                  this.setState({
+                    event: update
+                  })              
+                }
+            }
+        },
+        error => {
+          console.error(error);
+        }
+    )
+  }
   handleLatLng = address => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
+        this.getContinent(latLng)        
         const update = this.state.event;
         update.latlng = latLng
         this.setState({
