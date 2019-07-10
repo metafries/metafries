@@ -1,7 +1,17 @@
 import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 
-const Menu = ({fba, fbp}) => {
+const Menu = ({
+    totalAsiaEvents, 
+    totalAfricaEvents,
+    totalEuropeEvents,
+    totalNorthAmericaEvents,
+    totalSouthAmericaEvents,
+    totalOceaniaEvents,
+    totalAntarcticaEvents,
+    fba, 
+    fbp,
+}) => {
     const authenticated = fba.isLoaded && !fba.isEmpty    
     return (
         <div className="btn-group-vertical w-100 mb-4">
@@ -39,6 +49,7 @@ const Menu = ({fba, fbp}) => {
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>ASIA
+                    <span className='ml-2'>{`(${totalAsiaEvents})`}</span>
                 </button>        
             </LinkContainer>
             <LinkContainer to={`/trending/africa`}>
@@ -47,6 +58,7 @@ const Menu = ({fba, fbp}) => {
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>AFRICA
+                    <span className='ml-2'>{`(${totalAfricaEvents})`}</span>
                 </button>        
             </LinkContainer>
             <LinkContainer to={`/trending/europe`}>
@@ -55,6 +67,7 @@ const Menu = ({fba, fbp}) => {
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>EUROPE
+                    <span className='ml-2'>{`(${totalEuropeEvents})`}</span>
                 </button>        
             </LinkContainer>
             <LinkContainer to={`/trending/northamerica`}>
@@ -63,6 +76,7 @@ const Menu = ({fba, fbp}) => {
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>NORTH AMERICA
+                    <span className='ml-2'>{`(${totalNorthAmericaEvents})`}</span>
                 </button>        
             </LinkContainer>
             <LinkContainer to={`/trending/southamerica`}>
@@ -71,6 +85,7 @@ const Menu = ({fba, fbp}) => {
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>SOUTH AMERICA
+                    <span className='ml-2'>{`(${totalSouthAmericaEvents})`}</span>
                 </button>        
             </LinkContainer>
             <LinkContainer to={`/trending/oceania`}>
@@ -79,6 +94,7 @@ const Menu = ({fba, fbp}) => {
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>OCEANIA
+                    <span className='ml-2'>{`(${totalOceaniaEvents})`}</span>
                 </button>        
             </LinkContainer>
             <LinkContainer to={`/trending/antarctica`}>
@@ -87,6 +103,7 @@ const Menu = ({fba, fbp}) => {
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>ANTARCTICA
+                    <span className='ml-2'>{`(${totalAntarcticaEvents})`}</span>
                 </button>        
             </LinkContainer>
         </div>

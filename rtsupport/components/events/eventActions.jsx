@@ -376,6 +376,20 @@ export const recommendedEvents = (lastEvent) =>
         }
     }
 
+export const getTotalOfContinent = (continentCode) =>
+    async () => {
+        const firestore = firebase.firestore()
+        const eventsQuery = firestore
+            .collection('events')
+            .where('continent', '==', continentCode)
+        try {
+            let eventsQuerySnap = await eventsQuery.get()
+            return eventsQuerySnap.docs.length
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
 export const totalSubscriptions = () =>
     async () => {
         const firestore = firebase.firestore()
