@@ -390,6 +390,51 @@ export const getTotalOfContinent = (continentCode) =>
         }
     }
 
+export const getEventsByContinent = (continentCode, lastEvent) => 
+    async (dispatch, getState) => {
+        const firestore = firebase.firestore()
+        const eventsRef = firestore.collection('events')
+        try {
+            dispatch(startAsyncAction())
+            let lastEventSnap = lastEvent 
+                && await firestore.collection('events').doc(lastEvent.id).get()
+            let query = lastEvent
+                ? eventsRef
+                    .where('continent', '==', continentCode)
+                    .orderBy('startDate')
+                    .startAfter(lastEventSnap)
+                    .limit(2)                    
+                : eventsRef
+                    .where('continent', '==', continentCode)
+                    .orderBy('startDate')
+                    .limit(2)     
+            let querySnap = await query.get()
+            if (querySnap.docs.length === 0) {
+                dispatch(finishAsyncAction())
+                return querySnap
+            }
+            let events = []
+            for (let i=0; i<querySnap.docs.length; i++) {
+                let evt = {
+                    ...querySnap.docs[i].data(),
+                    id: querySnap.docs[i].id,
+                }
+                events.push(evt)
+            }
+            dispatch({
+                type: FETCH_EVENTS,
+                payload: {
+                    events,
+                }
+            })
+            return querySnap
+        } catch (e) {
+            console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())
+        }
+    }
+
 export const totalSubscriptions = () =>
     async () => {
         const firestore = firebase.firestore()

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import EventList from '../events/EventList.jsx'
-import { totalSubscriptions, subscribedEvents } from '../events/eventActions.jsx'
+import { getTotalOfContinent, getEventsByContinent } from '../events/eventActions.jsx'
 import Loader from '../layout/Loader.jsx'
 
 const mapState = (state) => ({
@@ -11,8 +11,8 @@ const mapState = (state) => ({
 })
 
 const actions = {
-  totalSubscriptions,
-  subscribedEvents
+  getTotalOfContinent,
+  getEventsByContinent,
 }
 
 class SouthAmerica extends Component {
@@ -24,9 +24,9 @@ class SouthAmerica extends Component {
   }
   async componentDidMount() {
     this.setState({
-      opts: await this.props.totalSubscriptions()
+      opts: await this.props.getTotalOfContinent('SA')
     })
-    let next = await this.props.subscribedEvents()
+    let next = await this.props.getEventsByContinent('SA')
     if (next && next.docs && next.docs.length > 1) {
       this.setState({
         loader: true,
@@ -44,7 +44,7 @@ class SouthAmerica extends Component {
   loadMoreEvents = async() => {
     const {events} = this.props
     let lastEvent = events && events[events.length-1]
-    let next = await this.props.subscribedEvents(lastEvent)
+    let next = await this.props.getEventsByContinent('SA', lastEvent)
     if (next && next.docs && next.docs.length <= 1) {
       this.setState({
         loader: false
@@ -70,8 +70,15 @@ class SouthAmerica extends Component {
         </div>
         <h6 className='info-text-box mb-3 mx-3 p-2'>
           <i class="fas fa-info-circle mr-2"></i>
-          The searching results are now limited to your subscriptions.
+          The searching results are now limited to South America.
         </h6>
+        {
+          opts === 0 &&
+          <h6 className='info-text-box mb-3 mx-3 p-2'>
+            <i class="fas fa-info-circle mr-2"></i>
+            Haven't find any event located in South America.
+          </h6>
+        }
         <EventList 
           type={type}
           loadMoreEvents={this.loadMoreEvents}
