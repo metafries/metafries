@@ -1,5 +1,6 @@
 {
-    "name": "Metafries",
+    "name": "metaFries",
+    "short_name": "metaFries",
     "icons": [
         {
             "src": "/static/realfavicongenerator/android-chrome-192x192.png",
@@ -12,6 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "theme_color": "#222222",
+    "background_color": "#222222"
+    //"display": "standalone"
 }

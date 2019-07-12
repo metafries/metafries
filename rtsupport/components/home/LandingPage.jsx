@@ -54,7 +54,8 @@ class LandingPage extends Component {
         <div className='col-lg-4'></div>
         <div className='col-lg-4 pb-5 px-0'>
           <div className='mx-3'>
-            <img className="logo mb-2" src="/static/images/_logo.png"/>
+            <img className="logo mb-2 mr-1" src="/static/images/logo-icon.png"/>
+            <img className="logo mb-2" src="/static/images/logo-text.png"/>
             <h4 className='mb-4 ml-5 pl-5 font-italic font-weight-bold'>Let's Meet Up!</h4>
           </div>
           {

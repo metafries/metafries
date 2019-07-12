@@ -22,8 +22,11 @@ class NavBar extends Component {
             <div className='col-lg-8'>
                 <div className="navbar navbar-light box-shadow pl-2">
                     <div className="container-fluid d-flex justify-content-between px-0">
-                        <a className="navbar-brand d-flex align-items-center" href="/"><img className="logo" src="/static/images/_logo.png"/></a>
-                        <a className="nav-button border-0"><span id="nav-icon3" className='mb-5'><span></span><span></span><span></span><span></span></span></a>
+                        <a className="navbar-brand d-flex align-items-center" href="/">
+                            <img className="logo mr-1 ml-2" src="/static/images/logo-icon.png"/>
+                            <img className="logo" src="/static/images/logo-text.png"/>
+                        </a>
+                        <a className="nav-button border-0 mb-1"><span id="nav-icon3" className='mb-5'><span></span><span></span><span></span><span></span></span></a>
                     </div>
                 </div> 
                 <div className="fixed-top main-menu">
