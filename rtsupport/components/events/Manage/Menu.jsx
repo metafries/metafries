@@ -1,20 +1,15 @@
 import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 
-const Menu = ({event}) => {
+const Menu = ({fbp, event}) => {
     return (
         <div className="btn-group-vertical w-100 mb-4">
-            <div className='menu-header mb-4'>
+            <div className='menu-header mb-3'>
                 <table class="table mb-0">
                     <tbody>
                         <tr>
-                            <th scope="row" className='border-0 float-right p-0'>
-                                <a href={`/profile/${event.hostUid}`}>
-                                    <img src={event.hostAvatarUrl} className="hoster mr-3" alt="..."/>                                
-                                </a>
-                            </th>
-                            <td className='border-0 p-0'>
-                                <a href={`/profile/${event.hostUid}`}>{event.hostedBy}</a>
+                            <td className='border-0 p-0 h4 font-weight-bold'>
+                                <a href={`/profile/${event.hostUid}`}>{fbp.profileName}</a>
                                 <span className='ml-2'>/ <a href={`/events/${event.id}`}>{event.title}</a></span>
                             </td>
                         </tr>

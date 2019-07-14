@@ -20,13 +20,25 @@ class NavBar extends Component {
         <div className='row'>
             <div className='col-lg-2'></div>
             <div className='col-lg-8'>
-                <div className="navbar navbar-light box-shadow pl-2">
+                <div className="navbar navbar-light box-shadow pl-2 my-2">
                     <div className="container-fluid d-flex justify-content-between px-0">
                         <a className="navbar-brand d-flex align-items-center" href="/">
                             <img className="logo mr-1 ml-2" src="/static/images/_logo-icon.png"/>
                             <img className="logo" src="/static/images/_logo-text.png"/>
                         </a>
-                        <a className="nav-button border-0"><span id="nav-icon3" className='mb-5'><span></span><span></span><span></span><span></span></span></a>
+                        <a className="nav-button border-0 mr-2" style={{marginTop:'-16px'}}>
+                            <span id="nav-icon3">
+                            {
+                                authenticated
+                                ? <img
+                                    src={fbp.avatarUrl || "/static/images/whazup-square-logo.png"}
+                                    className='attendee rounded-circle'
+                                    alt="..."
+                                    />                      
+                                : <img className='attendee rounded-circle' src='/static/images/anonymous.jpg'/>                                
+                            }
+                            </span>
+                        </a>
                     </div>
                 </div> 
                 <div className="fixed-top main-menu">
@@ -52,7 +64,7 @@ class NavBar extends Component {
                             <li className="nav-item delay-6"><hr/></li>
                             {
                                 authenticated 
-                                ? <SignOut firebaseProfile={fbp} handleSignOut={this.handleSignOut} /> 
+                                ? <SignOut handleSignOut={this.handleSignOut} /> 
                                 : <SignIn/>
                             }
                         </ul>

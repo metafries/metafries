@@ -9,25 +9,19 @@ const Menu = ({fba, fbp}) => {
         <table class="table mb-0">
           <tbody>
             <tr>
-              <th scope="row" className='border-0 float-right p-0'>
-                {
-                  authenticated
-                  ? <a href={`/profile/${fba.uid}`}>
-                      <img src={fbp.avatarUrl} className="hoster mr-3" alt="..."/>
-                    </a>
-                  : <img 
-                      src='/static/images/whazup-square-logo.png' 
-                      className="hoster mr-3" alt="..."
-                      />
-                }
-              </th>
-              <td className='border-0 p-0'>
-                {
-                  authenticated
-                  ? <a href={`/profile/${fba.uid}`}>{fbp.profileName}</a>                  
-                  : <span>Anonymous</span>
-                }
-                <span className='ml-2'>/ Personal Search</span>
+              <td className='border-0 p-0 h4 font-weight-bold'>
+              {
+                authenticated
+                ? <div>
+                    <a href={`/profile/${fba.uid}`}>{fbp.profileName}</a>
+                    <span className='ml-2'>/ Custom Search</span>
+                  </div>
+                : <h5 className='mb-0'>
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    You are currently in anonymous mode，
+                    <a href='/'>Log In</a> to have a fully functional operations.
+                  </h5>        
+              }
               </td>
             </tr>
           </tbody>

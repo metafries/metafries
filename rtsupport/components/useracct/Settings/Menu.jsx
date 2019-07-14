@@ -8,12 +8,7 @@ const Menu = ({fba, fbp}) => {
           <table class="table mb-0">
             <tbody>
               <tr>
-                <th scope="row" className='border-0 float-right p-0'>
-                <a href={`/profile/${fba.uid}`}>
-                  <img src={fbp.avatarUrl} className="hoster mr-3" alt="..."/>
-                </a>
-                </th>
-                <td className='border-0 p-0'>
+                <td className='border-0 p-0 h4 font-weight-bold'>
                   <a href={`/profile/${fba.uid}`}>{fbp.profileName}</a>
                   <span className='ml-2'>/ Personal Settings</span>
                 </td>

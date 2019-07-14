@@ -18,6 +18,7 @@ const mapState = (state, ownProps) => {
       event = events.find(e => e.id === eventId)
     }
     return {
+        fbp: state.firebase.profile,
         loading: state.async.loading,
         informMsg: state.events,
         event
@@ -36,7 +37,7 @@ class Dashboard extends Component {
         await firestore.get(`events/${match.params.id}`)        
     }
     render() {
-        const {loading, updateEvent, updateStatus, setNewMainPoster, informMsg, event} = this.props 
+        const {fbp, loading, updateEvent, updateStatus, setNewMainPoster, informMsg, event} = this.props 
         if (event.startDate && event.startDate.seconds) {
             event.startDate = DateTime.fromJSDate(event.startDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')
             event.endDate = DateTime.fromJSDate(event.endDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')        
@@ -49,7 +50,7 @@ class Dashboard extends Component {
                 <div className='row'>
                     <div className='col-lg-2'></div>
                     <div className='col-lg-3 px-3'>
-                        <Menu event={event}/>
+                        <Menu fbp={fbp} event={event}/>
                     </div>    
                     <div className='col-lg-5 px-3'>
                         <Switch>
