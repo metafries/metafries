@@ -8,6 +8,8 @@ import {
     ERROR 
 } from './authConstants.jsx'
 
+import { DEFAULT_AVATAR } from '../config/imgConstants.jsx'
+
 import {
     startAsyncAction,
     finishAsyncAction,
@@ -196,6 +198,7 @@ export const signup = (user) =>
                     {
                         displayName: user.username,
                         profileName: user.username,
+                        avatarUrl: DEFAULT_AVATAR,
                         createdAt: firestore.FieldValue.serverTimestamp()
                     }
                 )

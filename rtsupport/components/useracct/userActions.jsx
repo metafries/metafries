@@ -8,6 +8,7 @@ import {
 import cuid from 'cuid'
 import { DateTime } from "luxon"
 import firebase from '../../app/config/firebase.js'
+import { DEFAULT_AVATAR } from '../config/imgConstants.jsx'
 
 export const addEventComment = (eventId, targetCode, comment) => 
     async (
@@ -120,8 +121,8 @@ export const deleteProfilePicture = (photo) =>
         try {
             dispatch(startPhotoAction())                    
             if (photo.downloadURL == currentUser.photoURL) {
-                await firebase.updateProfile({avatarUrl: ''})
-                await currentUser.updateProfile({photoURL: ''})        
+                await firebase.updateProfile({avatarUrl: DEFAULT_AVATAR})
+                await currentUser.updateProfile({photoURL: DEFAULT_AVATAR})        
             }
             if (photo.imgId) {
                 await firebase.deleteFile(`${currentUser.uid}/profile_pictures/${photo.imgId}`)                                                

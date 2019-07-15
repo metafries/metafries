@@ -5,6 +5,7 @@ import SignInForm from '../forms/SignInForm.jsx'
 import SignUpForm from '../forms/SignUpForm.jsx'
 import UsernameForm from '../forms/UsernameForm.jsx'
 import { useThirdParty } from '../auth/authActions.jsx'
+import { DEFAULT_AVATAR } from '../config/imgConstants.jsx'
 
 const active = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold active'
 const notActive = 'btn btn-outline-dark btn-lg rounded-0 w-50 font-weight-bold'
@@ -263,7 +264,7 @@ class LandingPage extends Component {
                 onClick={this.handleSignOut}
                 >
                 <img
-                  src={fbp.avatarUrl || "/static/images/whazup-square-logo.png"}
+                  src={fbp.avatarUrl || DEFAULT_AVATAR}
                   class="rounded-circle icon mr-4"
                   alt="..."
                 />

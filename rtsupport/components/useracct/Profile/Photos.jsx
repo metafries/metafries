@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { DEFAULT_AVATAR } from '../../config/imgConstants.jsx'
 
 class Photos extends Component {
   state = {
@@ -28,6 +29,8 @@ class Photos extends Component {
   render() {
     const {isCurrentUser, providerId, loading, photos, fba, fbp} = this.props
     const {setAvatarOnClick, deleteOnClick} = this.state
+    const isNotDefaultAvatar = (fbp.avatarUrl !== DEFAULT_AVATAR)
+    console.log(isNotDefaultAvatar)
     let filteredPhotos, uploadedFile
     if (photos && photos.length > 0) {
         filteredPhotos = photos.filter(photo => {
@@ -76,7 +79,7 @@ class Photos extends Component {
                                                 />
                                             </a>    
                                             {
-                                                isCurrentUser &&
+                                                isCurrentUser && isNotDefaultAvatar &&
                                                 <button 
                                                     type="button" 
                                                     class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0 disabled'
@@ -85,7 +88,7 @@ class Photos extends Component {
                                                 </button>                    
                                             }        
                                             {
-                                                isCurrentUser &&
+                                                isCurrentUser && isNotDefaultAvatar &&
                                                 <button 
                                                     type="button" 
                                                     class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'

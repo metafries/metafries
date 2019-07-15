@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { withFirebase } from 'react-redux-firebase'
 import SignIn from './SignIn.jsx'
 import SignOut from './SignOut.jsx'
+import { ANONYMOUS } from '../config/imgConstants.jsx'
 
 const mapState = (state) => ({
     fbp: state.firebase.profile,    
@@ -26,16 +27,16 @@ class NavBar extends Component {
                             <img className="logo mr-1 ml-2" src="/static/images/_logo-icon.png"/>
                             <img className="logo" src="/static/images/_logo-text.png"/>
                         </a>
-                        <a className="nav-button border-0 mr-2" style={{marginTop:'-16px'}}>
+                        <a className="nav-button border-0 mr-2" style={{marginTop:'-13px'}}>
                             <span id="nav-icon3">
                             {
                                 authenticated
                                 ? <img
-                                    src={fbp.avatarUrl || "/static/images/whazup-square-logo.png"}
-                                    className='attendee rounded-circle'
+                                    src={fbp.avatarUrl || ANONYMOUS}
+                                    className='main-menu-icon rounded-circle'
                                     alt="..."
                                     />                      
-                                : <img className='attendee rounded-circle' src='/static/images/anonymous.jpg'/>                                
+                                : <img className='main-menu-icon rounded-circle' src={ANONYMOUS}/>
                             }
                             </span>
                         </a>

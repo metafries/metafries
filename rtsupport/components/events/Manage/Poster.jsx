@@ -47,8 +47,7 @@ const stepsHeader = {
 
 class Poster extends Component {
   state = {
-    posterUrl: this.props.event.posterUrl || 
-      '/static/images/IMG_20180706_185041.jpg',
+    posterUrl: this.props.event.posterUrl,
     preview: null,
     croppedCanvas: {},  
   }

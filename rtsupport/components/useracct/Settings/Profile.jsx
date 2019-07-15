@@ -49,8 +49,7 @@ const stepsHeader = {
 
 class Profile extends Component {
   state = {
-    photoURL: this.props.fbp.avatarUrl || 
-      "/static/images/whazup-square-logo.png",
+    photoURL: this.props.fbp.avatarUrl,
     preview: null,
     croppedCanvas: {},
     uploadImgOkMsg: '',
