@@ -1,7 +1,13 @@
 import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 
-const Menu = ({fba, fbp}) => {
+const Menu = ({
+  totalRecommended,
+  totalSubscriptions,
+  totalActivities,
+  fba, 
+  fbp
+}) => {
   const authenticated = fba.isLoaded && !fba.isEmpty
   return (
     <div className="btn-group-vertical w-100">
@@ -34,6 +40,7 @@ const Menu = ({fba, fbp}) => {
           >
           <i class="fas fa-minus mr-2"></i>
           RECOMMENDED
+          <span className='ml-2'>{`(${totalRecommended})`}</span>
         </button>
       </LinkContainer>
       {
@@ -45,6 +52,7 @@ const Menu = ({fba, fbp}) => {
             >
             <i class="fas fa-minus mr-2"></i>
             SUBSCRIPTIONS
+            <span className='ml-2'>{`(${totalSubscriptions})`}</span>
           </button>
         </LinkContainer>
       }
@@ -57,6 +65,7 @@ const Menu = ({fba, fbp}) => {
             >
             <i class="fas fa-minus mr-2"></i>
             ACTIVITY LOG
+            <span className='ml-2'>{`(${totalActivities})`}</span>
           </button>
         </LinkContainer>
       }

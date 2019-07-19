@@ -8,7 +8,11 @@ import Subscriptions from '../useracct/Subscriptions.jsx'
 import ActivityLog from '../useracct/ActivityLog.jsx'
 import SearchEvent from '../controlpanel/SearchEvent.jsx'
 import InstantMsg from '../controlpanel/InstantMsg.jsx'
-import { deleteEvent } from '../events/eventActions.jsx'
+import { 
+  totalRecommended, 
+  totalSubscriptions, 
+  deleteEvent 
+} from '../events/eventActions.jsx'
 import Footer from '../nav/Footer.jsx'
 
 const queryActivities = [
@@ -25,22 +29,42 @@ const mapState = (state) => ({
 })
 
 const actions = {
+  totalRecommended,
+  totalSubscriptions,
   deleteEvent
 }
 
 class HomePage extends Component {
+  state = {
+    totalRecommended: 0,
+    totalSubscriptions: 0,
+  }
+  async componentDidMount() {
+    this.setState({
+      totalRecommended: await this.props.totalRecommended(),
+      totalSubscriptions: await this.props.totalSubscriptions(),
+    })
+  }
   handleDeleteEvent = (cancelEvent_id) => {
     this.props.deleteEvent(cancelEvent_id)
   }
   render() {
+        const { totalRecommended, totalSubscriptions } = this.state
         const {activities, fbp, fba} = this.props
+        const totalActivities = (activities ? activities.length : 0)
         const authenticated = fba.isLoaded && !fba.isEmpty    
         return (
           <div>
             <div className='row'>
               <div className='col-lg-2'></div>
               <div className='col-lg-3 px-3'>
-                <Menu fba={fba} fbp={fbp}/>
+                <Menu 
+                  totalRecommended={totalRecommended}
+                  totalSubscriptions={totalSubscriptions}
+                  totalActivities={totalActivities}
+                  fba={fba} 
+                  fbp={fbp}
+                />
                 {
                   !authenticated &&
                   <div className='btn-group-vertical w-100 disabled'>
