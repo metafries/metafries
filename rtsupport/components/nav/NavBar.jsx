@@ -46,23 +46,23 @@ class NavBar extends Component {
                     <div className="vertical-center px-3">
                         <ul className="nav flex-column horizontal-center">
                             <li className="nav-item delay-1"><a className="nav-link px-2" href={`/search/${fba.uid}`}><i class="fas fa-search signout text-center mr-2"></i>SEARCH</a></li>                    
-                            <li className="nav-item delay-2"><a className="nav-link px-2" href="/trending"><i class="fas fa-chart-line signout text-center mr-2"></i>TRENDING</a></li>
+                            <li className="nav-item delay-1"><a className="nav-link px-2" href="/trending"><i class="fas fa-chart-line signout text-center mr-2"></i>TRENDING</a></li>
                             {
                                 authenticated
-                                ? <li className="nav-item delay-3"><a className="nav-link px-2" href={`/profile/${fba.uid}`}><i class="fas fa-address-card signout text-center mr-2"></i>PROFILE</a></li>
-                                : <li className="nav-item delay-3 disabled"><a className="nav-link px-2" href={`/profile/${fba.uid}`}><i class="fas fa-address-card signout text-center mr-2"></i>PROFILE</a></li> 
+                                ? <li className="nav-item delay-1"><a className="nav-link px-2" href={`/profile/${fba.uid}`}><i class="fas fa-address-card signout text-center mr-2"></i>PROFILE</a></li>
+                                : <li className="nav-item delay-1 disabled"><a className="nav-link px-2" href={`/profile/${fba.uid}`}><i class="fas fa-address-card signout text-center mr-2"></i>PROFILE</a></li> 
                             }                            
                             {
                                 authenticated
-                                ? <li className="nav-item delay-4"><a className="nav-link px-2" href="/create"><i class="fas fa-plus signout text-center mr-2"></i>CREATE</a></li>
-                                : <li className="nav-item delay-4 disabled"><a className="nav-link px-2" href="/create"><i class="fas fa-plus signout text-center mr-2"></i>CREATE</a></li>
+                                ? <li className="nav-item delay-1"><a className="nav-link px-2" href="/create"><i class="fas fa-plus signout text-center mr-2"></i>CREATE</a></li>
+                                : <li className="nav-item delay-1 disabled"><a className="nav-link px-2" href="/create"><i class="fas fa-plus signout text-center mr-2"></i>CREATE</a></li>
                             }                                
                             {
                                 authenticated
-                                ? <li className="nav-item delay-5"><a className="nav-link px-2" href="/settings"><i class="fas fa-wrench signout text-center mr-2"></i>SETTINGS</a></li>
-                                : <li className="nav-item delay-5 disabled"><a className="nav-link px-2" href="/settings"><i class="fas fa-wrench signout text-center mr-2"></i>SETTINGS</a></li>
+                                ? <li className="nav-item delay-1"><a className="nav-link px-2" href="/settings"><i class="fas fa-wrench signout text-center mr-2"></i>SETTINGS</a></li>
+                                : <li className="nav-item delay-1 disabled"><a className="nav-link px-2" href="/settings"><i class="fas fa-wrench signout text-center mr-2"></i>SETTINGS</a></li>
                             }
-                            <li className="nav-item delay-6"><hr/></li>
+                            <li className="nav-item delay-1"><hr/></li>
                             {
                                 authenticated 
                                 ? <SignOut handleSignOut={this.handleSignOut} /> 
