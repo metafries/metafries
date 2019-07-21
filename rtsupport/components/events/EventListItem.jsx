@@ -92,9 +92,7 @@ class EventListItem extends Component {
           <button className='transbox w-25 border-0'>
             <i class="fas fa-comment-alt mr-2"></i>
             {
-              chatTree && chatTree.length > 1 
-                ? chatTree.length
-                : '0'
+              chatTree ? chatTree.length : '0'
             }
           </button>
           <button className='transbox w-25 border-0'>
