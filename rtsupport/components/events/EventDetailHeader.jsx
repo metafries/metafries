@@ -19,6 +19,7 @@ class EventDetailHeader extends Component {
   render() {
     const {isGoing, isHost, fba, event} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
+    const today = new Date()
     return (
       <div class="card mb-3 rounded-0">
         <div className='card-body transbox px-3 pb-0'>
@@ -38,7 +39,15 @@ class EventDetailHeader extends Component {
                     </h5>
                   }
                   {
-                    event.status == 0 && event.endDate && typeof event.endDate === 'object' && 
+                    event.startDate && typeof event.startDate === 'object' &&
+                    event.startDate.toDate().toDateString() === today.toDateString() &&
+                    <h5 className='d-inline mr-2'>
+                      <span class="badge today-tag rounded-0 mb-2">TODAY</span>
+                    </h5>                      
+                  }
+                  {
+                    event.status == 0 && 
+                    event.endDate && typeof event.endDate === 'object' && 
                     DateTime.fromJSDate(event.endDate.toDate()) > DateTime.local() &&
                     <h5 className='d-inline mr-2'>
                       <span class="badge active-tag rounded-0 mb-2">ACTIVE</span>

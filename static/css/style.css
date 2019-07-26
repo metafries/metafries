@@ -155,6 +155,10 @@ div.mdl-progress::after {
   color: #444;
   background: #00fc00;
 }
+.today-tag {
+  color: #444;
+  background: #00fcfc;
+}
 .input-err-msg {
   font-size: 21px;
   font-weight: bold;  

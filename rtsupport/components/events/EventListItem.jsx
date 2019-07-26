@@ -35,6 +35,7 @@ class EventListItem extends Component {
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)  
     const total = opts ? opts : events && events.length
     const chatTree = !isEmpty(eventChat) && createDataTree(eventChat.reverse())    
+    const today = new Date()    
     return (
       <div className='card border-0 rounded-0 mb-2'>
         <div className='card-body transbox py-0 px-3'>
@@ -54,7 +55,15 @@ class EventListItem extends Component {
                     </h5>                                      
                   }                
                   {
-                    event.status == 0 && event.endDate && typeof event.endDate === 'object' && 
+                    event.startDate && typeof event.startDate === 'object' &&
+                    event.startDate.toDate().toDateString() === today.toDateString() &&
+                    <h5 className='d-inline mr-2'>
+                      <span class="badge today-tag rounded-0 mb-2">TODAY</span>
+                    </h5>                      
+                  }
+                  {
+                    event.status == 0 && 
+                    event.endDate && typeof event.endDate === 'object' && 
                     DateTime.fromJSDate(event.endDate.toDate()) > DateTime.local() &&
                     <h5 className='d-inline mr-2'>
                       <span class="badge active-tag rounded-0 mb-2">ACTIVE</span>
