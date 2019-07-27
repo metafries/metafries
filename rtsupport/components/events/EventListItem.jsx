@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { isEmpty, firebaseConnect, withFirestore } from 'react-redux-firebase'
+import { isEmpty, firebaseConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { DateTime } from "luxon";

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import HomePage from './home/HomePage.jsx'
 import Trending from './trending/Dashboard.jsx'
 import Profile from './useracct/Profile/Dashboard.jsx'

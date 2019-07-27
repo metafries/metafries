@@ -231,9 +231,6 @@ class EventForm extends Component {
     e.preventDefault();
     const {
       event, 
-      isEmptyTitle, 
-      selectedStartDateError,
-      selectedEndDateError, 
       titleInputLength,
     } = this.state
     if (titleInputLength == 0) {
@@ -278,7 +275,6 @@ class EventForm extends Component {
       titleInputLength,
       title_err_msg, 
       title_input,       
-      address,
       scriptLoaded,
       addr_err_msg,
       addr_input,      
@@ -287,10 +283,6 @@ class EventForm extends Component {
       descInputLength,
     } = this.state;
     const {isManage, loading, informMsg} = this.props
-    const inputProps = {
-      value: address,
-      onChange: this.onChange,
-    }
     const showStartDate = DateTime.fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')
     const showEndDate = DateTime.fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')
     return (

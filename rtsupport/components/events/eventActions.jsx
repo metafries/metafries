@@ -606,7 +606,6 @@ export const setNewMainPoster = (event, file) =>
             dispatch(startAsyncAction())
             let uploadedFile = await firebase.uploadFile(storagePath, file, null, fileOpts)
             let downloadURL = await uploadedFile.uploadTaskSnapshot.ref.getDownloadURL()
-            let eventDoc = await firestore.get(`events/${eventId}`)
             event.startDate = DateTime
                 .fromFormat(event.startDate, 'yyyy/MM/dd, HH:mm')
                 .toJSDate()

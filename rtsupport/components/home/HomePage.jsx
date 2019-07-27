@@ -6,8 +6,6 @@ import Menu from './Menu.jsx'
 import Recommended from '../useracct/Recommended.jsx'
 import Subscriptions from '../useracct/Subscriptions.jsx'
 import ActivityLog from '../useracct/ActivityLog.jsx'
-import SearchEvent from '../controlpanel/SearchEvent.jsx'
-import InstantMsg from '../controlpanel/InstantMsg.jsx'
 import { 
   totalRecommended, 
   totalSubscriptions, 

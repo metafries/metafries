@@ -49,7 +49,7 @@ class Dashboard extends Component {
     })
   }
   render() {
-    const {processing, profileId, loading, setAvatar, deleteProfilePicture, photos, fba, fbp, providerId} = this.props
+    const {processing, profileId, setAvatar, deleteProfilePicture, photos, fba, fbp, providerId} = this.props
     const {initialize, totalSaved, totalAttended, totalGoing, totalHosting} = this.state
     const loadingProfile = this.props.requesting[`users/${this.props.match.params.id}`]
     if (initialize || loadingProfile) return <Loader/>

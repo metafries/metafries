@@ -64,7 +64,6 @@ async (
         dispatch(startAsyncAction())        
         let uploadedFile = await firebase.uploadFile(storagePath, file, null, fileOpts)
         let downloadURL = await uploadedFile.uploadTaskSnapshot.ref.getDownloadURL()
-        let userDoc = await firestore.get(`users/${currentUser.uid}`)
         await firebase.updateProfile({avatarUrl: downloadURL})
         await currentUser.updateProfile({photoURL: downloadURL})
         await firestore.add(

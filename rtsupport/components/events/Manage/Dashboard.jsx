@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withFirestore, isEmpty } from 'react-redux-firebase'
+import { withFirestore } from 'react-redux-firebase'
 import { DateTime } from "luxon";
 import Menu from './Menu.jsx'
 import { Route, Switch, Redirect } from 'react-router-dom'

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import distanceInWords from 'date-fns/distance_in_words'
 import Linkify from 'react-linkify'
 import CommentForm from '../forms/CommentForm.jsx'
-import { createDataTree } from '../../app/common/util/shapers.js'
 import { componentDecorator } from '../../app/common/util/prop.js'
 
 class EventDetailReply extends Component {

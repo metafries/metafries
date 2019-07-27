@@ -27,7 +27,7 @@ class Photos extends Component {
     }
   }
   render() {
-    const {isCurrentUser, providerId, loading, photos, fba, fbp} = this.props
+    const {isCurrentUser, providerId, loading, photos, fbp} = this.props
     const {setAvatarOnClick, deleteOnClick} = this.state
     const isNotDefaultAvatar = (fbp.avatarUrl !== DEFAULT_AVATAR)
     console.log(isNotDefaultAvatar)

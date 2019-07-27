@@ -57,7 +57,7 @@ class Profile extends Component {
     defaultOpts: true,
   }
   componentDidMount() {
-    const {fbp, providerId} = this.props 
+    const {fbp} = this.props 
     if (fbp.avatarUrl && fbp.avatarUrl.includes('graph.facebook.com')) {
       this.setState({
         photoURL: fbp.avatarUrl+'?height=250'
@@ -102,7 +102,7 @@ class Profile extends Component {
     }
   }
   render() {
-    const {updateProfile, fbp, fba, providerId, loading} = this.props 
+    const {updateProfile, fbp, fba, loading} = this.props 
     const {photoURL, preview, uploadImgOkMsg, uploadImgErrMsg, defaultOpts} = this.state
     return (
       <div>
