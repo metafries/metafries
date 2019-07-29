@@ -34,10 +34,10 @@ class Photos extends Component {
     let filteredPhotos, uploadedFile
     if (photos && photos.length > 0) {
         filteredPhotos = photos.filter(photo => {
-            return photo.downloadURL != fbp.avatarUrl
+            return photo.downloadURL !== fbp.avatarUrl
         })
         uploadedFile = photos.find(
-            photo => photo.downloadURL == fbp.avatarUrl
+            photo => photo.downloadURL === fbp.avatarUrl
         )
     } else {
         uploadedFile = {
@@ -118,7 +118,7 @@ class Photos extends Component {
                                                                 <img 
                                                                     src=
                                                                     {
-                                                                        providerId && providerId == 'facebook.com' &&
+                                                                        providerId && providerId === 'facebook.com' &&
                                                                         !fbp.avatarUrl.includes('firebasestorage')
                                                                         ? fbp.avatarUrl+'?height=250'
                                                                         : fbp.avatarUrl
@@ -223,7 +223,7 @@ class Photos extends Component {
                                             filteredPhotos.map((photo, index) => (
                                                 <div 
                                                     key={photo.id} 
-                                                    class={index == 0 ? 'carousel-item active' : 'carousel-item'}
+                                                    class={index === 0 ? 'carousel-item active' : 'carousel-item'}
                                                 >
                                                     <a href={photo.downloadURL} rel='noopener noreferrer' target="_blank">
                                                         <img src={photo.downloadURL} class="d-block w-100" alt="..."/>

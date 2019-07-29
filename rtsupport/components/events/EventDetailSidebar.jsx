@@ -27,7 +27,7 @@ const EventDetailSidebar = ({currentUser, hostUid, attendees}) => {
                     {attendee.displayName}
                   </a>
                   {
-                    hostUid == attendee.id && 
+                    hostUid === attendee.id && 
                     <span class="badge badge-dark rounded-0 ml-2">HOST</span>
                   }
                   <small className='d-block text-secondary'>

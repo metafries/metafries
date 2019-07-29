@@ -89,7 +89,7 @@ class Europe extends Component {
           fba={fba}
           initialize={initialize}
         />   
-        {loading && !initialize && opts != loadedEvents.length && <Loader/>}                
+        {loading && !initialize && opts !== loadedEvents.length && <Loader/>}                
       </div>
     )
   }

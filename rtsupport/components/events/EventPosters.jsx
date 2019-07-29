@@ -8,7 +8,7 @@ class EventPosters extends Component {
         let filteredPosters
         if (convertedPosters && convertedPosters.length > 0) {
             filteredPosters = convertedPosters.filter(photo => (
-                photo.downloadURL != event.posterUrl
+                photo.downloadURL !== event.posterUrl
             ))
         }
         return (
@@ -64,7 +64,7 @@ class EventPosters extends Component {
                                 filteredPosters.map((photo, index) => (
                                     <div 
                                         key={photo.id} 
-                                        class={index == 0 ? 'carousel-item active' : 'carousel-item'}
+                                        class={index === 0 ? 'carousel-item active' : 'carousel-item'}
                                     >
                                         <a href={photo.downloadURL} rel='noopener noreferrer' target="_blank">
                                             <img src={photo.downloadURL} class="d-block w-100" alt="..."/>

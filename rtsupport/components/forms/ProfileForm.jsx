@@ -63,11 +63,11 @@ class ProfileForm extends Component {
         this.setState({
             profile: userInput
         })
-        if (e.target.name == 'profileName') {
+        if (e.target.name === 'profileName') {
             this.setState({
                 usernameInputLength: e.target.value.trim().length
             })
-            if (e.target.value.trim().length == 0) {      
+            if (e.target.value.trim().length === 0) {      
                 this.setState({
                   username_err_msg: SHOW_ERR_MSG,
                   username_input: INVALID_INPUT,        
@@ -79,7 +79,7 @@ class ProfileForm extends Component {
                 })  
             }          
         }
-        if (e.target.name == 'bio') {
+        if (e.target.name === 'bio') {
             this.setState({
                 bioInputLength: e.target.value.trim().length
             })
@@ -92,7 +92,7 @@ class ProfileForm extends Component {
             updateErrMsg: '',  
         })          
         const {usernameInputLength, profile} = this.state
-        if (usernameInputLength != 0) {
+        if (usernameInputLength !== 0) {
             try {
                 this.props.updateProfile(profile)   
                 this.setState({

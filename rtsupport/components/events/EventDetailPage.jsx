@@ -16,7 +16,7 @@ const mapState = (state, ownProps) => {
   const {events} = state.firestore.ordered
   let event = {}
   if (eventId && events && events.length > 0) {
-    event = events.find(e => e.id == eventId)
+    event = events.find(e => e.id === eventId)
   }
   return {
     requesting: state.firestore.status.requesting,
@@ -55,8 +55,8 @@ class EventDetailPage extends Component {
     const {eventChat, err, addEventComment, goingToggleOn, goingToggleOff, fba, event} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)
-    const isHost = event && fba.uid == event.hostUid
-    const isGoing = convertedAttendees && convertedAttendees.some(a => a.id == fba.uid)
+    const isHost = event && fba.uid === event.hostUid
+    const isGoing = convertedAttendees && convertedAttendees.some(a => a.id === fba.uid)
     const {eventNotFoundMsg} = this.state
     const chatTree = !isEmpty(eventChat) && createDataTree(eventChat.reverse())
     const loadingEvent = this.props.requesting[`events/${this.props.match.params.id}`] 
@@ -75,7 +75,7 @@ class EventDetailPage extends Component {
             </h6>
           }
           {
-            eventNotFoundMsg.length == 0 &&
+            eventNotFoundMsg.length === 0 &&
             <div className='col-lg-5 px-0'>
               <EventDetailHeader 
                 goingToggleOn={goingToggleOn} 
@@ -89,7 +89,7 @@ class EventDetailPage extends Component {
             </div>
           }
           {
-            eventNotFoundMsg.length == 0 &&
+            eventNotFoundMsg.length === 0 &&
             <div className='col-lg-3 px-0'>
               <EventDetailSidebar currentUser={fba} hostUid={event && event.hostUid || {}} attendees={convertedAttendees}/>
               <EventDetailChat fba={fba} eventChat={chatTree} authenticated={authenticated} err={err} eventId={event && event.id} addEventComment={addEventComment}/>

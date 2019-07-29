@@ -59,11 +59,11 @@ class About extends Component {
                 <div className='card rounded-0'>
                     <div className='card-body px-3 py-0'>
                         {
-                            fbp.bio && fbp.bio.length != 0 &&
+                            fbp.bio && fbp.bio.length !== 0 &&
                             <h5 className='mb-4'>{fbp.bio}</h5>
                         }
                         {
-                            fbp.company && fbp.company.length != 0 &&
+                            fbp.company && fbp.company.length !== 0 &&
                             <h5 className='mb-4'>
                                 <i class="fas fa-building icon"></i>
                                 <span className='font-weight-bold'>Company</span>
@@ -72,7 +72,7 @@ class About extends Component {
                             </h5>
                         }
                         {
-                            fbp.location && fbp.location.length != 0 &&
+                            fbp.location && fbp.location.length !== 0 &&
                             <h5 className='mb-4'>
                                 <i class="fas fa-map-marker-alt icon"></i>
                                 <span className='font-weight-bold'>Location</span>
@@ -81,7 +81,7 @@ class About extends Component {
                             </h5>
                         }
                         {
-                            fbp.website && fbp.website.length != 0 &&
+                            fbp.website && fbp.website.length !== 0 &&
                             <h5 className='mb-4'>
                                 <i class="fas fa-link icon"></i>
                                 <span className='font-weight-bold'>URL</span>

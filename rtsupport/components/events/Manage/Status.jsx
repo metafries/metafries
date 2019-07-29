@@ -15,7 +15,7 @@ class Status extends Component {
     onFormSubmit = (e) => {
         e.preventDefault()
         const {event} = this.state
-        if (event.status == 2) {
+        if (event.status === 2) {
             console.log('TODO: DELETE EVENT')
         } else {
             this.props.updateStatus(event.status, event.id)                        
@@ -30,7 +30,7 @@ class Status extends Component {
                         type="radio"
                         name="status"
                         value={0}   
-                        checked={event.status == 0}       
+                        checked={event.status === 0}       
                         onChange={this.handleStatusChange}
                         class="form-check-input"               
                     />
@@ -44,7 +44,7 @@ class Status extends Component {
                         type="radio"
                         name="status"
                         value={1}   
-                        checked={event.status == 1}   
+                        checked={event.status === 1}   
                         onChange={this.handleStatusChange}    
                         class="form-check-input"               
                     />

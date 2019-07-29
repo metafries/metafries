@@ -33,7 +33,7 @@ class Account extends Component {
       creds: userInput
     })
     const {creds} = this.state
-    creds.new_password != creds.confirm_new_password
+    creds.new_password !== creds.confirm_new_password
     ? this.setState({
         confirm_new_password_input: invalidInput,
         confirm_new_password_err_msg: showErrMsg,
@@ -46,7 +46,7 @@ class Account extends Component {
   handleSubmit = (e) => {
     e.preventDefault()    
     const {creds} = this.state
-    if (creds.new_password == creds.confirm_new_password) {
+    if (creds.new_password === creds.confirm_new_password) {
       this.props.updatePassword(creds)
     }
   }
@@ -66,7 +66,7 @@ class Account extends Component {
         <h3 className='mb-0 font-weight-bold'>Change Password</h3>
         <hr/>
         {
-          providerId && providerId != 'password' &&
+          providerId && providerId !== 'password' &&
           <h6 className='info-text-box mb-3 p-2'>
             <i class="fas fa-info-circle mr-2"></i>
             You are currently logged in with 

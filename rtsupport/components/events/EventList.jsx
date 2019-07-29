@@ -9,7 +9,7 @@ class EventList extends Component {
     return (
       <div>
         {
-          this.props.initialize && opts != events.length
+          this.props.initialize && opts !== events.length
           ? <Loader/>
           : <div>
               <h6 className='mx-3 font-weight-bold mb-1'>

@@ -51,7 +51,7 @@ class EventForm extends Component {
     }
   }
   isNotEmptyTitle = (e) => {
-    if (e.target.value.trim().length == 0) {      
+    if (e.target.value.trim().length === 0) {      
       this.setState({
         title_err_msg: SHOW_ERR_MSG,
         title_input: INVALID_INPUT,        
@@ -135,7 +135,7 @@ class EventForm extends Component {
       event: update
     })
     this.handleLatLng(address)
-    if (this.state.event.location.trim() == 0) {
+    if (this.state.event.location.trim() === 0) {
       this.setState({
         addr_err_msg: SHOW_ERR_MSG,
         addr_input: INVALID_INPUT,        
@@ -215,13 +215,13 @@ class EventForm extends Component {
     this.setState({
       event: userInput
     })
-    if (e.target.name == 'title') {
+    if (e.target.name === 'title') {
       this.setState({
         titleInputLength: e.target.value.trim().length
       })
       this.isNotEmptyTitle(e)
     }
-    if (e.target.name == 'description') {
+    if (e.target.name === 'description') {
       this.setState({
         descInputLength: e.target.value.trim().length
       })
@@ -233,14 +233,14 @@ class EventForm extends Component {
       event, 
       titleInputLength,
     } = this.state
-    if (titleInputLength == 0) {
+    if (titleInputLength === 0) {
       this.setState({
         title_err_msg: SHOW_ERR_MSG,
         title_input: INVALID_INPUT,        
       })  
       return
     } 
-    if (event.location.trim() == 0) {
+    if (event.location.trim() === 0) {
       this.setState({
         addr_err_msg: SHOW_ERR_MSG,
         addr_input: INVALID_INPUT,        
@@ -456,7 +456,7 @@ class EventForm extends Component {
             type="radio"
             name="permission"
             value={0}   
-            checked={event.permission == 0}   
+            checked={event.permission === 0}   
             onChange={this.handlePermissionChange}                              
             class="form-check-input"               
           />
@@ -468,7 +468,7 @@ class EventForm extends Component {
             type="radio" 
             name="permission"
             value={1} 
-            checked={event.permission == 1}
+            checked={event.permission === 1}
             onChange={this.handlePermissionChange}
             class="form-check-input" 
           />

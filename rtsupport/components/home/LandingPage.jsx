@@ -26,7 +26,7 @@ class LandingPage extends Component {
     defaultOpts: true,
   }
   isEmptyUsername = (username) => {
-    username.trim().length == 0
+    username.trim().length === 0
     ? this.setState({
         username_err_msg: true
       })  

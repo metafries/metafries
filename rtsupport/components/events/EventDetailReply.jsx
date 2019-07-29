@@ -63,7 +63,7 @@ class EventDetailReply extends Component {
                                     {
                                         nodes.length > 1
                                             ? nodes.length + ' Replies' 
-                                            : nodes.length != 0 && nodes.length + ' Reply' 
+                                            : nodes.length !== 0 && nodes.length + ' Reply' 
                                     }
                                 </h5>                                                                
                                 {
@@ -91,7 +91,7 @@ class EventDetailReply extends Component {
                                     ))
                                 }
                                 {
-                                    nodes.length == 0 &&
+                                    nodes.length === 0 &&
                                     <div>
                                         <hr className='mt-0'/>
                                         <h5 className='mb-0'>

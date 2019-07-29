@@ -13,7 +13,7 @@ class SignUpForm extends Component {
         usernameInputLength: 0
     }
     onInputChange = (e) => {
-        if (e.target.name == 'username') {
+        if (e.target.name === 'username') {
             this.setState({
                 usernameInputLength: e.target.value.trim().length
             })

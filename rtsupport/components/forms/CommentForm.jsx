@@ -50,7 +50,7 @@ class CommentForm extends Component {
                     </h6>   
                 }
                 {
-                    commentInputLength == 0
+                    commentInputLength === 0
                         ?   <span className='disabled float-right'>
                                 <button 
                                     type="submit" 

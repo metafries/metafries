@@ -49,7 +49,7 @@ class EventListItem extends Component {
                 </th>
                 <td className='border border-0'>
                   {
-                    fba.uid == event.hostUid &&
+                    fba.uid === event.hostUid &&
                     <h5 className='d-inline mr-2'>
                       <a href="#" class="badge badge-dark rounded-0 mb-2">HOST</a>
                     </h5>                                      
@@ -62,7 +62,7 @@ class EventListItem extends Component {
                     </h5>                      
                   }
                   {
-                    event.status == 0 && 
+                    event.status === 0 && 
                     event.endDate && typeof event.endDate === 'object' && 
                     DateTime.fromJSDate(event.endDate.toDate()) > DateTime.local() &&
                     <h5 className='d-inline mr-2'>
@@ -70,22 +70,22 @@ class EventListItem extends Component {
                     </h5>
                   }
                   {
-                    event.status == 0 && event.endDate && typeof event.endDate === 'object' && 
+                    event.status === 0 && event.endDate && typeof event.endDate === 'object' && 
                     DateTime.fromJSDate(event.endDate.toDate()) < DateTime.local() &&
                     <h5 className='d-inline mr-2'>
                       <span class="badge badge-secondary rounded-0 mb-2">PAST</span>
                     </h5>
                   }
                   {
-                    event.status == 1 && 
+                    event.status === 1 && 
                     <h5 className='d-inline mr-2'>
                       <span class="badge canceled-tag rounded-0 mb-2">CANCELED</span>
                     </h5>
                   }
                   <h4><a href={`/events/${event.id}`} className='edh-a'>{event.title}</a></h4>
                   <h5>
-                    {event.permission == 0 && <span><i class="fas fa-globe mr-2"></i>Public</span>}
-                    {event.permission == 1 && <span><i class="fas fa-lock mr-2"></i>Private</span>}
+                    {event.permission === 0 && <span><i class="fas fa-globe mr-2"></i>Public</span>}
+                    {event.permission === 1 && <span><i class="fas fa-lock mr-2"></i>Private</span>}
                     <strong> · </strong>
                     Hosted by <a href={`/profile/${event.hostUid}`} className='edh-a'>{event.hostedBy}</a>
                   </h5>

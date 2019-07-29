@@ -119,7 +119,7 @@ export const deleteProfilePicture = (photo) =>
         const currentUser = firebase.auth().currentUser
         try {
             dispatch(startPhotoAction())                    
-            if (photo.downloadURL == currentUser.photoURL) {
+            if (photo.downloadURL === currentUser.photoURL) {
                 await firebase.updateProfile({avatarUrl: DEFAULT_AVATAR})
                 await currentUser.updateProfile({photoURL: DEFAULT_AVATAR})        
             }

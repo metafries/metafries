@@ -89,7 +89,7 @@ class Hosting extends Component {
             fba={fba}
             initialize={initialize}
         />   
-        {loading && !initialize && total != loadedEvents.length && <Loader/>}
+        {loading && !initialize && total !== loadedEvents.length && <Loader/>}
       </div>
     )
   }
