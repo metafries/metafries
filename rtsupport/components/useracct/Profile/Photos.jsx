@@ -67,7 +67,7 @@ class Photos extends Component {
                             ?   <div id="profilePictures" class="carousel slide" data-ride="carousel" data-interval="false">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <a href={fbp.avatarUrl} target="_blank">
+                                            <a href={fbp.avatarUrl} rel='noopener noreferrer' target="_blank">
                                                 <img 
                                                     src=
                                                     {
@@ -114,7 +114,7 @@ class Photos extends Component {
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <a href={fbp.avatarUrl} target="_blank">
+                                                            <a href={fbp.avatarUrl} rel='noopener noreferrer' target="_blank">
                                                                 <img 
                                                                     src=
                                                                     {
@@ -144,7 +144,7 @@ class Photos extends Component {
                                             filteredPhotos && filteredPhotos.length > 0 &&
                                             filteredPhotos.map((photo, index) => (
                                                 <div key={photo.id} class="carousel-item">
-                                                    <a href={photo.downloadURL} target="_blank">
+                                                    <a href={photo.downloadURL} rel='noopener noreferrer' target="_blank">
                                                         <img src={photo.downloadURL} class="d-block w-100" alt="..."/>
                                                     </a>
                                                     {
@@ -181,7 +181,7 @@ class Photos extends Component {
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <a href={photo.downloadURL} target="_blank">
+                                                                    <a href={photo.downloadURL} rel='noopener noreferrer' target="_blank">
                                                                         <img src={photo.downloadURL} class="d-block w-100" alt="..."/>
                                                                     </a>
                                                                 </div>
@@ -225,7 +225,7 @@ class Photos extends Component {
                                                     key={photo.id} 
                                                     class={index == 0 ? 'carousel-item active' : 'carousel-item'}
                                                 >
-                                                    <a href={photo.downloadURL} target="_blank">
+                                                    <a href={photo.downloadURL} rel='noopener noreferrer' target="_blank">
                                                         <img src={photo.downloadURL} class="d-block w-100" alt="..."/>
                                                     </a>
                                                     {
@@ -265,7 +265,7 @@ class Photos extends Component {
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <a href={photo.downloadURL} target="_blank">
+                                                                    <a href={photo.downloadURL} rel='noopener noreferrer' target="_blank">
                                                                         <img src={photo.downloadURL} class="d-block w-100" alt="..."/>
                                                                     </a>
                                                                 </div>

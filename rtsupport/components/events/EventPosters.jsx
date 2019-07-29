@@ -18,7 +18,7 @@ class EventPosters extends Component {
                 ?   <div id={event.id} class="carousel slide" data-ride="carousel" data-interval="false">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <a href={event.posterUrl} target="_blank">
+                                <a href={event.posterUrl} rel='noopener noreferrer' target="_blank">
                                     <img src={event.posterUrl} class="d-block w-100" alt="..."/>
                                 </a>                        
                                 {
@@ -32,7 +32,7 @@ class EventPosters extends Component {
                                 filteredPosters && filteredPosters.length > 0 &&
                                 filteredPosters.map((photo, index) => (
                                     <div key={photo.id} class="carousel-item">
-                                        <a href={photo.downloadURL} target="_blank">
+                                        <a href={photo.downloadURL} rel='noopener noreferrer' target="_blank">
                                             <img src={photo.downloadURL} class="d-block w-100" alt="..."/>
                                         </a>
                                         <h6 class="mb-0 font-weight-bold text-right bg-dark text-white py-1 px-3">
@@ -66,7 +66,7 @@ class EventPosters extends Component {
                                         key={photo.id} 
                                         class={index == 0 ? 'carousel-item active' : 'carousel-item'}
                                     >
-                                        <a href={photo.downloadURL} target="_blank">
+                                        <a href={photo.downloadURL} rel='noopener noreferrer' target="_blank">
                                             <img src={photo.downloadURL} class="d-block w-100" alt="..."/>
                                         </a>
                                         {

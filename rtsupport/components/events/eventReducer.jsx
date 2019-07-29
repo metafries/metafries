@@ -27,21 +27,18 @@ const initState = {
           updateEventOk: payload.ok,
           updateEventErr: null,
         }
-        break
       case UPDATE_STATUS:
         return {
           ...state,
           updateStatusOk: payload.ok,
           updateStatusErr: null,
         }
-        break
       case SET_NEW_MAIN_POSTER:
         return {
           ...state,
           uploadImgOk: payload.ok,
           uploadImgErr: null,
         }
-        break
       default: 
         return {
           ...state,
@@ -56,13 +53,11 @@ const initState = {
           ...state,
           updateEventErr: payload.err,
         }
-        break
       case UPDATE_STATUS:
         return {
           ...state,
           updateStatusErr: payload.err,
         }
-        break
       case SET_NEW_MAIN_POSTER:
         return {
           ...state,

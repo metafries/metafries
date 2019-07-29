@@ -28,7 +28,6 @@ export const inform = (state, payload) => {
                 updatePwdInform: payload.okmsg,
                 updatePwdError: null,
             }
-            break
         default: 
             return {
                 ...state,
@@ -45,7 +44,6 @@ export const errors = (state, payload) => {
                 authenticated: false,
                 identity: ''
             }
-            break
         case SIGNUP:
             return {
                 ...state,
@@ -53,7 +51,6 @@ export const errors = (state, payload) => {
                 authenticated: false,
                 identity: ''
             }
-            break
         case THIRD_PARTY:
             return {
                 ...state,
@@ -61,13 +58,11 @@ export const errors = (state, payload) => {
                 authenticated: false,
                 identity: ''
             }    
-            break
         case UPDATE_PWD:
             return {
                 ...state,
                 updatePwdError: payload.errmsg,
             }
-            break
         default: 
             return {
                 ...state,
