@@ -1,10 +1,12 @@
 import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
+import TotalCountsLoader from '../layout/TotalCountsLoader.jsx'
 
 const Menu = ({
+  loading,
   totalRecommended,
   totalSubscriptions,
-  totalActivities,
+  activities,
   fba, 
   fbp
 }) => {
@@ -40,7 +42,7 @@ const Menu = ({
           >
           <i class="fas fa-minus mr-2"></i>
           RECOMMENDED
-          <span className='ml-2'>{`(${totalRecommended})`}</span>
+          {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalRecommended})`}</span>}
         </button>
       </LinkContainer>
       {
@@ -52,7 +54,7 @@ const Menu = ({
             >
             <i class="fas fa-minus mr-2"></i>
             SUBSCRIPTIONS
-            <span className='ml-2'>{`(${totalSubscriptions})`}</span>
+            {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalSubscriptions})`}</span>}
           </button>
         </LinkContainer>
       }
@@ -65,7 +67,7 @@ const Menu = ({
             >
             <i class="fas fa-minus mr-2"></i>
             ACTIVITY LOG
-            <span className='ml-2'>{`(${totalActivities})`}</span>
+            {activities ? <span className='ml-2'>{`(${activities.length})`}</span> : <TotalCountsLoader/>}
           </button>
         </LinkContainer>
       }

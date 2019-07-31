@@ -21,6 +21,7 @@ const queryActivities = [
 ]
 
 const mapState = (state) => ({
+  loading: state.async.loading,   
   fbp: state.firebase.profile,
   fba: state.firebase.auth,
   activities: state.firestore.ordered.activity,  
@@ -48,8 +49,7 @@ class HomePage extends Component {
   }
   render() {
         const { totalRecommended, totalSubscriptions } = this.state
-        const {activities, fbp, fba} = this.props
-        const totalActivities = (activities ? activities.length : 0)
+        const {loading, activities, fbp, fba} = this.props
         const authenticated = fba.isLoaded && !fba.isEmpty    
         return (
           <div>
@@ -57,9 +57,10 @@ class HomePage extends Component {
               <div className='col-lg-2'></div>
               <div className='col-lg-3 px-3'>
                 <Menu 
+                  loading={loading}
                   totalRecommended={totalRecommended}
                   totalSubscriptions={totalSubscriptions}
-                  totalActivities={totalActivities}
+                  activities={activities}
                   fba={fba} 
                   fbp={fbp}
                 />

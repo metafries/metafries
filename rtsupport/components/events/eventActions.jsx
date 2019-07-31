@@ -21,16 +21,19 @@ import { shapeNewEvent } from '../../app/common/util/shapers.js'
 import firebase from '../../app/config/firebase.js'
 
 export const getTotalSaved = (userId) =>
-    async () => {
+    async (dispatch) => {
         const firestore = firebase.firestore()
         const eventsQuery = firestore
             .collection('event_attendee')
             .where('userId', '==', userId)
         try {
+            dispatch(startAsyncAction())
             let eventsQuerySnap = await eventsQuery.get()
             return eventsQuerySnap.docs.length
         } catch (e) {
             console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())
         }
     }
 
@@ -88,7 +91,7 @@ export const getSavedEvents = (userId, lastEvent) =>
     }
     
 export const getTotalAttended = (userId) =>
-    async () => {
+    async (dispatch) => {
         let today = new Date(Date.now())
         const firestore = firebase.firestore()
         const eventsQuery = firestore
@@ -97,10 +100,13 @@ export const getTotalAttended = (userId) =>
             .where('eventEndDate', '<', today)
             .where('status', '==', 0)
         try {
+            dispatch(startAsyncAction())
             let eventsQuerySnap = await eventsQuery.get()
             return eventsQuerySnap.docs.length
         } catch (e) {
             console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())
         }
     }
 
@@ -165,7 +171,7 @@ export const getAttendedEvents = (userId, lastEvent) =>
     }
 
 export const getTotalGoing = (userId) =>
-    async () => {
+    async (dispatch) => {
         let today = new Date(Date.now())
         const firestore = firebase.firestore()
         const eventsQuery = firestore
@@ -173,10 +179,13 @@ export const getTotalGoing = (userId) =>
             .where('userId', '==', userId)
             .where('eventEndDate', '>=', today)
         try {
+            dispatch(startAsyncAction())
             let eventsQuerySnap = await eventsQuery.get()
             return eventsQuerySnap.docs.length
         } catch (e) {
             console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())
         }
     }
 
@@ -237,7 +246,7 @@ export const getGoingEvents = (userId, lastEvent) =>
     }
     
 export const getTotalHosting = (userId) =>
-    async () => {
+    async (dispatch) => {
         let today = new Date(Date.now())
         const firestore = firebase.firestore()
         const eventsQuery = firestore
@@ -246,10 +255,13 @@ export const getTotalHosting = (userId) =>
             .where('host', '==', true)
             .where('eventEndDate', '>=', today)
         try {
+            dispatch(startAsyncAction())
             let eventsQuerySnap = await eventsQuery.get()
             return eventsQuerySnap.docs.length
         } catch (e) {
             console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())
         }
     }
 
@@ -313,7 +325,7 @@ export const getHostingEvents = (userId, lastEvent) =>
     }
     
 export const totalRecommended = () =>
-    async () => {
+    async (dispatch) => {
         let today = new Date(Date.now())
         const firestore = firebase.firestore()
         const eventsQuery = firestore
@@ -321,10 +333,13 @@ export const totalRecommended = () =>
             .where('status', '==', 0) 
             .where('endDate', '>=', today)
         try {
+            dispatch(startAsyncAction())
             let eventsQuerySnap = await eventsQuery.get()
             return eventsQuerySnap.docs.length
         } catch (e) {
             console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())
         }
     }
 
@@ -377,16 +392,19 @@ export const recommendedEvents = (lastEvent) =>
     }
 
 export const getTotalOfContinent = (continentCode) =>
-    async () => {
+    async (dispatch) => {
         const firestore = firebase.firestore()
         const eventsQuery = firestore
             .collection('events')
             .where('continent', '==', continentCode)
         try {
+            dispatch(startAsyncAction())
             let eventsQuerySnap = await eventsQuery.get()
             return eventsQuerySnap.docs.length
         } catch (e) {
             console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())
         }
     }
 
@@ -436,16 +454,19 @@ export const getEventsByContinent = (continentCode, lastEvent) =>
     }
 
 export const totalSubscriptions = () =>
-    async () => {
+    async (dispatch) => {
         const firestore = firebase.firestore()
         const eventsQuery = firestore
             .collection('events')
             .orderBy('createdAt', 'desc')
         try {
+            dispatch(startAsyncAction())
             let eventsQuerySnap = await eventsQuery.get()
             return eventsQuerySnap.docs.length
         } catch (e) {
             console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())
         }
     }
 

@@ -14,6 +14,7 @@ import Antarctica from './Antarctica.jsx'
 import { getTotalOfContinent } from '../events/eventActions.jsx'
 
 const mapState = (state) => ({
+    totalCountsLoading: state.async.loading,       
     fbp: state.firebase.profile, 
     fba: state.firebase.auth, 
     events: state.firestore.ordered.events,
@@ -44,7 +45,7 @@ class Dashboard extends Component {
         })
     }
     render() {
-        const { fbp, fba, events } = this.props
+        const { totalCountsLoading, fbp, fba, events } = this.props
         const { 
             totalAsiaEvents, 
             totalAfricaEvents, 
@@ -61,6 +62,7 @@ class Dashboard extends Component {
                     <div className='col-lg-2'></div>
                     <div className='col-lg-3 px-3'>
                         <Menu
+                            loading={totalCountsLoading}
                             totalAsiaEvents={totalAsiaEvents}
                             totalAfricaEvents={totalAfricaEvents}
                             totalEuropeEvents={totalEuropeEvents}

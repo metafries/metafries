@@ -1,7 +1,9 @@
 import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
+import TotalCountsLoader from '../layout/TotalCountsLoader.jsx'
 
 const Menu = ({
+    loading,
     totalAsiaEvents, 
     totalAfricaEvents,
     totalEuropeEvents,
@@ -43,7 +45,7 @@ const Menu = ({
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>ASIA
-                    <span className='ml-2'>{`(${totalAsiaEvents})`}</span>
+                    {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalAsiaEvents})`}</span>}
                 </button>        
             </LinkContainer>
             <LinkContainer to={`/trending/africa`}>
@@ -52,7 +54,7 @@ const Menu = ({
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>AFRICA
-                    <span className='ml-2'>{`(${totalAfricaEvents})`}</span>
+                    {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalAfricaEvents})`}</span>}
                 </button>        
             </LinkContainer>
             <LinkContainer to={`/trending/europe`}>
@@ -61,7 +63,7 @@ const Menu = ({
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>EUROPE
-                    <span className='ml-2'>{`(${totalEuropeEvents})`}</span>
+                    {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalEuropeEvents})`}</span>}
                 </button>        
             </LinkContainer>
             <LinkContainer to={`/trending/northamerica`}>
@@ -70,7 +72,7 @@ const Menu = ({
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>NORTH AMERICA
-                    <span className='ml-2'>{`(${totalNorthAmericaEvents})`}</span>
+                    {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalNorthAmericaEvents})`}</span>}
                 </button>        
             </LinkContainer>
             <LinkContainer to={`/trending/southamerica`}>
@@ -79,7 +81,7 @@ const Menu = ({
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>SOUTH AMERICA
-                    <span className='ml-2'>{`(${totalSouthAmericaEvents})`}</span>
+                    {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalSouthAmericaEvents})`}</span>}
                 </button>        
             </LinkContainer>
             <LinkContainer to={`/trending/oceania`}>
@@ -88,7 +90,7 @@ const Menu = ({
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>OCEANIA
-                    <span className='ml-2'>{`(${totalOceaniaEvents})`}</span>
+                    {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalOceaniaEvents})`}</span>}
                 </button>        
             </LinkContainer>
             <LinkContainer to={`/trending/antarctica`}>
@@ -97,7 +99,7 @@ const Menu = ({
                     className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                     >
                     <i class="fas fa-minus mr-2"></i>ANTARCTICA
-                    <span className='ml-2'>{`(${totalAntarcticaEvents})`}</span>
+                    {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalAntarcticaEvents})`}</span>}
                 </button>        
             </LinkContainer>
         </div>

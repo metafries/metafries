@@ -6,10 +6,11 @@ import Going from './Going.jsx'
 import Attended from './Attended.jsx'
 import Liked from './Liked.jsx'
 import Saved from './Saved.jsx'
+import TotalCountsLoader from '../../layout/TotalCountsLoader.jsx'
 
 class Overview extends Component {
   render() {
-    const {profileId, totalSaved, totalAttended, totalGoing, totalHosting, fba, fbp} = this.props 
+    const {loading, profileId, totalSaved, totalAttended, totalGoing, totalHosting, fba, fbp} = this.props 
     const isCurrentUser = fba.uid === fbp.id  
     return (
       <div class="col-lg-5 px-0">
@@ -20,7 +21,7 @@ class Overview extends Component {
               className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
               >
               <i class="fas fa-minus mr-2"></i>HOSTING
-              <span className='ml-2'>{`(${totalHosting})`}</span>
+              {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalHosting})`}</span>}
             </button>        
           </LinkContainer>
           <LinkContainer to={`/profile/${fbp.id}/going`}>
@@ -29,7 +30,7 @@ class Overview extends Component {
               className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
               >
               <i class="fas fa-minus mr-2"></i>GOING
-              <span className='ml-2'>{`(${totalGoing})`}</span>
+              {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalGoing})`}</span>}
             </button>      
           </LinkContainer>  
           <LinkContainer to={`/profile/${fbp.id}/attended`}>
@@ -38,7 +39,7 @@ class Overview extends Component {
               className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
               >
               <i class="fas fa-minus mr-2"></i>ATTENDED
-              <span className='ml-2'>{`(${totalAttended})`}</span>
+              {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalAttended})`}</span>}
             </button>  
           </LinkContainer> 
           <LinkContainer to={`/profile/${fbp.id}/liked`}>     
@@ -58,7 +59,7 @@ class Overview extends Component {
                 className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
                 >
                 <i class="fas fa-minus mr-2"></i>SAVED
-                <span className='ml-2'>{`(${totalSaved})`}</span>
+                {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalSaved})`}</span>}
               </button>      
             </LinkContainer>                            
           }
