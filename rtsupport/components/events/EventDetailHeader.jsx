@@ -35,7 +35,7 @@ class EventDetailHeader extends Component {
                   {
                     fba.uid === event.hostUid &&
                     <h5 className='d-inline mr-2'>
-                      <a href="#" class="badge badge-dark rounded-0 mb-2">HOST</a>
+                      <button class="badge badge-dark rounded-0 mb-2">HOST</button>
                     </h5>
                   }
                   {
@@ -73,9 +73,9 @@ class EventDetailHeader extends Component {
                     <strong> · </strong>
                     Hosted by <a href={`/profile/${event.hostUid}`} className='edh-a'>{event.hostedBy}</a>
                     <hr className='my-3'/>
-                    <a href='#' role='button' className='eds-a font-weight-bold text-white'>-- Likes</a>
+                    <span className='eds-a font-weight-bold text-white'>-- Likes</span>
                     <hr className='my-1'/>
-                    <a href='#' role='button' className='eds-a font-weight-bold text-white'>-- Shares</a>
+                    <span className='eds-a font-weight-bold text-white'>-- Shares</span>
                   </h5>
                 </td>
               </tr>

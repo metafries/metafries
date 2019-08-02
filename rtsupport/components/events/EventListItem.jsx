@@ -51,7 +51,7 @@ class EventListItem extends Component {
                   {
                     fba.uid === event.hostUid &&
                     <h5 className='d-inline mr-2'>
-                      <a href="#" class="badge badge-dark rounded-0 mb-2">HOST</a>
+                      <button class="badge badge-dark rounded-0 mb-2">HOST</button>
                     </h5>                                      
                   }                
                   {

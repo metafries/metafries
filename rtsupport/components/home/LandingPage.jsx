@@ -257,10 +257,9 @@ class LandingPage extends Component {
                 >
                 <i class="fas fa-wrench icon text-center mr-4"></i>Settings           
               </a>
-              <a 
-                role="button" 
+              <button
+                type="button" 
                 class="btn btn-dark btn-lg rounded-0 w-100 transbox text-left pl-4 font-weight-bold"
-                href='#'
                 onClick={this.handleSignOut}
                 >
                 <img
@@ -269,7 +268,7 @@ class LandingPage extends Component {
                   alt="..."
                 />
                 Sign out           
-              </a>
+              </button>
             </div>
           }    
           <div className='mx-3'>

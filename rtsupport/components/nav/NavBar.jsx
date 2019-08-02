@@ -27,7 +27,7 @@ class NavBar extends Component {
                             <img className="logo mr-1 ml-2" src="/static/images/_logo-icon.png"/>
                             <img className="logo" src="/static/images/_logo-text.png"/>
                         </a>
-                        <a className="nav-button border-0 mr-2" style={{marginTop:'-13px'}}>
+                        <div className="nav-button border-0 mr-2" style={{marginTop:'-13px'}}>
                             <span id="nav-icon3">
                             {
                                 authenticated
@@ -39,7 +39,7 @@ class NavBar extends Component {
                                 : <img className='main-menu-icon rounded-circle' src={ANONYMOUS}/>
                             }
                             </span>
-                        </a>
+                        </div>
                     </div>
                 </div> 
                 <div className="fixed-top main-menu">

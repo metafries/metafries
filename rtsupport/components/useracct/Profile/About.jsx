@@ -22,7 +22,7 @@ class About extends Component {
                     <h3 className='transbox p-3 text-right'>
                         {fbp.profileName}
                         <h5 className='text-silver mb-3'>@{fbp.displayName}</h5>
-                        <h5><a href='#' role='button' className='eds-a font-weight-bold text-white'>-- subscribers</a></h5>
+                        <h5><span className='eds-a font-weight-bold text-white'>-- subscribers</span></h5>
                         <hr className='edh-h my-2'/>
                         {
                             isCurrentUser &&
