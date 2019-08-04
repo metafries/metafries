@@ -91,7 +91,7 @@ class EventDetailPage extends Component {
           {
             eventNotFoundMsg.length === 0 &&
             <div className='col-lg-3 px-0'>
-              <EventDetailSidebar currentUser={fba} hostUid={event && event.hostUid || {}} attendees={convertedAttendees}/>
+              <EventDetailSidebar currentUser={fba} hostUid={(event && event.hostUid) || {}} attendees={convertedAttendees}/>
               <EventDetailChat fba={fba} eventChat={chatTree} authenticated={authenticated} err={err} eventId={event && event.id} addEventComment={addEventComment}/>
             </div>
           }
