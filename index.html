@@ -24,14 +24,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">    
     </head>
     <body>    
-        <header class="head-main fixed-top bg-white" id="navbar"></header>
-        <div class="container-fluid notmenu">
-            <div id="events"></div>                        
-            <div class="row text-center">
-                <div class="col-lg-9"></div>      
-                <div class="col-lg-3"></div>
-            </div>
-        </div>
+        <div class="head-main fixed-top bg-white" id="{{.Menu}}"></div>
+        <div class="container-fluid notmenu" id="{{.NotMenu}}"></div>                        
         <script src="/static/bundle.js"></script>
         <script src="/static/js/menu.js"></script>    
         <script src="https://fb.me/react-0.14.3.min.js"></script>
