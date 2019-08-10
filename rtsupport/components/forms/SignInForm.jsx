@@ -7,14 +7,24 @@ const actions = {
 }
 
 class SignInForm extends Component {
+    state = {
+        email: '',
+        password: '',
+    }
+    handleInputChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
     handleLogin = (e) => {
         e.preventDefault()
         this.props.login({
-            email: $('input[name=email]').val(),
-            password: $('input[name=password]').val(),
+            email: this.state.email,
+            password: this.state.password,
         })
     }
     render() {
+        const {email, password} = this.state
         const {loading, isValidUsername} = this.props
         return (
             <form onSubmit={this.handleLogin}>
@@ -27,6 +37,8 @@ class SignInForm extends Component {
                         class="form-control rounded-0" 
                         placeholder="Email"
                         name='email'                        
+                        value={email}   
+                        onChange={this.handleInputChange}                   
                     />
                 </div>
                 <div class="input-group mb-3 border border-white">
@@ -38,6 +50,8 @@ class SignInForm extends Component {
                         class="form-control rounded-0" 
                         placeholder="Password"
                         name='password'
+                        value={password}
+                        onChange={this.handleInputChange}                                           
                     />
                 </div>
                 {

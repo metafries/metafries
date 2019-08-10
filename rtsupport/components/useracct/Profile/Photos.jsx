@@ -13,7 +13,7 @@ class Photos extends Component {
     try {
         await this.props.setAvatar(photo)
     } finally {
-        location.reload()
+        window.location.reload()
     }
   }
   handleDelete = (photo) => async() => {
@@ -23,7 +23,7 @@ class Photos extends Component {
     try {
         await this.props.deleteProfilePicture(photo)        
     } finally {
-        location.reload()            
+        window.location.reload()            
     }
   }
   render() {

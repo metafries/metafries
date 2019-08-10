@@ -209,7 +209,7 @@ class Profile extends Component {
                 </div>
                 <div className='col-lg-8'>
                   <div style={ratioContainer}>
-                    <img src={preview} style={ratioContent}/>                  
+                    <img src={preview} style={ratioContent} alt=''/>                  
                   </div>
                 </div>
               </div>

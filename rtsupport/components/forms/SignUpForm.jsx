@@ -9,10 +9,16 @@ const actions = {
 
 class SignUpForm extends Component {
     state = {
+        username: '',      
+        email: '',
+        password: '',  
         showUsernameRules: false,
         usernameInputLength: 0
     }
     onInputChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
         if (e.target.name === 'username') {
             this.setState({
                 usernameInputLength: e.target.value.trim().length
@@ -21,8 +27,9 @@ class SignUpForm extends Component {
     }
     handleSignup = (e) => {
         e.preventDefault()
-        this.props.isEmptyUsername($('input[name=username]').val())
-        if (!githubUsernameRegex.test($('input[name=username]').val())) {
+        const {username, email, password} = this.state
+        this.props.isEmptyUsername(username)
+        if (!githubUsernameRegex.test(username)) {
             this.setState({
                 showUsernameRules: true,
             })
@@ -32,13 +39,13 @@ class SignUpForm extends Component {
             })
         }
         this.props.signup({
-            username: $('input[name=username]').val(),
-            email: $('input[name=email]').val(),
-            password: $('input[name=password]').val(),
+            username: username,
+            email: email,
+            password: password,
         })
     }
     render() {
-        const {showUsernameRules, usernameInputLength} = this.state        
+        const {username, email, password, showUsernameRules, usernameInputLength} = this.state        
         const {isValidUsername, loading} = this.props
         return (
         <form onSubmit={this.handleSignup}>
@@ -48,6 +55,7 @@ class SignUpForm extends Component {
                     <h6 className='mb-0'><i class="fas fa-user icon text-center"></i></h6>
                 </div>
                 <input 
+                    value={username}
                     onChange={this.onInputChange}
                     maxlength='64'
                     type="text" 
@@ -61,6 +69,8 @@ class SignUpForm extends Component {
                     <h6 className='mb-0'><i class="fas fa-envelope icon text-center"></i></h6>
                 </div>
                 <input 
+                    value={email}
+                    onChange={this.onInputChange}                
                     type="email" 
                     class="form-control rounded-0" 
                     placeholder="Email"
@@ -72,6 +82,8 @@ class SignUpForm extends Component {
                     <h6 className='mb-0'><i class="fas fa-lock icon text-center"></i></h6>
                 </div>
                 <input 
+                    value={password}
+                    onChange={this.onInputChange}                
                     type="password" 
                     class="form-control rounded-0" 
                     placeholder="Password"

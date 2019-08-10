@@ -10,7 +10,7 @@ class EventDetailHeader extends Component {
       try {
         await this.props.goingToggleOff(event)        
       } finally {
-        location.reload()
+        window.location.reload()
       }
     } else {
       this.props.goingToggleOn(event)      
