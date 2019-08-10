@@ -96,7 +96,7 @@ class About extends Component {
                         <h5 className='mb-0'>1 Group</h5>
                     </div>
                     <div className='card-body px-3'>
-                        <img className='signout' src='/static/images/whazup-square-logo.png'/>
+                        <img className='signout' src='/static/images/whazup-square-logo.png' alt=''/>
                     </div>
                 </div>
             </div>

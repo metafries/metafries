@@ -55,8 +55,8 @@ class LandingPage extends Component {
         <div className='col-lg-4'></div>
         <div className='col-lg-4 pb-5 px-0'>
           <div className='mx-3'>
-            <img className="logo mb-2 mr-1" src="/static/images/_logo-icon.png"/>
-            <img className="logo mb-2" src="/static/images/_logo-text.png"/>
+            <img className="logo mb-2 mr-1" src="/static/images/_logo-icon.png" alt=''/>
+            <img className="logo mb-2" src="/static/images/_logo-text.png" alt=''/>
             <h4 className='mb-4 ml-5 pl-5 font-italic font-weight-bold'>Let's Meet Up!</h4>
           </div>
           {
@@ -148,28 +148,28 @@ class LandingPage extends Component {
                   type='button' 
                   className='btn btn-lg rounded-0 p-0 social-block facebook-btn mr-2'
                   >
-                  <img className='attendee' src='/static/images/facebook-icon.png'/>
+                  <img className='attendee' src='/static/images/facebook-icon.png' alt=''/>
                 </button>
                 <button 
                   onClick={() => useThirdParty('google', null)}
                   type='button' 
                   className='btn btn-lg rounded-0 p-0 social-block google-btn mr-2'
                   >
-                  <img className='attendee' src='/static/images/google-icon.jpg'/>
+                  <img className='attendee' src='/static/images/google-icon.jpg' alt=''/>
                 </button>
                 <button 
                   onClick={() => useThirdParty('twitter', null)}                                  
                   type='button' 
                   className='btn btn-lg rounded-0 p-0 social-block twitter-btn mr-2'
                   >
-                  <img className='attendee' src='/static/images/twitter-icon.png'/>
+                  <img className='attendee' src='/static/images/twitter-icon.png' alt=''/>
                 </button>
                 <button 
                   onClick={() => useThirdParty('github', null)}                                                                    
                   type='button' 
                   className='btn btn-lg rounded-0 p-0 social-block github-btn mr-2'
                   >
-                  <img className='attendee' src='/static/images/github-icon.png'/>
+                  <img className='attendee' src='/static/images/github-icon.png' alt=''/>
                 </button>
                 <a 
                   role="button" 

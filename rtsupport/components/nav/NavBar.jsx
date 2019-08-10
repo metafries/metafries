@@ -24,8 +24,8 @@ class NavBar extends Component {
                 <div className="navbar navbar-light box-shadow pl-2 my-2">
                     <div className="container-fluid d-flex justify-content-between px-0">
                         <a className="navbar-brand d-flex align-items-center" href="/">
-                            <img className="logo mr-1 ml-2" src="/static/images/_logo-icon.png"/>
-                            <img className="logo" src="/static/images/_logo-text.png"/>
+                            <img className="logo mr-1 ml-2" src="/static/images/_logo-icon.png" alt=''/>
+                            <img className="logo" src="/static/images/_logo-text.png" alt=''/>
                         </a>
                         <div className="nav-button border-0 mr-2" style={{marginTop:'-13px'}}>
                             <span id="nav-icon3">
@@ -36,7 +36,7 @@ class NavBar extends Component {
                                     className='main-menu-icon rounded-circle'
                                     alt="..."
                                     />                      
-                                : <img className='main-menu-icon rounded-circle' src={ANONYMOUS}/>
+                                : <img className='main-menu-icon rounded-circle' src={ANONYMOUS} alt=''/>
                             }
                             </span>
                         </div>
