@@ -3,7 +3,7 @@ import { objToArray } from '../../app/common/util/shapers.js'
 
 class EventPosters extends Component {
     render() {
-        const {event} = this.props
+        const {isHost, event} = this.props
         const convertedPosters = event && event.posters && objToArray(event.posters)        
         let filteredPosters
         if (convertedPosters && convertedPosters.length > 0) {
@@ -20,7 +20,55 @@ class EventPosters extends Component {
                             <div class="carousel-item active">
                                 <a href={event.posterUrl} rel='noopener noreferrer' target="_blank">
                                     <img src={event.posterUrl} class="d-block w-100" alt="..."/>
-                                </a>                        
+                                </a>  
+                                {
+                                    isHost &&
+                                    <button 
+                                        type="button" 
+                                        class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0 disabled'
+                                        >
+                                        <i class="fas fa-thumbtack mr-2"></i>IN USE
+                                    </button>                                                    
+                                }      
+                                {
+                                    isHost &&
+                                    <button 
+                                        type="button" 
+                                        class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
+                                        data-toggle="modal" 
+                                        data-target="#inUsePoster"
+                                        >
+                                        <i class="fas fa-trash-alt mr-2"></i>DELETE
+                                    </button>  
+                                }   
+                                <div class="modal fade" id="inUsePoster" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content rounded-0">
+                                            <div class="modal-header">
+                                                <h4 class="mb-0 font-weight-bold"><i class="fas fa-trash-alt mr-2"></i>DELETE</h4>
+                                                <button type="button" class="close py-3" data-dismiss="modal" aria-label="Close">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <a href={event.posterUrl} rel='noopener noreferrer' target="_blank">
+                                                    <img 
+                                                        src={event.posterUrl}
+                                                        class="d-block w-100" alt="..."
+                                                    />
+                                                </a>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button 
+                                                    type="button" 
+                                                    class="btn btn-danger btn-lg rounded-0 w-100 font-weight-bold"
+                                                >
+                                                    Delete This Photo
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                                               
                                 {
                                     filteredPosters && filteredPosters.length > 0 &&
                                     <h6 class="mb-0 font-weight-bold text-right bg-dark text-white py-1 px-3">
@@ -35,6 +83,51 @@ class EventPosters extends Component {
                                         <a href={photo.downloadURL} rel='noopener noreferrer' target="_blank">
                                             <img src={photo.downloadURL} class="d-block w-100" alt="..."/>
                                         </a>
+                                        {
+                                            isHost &&
+                                            <button 
+                                                type="button" 
+                                                class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
+                                                >
+                                                <i class="fas fa-thumbtack mr-2"></i>MAIN
+                                            </button>                    
+                                        }
+                                        {
+                                            isHost &&
+                                            <button 
+                                                type="button" 
+                                                class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
+                                                data-toggle="modal" 
+                                                data-target={'#'+photo.id}        
+                                                >
+                                                <i class="fas fa-trash-alt mr-2"></i>DELETE
+                                            </button>  
+                                        }     
+                                        <div class="modal fade" id={photo.id} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content rounded-0">
+                                                    <div class="modal-header">
+                                                        <h4 class="mb-0 font-weight-bold"><i class="fas fa-trash-alt mr-2"></i>DELETE</h4>
+                                                        <button type="button" class="close py-3" data-dismiss="modal" aria-label="Close">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <a href={photo.downloadURL} rel='noopener noreferrer' target="_blank">
+                                                            <img src={photo.downloadURL} class="d-block w-100" alt="..."/>
+                                                        </a>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button 
+                                                            type="button" 
+                                                            class="btn btn-danger btn-lg rounded-0 w-100 font-weight-bold"
+                                                        >
+                                                            Delete This Photo
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                                                                                                                
                                         <h6 class="mb-0 font-weight-bold text-right bg-dark text-white py-1 px-3">
                                             {index+2}/{filteredPosters.length+1}
                                         </h6>
@@ -44,14 +137,14 @@ class EventPosters extends Component {
                         </div>
                         {
                             filteredPosters && filteredPosters.length > 0 &&
-                            <a style={{marginBottom:25}} class="carousel-control-prev" href={`#${event.id}`} role="button" data-slide="prev">
+                            <a style={{marginBottom:70}} class="carousel-control-prev" href={`#${event.id}`} role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
                             </a>                
                         }
                         {
                             filteredPosters && filteredPosters.length > 0 &&
-                            <a style={{marginBottom:25}} class="carousel-control-next" href={`#${event.id}`} role="button" data-slide="next">
+                            <a style={{marginBottom:70}} class="carousel-control-next" href={`#${event.id}`} role="button" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </a>
@@ -81,14 +174,14 @@ class EventPosters extends Component {
                         </div>
                         {
                             filteredPosters && filteredPosters.length > 1 &&
-                            <a style={{marginBottom:25}} class="carousel-control-prev" href={`#${event.id}`} role="button" data-slide="prev">
+                            <a style={{marginBottom:70}} class="carousel-control-prev" href={`#${event.id}`} role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
                             </a>                
                         }
                         {
                             filteredPosters && filteredPosters.length > 1 &&
-                            <a style={{marginBottom:25}} class="carousel-control-next" href={`#${event.id}`} role="button" data-slide="next">
+                            <a style={{marginBottom:70}} class="carousel-control-next" href={`#${event.id}`} role="button" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </a>

@@ -93,7 +93,7 @@ class EventDetailHeader extends Component {
             </a>
           }
         </div>  
-        {event.posters && <EventPosters event={event}/>}
+        {event.posters && <EventPosters isHost={isHost} event={event}/>}
         <table class="table transbox m-0">
           <thead>
             <tr>
