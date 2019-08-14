@@ -18,7 +18,7 @@ export const photoActionStarted = (state) => {
 }
 
 export const photoActionFinished = (state) => {
-    return {...state, processing: true}
+    return {...state, processing: false}
 }
 
 export const asyncActionStarted = (state) => {

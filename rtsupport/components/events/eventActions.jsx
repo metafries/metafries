@@ -11,6 +11,8 @@ import {
 } from './eventConstants.jsx'
 
 import {
+    startPhotoAction, 
+    finishPhotoAction, 
     startAsyncAction,
     finishAsyncAction,
     asyncActionError,
@@ -666,6 +668,23 @@ export const setNewMainPoster = (event, file) =>
             })
         } finally {
             dispatch(finishAsyncAction())
+        }
+    }
+
+export const setToMain = (photo, eventId) =>
+    async (
+        dispatch,
+        getState,
+        {getFirestore},
+    ) => {
+        const firestore = getFirestore()
+        try {
+            dispatch(startPhotoAction())
+            await firestore.update(`events/${eventId}`, {
+                posterUrl: photo.downloadURL
+            })
+        } finally {
+            dispatch(finishPhotoAction())
         }
     }
 

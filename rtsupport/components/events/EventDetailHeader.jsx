@@ -17,7 +17,7 @@ class EventDetailHeader extends Component {
     }
   }
   render() {
-    const {isGoing, isHost, fba, event} = this.props
+    const {processing, setToMain, isGoing, isHost, fba, event} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
     const today = new Date()
     return (
@@ -93,7 +93,15 @@ class EventDetailHeader extends Component {
             </a>
           }
         </div>  
-        {event.posters && <EventPosters isHost={isHost} event={event}/>}
+        {
+          event.posters && 
+          <EventPosters 
+            processing={processing} 
+            setToMain={setToMain} 
+            isHost={isHost} 
+            event={event}
+          />
+        }
         <table class="table transbox m-0">
           <thead>
             <tr>
