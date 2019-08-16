@@ -178,14 +178,14 @@ class EventPosters extends Component {
                                 </div>
                                 {
                                     filteredPosters && filteredPosters.length > 0 &&
-                                    <a style={{marginBottom:70}} class="carousel-control-prev" href={`#${event.id}`} role="button" data-slide="prev">
+                                    <a style={isHost ? {marginBottom:70} : {marginBottom:25}} class="carousel-control-prev" href={`#${event.id}`} role="button" data-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Previous</span>
                                     </a>                
                                 }
                                 {
                                     filteredPosters && filteredPosters.length > 0 &&
-                                    <a style={{marginBottom:70}} class="carousel-control-next" href={`#${event.id}`} role="button" data-slide="next">
+                                    <a style={isHost ? {marginBottom:70} : {marginBottom:25}} class="carousel-control-next" href={`#${event.id}`} role="button" data-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Next</span>
                                     </a>
@@ -262,14 +262,14 @@ class EventPosters extends Component {
                                 </div>
                                 {
                                     filteredPosters && filteredPosters.length > 1 &&
-                                    <a style={{marginBottom:70}} class="carousel-control-prev" href={`#${event.id}`} role="button" data-slide="prev">
+                                    <a style={isHost ? {marginBottom:70} : {marginBottom:25}} class="carousel-control-prev" href={`#${event.id}`} role="button" data-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Previous</span>
                                     </a>                
                                 }
                                 {
                                     filteredPosters && filteredPosters.length > 1 &&
-                                    <a style={{marginBottom:70}} class="carousel-control-next" href={`#${event.id}`} role="button" data-slide="next">
+                                    <a style={isHost ? {marginBottom:70} : {marginBottom:25}} class="carousel-control-next" href={`#${event.id}`} role="button" data-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Next</span>
                                     </a>
