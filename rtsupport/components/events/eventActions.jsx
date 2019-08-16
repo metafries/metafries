@@ -688,6 +688,28 @@ export const setToMain = (photo, eventId) =>
         }
     }
 
+export const deletePoster = (photo, event) =>
+    async (
+        dispatch,
+        getState,
+        {getFirestore}
+    ) => {
+        const firestore = getFirestore()
+        try {
+            dispatch(startPhotoAction())                    
+            await firestore.update(`events/${event.id}`, {
+                [`posters.${photo.id}`]: firestore.FieldValue.delete()
+            })
+            if (photo.downloadURL === event.posterUrl) {
+                await firestore.update(`events/${event.id}`, {
+                    posterUrl: firestore.FieldValue.delete()
+                })
+            }
+        } finally {
+            dispatch(finishPhotoAction())
+        }
+    }
+
 export const updateStatus = (code, eventId) => 
     async (
         dispatch, 

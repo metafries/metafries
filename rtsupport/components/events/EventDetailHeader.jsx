@@ -17,7 +17,7 @@ class EventDetailHeader extends Component {
     }
   }
   render() {
-    const {processing, setToMain, isGoing, isHost, fba, event} = this.props
+    const {processing, deletePoster, setToMain, isGoing, isHost, fba, event} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
     const today = new Date()
     return (
@@ -97,6 +97,7 @@ class EventDetailHeader extends Component {
           event.posters && 
           <EventPosters 
             processing={processing} 
+            deletePoster={deletePoster}
             setToMain={setToMain} 
             isHost={isHost} 
             event={event}

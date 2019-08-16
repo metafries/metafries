@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { isEmpty, firebaseConnect, withFirestore } from 'react-redux-firebase'
 import { compose } from 'redux'
-import { setToMain } from './eventActions.jsx'
+import { deletePoster, setToMain } from './eventActions.jsx'
 import EventDetailHeader from './EventDetailHeader.jsx'
 import EventDetailInfo from './EventDetailInfo.jsx'
 import EventDetailChat from './EventDetailChat.jsx'
@@ -32,6 +32,7 @@ const mapState = (state, ownProps) => {
 }
 
 const actions = {
+  deletePoster,
   setToMain,
   addEventComment,
   goingToggleOn,
@@ -55,7 +56,7 @@ class EventDetailPage extends Component {
     await firestore.unsetListener(`events/${match.params.id}`)
   }
   render() {
-    const {processing, eventChat, err, setToMain, addEventComment, goingToggleOn, goingToggleOff, fba, event} = this.props
+    const {processing, eventChat, err, deletePoster, setToMain, addEventComment, goingToggleOn, goingToggleOff, fba, event} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)
     const isHost = event && fba.uid === event.hostUid
@@ -82,6 +83,7 @@ class EventDetailPage extends Component {
             <div className='col-lg-5 px-0'>
               <EventDetailHeader 
                 processing={processing}
+                deletePoster={deletePoster}
                 setToMain={setToMain}
                 goingToggleOn={goingToggleOn} 
                 goingToggleOff={goingToggleOff}

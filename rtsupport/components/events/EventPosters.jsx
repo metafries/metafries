@@ -3,8 +3,21 @@ import { objToArray } from '../../app/common/util/shapers.js'
 
 class EventPosters extends Component {
     state = {
+        deletePosterOnClick: false,
         setToMainOnClick: false,
     }
+
+    handleDeletePoster = (photo, event) => async() => {
+        this.setState({
+            deletePosterOnClick: true
+        })
+        try {
+            await this.props.deletePoster(photo, event)            
+        } finally {
+            window.location.reload()
+        }        
+    }
+
     handleSetToMain = (photo, eventId) => async() => {
         this.setState({
             setToMainOnClick: true
@@ -13,13 +26,16 @@ class EventPosters extends Component {
     }
     render() {
         const {processing, isHost, event} = this.props
-        const {setToMainOnClick} = this.state
+        const {deletePosterOnClick, setToMainOnClick} = this.state
         const convertedPosters = event && event.posters && objToArray(event.posters)        
-        let filteredPosters
+        let filteredPosters, inUsePoster
         if (convertedPosters && convertedPosters.length > 0) {
             filteredPosters = convertedPosters.filter(photo => (
                 photo.downloadURL !== event.posterUrl
             ))
+            inUsePoster = convertedPosters.find(
+                photo => photo.downloadURL === event.posterUrl
+            )
         }
         return (
             processing
@@ -30,6 +46,7 @@ class EventPosters extends Component {
                         aria-hidden="true">
                     </span>
                     <span className='h2 mb-0'>
+                        {deletePosterOnClick && 'Deleting...'}
                         {setToMainOnClick && 'Setting...'}
                     </span>
                 </div>  
@@ -83,6 +100,7 @@ class EventPosters extends Component {
                                                         <button 
                                                             type="button" 
                                                             class="btn btn-danger btn-lg rounded-0 w-100 font-weight-bold"
+                                                            onClick={this.handleDeletePoster(inUsePoster, event)}
                                                         >
                                                             Delete This Photo
                                                         </button>
@@ -143,6 +161,7 @@ class EventPosters extends Component {
                                                                 <button 
                                                                     type="button" 
                                                                     class="btn btn-danger btn-lg rounded-0 w-100 font-weight-bold"
+                                                                    onClick={this.handleDeletePoster(photo, event)}                                                                    
                                                                 >
                                                                     Delete This Photo
                                                                 </button>
@@ -184,6 +203,53 @@ class EventPosters extends Component {
                                                 <a href={photo.downloadURL} rel='noopener noreferrer' target="_blank">
                                                     <img src={photo.downloadURL} class="d-block w-100" alt="..."/>
                                                 </a>
+                                                {
+                                                    isHost &&
+                                                    <button 
+                                                        type="button" 
+                                                        class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
+                                                        onClick={this.handleSetToMain(photo, event.id)}
+                                                        >
+                                                        <i class="fas fa-thumbtack mr-2"></i>MAIN
+                                                    </button>                    
+                                                }
+                                                {
+                                                    isHost &&
+                                                    <button 
+                                                        type="button" 
+                                                        class='btn btn-outline-dark btn-lg rounded-0 font-weight-bold w-50 border-0'
+                                                        data-toggle="modal" 
+                                                        data-target={'#'+photo.id}        
+                                                        >
+                                                        <i class="fas fa-trash-alt mr-2"></i>DELETE
+                                                    </button>  
+                                                }     
+                                                <div class="modal fade" id={photo.id} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content rounded-0">
+                                                            <div class="modal-header">
+                                                                <h4 class="mb-0 font-weight-bold"><i class="fas fa-trash-alt mr-2"></i>DELETE</h4>
+                                                                <button type="button" class="close py-3" data-dismiss="modal" aria-label="Close">
+                                                                    <i class="fas fa-times"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <a href={photo.downloadURL} rel='noopener noreferrer' target="_blank">
+                                                                    <img src={photo.downloadURL} class="d-block w-100" alt="..."/>
+                                                                </a>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button 
+                                                                    type="button" 
+                                                                    class="btn btn-danger btn-lg rounded-0 w-100 font-weight-bold"
+                                                                    onClick={this.handleDeletePoster(photo, event)}                                                                    
+                                                                >
+                                                                    Delete This Photo
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>                                                                                                                                
                                                 {
                                                     filteredPosters && filteredPosters.length > 1 &&
                                                     <h6 class="mb-0 font-weight-bold text-right bg-dark text-white py-1 px-3">
