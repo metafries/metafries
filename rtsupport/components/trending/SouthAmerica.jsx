@@ -34,12 +34,16 @@ class SouthAmerica extends Component {
       })
     }
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.events !== nextProps.events) {
-      this.setState({
-        loadedEvents: [...this.state.loadedEvents, ...nextProps.events]
-      })
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const nextEvents = Array.isArray(nextProps.events) ? nextProps.events : []
+    const prevEvents = prevState.loadedEvents
+    if (nextEvents[nextEvents.length-1] !== prevEvents[prevEvents.length-1]) {
+      return {
+        loadedEvents: [...prevEvents, ...nextEvents]        
+      }     
     }
+    // Return null to indicate no change to state.
+    return null
   }
   loadMoreEvents = async() => {
     const {events} = this.props
