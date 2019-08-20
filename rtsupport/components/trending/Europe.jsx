@@ -35,7 +35,7 @@ class Europe extends Component {
     }
   }
   static getDerivedStateFromProps(nextProps, prevState) {
-    const nextEvents = Array.isArray(nextProps.events) ? nextProps.events : []
+    const nextEvents = prevState.initialize ? [] : nextProps.events 
     const prevEvents = prevState.loadedEvents
     if (nextEvents[nextEvents.length-1] !== prevEvents[prevEvents.length-1]) {
       return {
