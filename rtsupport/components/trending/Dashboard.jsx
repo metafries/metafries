@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { firestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase'
+import { firestoreConnect } from 'react-redux-firebase'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Footer from '../nav/Footer.jsx'
 import Menu from './Menu.jsx'
@@ -17,7 +17,6 @@ const mapState = (state) => ({
     totalCountsLoading: state.async.loading,       
     fbp: state.firebase.profile, 
     fba: state.firebase.auth, 
-    events: state.firestore.ordered.events,
 })
 
 const actions = {
@@ -45,7 +44,7 @@ class Dashboard extends Component {
         })
     }
     render() {
-        const { totalCountsLoading, fbp, fba, events } = this.props
+        const { totalCountsLoading, fbp, fba } = this.props
         const { 
             totalAsiaEvents, 
             totalAfricaEvents, 
@@ -55,7 +54,6 @@ class Dashboard extends Component {
             totalOceaniaEvents,
             totalAntarcticaEvents,
         } = this.state
-        const loading = !isLoaded(events) || isEmpty(events)        
         return (
             <div>
                 <div className='row'>
@@ -81,31 +79,31 @@ class Dashboard extends Component {
                             />
                             <Route
                                 path={`/trending/asia`}
-                                render={() => <Asia type='Asia' loading={loading} fba={fba} events={events}/>}
+                                render={() => <Asia type='Asia'/>}
                             />
                             <Route
                                 path={`/trending/africa`}
-                                render={() => <Africa type='Africa' loading={loading} fba={fba} events={events}/>}
+                                render={() => <Africa type='Africa'/>}
                             />
                             <Route
                                 path={`/trending/europe`}
-                                render={() => <Europe type='Europe' loading={loading} fba={fba} events={events}/>}
+                                render={() => <Europe type='Europe'/>}
                             />
                             <Route
                                 path={`/trending/northamerica`}
-                                render={() => <NorthAmerica type='North America' loading={loading} fba={fba} events={events}/>}
+                                render={() => <NorthAmerica type='North America'/>}
                             />
                             <Route
                                 path={`/trending/southamerica`}
-                                render={() => <SouthAmerica type='South America' loading={loading} fba={fba} events={events}/>}
+                                render={() => <SouthAmerica type='South America'/>}
                             />
                             <Route
                                 path={`/trending/oceania`}
-                                render={() => <Oceania type='Oceania' loading={loading} fba={fba} events={events}/>}
+                                render={() => <Oceania type='Oceania'/>}
                             />
                             <Route
                                 path={`/trending/antarctica`}
-                                render={() => <Antarctica type='Antartica' loading={loading} fba={fba} events={events}/>}
+                                render={() => <Antarctica type='Antartica'/>}
                             />
                         </Switch>                    
                     </div>
