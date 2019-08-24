@@ -33,6 +33,7 @@ class EventListItem extends Component {
   render() {
     const {eventChat, opts, events, fba, event} = this.props;
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)  
+    const covertedLikes = event && event.likes && objToArray(event.likes)    
     const total = opts ? opts : events && events.length
     const chatTree = !isEmpty(eventChat) && createDataTree(eventChat.reverse())    
     const today = new Date()    
@@ -105,7 +106,8 @@ class EventListItem extends Component {
             }
           </button>
           <button className='transbox w-25 border-0'>
-            <i class="fas fa-fire mr-2"></i>--
+            <i class="fas fa-fire mr-2"></i>
+            {covertedLikes ? covertedLikes.length : 0}
           </button>
           <button className='transbox w-25 border-0'>
             <i class="fas fa-share mr-2"></i>--

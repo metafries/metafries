@@ -8,7 +8,11 @@ import EventDetailInfo from './EventDetailInfo.jsx'
 import EventDetailChat from './EventDetailChat.jsx'
 import EventDetailSidebar from './EventDetailSidebar.jsx'
 import Footer from '../nav/Footer.jsx'
-import { addEventComment, goingToggleOn, goingToggleOff } from '../useracct/userActions.jsx'
+import { 
+  addEventComment, 
+  likeToggleOn, likeToggleOff,
+  goingToggleOn, goingToggleOff
+} from '../useracct/userActions.jsx'
 import { createDataTree, objToArray } from '../../app/common/util/shapers.js'
 import Loader from '../layout/Loader.jsx'
 
@@ -35,6 +39,8 @@ const actions = {
   deletePoster,
   setToMain,
   addEventComment,
+  likeToggleOn,
+  likeToggleOff,
   goingToggleOn,
   goingToggleOff,
 }
@@ -56,11 +62,14 @@ class EventDetailPage extends Component {
     await firestore.unsetListener(`events/${match.params.id}`)
   }
   render() {
-    const {processing, eventChat, err, deletePoster, setToMain, addEventComment, goingToggleOn, goingToggleOff, fba, event} = this.props
+    const {processing, eventChat, err, deletePoster, setToMain, addEventComment, 
+      likeToggleOn, likeToggleOff, goingToggleOn, goingToggleOff, fba, event} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)
+    const covertedLikes = event && event.likes && objToArray(event.likes)
     const isHost = event && fba.uid === event.hostUid
     const isGoing = convertedAttendees && convertedAttendees.some(a => a.id === fba.uid)
+    const liked = covertedLikes && covertedLikes.some(l => l.id === fba.uid)
     const {eventNotFoundMsg} = this.state
     const chatTree = !isEmpty(eventChat) && createDataTree(eventChat.reverse())
     const loadingEvent = this.props.requesting[`events/${this.props.match.params.id}`] 
@@ -88,6 +97,10 @@ class EventDetailPage extends Component {
                 goingToggleOn={goingToggleOn} 
                 goingToggleOff={goingToggleOff}
                 isGoing={isGoing} 
+                likeToggleOn={likeToggleOn}
+                likeToggleOff={likeToggleOff}
+                liked={liked}
+                likeList={covertedLikes}
                 isHost={isHost} 
                 fba={fba} 
                 event={event || {}}

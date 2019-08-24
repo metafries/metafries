@@ -4,6 +4,18 @@ import EventPosters from './EventPosters.jsx'
 import { TOGGLE_ON, TOGGLE_OFF } from './eventConstants.jsx'
 
 class EventDetailHeader extends Component {
+  handleLikeToggle = async() => {
+    const {liked, event} = this.props
+    if (liked) {
+      try {
+        await this.props.likeToggleOff(event)
+      } finally {
+        window.location.reload()        
+      }      
+    } else {
+      this.props.likeToggleOn(event)      
+    }
+  }
   handleGoingToggle = async() => {
     const {isGoing, event} = this.props
     if (isGoing) {
@@ -17,7 +29,7 @@ class EventDetailHeader extends Component {
     }
   }
   render() {
-    const {processing, deletePoster, setToMain, isGoing, isHost, fba, event} = this.props
+    const {processing, deletePoster, setToMain, likeList, liked, isGoing, isHost, fba, event} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
     const today = new Date()
     return (
@@ -73,7 +85,10 @@ class EventDetailHeader extends Component {
                     <strong> · </strong>
                     Hosted by <a href={`/profile/${event.hostUid}`} className='edh-a'>{event.hostedBy}</a>
                     <hr className='my-3'/>
-                    <span className='eds-a font-weight-bold text-white'>-- Likes</span>
+                    <span className='eds-a font-weight-bold text-white'>
+                      {likeList ? likeList.length : 0}
+                      <span className='ml-2'>Liked</span>
+                    </span>
                     <hr className='my-1'/>
                     <span className='eds-a font-weight-bold text-white'>-- Shares</span>
                   </h5>
@@ -106,8 +121,20 @@ class EventDetailHeader extends Component {
         <table class="table transbox m-0">
           <thead>
             <tr>
-              <th scope="col" className={authenticated ? TOGGLE_OFF : TOGGLE_OFF + ' disabled'}>
-                <button type='button' className='edh-b font-weight-bold'>
+              <th 
+                scope="col" 
+                className=
+                  {
+                    liked 
+                      ? isHost ? TOGGLE_ON + ' disabled' : TOGGLE_ON 
+                      : authenticated ? TOGGLE_OFF : TOGGLE_OFF + ' disabled'
+                  }
+                >
+                <button 
+                  onClick={this.handleLikeToggle} 
+                  type='button' 
+                  className='edh-b font-weight-bold'
+                  >
                   <i class="fas fa-fire"></i><br/>Like
                 </button>
               </th>

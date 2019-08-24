@@ -174,6 +174,57 @@ export const setAvatar = (photo) =>
         }
     }
 
+export const likeToggleOn = (event) =>
+    async (
+        dispatch,        
+        getState,
+        {getFirebase, getFirestore},        
+    ) => {
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        const currentUser = firebase.auth().currentUser
+        const like = {
+            timestamp: firestore.FieldValue.serverTimestamp(),
+            avatarUrl: getState().firebase.profile.avatarUrl,
+            displayName: currentUser.displayName,
+            host: false,
+        }        
+        try {
+            await firestore.update(`events/${event.id}`, {
+                [`likes.${currentUser.uid}`]: like
+            })
+            await firestore.set(`event_like/${event.id}_${currentUser.uid}`, {
+                eventId: event.id,
+                userId: currentUser.uid,
+                eventStartDate: event.startDate,
+                eventEndDate: event.endDate,
+                host: false,
+                status: event.status,
+            })         
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+export const likeToggleOff = (event) =>
+    async (
+        dispatch,        
+        getState,
+        {getFirebase, getFirestore},        
+    ) => {
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        const currentUser = firebase.auth().currentUser
+        try {
+            await firestore.update(`events/${event.id}`, {
+                [`likes.${currentUser.uid}`]: firestore.FieldValue.delete()
+            })
+            await firestore.delete(`event_like/${event.id}_${currentUser.uid}`)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
 export const goingToggleOn = (event) =>
     async (
         dispatch, 
