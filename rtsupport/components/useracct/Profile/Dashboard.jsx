@@ -6,7 +6,7 @@ import Footer from '../../nav/Footer.jsx'
 import About from './About.jsx'
 import Overview from './Overview.jsx'
 import { setAvatar, deleteProfilePicture } from '../userActions.jsx'
-import { getTotalSaved, getTotalAttended, getTotalGoing, getTotalHosting } from '../../events/eventActions.jsx'
+import { getTotalLiked, getTotalSaved, getTotalAttended, getTotalGoing, getTotalHosting } from '../../events/eventActions.jsx'
 import { fetchPhotos } from '../../useracct/userQueries.jsx'
 import Loader from '../../layout/Loader.jsx'
 
@@ -22,6 +22,7 @@ const mapState = (state, ownProps) => ({
 })
 
 const actions = {
+  getTotalLiked,
   getTotalSaved,
   getTotalAttended,
   getTotalGoing,
@@ -33,6 +34,7 @@ const actions = {
 class Dashboard extends Component {
   state = {
     initialize: true,
+    totalLiked: 0,
     totalSaved: 0,
     totalAttended: 0,
     totalGoing: 0,
@@ -42,6 +44,7 @@ class Dashboard extends Component {
     const {profileId} = this.props
     this.setState({
       initialize: false,
+      totalLiked: await this.props.getTotalLiked(profileId),
       totalSaved: await this.props.getTotalSaved(profileId),
       totalAttended: await this.props.getTotalAttended(profileId),
       totalGoing: await this.props.getTotalGoing(profileId),
@@ -50,7 +53,7 @@ class Dashboard extends Component {
   }
   render() {
     const {loading, processing, profileId, setAvatar, deleteProfilePicture, photos, fba, fbp, providerId} = this.props
-    const {initialize, totalSaved, totalAttended, totalGoing, totalHosting} = this.state
+    const {initialize, totalLiked, totalSaved, totalAttended, totalGoing, totalHosting} = this.state
     const loadingProfile = this.props.requesting[`users/${this.props.match.params.id}`]
     if (initialize || loadingProfile) return <Loader/>
     return (
@@ -69,6 +72,7 @@ class Dashboard extends Component {
           />          
           <Overview
             loading={loading}
+            totalLiked={totalLiked}
             totalSaved={totalSaved}
             totalAttended={totalAttended}
             totalGoing={totalGoing}

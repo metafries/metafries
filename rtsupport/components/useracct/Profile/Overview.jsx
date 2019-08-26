@@ -10,7 +10,7 @@ import TotalCountsLoader from '../../layout/TotalCountsLoader.jsx'
 
 class Overview extends Component {
   render() {
-    const {loading, profileId, totalSaved, totalAttended, totalGoing, totalHosting, fba, fbp} = this.props 
+    const {loading, profileId, totalLiked, totalSaved, totalAttended, totalGoing, totalHosting, fba, fbp} = this.props 
     const isCurrentUser = fba.uid === fbp.id  
     return (
       <div class="col-lg-5 px-0">
@@ -48,7 +48,7 @@ class Overview extends Component {
               className="btn btn-lg btn-outline-dark rounded-0 border-dark font-weight-bold text-left px-2 my-1"
               >
               <i class="fas fa-minus mr-2"></i>LIKED
-              <span className='ml-2'>(0)</span>
+              {loading ? <TotalCountsLoader/> : <span className='ml-2'>{`(${totalLiked})`}</span>}
             </button>  
           </LinkContainer>  
           {
@@ -82,7 +82,7 @@ class Overview extends Component {
           />                              
           <Route
             path={`/profile/${fbp.id}/liked`}
-            render={() => <Liked type='Liked' fba={fba} fbp={fbp}/>}
+            render={() => <Liked type='Liked' profileId={profileId} fba={fba} fbp={fbp}/>}
           />                                        
           <Route
             path={`/profile/${fbp.id}/saved`}

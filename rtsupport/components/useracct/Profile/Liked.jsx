@@ -1,8 +1,63 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { getTotalLiked, getLikedEvents } from '../../events/eventActions.jsx'
+import EventList from '../../events/EventList.jsx'
+import Loader from '../../layout/Loader.jsx'
+
+const mapState = (state) => ({
+  events: state.events,
+  loading: state.async.loading,
+})
+
+const actions = {
+  getTotalLiked,
+  getLikedEvents,
+}
 
 class Liked extends Component {
+  state = {
+    loader: false,
+    initialize: true,
+    loadedEvents: [],
+    total: 0,
+  }
+  async componentDidMount() {
+    const {profileId} = this.props
+    this.setState({
+      total: await this.props.getTotalLiked(profileId)
+    })
+    let next = await this.props.getLikedEvents(profileId)
+    if (next && next.docs && next.docs.length > 1) {      
+      this.setState({
+        loader: true,
+        initialize: false,
+      })
+    }
+  }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const nextEvents = prevState.initialize ? [] : nextProps.events 
+    const prevEvents = prevState.loadedEvents
+    if (nextEvents[nextEvents.length-1] !== prevEvents[prevEvents.length-1]) {
+      return {
+        loadedEvents: [...prevEvents, ...nextEvents]        
+      }     
+    }
+    // Return null to indicate no change to state.
+    return null
+  }
+  loadMoreEvents = async() => {
+    const {profileId, events} = this.props
+    let lastEvent = events && events[events.length-1]
+    let next = await this.props.getLikedEvents(profileId, lastEvent)
+    if (next && next.docs && next.docs.length <= 1) {
+      this.setState({
+        loader: false
+      })
+    }
+  }
   render() {
-    const {fba, fbp} = this.props  
+    const {type, loading, fba, fbp} = this.props  
+    const {total, initialize, loadedEvents, loader} = this.state    
     const isCurrentUser = fba.uid === fbp.id  
     return (
       <div>
@@ -28,13 +83,20 @@ class Liked extends Component {
           }
           liked.
         </h6>
-        <h6 className='info-text-box mb-3 p-2 mx-3'>
-          <i class="fas fa-info-circle mr-2"></i>
-          Haven't liked any events yet.
-        </h6>
+        <EventList 
+            type={type}
+            loadMoreEvents={this.loadMoreEvents}
+            loader={loader}
+            loading={loading}
+            opts={total}
+            events={loadedEvents} 
+            fba={fba}
+            initialize={initialize}
+        />   
+        {loading && !initialize && total !== loadedEvents.length && <Loader/>}
       </div>
     )
   }
 }
 
-export default Liked
+export default connect(mapState, actions)(Liked)

@@ -22,6 +22,74 @@ import { fetchSampleData } from '../../app/data/mockApi.js'
 import { shapeNewEvent } from '../../app/common/util/shapers.js'
 import firebase from '../../app/config/firebase.js'
 
+export const getTotalLiked = (userId) =>
+    async (dispatch) => {
+        const firestore = firebase.firestore()
+        const eventsQuery = firestore
+            .collection('event_like')
+            .where('userId', '==', userId)
+        try {
+            dispatch(startAsyncAction())
+            let eventsQuerySnap = await eventsQuery.get()
+            return eventsQuerySnap.docs.length
+        } catch (e) {
+            console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())
+        }        
+    }
+
+export const getLikedEvents = (userId, lastEvent) =>
+    async (dispatch, getState) => {
+        const firestore = firebase.firestore()
+        const eventsRef = firestore.collection('event_like')
+        try {
+            dispatch(startAsyncAction())
+            let lastEventSnap = lastEvent 
+                && await firestore
+                    .collection('event_like')
+                    .doc(lastEvent.compositeId)
+                    .get()
+            let query = lastEvent
+                ? eventsRef
+                    .where('userId', '==', userId)
+                    .startAfter(lastEventSnap)
+                    .limit(2)
+                : eventsRef
+                    .where('userId', '==', userId)
+                    .limit(2)
+            let querySnap = await query.get()
+            if (querySnap.docs.length === 0) {
+                dispatch(finishAsyncAction())            
+                return querySnap               
+            }
+            let events = []
+            for (let i=0; i<querySnap.docs.length; i++) {
+                const fields = querySnap.docs[i].data()
+                let evt = await firestore
+                    .collection('events')
+                    .doc(fields.eventId)
+                    .get()
+                events.push({
+                    ...evt.data(), 
+                    id: fields.eventId,
+                    compositeId: `${fields.eventId}_${fields.userId}`
+                })
+            }
+            dispatch({
+                type: FETCH_EVENTS,
+                payload: {
+                    events,
+                }        
+            })
+            return querySnap
+        } catch (e) {
+            console.log(e)
+        } finally {
+            dispatch(finishAsyncAction())            
+        }
+    }
+    
 export const getTotalSaved = (userId) =>
     async (dispatch) => {
         const firestore = firebase.firestore()
