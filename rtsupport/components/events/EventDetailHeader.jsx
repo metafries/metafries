@@ -126,7 +126,7 @@ class EventDetailHeader extends Component {
                 className=
                   {
                     liked 
-                      ? isHost ? TOGGLE_ON + ' disabled' : TOGGLE_ON 
+                      ? TOGGLE_ON 
                       : authenticated ? TOGGLE_OFF : TOGGLE_OFF + ' disabled'
                   }
                 >
