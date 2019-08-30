@@ -183,11 +183,12 @@ export const likeToggleOn = (event) =>
         const firebase = getFirebase()
         const firestore = getFirestore()
         const currentUser = firebase.auth().currentUser
+        const isHost = event.hostUid === currentUser.uid
         const like = {
             timestamp: firestore.FieldValue.serverTimestamp(),
             avatarUrl: getState().firebase.profile.avatarUrl,
             displayName: currentUser.displayName,
-            host: false,
+            host: isHost,
         }        
         try {
             await firestore.update(`events/${event.id}`, {
@@ -198,7 +199,7 @@ export const likeToggleOn = (event) =>
                 userId: currentUser.uid,
                 eventStartDate: event.startDate,
                 eventEndDate: event.endDate,
-                host: false,
+                host: isHost,
                 status: event.status,
             })         
         } catch (e) {
