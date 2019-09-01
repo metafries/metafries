@@ -10,6 +10,7 @@ import EventDetailSidebar from './EventDetailSidebar.jsx'
 import Footer from '../nav/Footer.jsx'
 import { 
   addEventComment, 
+  saveToggleOn, saveToggleOff,
   likeToggleOn, likeToggleOff,
   goingToggleOn, goingToggleOff
 } from '../useracct/userActions.jsx'
@@ -39,6 +40,8 @@ const actions = {
   deletePoster,
   setToMain,
   addEventComment,
+  saveToggleOn,
+  saveToggleOff,
   likeToggleOn,
   likeToggleOff,
   goingToggleOn,
@@ -63,13 +66,15 @@ class EventDetailPage extends Component {
   }
   render() {
     const {processing, eventChat, err, deletePoster, setToMain, addEventComment, 
-      likeToggleOn, likeToggleOff, goingToggleOn, goingToggleOff, fba, event} = this.props
+      saveToggleOn, saveToggleOff, likeToggleOn, likeToggleOff, goingToggleOn, goingToggleOff, fba, event} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
     const convertedAttendees = event && event.attendees && objToArray(event.attendees)
     const covertedLikes = event && event.likes && objToArray(event.likes)
+    const convertedSave = event && event.save && objToArray(event.save)
     const isHost = event && fba.uid === event.hostUid
     const isGoing = convertedAttendees && convertedAttendees.some(a => a.id === fba.uid)
     const liked = covertedLikes && covertedLikes.some(l => l.id === fba.uid)
+    const saved = convertedSave && convertedSave.some(s => s.id === fba.uid)
     const {eventNotFoundMsg} = this.state
     const chatTree = !isEmpty(eventChat) && createDataTree(eventChat.reverse())
     const loadingEvent = this.props.requesting[`events/${this.props.match.params.id}`] 
@@ -94,6 +99,9 @@ class EventDetailPage extends Component {
                 processing={processing}
                 deletePoster={deletePoster}
                 setToMain={setToMain}
+                saveToggleOn={saveToggleOn}
+                saveToggleOff={saveToggleOff}
+                saved={saved}
                 goingToggleOn={goingToggleOn} 
                 goingToggleOff={goingToggleOff}
                 isGoing={isGoing} 

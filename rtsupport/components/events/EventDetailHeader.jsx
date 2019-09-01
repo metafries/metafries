@@ -4,6 +4,18 @@ import EventPosters from './EventPosters.jsx'
 import { TOGGLE_ON, TOGGLE_OFF } from './eventConstants.jsx'
 
 class EventDetailHeader extends Component {
+  handleSaveToggle = async() => {
+    const {saved, event} = this.props
+    if (saved) {
+      try {
+        await this.props.saveToggleOff(event)        
+      } finally {
+        window.location.reload()
+      }
+    } else {
+      this.props.saveToggleOn(event)
+    }
+  }
   handleLikeToggle = async() => {
     const {liked, event} = this.props
     if (liked) {
@@ -29,7 +41,7 @@ class EventDetailHeader extends Component {
     }
   }
   render() {
-    const {processing, deletePoster, setToMain, likeList, liked, isGoing, isHost, fba, event} = this.props
+    const {processing, deletePoster, setToMain, likeList, saved, liked, isGoing, isHost, fba, event} = this.props
     const authenticated = fba.isLoaded && !fba.isEmpty
     const today = new Date()
     return (
@@ -169,8 +181,20 @@ class EventDetailHeader extends Component {
                   <i class="fas fa-share"></i><br/>Share
                 </button>
               </th>
-              <th scope="col" className={authenticated ? TOGGLE_OFF : TOGGLE_OFF + ' disabled'}>
-                <button type='button' className='edh-b font-weight-bold'>
+              <th 
+                scope="col" 
+                className=
+                {
+                  saved ? TOGGLE_ON
+                        : authenticated ? TOGGLE_OFF 
+                                        : TOGGLE_OFF + ' disabled'
+                }
+                >
+                <button 
+                  onClick={this.handleSaveToggle}
+                  type='button' 
+                  className='edh-b font-weight-bold'
+                  >
                   <i class="fas fa-bookmark"></i><br/>Save
                 </button>
               </th>

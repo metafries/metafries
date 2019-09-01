@@ -174,6 +174,58 @@ export const setAvatar = (photo) =>
         }
     }
 
+export const saveToggleOn = (event) =>
+    async (
+        dispatch,        
+        getState,
+        {getFirebase, getFirestore},        
+    ) => {
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        const currentUser = firebase.auth().currentUser
+        const isHost = event.hostUid === currentUser.uid
+        const save = {
+            timestamp: firestore.FieldValue.serverTimestamp(),
+            avatarUrl: getState().firebase.profile.avatarUrl,
+            displayName: currentUser.displayName,
+            host: isHost,
+        }        
+        try {
+            await firestore.update(`events/${event.id}`, {
+                [`save.${currentUser.uid}`]: save
+            })
+            await firestore.set(`event_save/${event.id}_${currentUser.uid}`, {
+                eventId: event.id,
+                userId: currentUser.uid,
+                eventStartDate: event.startDate,
+                eventEndDate: event.endDate,
+                host: isHost,
+                status: event.status,
+            })         
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+export const saveToggleOff = (event) =>
+    async (
+        dispatch,        
+        getState,
+        {getFirebase, getFirestore},        
+    ) => {
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        const currentUser = firebase.auth().currentUser
+        try {
+            await firestore.update(`events/${event.id}`, {
+                [`save.${currentUser.uid}`]: firestore.FieldValue.delete()
+            })
+            await firestore.delete(`event_save/${event.id}_${currentUser.uid}`)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
 export const likeToggleOn = (event) =>
     async (
         dispatch,        
