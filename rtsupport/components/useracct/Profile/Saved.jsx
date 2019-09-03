@@ -27,7 +27,7 @@ class Saved extends Component {
       total: await this.props.getTotalSaved(profileId)
     })
     let next = await this.props.getSavedEvents(profileId)
-    if (next && next.docs && next.docs.length > 1) {      
+    if (next && next.docs && next.docs.length >= 1) {      
       this.setState({
         loader: true,
         initialize: false,

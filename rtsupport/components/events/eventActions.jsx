@@ -94,7 +94,7 @@ export const getTotalSaved = (userId) =>
     async (dispatch) => {
         const firestore = firebase.firestore()
         const eventsQuery = firestore
-            .collection('event_attendee')
+            .collection('event_save')
             .where('userId', '==', userId)
         try {
             dispatch(startAsyncAction())
@@ -110,12 +110,12 @@ export const getTotalSaved = (userId) =>
 export const getSavedEvents = (userId, lastEvent) => 
     async (dispatch, getState) => {
         const firestore = firebase.firestore()
-        const eventsRef = firestore.collection('event_attendee')
+        const eventsRef = firestore.collection('event_save')
         try {
             dispatch(startAsyncAction())
             let lastEventSnap = lastEvent 
                 && await firestore
-                    .collection('event_attendee')
+                    .collection('event_save')
                     .doc(lastEvent.compositeId)
                     .get()
             let query = lastEvent
