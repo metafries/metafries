@@ -27,7 +27,7 @@ class Asia extends Component {
       opts: await this.props.getTotalOfContinent('AS'),
     })
     let next = await this.props.getEventsByContinent('AS')
-    if (next && next.docs && next.docs.length > 1) {
+    if (next && next.docs && next.docs.length >= 1) {
       this.setState({
         loader: true,
         initialize: false,

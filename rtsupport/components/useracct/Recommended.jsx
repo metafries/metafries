@@ -27,7 +27,7 @@ class Recommended extends Component {
       opts: await this.props.totalRecommended()
     })
     let next = await this.props.recommendedEvents()
-    if (next && next.docs && next.docs.length > 1) {      
+    if (next && next.docs && next.docs.length >= 1) {      
       this.setState({
         loader: true,
         initialize: false,

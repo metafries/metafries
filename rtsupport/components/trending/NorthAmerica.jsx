@@ -27,7 +27,7 @@ class NorthAmerica extends Component {
       opts: await this.props.getTotalOfContinent('NA')
     })
     let next = await this.props.getEventsByContinent('NA')
-    if (next && next.docs && next.docs.length > 1) {
+    if (next && next.docs && next.docs.length >= 1) {
       this.setState({
         loader: true,
         initialize: false,

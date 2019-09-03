@@ -27,7 +27,7 @@ class Attended extends Component {
       total: await this.props.getTotalAttended(profileId)
     })
     let next = await this.props.getAttendedEvents(profileId)
-    if (next && next.docs && next.docs.length > 1) {      
+    if (next && next.docs && next.docs.length >= 1) {      
       this.setState({
         loader: true,
         initialize: false,

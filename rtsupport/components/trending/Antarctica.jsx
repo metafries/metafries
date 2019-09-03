@@ -27,7 +27,7 @@ class Antarctica extends Component {
       opts: await this.props.getTotalOfContinent('AN')
     })
     let next = await this.props.getEventsByContinent('AN')
-    if (next && next.docs && next.docs.length > 1) {
+    if (next && next.docs && next.docs.length >= 1) {
       this.setState({
         loader: true,
         initialize: false,

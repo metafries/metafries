@@ -27,7 +27,7 @@ class Oceania extends Component {
       opts: await this.props.getTotalOfContinent('OC')
     })
     let next = await this.props.getEventsByContinent('OC')
-    if (next && next.docs && next.docs.length > 1) {
+    if (next && next.docs && next.docs.length >= 1) {
       this.setState({
         loader: true,
         initialize: false,

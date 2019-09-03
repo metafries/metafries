@@ -27,7 +27,7 @@ class Subscriptions extends Component {
       opts: await this.props.totalSubscriptions()
     })
     let next = await this.props.subscribedEvents()
-    if (next && next.docs && next.docs.length > 1) {
+    if (next && next.docs && next.docs.length >= 1) {
       this.setState({
         loader: true,
         initialize: false,

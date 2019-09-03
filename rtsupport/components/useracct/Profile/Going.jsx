@@ -27,7 +27,7 @@ class Going extends Component {
       total: await this.props.getTotalGoing(profileId)
     })
     let next = await this.props.getGoingEvents(profileId)
-    if (next && next.docs && next.docs.length > 1) {      
+    if (next && next.docs && next.docs.length >= 1) {      
       this.setState({
         loader: true,
         initialize: false,

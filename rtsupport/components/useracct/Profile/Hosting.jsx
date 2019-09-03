@@ -27,7 +27,7 @@ class Hosting extends Component {
       total: await this.props.getTotalHosting(profileId)
     })
     let next = await this.props.getHostingEvents(profileId)
-    if (next && next.docs && next.docs.length > 1) {      
+    if (next && next.docs && next.docs.length >= 1) {      
       this.setState({
         loader: true,
         initialize: false,

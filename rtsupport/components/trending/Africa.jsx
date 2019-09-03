@@ -27,7 +27,7 @@ class Africa extends Component {
       opts: await this.props.getTotalOfContinent('AF'),
     })
     let next = await this.props.getEventsByContinent('AF')
-    if (next && next.docs && next.docs.length > 1) {
+    if (next && next.docs && next.docs.length >= 1) {
       this.setState({
         loader: true,
         initialize: false,
