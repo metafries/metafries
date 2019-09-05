@@ -489,12 +489,12 @@ export const getEventsByContinent = (continentCode, lastEvent) =>
             let query = lastEvent
                 ? eventsRef
                     .where('continent', '==', continentCode)
-                    .orderBy('startDate')
+                    .orderBy('createdAt', 'desc')
                     .startAfter(lastEventSnap)
                     .limit(2)                    
                 : eventsRef
                     .where('continent', '==', continentCode)
-                    .orderBy('startDate')
+                    .orderBy('createdAt', 'desc')
                     .limit(2)     
             let querySnap = await query.get()
             if (querySnap.docs.length === 0) {
