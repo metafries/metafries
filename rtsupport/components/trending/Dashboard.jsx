@@ -75,7 +75,7 @@ class Dashboard extends Component {
                     <div className='col-lg-5 px-0'>
                         <Switch>
                             <Redirect 
-                                exact from={`/trending`} to={`/trending/asia`}
+                                exact from={`/trending`} to={`/trending/europe`}
                             />
                             <Route
                                 path={`/trending/asia`}
