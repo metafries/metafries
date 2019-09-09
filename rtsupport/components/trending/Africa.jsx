@@ -76,13 +76,6 @@ class Africa extends Component {
           <i class="fas fa-info-circle mr-2"></i>
           The searching results are now limited to Africa.
         </h6>
-        {
-          opts === 0 &&
-          <h6 className='info-text-box mb-3 mx-3 p-2'>
-            <i class="fas fa-info-circle mr-2"></i>
-            Haven't find any event located in Africa.
-          </h6>
-        }
         <EventList 
           type={type}
           loadMoreEvents={this.loadMoreEvents}

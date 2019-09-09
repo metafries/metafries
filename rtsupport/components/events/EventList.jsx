@@ -15,8 +15,9 @@ class EventList extends Component {
               <h6 className='mx-3 font-weight-bold mb-1'>
                 Total of
                 <span className='mx-1'>{opts}</span>
-                <span className='mr-1'>{type}</span>
                 {events && events.length > 1 ? 'Events' : 'Event'}
+                <span className='ml-1'>located in</span>
+                <span className='ml-1'>{type}</span>
               </h6>
               {
                 events && events.length > 0 && 
