@@ -77,6 +77,7 @@ class Europe extends Component {
           The searching results are now limited to Europe.
         </h6>
         <EventList 
+          isGeo={true}
           type={type}
           loadMoreEvents={this.loadMoreEvents}
           loader={loader}

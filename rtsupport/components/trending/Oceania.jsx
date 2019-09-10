@@ -77,6 +77,7 @@ class Oceania extends Component {
           The searching results are now limited to Oceania.
         </h6>
         <EventList 
+          isGeo={true}
           type={type}
           loadMoreEvents={this.loadMoreEvents}
           loader={loader}
