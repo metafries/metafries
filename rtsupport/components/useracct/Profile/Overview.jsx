@@ -6,6 +6,7 @@ import Going from './Going.jsx'
 import Attended from './Attended.jsx'
 import Liked from './Liked.jsx'
 import Saved from './Saved.jsx'
+import { STATUS_OPTS } from '../../events/eventConstants.jsx'
 import TotalCountsLoader from '../../layout/TotalCountsLoader.jsx'
 
 class Overview extends Component {
@@ -70,23 +71,23 @@ class Overview extends Component {
           />          
           <Route
             path={`/profile/${fbp.id}/hosting`}
-            render={() => <Hosting type='Hosting' profileId={profileId} fba={fba} fbp={fbp}/>}
+            render={() => <Hosting type='Hosting' statusOpts={STATUS_OPTS} profileId={profileId} fba={fba} fbp={fbp}/>}
           />          
           <Route
             path={`/profile/${fbp.id}/going`}
-            render={() => <Going type='Going' profileId={profileId} fba={fba} fbp={fbp}/>}
+            render={() => <Going type='Going' statusOpts={STATUS_OPTS} profileId={profileId} fba={fba} fbp={fbp}/>}
           />                    
           <Route
             path={`/profile/${fbp.id}/attended`}
-            render={() => <Attended type='Attended' profileId={profileId} fba={fba} fbp={fbp}/>}
+            render={() => <Attended type='Attended' statusOpts={STATUS_OPTS} profileId={profileId} fba={fba} fbp={fbp}/>}
           />                              
           <Route
             path={`/profile/${fbp.id}/liked`}
-            render={() => <Liked type='Liked' profileId={profileId} fba={fba} fbp={fbp}/>}
+            render={() => <Liked type='Liked' statusOpts={STATUS_OPTS} profileId={profileId} fba={fba} fbp={fbp}/>}
           />                                        
           <Route
             path={`/profile/${fbp.id}/saved`}
-            render={() => <Saved type='Saved' profileId={profileId} fba={fba} fbp={fbp}/>}
+            render={() => <Saved type='Saved' statusOpts={STATUS_OPTS} profileId={profileId} fba={fba} fbp={fbp}/>}
           />                                                  
         </Switch>
       </div>

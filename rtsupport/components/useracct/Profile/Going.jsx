@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Select from 'react-select'
 import { connect } from 'react-redux'
 import EventList from '../../events/EventList.jsx'
 import { getTotalGoing, getGoingEvents } from '../../events/eventActions.jsx'
@@ -56,7 +57,7 @@ class Going extends Component {
     }
   }
   render() {
-    const {type, loading, fba, fbp} = this.props  
+    const {statusOpts, type, loading, fba, fbp} = this.props  
     const {total, initialize, loadedEvents, loader} = this.state    
     const isCurrentUser = fba.uid === fbp.id  
     return (
@@ -73,16 +74,24 @@ class Going extends Component {
             </button>
           </div>
         </div>
-        <h6 className='info-text-box mb-3 mx-3 p-2'>
-          <i class="fas fa-info-circle mr-2"></i>
-          The searching results are now limited to events that
-          {
-            isCurrentUser 
-            ? <span className='mx-1'>you are</span> 
-            : <span className='mx-1'>{fbp.displayName} is</span>
-          }
-          going to.
-        </h6>
+        <h5 className='font-weight-bold px-3'>
+          <i class="fas fa-filter mr-2"></i>
+          Filter
+        </h5>
+        <Select
+          className='w-auto mb-3 mx-3'
+          value={statusOpts[0]}
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+            ...theme.colors,
+              primary25: '#f5f5f5',
+              primary50: '#f5f5f5',
+              primary: '#303aa5',
+            },
+          })}
+        />
         <EventList 
             type={type}
             loadMoreEvents={this.loadMoreEvents}

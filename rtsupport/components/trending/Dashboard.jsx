@@ -11,6 +11,7 @@ import NorthAmerica from './NorthAmerica.jsx'
 import SouthAmerica from './SouthAmerica.jsx'
 import Oceania from './Oceania.jsx'
 import Antarctica from './Antarctica.jsx'
+import { STATUS_OPTS } from '../events/eventConstants.jsx'
 import { getTotalOfContinent } from '../events/eventActions.jsx'
 
 const mapState = (state) => ({
@@ -79,31 +80,31 @@ class Dashboard extends Component {
                             />
                             <Route
                                 path={`/trending/asia`}
-                                render={() => <Asia type='Asia'/>}
+                                render={() => <Asia type='Asia' statusOpts={STATUS_OPTS} />}
                             />
                             <Route
                                 path={`/trending/africa`}
-                                render={() => <Africa type='Africa'/>}
+                                render={() => <Africa type='Africa' statusOpts={STATUS_OPTS} />}
                             />
                             <Route
                                 path={`/trending/europe`}
-                                render={() => <Europe type='Europe'/>}
+                                render={() => <Europe type='Europe' statusOpts={STATUS_OPTS} />}
                             />
                             <Route
                                 path={`/trending/northamerica`}
-                                render={() => <NorthAmerica type='North America'/>}
+                                render={() => <NorthAmerica type='North America' statusOpts={STATUS_OPTS} />}
                             />
                             <Route
                                 path={`/trending/southamerica`}
-                                render={() => <SouthAmerica type='South America'/>}
+                                render={() => <SouthAmerica type='South America' statusOpts={STATUS_OPTS} />}
                             />
                             <Route
                                 path={`/trending/oceania`}
-                                render={() => <Oceania type='Oceania'/>}
+                                render={() => <Oceania type='Oceania' statusOpts={STATUS_OPTS} />}
                             />
                             <Route
                                 path={`/trending/antarctica`}
-                                render={() => <Antarctica type='Antartica'/>}
+                                render={() => <Antarctica type='Antartica' statusOpts={STATUS_OPTS} />}
                             />
                         </Switch>                    
                     </div>

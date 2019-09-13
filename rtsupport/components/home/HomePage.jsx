@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Menu from './Menu.jsx'
+import { STATUS_OPTS } from '../events/eventConstants.jsx'
 import Recommended from '../useracct/Recommended.jsx'
 import Subscriptions from '../useracct/Subscriptions.jsx'
 import ActivityLog from '../useracct/ActivityLog.jsx'
@@ -98,13 +99,15 @@ class HomePage extends Component {
                     path={`/search/${fba.uid}/recommended`}
                     render={() => <Recommended
                       type='Recommended'
+                      statusOpts={STATUS_OPTS}                       
                       handleDeleteEvent={this.handleDeleteEvent} 
                     />}
                   />
                   <Route
                     path={`/search/${fba.uid}/subscriptions`}
-                    render={() => <Subscriptions
+                    render={() => <Subscriptions                      
                       type='Subscribed'
+                      statusOpts={STATUS_OPTS} 
                       handleDeleteEvent={this.handleDeleteEvent} 
                     />}
                   />
