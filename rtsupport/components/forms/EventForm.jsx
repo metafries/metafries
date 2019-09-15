@@ -295,6 +295,7 @@ class EventForm extends Component {
           <h5 className='font-weight-bold'>Event Host</h5>
           <Select
             className='w-auto'
+            isSearchable={false}
             value={selectedOption}
             onChange={this.handleChange}
             options={this.props.options}

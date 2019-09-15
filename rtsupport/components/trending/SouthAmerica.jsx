@@ -73,12 +73,9 @@ class SouthAmerica extends Component {
             </button>
           </div>
         </div>
-        <h5 className='font-weight-bold px-3'>
-          <i class="fas fa-filter mr-2"></i>
-          Filter
-        </h5>
         <Select
           className='w-auto mb-3 mx-3'
+          isSearchable={false}
           value={statusOpts[0]}
           theme={(theme) => ({
             ...theme,
