@@ -8,7 +8,7 @@ function Footer() {
         <footer class="container-fluid pb-3 px-0">
           <hr/>
           <small className='font-weight-bold'>
-              <i class="far fa-copyright mr-2"></i>2019 Metafries
+              <i class="far fa-copyright mr-2"></i>2019 metaFries
           </small>
         </footer>
       </div>

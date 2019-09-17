@@ -38,7 +38,7 @@ const EventDetailSidebar = ({currentUser, hostUid, attendees}) => {
                     }
                   </small>
                 </td>
-                <td className='pr-0'>
+                <td className='px-0'>
                   {
                     currentUser.uid !== attendee.id &&
                     <button 
