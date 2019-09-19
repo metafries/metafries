@@ -18,6 +18,7 @@ const actions = {
 
 class Oceania extends Component {
   state = {
+    selectedStatus: this.props.statusOpts[0],
     loader: false,
     initialize: true,
     loadedEvents: [],
@@ -56,9 +57,12 @@ class Oceania extends Component {
       })
     }
   }
+  handleStatusChange = (selectedStatus) => {
+    this.setState({selectedStatus});
+  }
   render() {
     const {statusOpts, type, fba, loading} = this.props    
-    const {opts, initialize, loadedEvents, loader} = this.state
+    const {selectedStatus, opts, initialize, loadedEvents, loader} = this.state
     return (
       <div>
         <div class="input-group mb-2 px-3">
@@ -76,7 +80,9 @@ class Oceania extends Component {
         <Select
           className='w-auto mb-3 mx-3'
           isSearchable={false}
-          value={statusOpts[0]}
+          value={selectedStatus}
+          options={statusOpts}
+          onChange={this.handleStatusChange}
           theme={(theme) => ({
             ...theme,
             borderRadius: 0,

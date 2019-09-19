@@ -17,6 +17,7 @@ const actions = {
 
 class Liked extends Component {
   state = {
+    selectedStatus: this.props.statusOpts[0],
     loader: false,
     initialize: true,
     loadedEvents: [],
@@ -56,9 +57,12 @@ class Liked extends Component {
       })
     }
   }
+  handleStatusChange = (selectedStatus) => {
+    this.setState({selectedStatus});
+  }
   render() {
     const {statusOpts, type, loading, fba, fbp} = this.props  
-    const {total, initialize, loadedEvents, loader} = this.state    
+    const {selectedStatus, total, initialize, loadedEvents, loader} = this.state    
     const isCurrentUser = fba.uid === fbp.id  
     return (
       <div>
@@ -77,7 +81,9 @@ class Liked extends Component {
         <Select
           className='w-auto mb-3 mx-3'
           isSearchable={false}
-          value={statusOpts[0]}
+          value={selectedStatus}
+          options={statusOpts}
+          onChange={this.handleStatusChange}
           theme={(theme) => ({
             ...theme,
             borderRadius: 0,
