@@ -57,7 +57,7 @@ class Recommended extends Component {
     }
   }
   render() {
-    const {statusOpts, type, fba, loading} = this.props
+    const {type, fba, loading} = this.props
     const {opts, initialize, loadedEvents, loader} = this.state
     return (
       <div>
@@ -76,7 +76,7 @@ class Recommended extends Component {
         <Select
           className='w-auto mb-3 mx-3'
           isSearchable={false}
-          value={statusOpts[0]}
+          value={{label:'ALL',value:'All'}}
           theme={(theme) => ({
             ...theme,
             borderRadius: 0,

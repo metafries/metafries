@@ -42,7 +42,7 @@ class HomePage extends Component {
   async componentDidMount() {
     this.setState({
       totalRecommended: await this.props.totalRecommended(),
-      totalSubscriptions: await this.props.totalSubscriptions(),
+      totalSubscriptions: await this.props.totalSubscriptions(STATUS_OPTS[0]),
     })
   }
   handleDeleteEvent = (cancelEvent_id) => {
@@ -99,7 +99,6 @@ class HomePage extends Component {
                     path={`/search/${fba.uid}/recommended`}
                     render={() => <Recommended
                       type='Recommended'
-                      statusOpts={STATUS_OPTS}                       
                       handleDeleteEvent={this.handleDeleteEvent} 
                     />}
                   />
