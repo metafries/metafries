@@ -17,6 +17,7 @@ const actions = {
 
 class Going extends Component {
   state = {
+    selectedStatus: this.props.statusOpts[0],        
     loader: false,
     initialize: true,
     loadedEvents: [],
@@ -24,10 +25,11 @@ class Going extends Component {
   }
   async componentDidMount() {
     const {profileId} = this.props
+    const {selectedStatus} = this.state
     this.setState({
-      total: await this.props.getTotalGoing(profileId)
+      total: await this.props.getTotalGoing(selectedStatus, profileId)
     })
-    let next = await this.props.getGoingEvents(profileId)
+    let next = await this.props.getGoingEvents(selectedStatus, profileId)
     if (next && next.docs && next.docs.length >= 1) {      
       this.setState({
         loader: true,
@@ -48,17 +50,35 @@ class Going extends Component {
   }
   loadMoreEvents = async() => {
     const {profileId, events} = this.props
+    const {selectedStatus} = this.state
     let lastEvent = events && events[events.length-1]
-    let next = await this.props.getGoingEvents(profileId, lastEvent)
+    let next = await this.props.getGoingEvents(selectedStatus, profileId, lastEvent)
     if (next && next.docs && next.docs.length <= 1) {
       this.setState({
         loader: false
       })
     }
   }
+  handleStatusChange = async(selectedStatus) => {
+    const {profileId} = this.props
+    this.setState({
+      selectedStatus,
+      loader: false,
+      initialize: true,
+      loadedEvents: [],  
+      total: await this.props.getTotalGoing(selectedStatus, profileId)
+    })
+    let next = await this.props.getGoingEvents(selectedStatus, profileId)
+    if (next && next.docs && next.docs.length >= 1) {      
+      this.setState({
+        loader: true,
+        initialize: false,
+      })
+    }
+  }
   render() {
     const {statusOpts, type, loading, fba, fbp} = this.props  
-    const {total, initialize, loadedEvents, loader} = this.state    
+    const {selectedStatus, total, initialize, loadedEvents, loader} = this.state    
     const isCurrentUser = fba.uid === fbp.id  
     return (
       <div>
@@ -77,7 +97,9 @@ class Going extends Component {
         <Select
           className='w-auto mb-3 mx-3'
           isSearchable={false}
-          value={statusOpts[0]}
+          value={selectedStatus}
+          options={[statusOpts[0],statusOpts[1],statusOpts[2]]}
+          onChange={this.handleStatusChange}          
           theme={(theme) => ({
             ...theme,
             borderRadius: 0,
@@ -94,6 +116,7 @@ class Going extends Component {
             loadMoreEvents={this.loadMoreEvents}
             loader={loader}
             loading={loading}
+            status={selectedStatus.value}                        
             opts={total}
             events={loadedEvents} 
             fba={fba}

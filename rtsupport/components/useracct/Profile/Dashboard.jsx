@@ -6,6 +6,7 @@ import Footer from '../../nav/Footer.jsx'
 import About from './About.jsx'
 import Overview from './Overview.jsx'
 import { setAvatar, deleteProfilePicture } from '../userActions.jsx'
+import { STATUS_OPTS } from '../../events/eventConstants.jsx'
 import { getTotalLiked, getTotalSaved, getTotalAttended, getTotalGoing, getTotalHosting } from '../../events/eventActions.jsx'
 import { fetchPhotos } from '../../useracct/userQueries.jsx'
 import Loader from '../../layout/Loader.jsx'
@@ -44,11 +45,11 @@ class Dashboard extends Component {
     const {profileId} = this.props
     this.setState({
       initialize: false,
-      totalLiked: await this.props.getTotalLiked(profileId),
-      totalSaved: await this.props.getTotalSaved(profileId),
+      totalLiked: await this.props.getTotalLiked(STATUS_OPTS[0], profileId),
+      totalSaved: await this.props.getTotalSaved(STATUS_OPTS[0],profileId),
       totalAttended: await this.props.getTotalAttended(profileId),
-      totalGoing: await this.props.getTotalGoing(profileId),
-      totalHosting: await this.props.getTotalHosting(profileId),
+      totalGoing: await this.props.getTotalGoing(STATUS_OPTS[0], profileId),
+      totalHosting: await this.props.getTotalHosting(STATUS_OPTS[0], profileId),
     })
   }
   render() {

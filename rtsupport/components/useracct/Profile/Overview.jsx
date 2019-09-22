@@ -79,7 +79,7 @@ class Overview extends Component {
           />                    
           <Route
             path={`/profile/${fbp.id}/attended`}
-            render={() => <Attended type='Attended' statusOpts={STATUS_OPTS} profileId={profileId} fba={fba} fbp={fbp}/>}
+            render={() => <Attended type='Attended' profileId={profileId} fba={fba} fbp={fbp}/>}
           />                              
           <Route
             path={`/profile/${fbp.id}/liked`}

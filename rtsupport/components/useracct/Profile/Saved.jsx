@@ -25,10 +25,11 @@ class Saved extends Component {
   }
   async componentDidMount() {
     const {profileId} = this.props
+    const {selectedStatus} = this.state
     this.setState({
-      total: await this.props.getTotalSaved(profileId)
+      total: await this.props.getTotalSaved(selectedStatus, profileId)
     })
-    let next = await this.props.getSavedEvents(profileId)
+    let next = await this.props.getSavedEvents(selectedStatus, profileId)
     if (next && next.docs && next.docs.length >= 1) {      
       this.setState({
         loader: true,
@@ -49,16 +50,31 @@ class Saved extends Component {
   }
   loadMoreEvents = async() => {
     const {profileId, events} = this.props
+    const {selectedStatus} = this.state
     let lastEvent = events && events[events.length-1]
-    let next = await this.props.getSavedEvents(profileId, lastEvent)
+    let next = await this.props.getSavedEvents(selectedStatus, profileId, lastEvent)
     if (next && next.docs && next.docs.length <= 1) {
       this.setState({
         loader: false
       })
     }
   }
-  handleStatusChange = (selectedStatus) => {
-    this.setState({selectedStatus});
+  handleStatusChange = async(selectedStatus) => {
+    const {profileId} = this.props
+    this.setState({
+      selectedStatus,
+      loader: false,
+      initialize: true,
+      loadedEvents: [],  
+      total: await this.props.getTotalSaved(selectedStatus, profileId)
+    })
+    let next = await this.props.getSavedEvents(selectedStatus, profileId)
+    if (next && next.docs && next.docs.length >= 1) {      
+      this.setState({
+        loader: true,
+        initialize: false,
+      })
+    }
   }
   render() {
     const {statusOpts, type, loading, fba, fbp} = this.props  
@@ -100,6 +116,7 @@ class Saved extends Component {
             loadMoreEvents={this.loadMoreEvents}
             loader={loader}
             loading={loading}
+            status={selectedStatus.value}            
             opts={total}
             events={loadedEvents} 
             fba={fba}

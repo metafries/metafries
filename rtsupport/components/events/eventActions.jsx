@@ -22,12 +22,37 @@ import { fetchSampleData } from '../../app/data/mockApi.js'
 import { shapeNewEvent } from '../../app/common/util/shapers.js'
 import firebase from '../../app/config/firebase.js'
 
-export const getTotalLiked = (userId) =>
+export const getTotalLiked = (evtStatus, userId) =>
     async (dispatch) => {
         const firestore = firebase.firestore()
-        const eventsQuery = firestore
-            .collection('event_like')
-            .where('userId', '==', userId)
+        let eventsQuery = null
+        const today = new Date(Date.now())
+        switch (evtStatus.value) {
+            case 'Active':
+                eventsQuery = firestore
+                    .collection('event_like')
+                    .where('userId', '==', userId)
+                    .where('eventEndDate', '>=', today)
+                    .where('status', '==', 0)    
+                break;
+            case 'Canceled':
+                eventsQuery = firestore
+                    .collection('event_like')
+                    .where('userId', '==', userId)
+                    .where('status', '==', 1)                
+                break;
+            case 'Past':
+                eventsQuery = firestore
+                    .collection('event_like')
+                    .where('userId', '==', userId)
+                    .where('eventEndDate', '<', today)
+                    .where('status', '==', 0)    
+                break;
+            default:
+                eventsQuery = firestore
+                    .collection('event_like')
+                    .where('userId', '==', userId)
+        }
         try {
             dispatch(startAsyncAction())
             let eventsQuerySnap = await eventsQuery.get()
@@ -39,7 +64,7 @@ export const getTotalLiked = (userId) =>
         }        
     }
 
-export const getLikedEvents = (userId, lastEvent) =>
+export const getLikedEvents = (evtStatus, userId, lastEvent) =>
     async (dispatch, getState) => {
         const firestore = firebase.firestore()
         const eventsRef = firestore.collection('event_like')
@@ -50,14 +75,65 @@ export const getLikedEvents = (userId, lastEvent) =>
                     .collection('event_like')
                     .doc(lastEvent.compositeId)
                     .get()
-            let query = lastEvent
-                ? eventsRef
-                    .where('userId', '==', userId)
-                    .startAfter(lastEventSnap)
-                    .limit(2)
-                : eventsRef
-                    .where('userId', '==', userId)
-                    .limit(2)
+            let query = null
+            const today = new Date(Date.now())
+            switch (evtStatus.value) {
+                case 'Active':
+                    query = lastEvent
+                        ? eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '>=', today)
+                            .where('status', '==', 0)          
+                            .orderBy('eventEndDate')                                  
+                            .startAfter(lastEventSnap)
+                            .limit(2)
+                        : eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '>=', today)
+                            .where('status', '==', 0)          
+                            .orderBy('eventEndDate')                                  
+                            .limit(2)            
+                    break;
+                case 'Canceled':
+                    query = lastEvent
+                    ? eventsRef
+                        .where('userId', '==', userId)
+                        .where('status', '==', 1) 
+                        .orderBy('eventEndDate')                              
+                        .startAfter(lastEventSnap)
+                        .limit(2)
+                    : eventsRef
+                        .where('userId', '==', userId)
+                        .where('status', '==', 1) 
+                        .orderBy('eventEndDate')                                                      
+                        .limit(2)            
+                    break;
+                case 'Past':
+                    query = lastEvent
+                        ? eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '<', today)
+                            .where('status', '==', 0)
+                            .orderBy('eventEndDate', 'desc')                                  
+                            .startAfter(lastEventSnap)
+                            .limit(2)
+                        : eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '<', today)
+                            .where('status', '==', 0) 
+                            .orderBy('eventEndDate', 'desc')                                  
+                            .limit(2)            
+                            break;
+                default:
+                    query = lastEvent
+                        ? eventsRef
+                            .where('userId', '==', userId)
+                            .startAfter(lastEventSnap)
+                            .limit(2)
+                        : eventsRef
+                            .where('userId', '==', userId)
+                            .limit(2)
+            }
             let querySnap = await query.get()
             if (querySnap.docs.length === 0) {
                 dispatch(finishAsyncAction())            
@@ -90,12 +166,37 @@ export const getLikedEvents = (userId, lastEvent) =>
         }
     }
     
-export const getTotalSaved = (userId) =>
+export const getTotalSaved = (evtStatus, userId) =>
     async (dispatch) => {
         const firestore = firebase.firestore()
-        const eventsQuery = firestore
-            .collection('event_save')
-            .where('userId', '==', userId)
+        let eventsQuery = null
+        const today = new Date(Date.now())        
+        switch (evtStatus.value) {
+            case 'Active':
+                eventsQuery = firestore
+                    .collection('event_save')
+                    .where('userId', '==', userId)
+                    .where('eventEndDate', '>=', today)
+                    .where('status', '==', 0)    
+                break;
+            case 'Canceled':
+                eventsQuery = firestore
+                    .collection('event_save')
+                    .where('userId', '==', userId)
+                    .where('status', '==', 1)                
+                break;
+            case 'Past':
+                eventsQuery = firestore
+                    .collection('event_save')
+                    .where('userId', '==', userId)
+                    .where('eventEndDate', '<', today)
+                    .where('status', '==', 0)    
+                break;
+            default:
+                eventsQuery = firestore
+                    .collection('event_save')
+                    .where('userId', '==', userId)
+        }
         try {
             dispatch(startAsyncAction())
             let eventsQuerySnap = await eventsQuery.get()
@@ -107,7 +208,7 @@ export const getTotalSaved = (userId) =>
         }
     }
 
-export const getSavedEvents = (userId, lastEvent) => 
+export const getSavedEvents = (evtStatus, userId, lastEvent) => 
     async (dispatch, getState) => {
         const firestore = firebase.firestore()
         const eventsRef = firestore.collection('event_save')
@@ -118,14 +219,65 @@ export const getSavedEvents = (userId, lastEvent) =>
                     .collection('event_save')
                     .doc(lastEvent.compositeId)
                     .get()
-            let query = lastEvent
-                ? eventsRef
-                    .where('userId', '==', userId)
-                    .startAfter(lastEventSnap)
-                    .limit(2)
-                : eventsRef
-                    .where('userId', '==', userId)
-                    .limit(2)
+            let query = null
+            const today = new Date(Date.now()) 
+            switch (evtStatus.value) {
+                case 'Active':
+                    query = lastEvent
+                        ? eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '>=', today)
+                            .where('status', '==', 0)          
+                            .orderBy('eventEndDate')                                  
+                            .startAfter(lastEventSnap)
+                            .limit(2)
+                        : eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '>=', today)
+                            .where('status', '==', 0)          
+                            .orderBy('eventEndDate')                                  
+                            .limit(2)            
+                    break;
+                case 'Canceled':
+                    query = lastEvent
+                    ? eventsRef
+                        .where('userId', '==', userId)
+                        .where('status', '==', 1) 
+                        .orderBy('eventEndDate')                              
+                        .startAfter(lastEventSnap)
+                        .limit(2)
+                    : eventsRef
+                        .where('userId', '==', userId)
+                        .where('status', '==', 1) 
+                        .orderBy('eventEndDate')                                                      
+                        .limit(2)            
+                    break;
+                case 'Past':
+                    query = lastEvent
+                        ? eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '<', today)
+                            .where('status', '==', 0)
+                            .orderBy('eventEndDate', 'desc')                                  
+                            .startAfter(lastEventSnap)
+                            .limit(2)
+                        : eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '<', today)
+                            .where('status', '==', 0) 
+                            .orderBy('eventEndDate', 'desc')                                  
+                            .limit(2)            
+                            break;
+                default:
+                    query = lastEvent
+                        ? eventsRef
+                            .where('userId', '==', userId)
+                            .startAfter(lastEventSnap)
+                            .limit(2)
+                        : eventsRef
+                            .where('userId', '==', userId)
+                            .limit(2)
+            }
             let querySnap = await query.get()
             if (querySnap.docs.length === 0) {
                 dispatch(finishAsyncAction())            
@@ -240,14 +392,32 @@ export const getAttendedEvents = (userId, lastEvent) =>
         }
     }
 
-export const getTotalGoing = (userId) =>
+export const getTotalGoing = (evtStatus, userId) =>
     async (dispatch) => {
         let today = new Date(Date.now())
         const firestore = firebase.firestore()
-        const eventsQuery = firestore
-            .collection('event_attendee')
-            .where('userId', '==', userId)
-            .where('eventEndDate', '>=', today)
+        let eventsQuery = null
+        switch (evtStatus.value) {
+            case 'Active':
+                eventsQuery = firestore
+                    .collection('event_attendee')
+                    .where('userId', '==', userId)
+                    .where('eventEndDate', '>=', today)
+                    .where('status', '==', 0)    
+                break;
+            case 'Canceled':
+                eventsQuery = firestore
+                    .collection('event_attendee')
+                    .where('userId', '==', userId)
+                    .where('eventEndDate', '>=', today)
+                    .where('status', '==', 1)    
+                break;
+            default:
+                eventsQuery = firestore
+                    .collection('event_attendee')
+                    .where('userId', '==', userId)
+                    .where('eventEndDate', '>=', today)
+        }
         try {
             dispatch(startAsyncAction())
             let eventsQuerySnap = await eventsQuery.get()
@@ -259,7 +429,7 @@ export const getTotalGoing = (userId) =>
         }
     }
 
-export const getGoingEvents = (userId, lastEvent) => 
+export const getGoingEvents = (evtStatus, userId, lastEvent) => 
     async (dispatch, getState) => {
         let today = new Date(Date.now())        
         const firestore = firebase.firestore()
@@ -271,16 +441,52 @@ export const getGoingEvents = (userId, lastEvent) =>
                     .collection('event_attendee')
                     .doc(lastEvent.compositeId)
                     .get()
-            let query = lastEvent
-                ? eventsRef
-                    .where('userId', '==', userId)
-                    .where('eventEndDate', '>=', today)    
-                    .startAfter(lastEventSnap)
-                    .limit(2)
-                : eventsRef
-                    .where('userId', '==', userId)
-                    .where('eventEndDate', '>=', today)    
-                    .limit(2)
+            let query = null
+            switch (evtStatus.value) {
+                case 'Active':
+                    query = lastEvent
+                        ? eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '>=', today)    
+                            .where('status', '==', 0) 
+                            .orderBy('eventEndDate')
+                            .startAfter(lastEventSnap)
+                            .limit(2)
+                        : eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '>=', today)    
+                            .where('status', '==', 0) 
+                            .orderBy('eventEndDate')                            
+                            .limit(2)
+                    break;
+                case 'Canceled':
+                    query = lastEvent
+                        ? eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '>=', today)  
+                            .where('status', '==', 1)   
+                            .orderBy('eventEndDate')                                                        
+                            .startAfter(lastEventSnap)
+                            .limit(2)
+                        : eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '>=', today)    
+                            .where('status', '==', 1) 
+                            .orderBy('eventEndDate')                                                        
+                            .limit(2)
+                    break;
+                default:
+                    query = lastEvent
+                        ? eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '>=', today)    
+                            .startAfter(lastEventSnap)
+                            .limit(2)
+                        : eventsRef
+                            .where('userId', '==', userId)
+                            .where('eventEndDate', '>=', today)   
+                            .limit(2)
+            }
             let querySnap = await query.get()
             if (querySnap.docs.length === 0) {
                 dispatch(finishAsyncAction())            
@@ -315,15 +521,35 @@ export const getGoingEvents = (userId, lastEvent) =>
         }
     }
     
-export const getTotalHosting = (userId) =>
+export const getTotalHosting = (evtStatus, userId) =>
     async (dispatch) => {
         let today = new Date(Date.now())
         const firestore = firebase.firestore()
-        const eventsQuery = firestore
-            .collection('event_attendee')
-            .where('userId', '==', userId)
-            .where('host', '==', true)
-            .where('eventEndDate', '>=', today)
+        let eventsQuery = null
+        switch (evtStatus.value) {
+            case 'Active':
+                eventsQuery = firestore
+                    .collection('event_attendee')
+                    .where('userId', '==', userId)
+                    .where('host', '==', true)
+                    .where('eventEndDate', '>=', today)
+                    .where('status', '==', 0)                 
+                break;
+            case 'Canceled':
+                eventsQuery = firestore
+                    .collection('event_attendee')
+                    .where('userId', '==', userId)
+                    .where('host', '==', true)
+                    .where('eventEndDate', '>=', today)
+                    .where('status', '==', 1) 
+                break;
+            default:
+                eventsQuery = firestore
+                    .collection('event_attendee')
+                    .where('userId', '==', userId)
+                    .where('host', '==', true)
+                    .where('eventEndDate', '>=', today)
+        }
         try {
             dispatch(startAsyncAction())
             let eventsQuerySnap = await eventsQuery.get()
@@ -335,7 +561,7 @@ export const getTotalHosting = (userId) =>
         }
     }
 
-export const getHostingEvents = (userId, lastEvent) => 
+export const getHostingEvents = (evtStatus, userId, lastEvent) => 
     async (dispatch, getState) => {
         let today = new Date(Date.now())        
         const firestore = firebase.firestore()
@@ -347,18 +573,58 @@ export const getHostingEvents = (userId, lastEvent) =>
                     .collection('event_attendee')
                     .doc(lastEvent.compositeId)
                     .get()
-            let query = lastEvent
-                ? eventsRef
-                    .where('userId', '==', userId)
-                    .where('host', '==', true)
-                    .where('eventEndDate', '>=', today)    
-                    .startAfter(lastEventSnap)
-                    .limit(2)
-                : eventsRef
-                    .where('userId', '==', userId)
-                    .where('host', '==', true)
-                    .where('eventEndDate', '>=', today)    
-                    .limit(2)
+            let query = null
+            switch (evtStatus.value) {
+                case 'Active':
+                    query = lastEvent
+                        ? eventsRef
+                            .where('userId', '==', userId)
+                            .where('host', '==', true)
+                            .where('eventEndDate', '>=', today)    
+                            .where('status', '==', 0) 
+                            .orderBy('eventEndDate')                                                        
+                            .startAfter(lastEventSnap)
+                            .limit(2)
+                        : eventsRef
+                            .where('userId', '==', userId)
+                            .where('host', '==', true)
+                            .where('eventEndDate', '>=', today)    
+                            .where('status', '==', 0) 
+                            .orderBy('eventEndDate')                                                        
+                            .limit(2)
+                    break;
+                case 'Canceled':
+                    query = lastEvent
+                        ? eventsRef
+                            .where('userId', '==', userId)
+                            .where('host', '==', true)
+                            .where('eventEndDate', '>=', today)  
+                            .where('status', '==', 1)   
+                            .orderBy('eventEndDate')                                                        
+                            .startAfter(lastEventSnap)
+                            .limit(2)
+                        : eventsRef
+                            .where('userId', '==', userId)
+                            .where('host', '==', true)
+                            .where('eventEndDate', '>=', today)    
+                            .where('status', '==', 1) 
+                            .orderBy('eventEndDate')                                                        
+                            .limit(2)
+                    break;
+                default:
+                    query = lastEvent
+                        ? eventsRef
+                            .where('userId', '==', userId)
+                            .where('host', '==', true)
+                            .where('eventEndDate', '>=', today)   
+                            .startAfter(lastEventSnap)
+                            .limit(2)
+                        : eventsRef
+                            .where('userId', '==', userId)
+                            .where('host', '==', true)
+                            .where('eventEndDate', '>=', today)   
+                            .limit(2)
+            }
             let querySnap = await query.get()
             if (querySnap.docs.length === 0) {
                 dispatch(finishAsyncAction())            

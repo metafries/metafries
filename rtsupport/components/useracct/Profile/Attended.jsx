@@ -57,7 +57,7 @@ class Attended extends Component {
     }
   }
   render() {
-    const {statusOpts, type, loading, fba, fbp} = this.props  
+    const {type, loading, fba, fbp} = this.props  
     const {total, initialize, loadedEvents, loader} = this.state    
     const isCurrentUser = fba.uid === fbp.id  
     return (
@@ -77,7 +77,7 @@ class Attended extends Component {
         <Select
           className='w-auto mb-3 mx-3'
           isSearchable={false}
-          value={statusOpts[0]}
+          value={{label:'ALL',value:'All'}}
           theme={(theme) => ({
             ...theme,
             borderRadius: 0,
