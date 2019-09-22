@@ -35,13 +35,13 @@ class Dashboard extends Component {
     }
     async componentDidMount() {
         this.setState({
-            totalAsiaEvents: await this.props.getTotalOfContinent('AS'),
-            totalAfricaEvents: await this.props.getTotalOfContinent('AF'),
-            totalEuropeEvents: await this.props.getTotalOfContinent('EU'),
-            totalNorthAmericaEvents: await this.props.getTotalOfContinent('NA'),
-            totalSouthAmericaEvents: await this.props.getTotalOfContinent('SA'),
-            totalOceaniaEvents: await this.props.getTotalOfContinent('OC'),
-            totalAntarcticaEvents: await this.props.getTotalOfContinent('AN'),
+            totalAsiaEvents: await this.props.getTotalOfContinent(STATUS_OPTS[0], 'AS'),
+            totalAfricaEvents: await this.props.getTotalOfContinent(STATUS_OPTS[0], 'AF'),
+            totalEuropeEvents: await this.props.getTotalOfContinent(STATUS_OPTS[0], 'EU'),
+            totalNorthAmericaEvents: await this.props.getTotalOfContinent(STATUS_OPTS[0], 'NA'),
+            totalSouthAmericaEvents: await this.props.getTotalOfContinent(STATUS_OPTS[0], 'SA'),
+            totalOceaniaEvents: await this.props.getTotalOfContinent(STATUS_OPTS[0], 'OC'),
+            totalAntarcticaEvents: await this.props.getTotalOfContinent(STATUS_OPTS[0], 'AN'),
         })
     }
     render() {

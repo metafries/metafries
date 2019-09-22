@@ -1,8 +1,8 @@
 export const STATUS_OPTS = [
-    {label:'[STATUS] ALL',value:'ALL'},
-    {label:'[STATUS] ACTIVE',value:'ACTIVE'},
-    {label:'[STATUS] CANCELED',value:'CANCELED'},
-    {label:'[STATUS] PAST',value:'PAST'},
+    {label:'[STATUS] ALL',value:'All'},
+    {label:'[STATUS] ACTIVE',value:'Active'},
+    {label:'[STATUS] CANCELED',value:'Canceled'},
+    {label:'[STATUS] PAST',value:'Past'},
 ]
 export const TOGGLE_ON = 'text-center w-25 toggle-on'
 export const TOGGLE_OFF = 'text-center w-25'

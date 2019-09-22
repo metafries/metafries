@@ -5,7 +5,7 @@ import Loader from '../layout/Loader.jsx'
 
 class EventList extends Component {
   render() {
-    const {isGeo, type, loadMoreEvents, loader, loading, opts, fba, events} = this.props;
+    const {isGeo, type, loadMoreEvents, loader, loading, status, opts, fba, events} = this.props;
     return (
       <div>
         {
@@ -16,7 +16,11 @@ class EventList extends Component {
                 Total of
                 <span className='mx-1'>{opts}</span>
                 {!isGeo && <span className='mr-1'>{type}</span>}
-                {events && events.length > 1 ? 'Events' : 'Event'}
+                {
+                  events && events.length > 1 
+                    ? status && status !== 'All' ? `${status} Events` : 'Events' 
+                    : status && status !== 'All' ? `${status} Event` : 'Event'
+                }
                 {isGeo && <span className='ml-1'>located in<span className='ml-1'>{type}</span></span>}                
               </h6>
               {

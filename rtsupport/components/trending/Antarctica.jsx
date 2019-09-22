@@ -25,10 +25,11 @@ class Antarctica extends Component {
     opts: 0,
   }
   async componentDidMount() {
+    const {selectedStatus} = this.state
     this.setState({
-      opts: await this.props.getTotalOfContinent('AN')
+      opts: await this.props.getTotalOfContinent(selectedStatus, 'AN')
     })
-    let next = await this.props.getEventsByContinent('AN')
+    let next = await this.props.getEventsByContinent(selectedStatus, 'AN')
     if (next && next.docs && next.docs.length >= 1) {
       this.setState({
         loader: true,
@@ -49,16 +50,31 @@ class Antarctica extends Component {
   }
   loadMoreEvents = async() => {
     const {events} = this.props
+    const {selectedStatus} = this.state
     let lastEvent = events && events[events.length-1]
-    let next = await this.props.getEventsByContinent('AN', lastEvent)
+    let next = await this.props.getEventsByContinent(selectedStatus, 'AN', lastEvent)
     if (next && next.docs && next.docs.length <= 1) {
       this.setState({
         loader: false
       })
     }
   }
-  handleStatusChange = (selectedStatus) => {
+  handleStatusChange = async(selectedStatus) => {
     this.setState({selectedStatus});
+    let total = await this.props.getTotalOfContinent(selectedStatus, 'AN')
+    this.setState({
+      loader: false,
+      initialize: true,
+      loadedEvents: [],  
+      opts: total,
+    })
+    let next = await this.props.getEventsByContinent(selectedStatus, 'AN')
+    if (next && next.docs && next.docs.length >= 1) {
+      this.setState({
+        loader: true,
+        initialize: false,
+      })
+    }
   }
   render() {
     const {statusOpts, type, fba, loading} = this.props    
@@ -100,6 +116,7 @@ class Antarctica extends Component {
           loadMoreEvents={this.loadMoreEvents}
           loader={loader}
           loading={loading}
+          status={selectedStatus.value}
           opts={opts}
           events={loadedEvents} 
           fba={fba}

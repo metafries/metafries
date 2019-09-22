@@ -25,10 +25,11 @@ class Asia extends Component {
     opts: 0,
   }
   async componentDidMount() {
+    const {selectedStatus} = this.state    
     this.setState({
-      opts: await this.props.getTotalOfContinent('AS'),
+      opts: await this.props.getTotalOfContinent(selectedStatus, 'AS'),
     })
-    let next = await this.props.getEventsByContinent('AS')
+    let next = await this.props.getEventsByContinent(selectedStatus, 'AS')
     if (next && next.docs && next.docs.length >= 1) {
       this.setState({
         loader: true,
@@ -49,16 +50,27 @@ class Asia extends Component {
   }
   loadMoreEvents = async() => {
     const {events} = this.props
+    const {selectedStatus} = this.state
     let lastEvent = events && events[events.length-1]
-    let next = await this.props.getEventsByContinent('AS', lastEvent)
+    let next = await this.props.getEventsByContinent(selectedStatus, 'AS', lastEvent)
     if (next && next.docs && next.docs.length <= 1) {
       this.setState({
         loader: false
       })
     }
   }
-  handleStatusChange = (selectedStatus) => {
+  handleStatusChange = async(selectedStatus) => {
     this.setState({selectedStatus});
+    this.setState({
+      opts: await this.props.getTotalOfContinent(selectedStatus, 'AS')
+    })
+    let next = await this.props.getEventsByContinent(selectedStatus, 'AS')
+    if (next && next.docs && next.docs.length >= 1) {
+      this.setState({
+        loader: true,
+        initialize: false,
+      })
+    }
   }
   render() {
     const {statusOpts, type, fba, loading} = this.props    
@@ -100,6 +112,7 @@ class Asia extends Component {
           loadMoreEvents={this.loadMoreEvents}
           loader={loader}
           loading={loading}
+          status={selectedStatus.value}
           opts={opts}
           events={loadedEvents} 
           fba={fba}

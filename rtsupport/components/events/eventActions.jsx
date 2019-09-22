@@ -461,12 +461,37 @@ export const recommendedEvents = (lastEvent) =>
         }
     }
 
-export const getTotalOfContinent = (continentCode) =>
+export const getTotalOfContinent = (status, continentCode) =>
     async (dispatch) => {
         const firestore = firebase.firestore()
-        const eventsQuery = firestore
-            .collection('events')
-            .where('continent', '==', continentCode)
+        let eventsQuery = null
+        const today = new Date(Date.now())                
+        switch (status.value) {
+            case 'Active':
+                eventsQuery = firestore
+                    .collection('events')
+                    .where('continent', '==', continentCode)                    
+                    .where('endDate', '>=', today)
+                    .where('status', '==', 0)   
+                break;
+            case 'Canceled':
+                eventsQuery = firestore
+                    .collection('events')
+                    .where('continent', '==', continentCode)
+                    .where('status', '==', 1)
+                break;
+            case 'Past':
+                eventsQuery = firestore
+                    .collection('events')
+                    .where('continent', '==', continentCode)                    
+                    .where('endDate', '<', today)
+                    .where('status', '==', 0)   
+                break;
+            default:
+                eventsQuery = firestore
+                    .collection('events')
+                    .where('continent', '==', continentCode)
+        }
         try {
             dispatch(startAsyncAction())
             let eventsQuerySnap = await eventsQuery.get()
@@ -478,7 +503,7 @@ export const getTotalOfContinent = (continentCode) =>
         }
     }
 
-export const getEventsByContinent = (continentCode, lastEvent) => 
+export const getEventsByContinent = (status, continentCode, lastEvent) => 
     async (dispatch, getState) => {
         const firestore = firebase.firestore()
         const eventsRef = firestore.collection('events')
@@ -486,16 +511,68 @@ export const getEventsByContinent = (continentCode, lastEvent) =>
             dispatch(startAsyncAction())
             let lastEventSnap = lastEvent 
                 && await firestore.collection('events').doc(lastEvent.id).get()
-            let query = lastEvent
-                ? eventsRef
-                    .where('continent', '==', continentCode)
-                    .orderBy('createdAt', 'desc')
-                    .startAfter(lastEventSnap)
-                    .limit(2)                    
-                : eventsRef
-                    .where('continent', '==', continentCode)
-                    .orderBy('createdAt', 'desc')
-                    .limit(2)     
+            let query = null
+            const today = new Date(Date.now())                            
+            switch (status.value) {
+                case 'Active':
+                    query = lastEvent
+                        ? eventsRef
+                            .where('continent', '==', continentCode)
+                            .where('endDate', '>=', today)
+                            .where('status', '==', 0)   
+                            .orderBy('endDate')
+                            .startAfter(lastEventSnap)
+                            .limit(2)              
+                        : eventsRef
+                            .where('continent', '==', continentCode)
+                            .where('endDate', '>=', today)
+                            .where('status', '==', 0)   
+                            .orderBy('endDate')
+                            .limit(2)
+                    break;   
+                case 'Canceled':
+                    query = lastEvent
+                        ? eventsRef
+                            .where('continent', '==', continentCode)
+                            .where('status', '==', 1)
+                            .orderBy('createdAt', 'desc')
+                            .startAfter(lastEventSnap)
+                            .limit(2)                    
+                        : eventsRef
+                            .where('continent', '==', continentCode)
+                            .where('status', '==', 1)                            
+                            .orderBy('createdAt', 'desc')
+                            .limit(2)    
+                    break;     
+                case 'Past':
+                    query = lastEvent
+                        ? eventsRef
+                            .where('continent', '==', continentCode)
+                            .where('endDate', '<', today)
+                            .where('status', '==', 0)   
+                            .orderBy('endDate', 'desc')
+                            .startAfter(lastEventSnap)
+                            .limit(2)              
+                        : eventsRef
+                            .where('continent', '==', continentCode)
+                            .where('endDate', '<', today)
+                            .where('status', '==', 0)   
+                            .orderBy('endDate', 'desc')
+                            .limit(2)            
+                    break;                       
+                default:
+                    query = lastEvent
+                        ? eventsRef
+                            .where('continent', '==', continentCode)
+                            .orderBy('createdAt', 'desc')
+                            .startAfter(lastEventSnap)
+                            .limit(2)                    
+                        : eventsRef
+                            .where('continent', '==', continentCode)
+                            .orderBy('createdAt', 'desc')
+                            .limit(2)     
+
+            }            
             let querySnap = await query.get()
             if (querySnap.docs.length === 0) {
                 dispatch(finishAsyncAction())
