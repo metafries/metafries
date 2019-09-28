@@ -1126,6 +1126,21 @@ export const updateStatus = (code, eventId) =>
             await firestore.update(`events/${eventId}`, {
                 status: code
             })
+            const firestorejs = firebase.firestore()
+            const queryRefs = [
+                firestorejs.collection('event_attendee'),
+                firestorejs.collection('event_like'),
+                firestorejs.collection('event_save'),
+            ]        
+            const batch = firestorejs.batch()
+            for (let i=0; i<queryRefs.length; i++) {
+                const query = await queryRefs[i].where('eventId', '==', eventId)
+                const querySnapShot = await query.get()
+                querySnapShot.forEach((docSnapShot) => {
+                    batch.update(docSnapShot.ref, { status: code })
+                })
+            }
+            await batch.commit()
             dispatch({
                 type: SUCCESS,
                 payload: {
