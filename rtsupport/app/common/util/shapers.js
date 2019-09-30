@@ -26,16 +26,25 @@ export const shapeNewEvent = (currentUser, avatarUrl, event) => {
     event.endDate = DateTime
         .fromFormat(event.endDate, 'yyyy/MM/dd, HH:mm')
         .toJSDate()
+    const timestamp = DateTime.local().toJSDate()
     return {
         ...event,
         hostUid: currentUser.uid,
         hostedBy: currentUser.displayName,
         hostAvatarUrl: avatarUrl || '/static/images/whazup-square-logo.png',
-        createdAt: DateTime.local().toJSDate(),
+        createdAt: timestamp,
+        save: {
+            [currentUser.uid]: {
+                timestamp: timestamp,
+                avatarUrl: avatarUrl,
+                displayName: currentUser.displayName,
+                host: true,
+            }
+        },
         attendees: {
             [currentUser.uid]: {
                 going: true,
-                joinDate: DateTime.local().toJSDate(),
+                joinDate: timestamp,
                 avatarUrl: avatarUrl || '/static/images/whazup-square-logo.png',
                 displayName: currentUser.displayName,
                 host: true,

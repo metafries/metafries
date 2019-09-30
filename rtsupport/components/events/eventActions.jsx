@@ -935,17 +935,17 @@ export const createEvent = (event) => {
         let newEvent = shapeNewEvent(currentUser, avatarUrl, event)
         try {
             let createdEvent = await firestore.add(`events`, newEvent)
-            await firestore.set(
-                `event_attendee/${createdEvent.id}_${currentUser.uid}`,
-                {
-                    eventId: createdEvent.id,
-                    userId: currentUser.uid,
-                    eventStartDate: event.startDate,
-                    eventEndDate: event.endDate,
-                    host: true,
-                    status: 0,
-                }
-            )
+            const compositeId = `${createdEvent.id}_${currentUser.uid}`
+            const fields = {
+                eventId: createdEvent.id,
+                userId: currentUser.uid,
+                eventStartDate: event.startDate,
+                eventEndDate: event.endDate,
+                host: true,
+                status: 0,
+            }
+            await firestore.set(`event_attendee/${compositeId}`, fields)
+            await firestore.set(`event_save/${compositeId}`, fields)
         } catch (e) {
             throw new Error('ERR_CREATE_EVENT')
         }
