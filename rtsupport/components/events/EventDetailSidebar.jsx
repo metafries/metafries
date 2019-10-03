@@ -31,7 +31,7 @@ const EventDetailSidebar = ({currentUser, hostUid, attendees}) => {
                     <span class="badge badge-dark rounded-0 ml-2">HOST</span>
                   }
                   <small className='d-block text-secondary'>
-                    <span className='mr-1'>Joined</span>
+                    <span className='mr-1'>Joined at</span>
                     {
                       attendee.joinDate && typeof attendee.joinDate === 'object' &&
                       DateTime.fromJSDate(attendee.joinDate.toDate()).toFormat('ff')

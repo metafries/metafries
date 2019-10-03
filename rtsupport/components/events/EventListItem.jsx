@@ -90,7 +90,7 @@ class EventListItem extends Component {
                     <strong> · </strong>
                     Hosted by <a href={`/profile/${event.hostUid}`} className='edh-a'>{event.hostedBy}</a>
                   </h5>
-                  <small className='text-000 font-weight-bold'>Created {DateTime.fromJSDate(event.createdAt.toDate()).toFormat('FF')}</small>
+                  <h6 className='text-000 font-weight-bold'>Created At {DateTime.fromJSDate(event.createdAt.toDate()).toFormat('FF')}</h6>
                 </td>
               </tr>
               </tbody>      

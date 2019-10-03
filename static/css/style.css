@@ -120,6 +120,11 @@ div.mdl-progress::after {
   background: #000;
   color: #fff;
 }
+
+.toggle-on.disabled button {
+  color: #777;
+}
+
 .edh-a {
   color: yellow;  
 }

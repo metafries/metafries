@@ -90,20 +90,19 @@ class EventDetailHeader extends Component {
                       <span class="badge canceled-tag rounded-0 mb-2">CANCELED</span>
                     </h5>
                   }
-                  <h3>{event.title}</h3>
-                  <h5 className='mb-0'>
+                  <h4>{event.title}</h4>
+                  <h5>
                     {event.permission === 0 && <span><i class="fas fa-globe mr-2"></i>Public</span>}
                     {event.permission === 1 && <span><i class="fas fa-lock mr-2"></i>Private</span>}
                     <strong> · </strong>
                     Hosted by <a href={`/profile/${event.hostUid}`} className='edh-a'>{event.hostedBy}</a>
-                    <hr className='my-3'/>
-                    <span className='eds-a font-weight-bold text-white'>
-                      {likeList ? likeList.length : 0}
-                      <span className='ml-2'>Liked</span>
-                    </span>
-                    <hr className='my-1'/>
-                    <span className='eds-a font-weight-bold text-white'>-- Shares</span>
                   </h5>
+                  <h6 className='text-000 font-weight-bold mb-4'>Created at {DateTime.fromJSDate(event.createdAt.toDate()).toFormat('FF')}</h6>
+                  <h5 className='eds-a font-weight-bold text-white'>
+                    {likeList ? likeList.length : 0}
+                    <span className='ml-2'>Liked</span>
+                  </h5>
+                  <h5 className='eds-a font-weight-bold text-white mb-0'>-- Shares</h5>
                 </td>
               </tr>
             </tbody>      
