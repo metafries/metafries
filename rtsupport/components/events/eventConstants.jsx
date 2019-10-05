@@ -1,3 +1,4 @@
+export const SEARCH_EVENT = 'Search Events ...'
 export const STATUS_OPTS = [
     {label:'[STATUS] ALL',value:'All'},
     {label:'[STATUS] ACTIVE',value:'Active'},
