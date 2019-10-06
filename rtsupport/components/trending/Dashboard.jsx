@@ -92,11 +92,11 @@ class Dashboard extends Component {
                             />
                             <Route
                                 path={`/trending/northamerica`}
-                                render={() => <NorthAmerica type='North America' statusOpts={STATUS_OPTS} />}
+                                render={() => <NorthAmerica type='NorthAmerica' statusOpts={STATUS_OPTS} />}
                             />
                             <Route
                                 path={`/trending/southamerica`}
-                                render={() => <SouthAmerica type='South America' statusOpts={STATUS_OPTS} />}
+                                render={() => <SouthAmerica type='SouthAmerica' statusOpts={STATUS_OPTS} />}
                             />
                             <Route
                                 path={`/trending/oceania`}
@@ -104,7 +104,7 @@ class Dashboard extends Component {
                             />
                             <Route
                                 path={`/trending/antarctica`}
-                                render={() => <Antarctica type='Antartica' statusOpts={STATUS_OPTS} />}
+                                render={() => <Antarctica type='Antarctica' statusOpts={STATUS_OPTS} />}
                             />
                         </Switch>                    
                     </div>
