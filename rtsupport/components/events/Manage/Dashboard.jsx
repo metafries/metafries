@@ -6,7 +6,7 @@ import Menu from './Menu.jsx'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Info from './Info.jsx'
 import Attendees from './Attendees.jsx'
-import Status from './Status.jsx'
+import Tags from './Tags.jsx'
 import { updateEvent, updateStatus, setNewMainPoster } from '../eventActions.jsx'
 import Footer from '../../nav/Footer.jsx'
 
@@ -78,8 +78,8 @@ class Dashboard extends Component {
                                 render={()=><Attendees attendees={event.attendees}/>}
                             />
                             <Route
-                                path={`/manage/events/${event.id}/status`}
-                                render={()=><Status 
+                                path={`/manage/events/${event.id}/tags`}
+                                render={()=><Tags 
                                     event={event} 
                                     updateStatus={updateStatus}
                                     loading={loading}

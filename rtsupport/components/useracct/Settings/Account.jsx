@@ -63,7 +63,7 @@ class Account extends Component {
     } = this.props
     return (
       <div>
-        <h3 className='mb-0 font-weight-bold'>Change Password</h3>
+        <h4 className='mb-0 font-weight-bold'>Change Password</h4>
         <hr/>
         {
           providerId && providerId !== 'password' &&
