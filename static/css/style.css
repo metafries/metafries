@@ -121,6 +121,7 @@ div.mdl-progress::after {
   color: #fff;
 }
 
+.text-777,
 .toggle-on.disabled button {
   color: #777;
 }

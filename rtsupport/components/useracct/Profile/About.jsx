@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { DateTime } from "luxon";
 import Photos from './Photos.jsx'
 
 class About extends Component {
@@ -19,19 +20,23 @@ class About extends Component {
                     loading={loading}
                 />
                 <div className='card rounded-0'>
-                    <h3 className='transbox p-3 text-right'>
+                    <h3 className='p-3 text-right font-weight-bold mb-0'>
                         {fbp.profileName}
-                        <h5 className='text-silver mb-3'>@{fbp.displayName}</h5>
-                        <h5><span className='eds-a font-weight-bold text-white'>-- subscribers</span></h5>
-                        <hr className='edh-h my-2'/>
+                        <h5 className='text-777 font-weight-bold'>@{fbp.displayName}</h5>
+                        <h6 className='text-777 my-3 font-weight-bold'>
+                            Joined {DateTime.fromJSDate(fbp.createdAt.toDate()).toFormat('MMMM y')}
+                        </h6>
+                        <h5><span className='font-weight-bold text-000'>-- Followers</span></h5>
+                        <h5><span className='font-weight-bold text-000'>-- Following</span></h5>
+                        <hr className='my-3'/>
                         {
                             isCurrentUser &&
                             <a 
                                 role='button' 
                                 href='/settings/profile'
-                                className='btn btn-outline-warning l-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
+                                className='btn btn-outline-dark btn-lg l-btn wl-btn rounded-0 font-weight-bold px-2'
                                 >
-                                EDIT
+                                Edit profile
                             </a>    
                         }
                         {
@@ -39,9 +44,9 @@ class About extends Component {
                             <span className='disabled'>
                                 <button 
                                     type="button" 
-                                    className='btn btn-lg rounded-0 font-weight-bold py-0 w-100'
+                                    className='btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold'
                                     >
-                                    SUBSCRIBE
+                                    Follow
                                 </button>   
                             </span> 
                         }                     
@@ -49,14 +54,14 @@ class About extends Component {
                             authenticated && !isCurrentUser &&
                             <button 
                                 type="button" 
-                                className='btn btn-dark output-btn btn-lg rounded-0 font-weight-bold py-0 w-100'
+                                className='btn btn-dark btn-lg rounded-0 text-ddc213 font-weight-bold'
                                 >
-                                SUBSCRIBE
+                                Follow
                             </button>    
                         } 
                     </h3>                
                 </div>
-                <div className='card rounded-0'>
+                <div className='card rounded-0 my-4'>
                     <div className='card-body px-3 py-0'>
                         {
                             fbp.bio && fbp.bio.length !== 0 &&
