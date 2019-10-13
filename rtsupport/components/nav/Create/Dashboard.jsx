@@ -21,6 +21,7 @@ const mapState = (state) => {
         status: 0,
     }
     return {
+        fbp: state.firebase.profile,        
         fba: state.firebase.auth,            
         event
     }
@@ -36,7 +37,7 @@ class Dashboard extends Component {
         this.props.history.push(`/search/${this.props.fba.uid}/subscriptions`)
     }
     render() {
-        const {fba, event} = this.props
+        const {fbp, fba, event} = this.props
         const options = [
             { label: fba.displayName, value: fba.displayName },
         ]
@@ -45,7 +46,7 @@ class Dashboard extends Component {
                 <div className='row'>
                     <div className='col-lg-2'></div>
                     <div className='col-lg-3 px-3'>
-                        <Menu/>
+                        <Menu fba={fba} fbp={fbp}/>
                     </div>    
                     <div className='col-lg-5 px-3'>
                         <Switch>

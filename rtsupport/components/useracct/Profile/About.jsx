@@ -23,7 +23,7 @@ class About extends Component {
                     <h3 className='p-3 text-right font-weight-bold mb-0'>
                         {fbp.profileName}
                         <h5 className='text-777 font-weight-bold'>@{fbp.displayName}</h5>
-                        <h6 className='text-777 my-3 font-weight-bold'>
+                        <h6 className='text-777 mt-3 font-weight-bold'>
                             Joined {DateTime.fromJSDate(fbp.createdAt.toDate()).toFormat('MMMM y')}
                         </h6>
                         <h5><span className='font-weight-bold text-000'>-- Followers</span></h5>
