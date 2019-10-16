@@ -1,5 +1,6 @@
 import React from 'react'
 import { DateTime } from "luxon";
+import { optimizePixel } from '../../app/common/util/shapers.js'
 
 const EventDetailSidebar = ({currentUser, hostUid, attendees}) => {
   attendees && attendees.sort(function(a,b) {
@@ -19,7 +20,7 @@ const EventDetailSidebar = ({currentUser, hostUid, attendees}) => {
               <tr key={attendee.id}>
                 <th scope="row" className='signout px-0'>
                   <a href={`/profile/${attendee.id}`}>
-                    <img src={attendee.avatarUrl} className="signout rounded-circle" alt="..."/>
+                    <img src={optimizePixel(attendee.avatarUrl)} className="signout rounded-circle" alt="..."/>
                   </a>
                 </th>
                 <td>

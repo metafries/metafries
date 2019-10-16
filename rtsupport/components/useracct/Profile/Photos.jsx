@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { DEFAULT_AVATAR } from '../../config/imgConstants.jsx'
+import { optimizePixel } from '../../../app/common/util/shapers.js'
 
 class Photos extends Component {
   state = {
@@ -69,12 +70,7 @@ class Photos extends Component {
                                         <div class="carousel-item active">
                                             <a href={fbp.avatarUrl} rel='noopener noreferrer' target="_blank">
                                                 <img 
-                                                    src=
-                                                    {
-                                                        fbp.avatarUrl.includes('graph.facebook.com')
-                                                            ? fbp.avatarUrl+'?height=250'
-                                                            : fbp.avatarUrl
-                                                    } 
+                                                    src={optimizePixel(fbp.avatarUrl)}
                                                     class="d-block w-100" alt="..."
                                                 />
                                             </a>    

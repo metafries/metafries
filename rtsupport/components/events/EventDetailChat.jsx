@@ -4,6 +4,7 @@ import Linkify from 'react-linkify'
 import EventDetailReply from './EventDetailReply.jsx'
 import CommentForm from '../forms/CommentForm.jsx'
 import { componentDecorator } from '../../app/common/util/prop.js'
+import { optimizePixel } from '../../app/common/util/shapers.js'
 
 class EventDetailChat extends Component {
   render() {
@@ -39,7 +40,7 @@ class EventDetailChat extends Component {
                     <th scope="row" className='signout rounded-circle px-0 py-3 border-0'>
                       <a href={`/profile/${fba.uid}`}>
                         <img 
-                          src={fba.photoURL || '/static/images/whazup-square-logo.png'} 
+                          src={optimizePixel(fba.photoURL)} 
                           className="mt-3 signout rounded-circle" alt="..."
                         />
                       </a>
@@ -59,7 +60,7 @@ class EventDetailChat extends Component {
                     <tr key={comment.id}>
                       <th scope="row" className='signout rounded-circle px-0 py-3'>
                         <a href={`/profile/${comment.uid}`}>
-                          <img src={comment.avatarUrl} className="signout rounded-circle" alt="..."/>
+                          <img src={optimizePixel(comment.avatarUrl)} className="signout rounded-circle" alt="..."/>
                         </a>
                       </th>
                       <td className='pr-0'>

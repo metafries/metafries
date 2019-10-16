@@ -3,6 +3,7 @@ import distanceInWords from 'date-fns/distance_in_words'
 import Linkify from 'react-linkify'
 import CommentForm from '../forms/CommentForm.jsx'
 import { componentDecorator } from '../../app/common/util/prop.js'
+import { optimizePixel } from '../../app/common/util/shapers.js'
 
 class EventDetailReply extends Component {
     render() {
@@ -42,7 +43,7 @@ class EventDetailReply extends Component {
                                                 <th scope="row" className='icon rounded-circle px-0 py-3 border-0'>
                                                     <a href={`/profile/${fba.uid}`}>
                                                         <img 
-                                                            src={fba.photoURL || '/static/images/whazup-square-logo.png'} 
+                                                            src={optimizePixel(fba.photoURL)} 
                                                             className="mt-3 signout rounded-circle" alt="..."
                                                         />
                                                     </a>
@@ -73,7 +74,7 @@ class EventDetailReply extends Component {
                                                 <tr key={reply.id}>
                                                     <th scope="row" className='signout rounded-circle px-0 py-3'>
                                                         <a href={`/profile/${reply.uid}`}>
-                                                            <img src={reply.avatarUrl} className="signout rounded-circle" alt="..."/>
+                                                            <img src={optimizePixel(reply.avatarUrl)} className="signout rounded-circle" alt="..."/>
                                                         </a>
                                                     </th>
                                                     <td className='pr-0'>

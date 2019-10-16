@@ -1,5 +1,10 @@
 import { DateTime } from "luxon";
 
+export const optimizePixel = photo => {
+    if (photo && photo.includes('graph.facebook.com')) photo+='?height=250'
+    return photo
+}
+
 export const createDataTree = dataset => {
     let hashTable = Object.create(null)
     dataset.forEach(a => hashTable[a.id] = {...a, nodes: []})

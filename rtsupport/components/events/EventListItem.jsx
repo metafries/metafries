@@ -5,7 +5,7 @@ import { compose } from 'redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { DateTime } from "luxon";
 import EventPosters from './EventPosters.jsx'
-import { createDataTree, objToArray } from '../../app/common/util/shapers.js'
+import { optimizePixel, createDataTree, objToArray } from '../../app/common/util/shapers.js'
 
 const mapState = (state, ownProps) => {
   return {
@@ -45,7 +45,7 @@ class EventListItem extends Component {
               <tr className='h6'>
                 <th scope="row" className='text-right border-0'>
                   <a href={`/profile/${event.hostUid}`}>
-                    <img src={event.hostAvatarUrl} className="hoster" alt="..."/>
+                    <img src={optimizePixel(event.hostAvatarUrl)} className="hoster" alt="..."/>
                   </a>
                 </th>
                 <td className='border border-0'>

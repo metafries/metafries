@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { DateTime } from "luxon";
 import EventPosters from './EventPosters.jsx'
 import { TOGGLE_ON, TOGGLE_OFF } from './eventConstants.jsx'
+import { optimizePixel } from '../../app/common/util/shapers.js'
 
 class EventDetailHeader extends Component {
   handleSaveToggle = async() => {
@@ -52,7 +53,7 @@ class EventDetailHeader extends Component {
               <tr>
                 <th scope="row" className='border-0'>
                   <a href={`/profile/${event.hostUid}`}>
-                    <img src={event.hostAvatarUrl} className="hoster float-right" alt="..."/>
+                    <img src={optimizePixel(event.hostAvatarUrl)} className="hoster float-right" alt="..."/>
                   </a>
                 </th>
                 <td className='border-0'>

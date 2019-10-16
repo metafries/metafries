@@ -4,6 +4,7 @@ import { withFirebase } from 'react-redux-firebase'
 import SignIn from './SignIn.jsx'
 import SignOut from './SignOut.jsx'
 import { ANONYMOUS } from '../config/imgConstants.jsx'
+import { optimizePixel } from '../../app/common/util/shapers.js'
 
 const mapState = (state) => ({
     fbp: state.firebase.profile,    
@@ -32,7 +33,7 @@ class NavBar extends Component {
                             {
                                 authenticated
                                 ? <img
-                                    src={fbp.avatarUrl || ANONYMOUS}
+                                    src={optimizePixel(fbp.avatarUrl) || ANONYMOUS}
                                     className='main-menu-icon rounded-circle'
                                     alt="..."
                                     />                      
