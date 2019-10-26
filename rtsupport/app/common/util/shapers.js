@@ -1,5 +1,14 @@
 import { DateTime } from "luxon";
 
+export const sortAttendees = list => {
+    list && list.sort(function(a,b) {
+        return b.joinDate.toDate() - a.joinDate.toDate()
+    })
+    const attendeeList = list && list.slice(0, list.length-1)
+    attendeeList.unshift(list[list.length-1])
+    return attendeeList
+}
+
 export const optimizePixel = photo => {
     if (photo && photo.includes('graph.facebook.com')) photo+='?height=250'
     return photo

@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
+import AttendeeList from'../AttendeeList.jsx'
 
 class Attendees extends Component {
   render() {
-    console.log(this.props.attendees)
+    const { currentUser, hostUid, attendees } = this.props
     return (
       <div>
-        <h1>LIST</h1>
+        <h4 className='mb-0 font-weight-bold'>
+        {
+          attendees && attendees.length && attendees.length>1 
+            ? `${attendees.length} Attendees` 
+            : `${attendees.length} Attendee`
+        }             
+        </h4>
+        <hr/>   
+        <AttendeeList currentUser={currentUser} hostUid={hostUid} attendees={attendees}/>
       </div>
     )
   }

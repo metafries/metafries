@@ -9,6 +9,7 @@ import Attendees from './Attendees.jsx'
 import Tags from './Tags.jsx'
 import { updateEvent, updateStatus, setNewMainPoster } from '../eventActions.jsx'
 import Footer from '../../nav/Footer.jsx'
+import { objToArray } from '../../../app/common/util/shapers.js'
 
 const mapState = (state, ownProps) => {
     const eventId = ownProps.match.params.id
@@ -18,6 +19,7 @@ const mapState = (state, ownProps) => {
       event = events.find(e => e.id === eventId)
     }
     return {
+        fba: state.firebase.auth,        
         fbp: state.firebase.profile,
         loading: state.async.loading,
         informMsg: state.events,
@@ -37,7 +39,7 @@ class Dashboard extends Component {
         await firestore.get(`events/${match.params.id}`)        
     }
     render() {
-        const {fbp, loading, updateEvent, updateStatus, setNewMainPoster, informMsg, event} = this.props 
+        const {fba, fbp, loading, updateEvent, updateStatus, setNewMainPoster, informMsg, event} = this.props 
         if (event.startDate && event.startDate.seconds) {
             event.startDate = DateTime.fromJSDate(event.startDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')
             event.endDate = DateTime.fromJSDate(event.endDate.toDate()).toFormat('yyyy/MM/dd, HH:mm')        
@@ -45,6 +47,7 @@ class Dashboard extends Component {
         const options = [
             { label: event.hostedBy, value: event.hostedBy },
         ]
+        const convertedAttendees = event && event.attendees && objToArray(event.attendees)        
         return (
             <div>
                 <div className='row'>
@@ -75,7 +78,11 @@ class Dashboard extends Component {
                             />
                             <Route 
                                 path={`/manage/events/${event.id}/attendees`} 
-                                render={()=><Attendees attendees={event.attendees}/>}
+                                render={()=><Attendees 
+                                    currentUser={fba} 
+                                    hostUid={(event && event.hostUid) || {}}
+                                    attendees={convertedAttendees}
+                                />}
                             />
                             <Route
                                 path={`/manage/events/${event.id}/tags`}
