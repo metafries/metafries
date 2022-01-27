@@ -1,4 +1,4 @@
-# metaFries 1.0
+<img src='static/images/_logo-text.png' style='height: 35px; width: auto' />
 A project to simulate a real-time activities platform.
 
 [ES6+] [React] [Redux] [Bootstrap] [Firebase] [GCP]
