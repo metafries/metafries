@@ -1,6 +1,6 @@
-<img src='https://v2-dot-metafries.appspot.com/metafries00.png' style='height: 30px; width: auto' />
-Simulating a real-time activities platform.
+<img src='static/images/_logo-text.png' style='height: 30px; width: auto' />
+A project to simulate a real-time activities platform.
 
-[ES6+] [React 17] [Redux] [MUI] [Firebase] [GCP]
+[ES6+] [React] [Redux 16] [Bootstrap] [Firebase] [GCP]
 
-https://v2-dot-metafries.appspot.com/
+https://metafries.com
