@@ -1,6 +1,6 @@
 <img src='static/images/_logo-text.png' style='height: 30px; width: auto' />
 A project to simulate a real-time activities platform.
 
-[ES6+] [React] [Redux 16] [Bootstrap] [Firebase] [GCP]
+[ES6+] [React v16] [Redux] [Bootstrap] [Firebase] [GCP]
 
 https://metafries.com
