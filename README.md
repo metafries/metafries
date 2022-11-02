@@ -2,7 +2,8 @@
 
 Simulating a real-time activities platform.<br/>
 [ES6+] [React v16] [Bootstrap] [Redux] [Firebase] [GCP]
-<hr/>
+
+<br/>
 <img src='static/images/_logo-text.png' style='height: 30px; width: auto' />
 https://metafries.com
 
