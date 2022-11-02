@@ -1,11 +1,8 @@
-## M1
-
-Simulating a real-time activities platform.<br/>
-[ES6+] [React v16] [Bootstrap] [Redux] [Firebase] [GCP]
-
-<br/>
-<img src='static/images/_logo-text.png' style='height: 30px; width: auto' />
+## <img src='static/images/_logo-text.png' style='height: 30px; width: auto' />
 https://metafries.com
+
+A social networking simulation built on Firebase 5.<br/>
+[React] [Bootstrap] [Redux] [Firebase] [GCP]
 
 ► Built single-page apps on React.<br/>
 ► Styled with Bootstrap CSS framework.<br/>
